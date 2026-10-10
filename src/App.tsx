@@ -12,6 +12,7 @@ import Courses from './pages/Courses';
 import CourseForm from './pages/CourseForm';
 import More from './pages/More';
 import Rounds from './pages/Rounds';
+import Import from './pages/Import';
 
 const icon = (d: string) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -50,6 +51,7 @@ function Shell() {
           <Route path="/courses/:id" element={<CourseForm />} />
           <Route path="/more" element={<More />} />
           <Route path="/rounds" element={<Rounds />} />
+          <Route path="/import" element={<Import />} />
         </Routes>
       </main>
       {!playing && (

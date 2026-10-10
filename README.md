@@ -22,6 +22,9 @@ It installs to the home screen, works offline on the course, and keeps all data 
   "Add to Calendar" (.ics) for one event or the whole schedule.
 - **Available events**: tour schedules collected daily by the scraper. Families see events from the tours
   they subscribe to (More → My tours), can browse other tours, and add an event as Interested or Registered.
+- **Paste a schedule**: for tours the scraper can't read (e.g. NTPGA on BlueGolf, whose robots.txt
+  blocks bots), copy the schedule page and paste it; the app finds dates, names and courses on the phone,
+  and you review and edit before adding.
 - **Rounds**: every round is listed under More → All rounds; open one and tap Card → Delete round to remove it.
 - **Practice log**: time by area, drills with scores, notes, and 30-day breakdown.
 - **Courses**: Austin, Dallas–Fort Worth, Waco (Ridgewood CC, Cottonwood Creek), Hill Country,

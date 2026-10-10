@@ -48,7 +48,7 @@ export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus)
   let courseId: number | undefined;
   if (ev.courseName) {
     const course = matchCourse(await db.courses.toArray(), ev.courseName, ev.city);
-    const tourRegion = (await db.tours.get(ev.tourId))?.region;
+    const tourRegion = ev.tourId ? (await db.tours.get(ev.tourId))?.region : undefined;
     const region = ev.city ? regionForCity(ev.city) : (tourRegion ?? 'Other Texas');
     courseId = course?.id ?? (await db.courses.add({ name: ev.courseName, city: ev.city ?? '', region, tees: [] }));
   }
@@ -56,7 +56,7 @@ export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus)
   const t: Tournament = {
     name: ev.name,
     level: ev.level ?? 'Local',
-    tourId: ev.tourId,
+    tourId: ev.tourId || undefined,
     sourceEventId: ev.id,
     courseId,
     startDate: ev.startDate,

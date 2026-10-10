@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import type { EventStatus, TourLevel, Tournament } from '../lib/types';
 import { Chips, Field, PageHead, today } from '../components/ui';
@@ -37,6 +37,11 @@ export default function TournamentForm() {
   return (
     <form onSubmit={save}>
       <PageHead title={id ? 'Edit event' : 'Add event'} back={id ? `/tournament/${id}` : '/schedule'} />
+      {!id && (
+        <p className="small">
+          Adding a whole season? <Link to={`/import${t.tourId ? `?tour=${t.tourId}` : ''}`}>Paste the tour's schedule instead ›</Link>
+        </p>
+      )}
       <div className="card">
         <Field label="Tour / series">
           <TourPicker value={t.tourId} onChange={(v) => set('tourId', v)} />

@@ -213,3 +213,5 @@ table.score th:first-child, table.score td:first-child { text-align: left; }
 .cal .dots .dot { width: 7px; height: 7px; }
 .alert { border-left: 4px solid var(--warn); }
 .tour-stripe { width: 4px; align-self: stretch; border-radius: 4px; flex: none; }
+.grid2 > * { min-width: 0; }
+input[type="date"], input[type="time"] { min-width: 0; -webkit-appearance: none; appearance: none; }

@@ -73,9 +73,14 @@ export default function Schedule() {
       <PageHead
         title="Events"
         action={
-          <Link className="btn primary" to="/tournament/new">
-            + Add
-          </Link>
+          <div className="row">
+            <Link className="btn" to="/import">
+              Paste
+            </Link>
+            <Link className="btn primary" to="/tournament/new">
+              + Add
+            </Link>
+          </div>
         }
       />
       <div className="chips" style={{ marginBottom: 12 }}>
@@ -365,6 +370,11 @@ function Available({
         )}
       </div>
 
+      <Link to="/import" className="card link">
+        <b>Tour not listed here?</b>
+        <div className="muted small">Some tours (like NTPGA) can't be collected automatically. Copy their schedule page and paste it — the app finds the events. ›</div>
+      </Link>
+
       {scrapedTours.length > 0 && (
         <div className="card">
           <h3>Last checked</h3>
@@ -384,7 +394,7 @@ function Available({
             })}
           </ul>
           <p className="muted small" style={{ marginTop: 6 }}>
-            Events are collected automatically once a day and can have mistakes. Check the tour's site before registering. Other tours: add events with + Add.
+            Events are collected automatically once a day and can have mistakes. Check the tour's site before registering.
           </p>
         </div>
       )}
