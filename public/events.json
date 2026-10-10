@@ -1,55 +1,66 @@
 {
- "generatedAt": "2026-10-10T20:37:40.035Z",
+ "generatedAt": "2026-10-10T20:51:37.902Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-houston": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 7
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 2
   },
   "usk-state": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 0
   },
   "usk-regional": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
-   "eventCount": 1
+   "eventCount": 19
   },
   "usk-world": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 2
   },
   "ajga": {
-   "checkedAt": "2026-10-10T20:37:40.035Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 8
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "checkedAt": "2026-10-10T20:51:37.902Z",
    "ok": true,
    "eventCount": 4
+  },
+  "stpga": {
+   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "ok": true,
+   "eventCount": 1
+  },
+  "hjgt": {
+   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "No events found"
   }
  },
  "events": [
@@ -95,6 +106,26 @@
    "city": "San Antonio",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519506/olmos-basin-golf-course",
    "level": "Local"
+  },
+  {
+   "id": "usk-regional-2026-10-10-12y7mbq",
+   "tourId": "usk-regional",
+   "name": "PGA Golf Club Invitational",
+   "startDate": "2026-10-10",
+   "endDate": "2026-10-11",
+   "courseName": "PGA Golf Club",
+   "city": "Port St. Lucie, FL",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2026-10-10-131yjk",
+   "tourId": "usk-regional",
+   "name": "PGA Golf Club Invitational 2026",
+   "startDate": "2026-10-10",
+   "endDate": "2026-10-11",
+   "registrationDeadline": "2026-10-07",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519065/pga-golf-club-invitational-2026",
+   "level": "Regional"
   },
   {
    "id": "tga-ljt-2026-10-11-1n1f9vx",
@@ -190,6 +221,25 @@
    "level": "Local"
   },
   {
+   "id": "usk-regional-2026-11-07-cs82m2",
+   "tourId": "usk-regional",
+   "name": "Colonial Williamsburg Classic",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "city": "Williamsburg, VA",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2026-11-07-idvt30",
+   "tourId": "usk-regional",
+   "name": "Colonial Williamsburg Classic 2026",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "registrationDeadline": "2026-11-04",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519427/colonial-williamsburg-classic-2026",
+   "level": "Regional"
+  },
+  {
    "id": "tga-ljt-2026-11-07-r4drxn",
    "tourId": "tga-ljt",
    "name": "Jackie Burke Cup",
@@ -199,6 +249,25 @@
    "city": "Bullard",
    "url": "https://txga.org/2025-jackie-burke-cup",
    "level": "State"
+  },
+  {
+   "id": "usk-regional-2026-11-07-19s0bnl",
+   "tourId": "usk-regional",
+   "name": "Monterey Challenge",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "city": "Monterey, CA",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2026-11-07-paeup3",
+   "tourId": "usk-regional",
+   "name": "Monterey Challenge 2026",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "registrationDeadline": "2026-11-04",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519538/monterey-challenge-2026",
+   "level": "Regional"
   },
   {
    "id": "usk-houston-2026-11-08-1ino2dz",
@@ -379,6 +448,18 @@
    "level": "Other"
   },
   {
+   "id": "stpga-2026-12-12-idbuev",
+   "tourId": "stpga",
+   "name": "2026 Junior Tour Fall Championship",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Horseshoe Bay Resort",
+   "city": "Horseshoe Bay",
+   "ageGroups": "Boys & Girls 11-18",
+   "url": "https://www.stpgajuniorgolf.com/junior-tour-fall-championship",
+   "level": "State"
+  },
+  {
    "id": "usk-houston-2026-12-13-16v189u",
    "tourId": "usk-houston",
    "name": "April Sound Country Club (Tour Championship)",
@@ -389,13 +470,76 @@
    "level": "Local"
   },
   {
+   "id": "usk-regional-2026-12-21-128nxe4",
+   "tourId": "usk-regional",
+   "name": "Holiday Classic",
+   "startDate": "2026-12-21",
+   "endDate": "2026-12-22",
+   "city": "Palm Beach Gardens, FL",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2026-12-21-ga1siy",
+   "tourId": "usk-regional",
+   "name": "Holiday Classic 2026",
+   "startDate": "2026-12-21",
+   "endDate": "2026-12-22",
+   "registrationDeadline": "2026-12-19",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519796/holiday-classic-2026",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-01-16-1aul3jl",
+   "tourId": "usk-regional",
+   "name": "Sandestin Championship",
+   "startDate": "2027-01-16",
+   "endDate": "2027-01-17",
+   "city": "Sandestin, FL",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-02-20-q69taf",
+   "tourId": "usk-regional",
+   "name": "Desert Shootout",
+   "startDate": "2027-02-20",
+   "endDate": "2027-02-21",
+   "city": "Phoenix, AZ",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-03-13-ctlm40",
+   "tourId": "usk-regional",
+   "name": "Jekyll Island Cup",
+   "startDate": "2027-03-13",
+   "endDate": "2027-03-14",
+   "city": "Jekyll Island, GA",
+   "level": "Regional"
+  },
+  {
    "id": "usk-regional-2027-05-08-106gmwl",
    "tourId": "usk-regional",
    "name": "Texas Open",
    "startDate": "2027-05-08",
    "endDate": "2027-05-09",
    "city": "Horseshoe Bay, TX",
-   "url": "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-06-25-1kbz437",
+   "tourId": "usk-regional",
+   "name": "Palmer Foundation Kids Invitational",
+   "startDate": "2027-06-25",
+   "endDate": "2027-06-26",
+   "city": "Latrobe, PA",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-07-03-1g2fa79",
+   "tourId": "usk-regional",
+   "name": "Red-White-Blue Invitational",
+   "startDate": "2027-07-03",
+   "endDate": "2027-07-04",
+   "city": "Pinehurst, NC",
    "level": "Regional"
   },
   {
@@ -405,7 +549,7 @@
    "startDate": "2027-07-22",
    "endDate": "2027-07-24",
    "city": "Pinehurst, NC",
-   "ageGroups": "Ages 5-12",
+   "ageGroups": "Boys & Girls 5-12",
    "level": "World"
   },
   {
@@ -413,10 +557,55 @@
    "tourId": "usk-world",
    "name": "World Van Horn Cup 2027",
    "startDate": "2027-07-25",
-   "courseName": "Pinehurst No. 4",
    "city": "Pinehurst, NC",
-   "ageGroups": "Top 12-year-old boys and girls",
+   "ageGroups": "Boys & Girls 12",
    "level": "World"
+  },
+  {
+   "id": "usk-regional-2027-09-04-ghlzg4",
+   "tourId": "usk-regional",
+   "name": "Seaview Open",
+   "startDate": "2027-09-04",
+   "endDate": "2027-09-05",
+   "city": "Galloway, NJ",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-10-09-ho30tr",
+   "tourId": "usk-regional",
+   "name": "PGA Golf Club Invitational",
+   "startDate": "2027-10-09",
+   "endDate": "2027-10-10",
+   "courseName": "PGA Golf Club",
+   "city": "Port St. Lucie, FL",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-11-06-mbtcca",
+   "tourId": "usk-regional",
+   "name": "Colonial Williamsburg Classic",
+   "startDate": "2027-11-06",
+   "endDate": "2027-11-07",
+   "city": "Williamsburg, VA",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-11-06-ohu9z5",
+   "tourId": "usk-regional",
+   "name": "Monterey Challenge",
+   "startDate": "2027-11-06",
+   "endDate": "2027-11-07",
+   "city": "Monterey, CA",
+   "level": "Regional"
+  },
+  {
+   "id": "usk-regional-2027-12-21-sp43rh",
+   "tourId": "usk-regional",
+   "name": "Holiday Classic",
+   "startDate": "2027-12-21",
+   "endDate": "2027-12-22",
+   "city": "Palm Beach Gardens, FL",
+   "level": "Regional"
   }
  ]
 }
