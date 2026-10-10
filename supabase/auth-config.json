@@ -3,5 +3,5 @@
   "uri_allow_list": "https://mattandkat23.github.io/Golf-App/**,http://localhost:4173/**",
   "password_min_length": 8,
   "mailer_otp_length": 6,
-  "mailer_autoconfirm": true
+  "mailer_autoconfirm": false
 }

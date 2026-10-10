@@ -29,10 +29,9 @@ GitHub/console settings, and keep replies short.
   needs row-level security. The "Update database" workflow applies them on push to `main` (secrets
   `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`). This container can't reach Supabase; test against it with the
   "Test sign-in and sync" workflow (`scripts/e2e-account.mjs`, secret `SUPABASE_SECRET_KEY`, throwaway user).
-- Supabase's built-in email only reaches the project's team members and its templates can't be changed on the free
-  plan, so until custom SMTP is connected: `mailer_autoconfirm` is on (no email confirmation) and the 6-digit-code
-  templates in `supabase/auth-email.json` are skipped with a warning (password reset emails send a link, not a code).
-  After SMTP: set `mailer_autoconfirm` false and re-run "Update database".
+- Auth emails go through custom SMTP (the owner's Gmail with an app password, entered in the Supabase dashboard), which
+  allows the 6-digit-code templates in `supabase/auth-email.json`. Before a public launch, switch to a domain sender
+  (e.g. Resend). Without custom SMTP the templates can't be changed and `mailer_autoconfirm` would have to be on.
 
 - **Changing `SEED_TOURS`** → add a new `this.version(N).upgrade(... bulkPut(SEED_TOURS))` in `db.ts`, or
   existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration (see v5).
