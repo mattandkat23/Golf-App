@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-10-10T19:42:44.652Z",
+ "generatedAt": "2026-10-10T19:46:29.083Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T19:42:44.652Z",
+   "checkedAt": "2026-10-10T19:46:29.083Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T19:42:44.652Z",
+   "checkedAt": "2026-10-10T19:46:29.083Z",
    "ok": true,
    "eventCount": 4
   }
@@ -24,23 +24,13 @@
    "level": "Local"
   },
   {
-   "id": "usk-dallas-2026-11-14-q7f3ki",
+   "id": "usk-dallas-2026-11-14-fve1n8",
    "tourId": "usk-dallas",
-   "name": "Dallas Local Tour - Oak Hollow Golf Course",
+   "name": "Oak Hollow Golf Course",
    "startDate": "2026-11-14",
    "courseName": "Oak Hollow Golf Course",
    "registrationDeadline": "2026-11-11",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519045/oak-hollow-golf-course",
-   "level": "Local"
-  },
-  {
-   "id": "usk-dallas-2026-11-15-1ehpo81",
-   "tourId": "usk-dallas",
-   "name": "Dallas Local Tour - WestRidge Golf Course",
-   "startDate": "2026-11-15",
-   "courseName": "WestRidge Golf Course",
-   "registrationDeadline": "2026-11-12",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519046/westridge-golf-course",
    "level": "Local"
   },
   {
@@ -54,9 +44,19 @@
    "level": "Local"
   },
   {
-   "id": "usk-dallas-2026-11-21-q7f3lg",
+   "id": "usk-dallas-2026-11-15-gu436v",
    "tourId": "usk-dallas",
-   "name": "Dallas Local Tour - Oak Hollow Golf Course",
+   "name": "WestRidge Golf Course",
+   "startDate": "2026-11-15",
+   "courseName": "WestRidge Golf Course",
+   "registrationDeadline": "2026-11-12",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519046/westridge-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-dallas-2026-11-21-fve1rm",
+   "tourId": "usk-dallas",
+   "name": "Oak Hollow Golf Course",
    "startDate": "2026-11-21",
    "courseName": "Oak Hollow Golf Course",
    "registrationDeadline": "2026-11-18",
@@ -64,9 +64,9 @@
    "level": "Local"
   },
   {
-   "id": "usk-dallas-2026-11-23-p60ua9",
+   "id": "usk-dallas-2026-11-23-1eo0vm3",
    "tourId": "usk-dallas",
-   "name": "Dallas Local Tour Championship - Brookhaven Country Club",
+   "name": "Brookhaven Country Club (Tour Championship)",
    "startDate": "2026-11-23",
    "courseName": "Brookhaven Country Club",
    "registrationDeadline": "2026-11-20",
