@@ -1,0 +1,24 @@
+name: Check robots.txt
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'Space-separated URLs to check'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check
+        env:
+          URLS: ${{ inputs.urls }}
+        run: node --experimental-strip-types scraper/robots-check.ts $URLS

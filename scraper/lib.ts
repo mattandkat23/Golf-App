@@ -92,8 +92,8 @@ export function mergeEventsFile(
   return { generatedAt: now, sources, events };
 }
 
-/** Minimal robots.txt check for the `*` user agent (and ours). */
-export function robotsAllows(robotsTxt: string, path: string, agent = 'golftrackerbot'): boolean {
+/** Finds the robots.txt rule that decides `path` for the `*` user agent (or ours). */
+export function robotsMatch(robotsTxt: string, path: string, agent = 'golftrackerbot'): string | undefined {
   const groups: { agents: string[]; rules: { allow: boolean; path: string }[] }[] = [];
   let cur: (typeof groups)[number] | undefined;
   let lastWasAgent = false;
@@ -112,16 +112,19 @@ export function robotsAllows(robotsTxt: string, path: string, agent = 'golftrack
     } else lastWasAgent = false;
   }
   const group = groups.find((g) => g.agents.includes(agent)) ?? groups.find((g) => g.agents.includes('*'));
-  if (!group) return true;
+  if (!group) return undefined;
   // Longest matching rule wins; Allow wins ties.
-  let best: { allow: boolean; len: number } | undefined;
+  let best: { allow: boolean; path: string } | undefined;
   for (const r of group.rules) {
     const re = new RegExp('^' + r.path.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\\\$$/, '$'));
-    if (re.test(path) && (!best || r.path.length > best.len || (r.path.length === best.len && r.allow))) {
-      best = { allow: r.allow, len: r.path.length };
-    }
+    if (re.test(path) && (!best || r.path.length > best.path.length || (r.path.length === best.path.length && r.allow))) best = r;
   }
-  return best?.allow ?? true;
+  return best && `${best.allow ? 'Allow' : 'Disallow'}: ${best.path}`;
+}
+
+/** Minimal robots.txt check for the `*` user agent (and ours). */
+export function robotsAllows(robotsTxt: string, path: string, agent = 'golftrackerbot'): boolean {
+  return !robotsMatch(robotsTxt, path, agent)?.startsWith('Disallow');
 }
 
 /** Cheap content hash used to skip the Claude call when a page hasn't changed. */
