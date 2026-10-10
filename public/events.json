@@ -1,58 +1,55 @@
 {
- "generatedAt": "2026-10-10T20:18:58.238Z",
+ "generatedAt": "2026-10-10T20:25:09.342Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-houston": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 7
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 2
   },
   "usk-state": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "No events found"
+   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "ok": true,
+   "eventCount": 0
   },
   "usk-regional": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf: page.goto: Download is starting\nCall log:\n  - navigating to \"https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf\", waiting until \"domcontentloaded\"\n"
+   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "ok": true,
+   "eventCount": 1
   },
   "usk-world": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 2
   },
   "ajga": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "checkedAt": "2026-10-10T20:25:09.342Z",
    "ok": true,
    "eventCount": 1
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-10T20:18:58.238Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "No events found"
+   "checkedAt": "2026-10-10T20:25:09.342Z",
+   "ok": true,
+   "eventCount": 4
   }
  },
  "events": [
@@ -65,6 +62,17 @@
    "city": "San Antonio",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519506/olmos-basin-golf-course",
    "level": "Local"
+  },
+  {
+   "id": "tga-ljt-2026-10-11-1n1f9vx",
+   "tourId": "tga-ljt",
+   "name": "James A. Ragan Memorial – Open",
+   "startDate": "2026-10-11",
+   "endDate": "2026-10-12",
+   "courseName": "Corpus Christi Country Club",
+   "city": "Corpus Christi",
+   "url": "https://txga.org/2026-james-a-ragan-memorial/",
+   "level": "State"
   },
   {
    "id": "usk-san-antonio-2026-10-11-9eacn0",
@@ -96,6 +104,17 @@
    "registrationDeadline": "2026-10-21",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519076/grand-lake-golf-club",
    "level": "Local"
+  },
+  {
+   "id": "tga-ljt-2026-10-24-jm4j0x",
+   "tourId": "tga-ljt",
+   "name": "TJGA Invitational – Invitational",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-25",
+   "courseName": "White Bluff Resort - New Course",
+   "city": "Whitney",
+   "url": "https://txga.org/texas-junior-golf-alliance-invitational/",
+   "level": "State"
   },
   {
    "id": "usk-houston-2026-10-25-1deu2w4",
@@ -136,6 +155,17 @@
    "registrationDeadline": "2026-10-29",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519081/panorama-golf-club",
    "level": "Local"
+  },
+  {
+   "id": "tga-ljt-2026-11-07-r4drxn",
+   "tourId": "tga-ljt",
+   "name": "Jackie Burke Cup",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "courseName": "Eagles Bluff Country Club",
+   "city": "Bullard",
+   "url": "https://txga.org/2025-jackie-burke-cup",
+   "level": "State"
   },
   {
    "id": "usk-houston-2026-11-08-1ino2dz",
@@ -251,6 +281,17 @@
    "level": "Local"
   },
   {
+   "id": "tga-ljt-2026-12-05-mjuvmb",
+   "tourId": "tga-ljt",
+   "name": "Alamo Shootout – Open",
+   "startDate": "2026-12-05",
+   "endDate": "2026-12-06",
+   "courseName": "Olympia Hills Golf Course",
+   "city": "Universal City",
+   "url": "https://txga.org/2026-alamo-shootout",
+   "level": "State"
+  },
+  {
    "id": "usk-austin-2026-12-06-wna0n7",
    "tourId": "usk-austin",
    "name": "Delaware Springs Golf Course (Tour Championship)",
@@ -269,6 +310,16 @@
    "registrationDeadline": "2026-12-10",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519080/april-sound-country-club-tour-championship",
    "level": "Local"
+  },
+  {
+   "id": "usk-regional-2027-05-08-106gmwl",
+   "tourId": "usk-regional",
+   "name": "Texas Open",
+   "startDate": "2027-05-08",
+   "endDate": "2027-05-09",
+   "city": "Horseshoe Bay, TX",
+   "url": "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf",
+   "level": "Regional"
   },
   {
    "id": "usk-world-2027-07-22-1ialgum",
