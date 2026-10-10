@@ -47,9 +47,14 @@ try {
   await a.goto(`${SITE}#/more`);
   const name = a.locator('.card', { has: a.locator('h2', { hasText: 'My Golfer' }) }).locator('input').first();
   await name.fill('E2E Kid');
-  await a.waitForSelector('text=All changes saved to your account.', { timeout: 20000 });
-  const { data: row } = await admin.from('family_data').select('data').eq('user_id', uid).single();
-  if (!JSON.stringify(row?.data).includes('E2E Kid')) fail('renamed golfer did not reach the account');
+  // Changes upload a few seconds after the last edit.
+  let uploaded = false;
+  for (let i = 0; i < 20 && !uploaded; i++) {
+    await a.waitForTimeout(1000);
+    const { data: row } = await admin.from('family_data').select('data').eq('user_id', uid).maybeSingle();
+    uploaded = JSON.stringify(row?.data ?? '').includes('E2E Kid');
+  }
+  if (!uploaded) fail('renamed golfer did not reach the account within 20 seconds');
   step('change uploaded to the account');
 
   const b = await phone();
