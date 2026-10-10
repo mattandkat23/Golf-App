@@ -100,5 +100,25 @@
     ],
     "hint": "Junior events run by the Texas Golf Association: the Legends Junior Tour (LJT) schedule and TGA junior championships (e.g. Texas Junior Amateur, junior invitationals). Skip adult, senior and adaptive events. If there's a link to the next year's event calendar or LJT schedule, suggest it.",
     "maxPages": 5
+  },
+  {
+    "tourId": "stpga",
+    "label": "Southern Texas PGA Junior Golf (Junior Tour & Prestige Tour)",
+    "startUrls": [
+      "https://www.stpgajuniorgolf.com/junior-tour",
+      "https://www.stpgajuniorgolf.com/prestige-tour",
+      "https://www.stpgajuniorgolf.com/tournaments"
+    ],
+    "hint": "Upcoming STPGA junior events: Junior Tour, Prestige Tour and other junior tournaments/programs with dates. Put the city in the city field. If the schedule is only on a linked schedule page, suggest that link.",
+    "maxPages": 6
+  },
+  {
+    "tourId": "hjgt",
+    "label": "Hurricane Junior Golf Tour – events in Texas",
+    "startUrls": [
+      "https://tournaments.hjgt.org/Tournament"
+    ],
+    "hint": "HJGT tournaments held in Texas only (city/state in Texas); skip other states. Put city and state in the city field. The list is paginated: suggest the 'Next' page link(s) until you've seen all upcoming events. Use each tournament's 'Info / Register' link as the url.",
+    "maxPages": 8
   }
 ]
