@@ -41,6 +41,8 @@ jobs:
           supabase db push --password "$SUPABASE_DB_PASSWORD"
       - name: Sign-in settings
         run: |
-          curl -sS --fail-with-body -X PATCH "https://api.supabase.com/v1/projects/$PROJECT_REF/config/auth" \
+          code=$(curl -sS -X PATCH "https://api.supabase.com/v1/projects/$PROJECT_REF/config/auth" \
             -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" -H "Content-Type: application/json" \
-            --data @supabase/auth-config.json -o /dev/null -w "auth config: HTTP %{http_code}\n"
+            --data @supabase/auth-config.json -o response.json -w "%{http_code}")
+          echo "auth config: HTTP $code"
+          if [ "$code" -ge 300 ]; then cat response.json; echo; exit 1; fi
