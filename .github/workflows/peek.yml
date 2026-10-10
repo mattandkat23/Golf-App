@@ -1,0 +1,31 @@
+name: Peek at a page
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Page URL'
+        required: true
+      filter:
+        description: 'Only print lines matching this regex (optional)'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  peek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright-core install --with-deps chromium
+      - name: Peek
+        env:
+          URL: ${{ inputs.url }}
+          FILTER: ${{ inputs.filter }}
+        run: node --experimental-strip-types scraper/peek.ts "$URL" "$FILTER"
