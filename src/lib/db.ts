@@ -25,6 +25,8 @@ class GolfDB extends Dexie {
     this.version(2)
       .stores({ tours: 'id, name', tournaments: '++id, startDate, status, level, courseId, tourId' })
       .upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
+    // Bump the version whenever SEED_TOURS changes so existing phones get the new built-in list.
+    this.version(3).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
