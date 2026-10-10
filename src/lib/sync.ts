@@ -50,9 +50,12 @@ let userId: string | undefined;
 /** Set once the first sync after signing in has finished, so a new phone's empty data can't overwrite the account. */
 let ready = false;
 let chooser: () => boolean = () => true;
+/** Counts edits, so an upload only marks the phone saved if nothing changed while it was in flight. */
+let edits = 0;
 
 function markDirty() {
   if (applyingRemote) return;
+  edits++;
   put(KEY_DIRTY, '1');
   clearTimeout(timer);
   timer = setTimeout(() => void upload(), 4000);
@@ -94,6 +97,7 @@ export async function upload(force = false): Promise<boolean> {
     return false;
   }
   setStatus('syncing');
+  const sent = edits;
   const { data, error } = await supabase
     .from('family_data')
     .upsert({ user_id: userId, data: await exportBackup(), updated_at: new Date().toISOString() })
@@ -104,6 +108,11 @@ export async function upload(force = false): Promise<boolean> {
     return false;
   }
   put(KEY_AT, data.updated_at);
+  if (edits !== sent) {
+    // Changed while uploading: send again shortly.
+    timer = setTimeout(() => void upload(), 1000);
+    return true;
+  }
   put(KEY_DIRTY, null);
   setStatus('saved');
   return true;
@@ -120,6 +129,8 @@ export async function syncOnStart(uid: string, choose: () => boolean): Promise<v
   clearTimeout(timer);
   // Offline or failed: keep working on the phone; this runs again when the connection comes back.
   ready = await firstSync(uid, choose);
+  // Edits made while comparing with the account couldn't upload yet; send them now.
+  if (ready && get(KEY_DIRTY) === '1') timer = setTimeout(() => void upload(), 1000);
 }
 
 /** Returns true once the phone and the account have been compared (whether or not the upload then worked). */

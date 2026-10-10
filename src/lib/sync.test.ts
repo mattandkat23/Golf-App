@@ -12,7 +12,7 @@ vi.stubGlobal('localStorage', {
 vi.stubGlobal('navigator', { onLine: true });
 
 // A fake account: one family_data row, read and written through the same calls the app uses.
-const server: { row: { data: unknown; updated_at: string } | null } = { row: null };
+const server: { row: { data: unknown; updated_at: string } | null; pause?: () => Promise<void> } = { row: null };
 let clock = 0;
 vi.mock('./supabase', () => {
   const table = {
@@ -22,6 +22,7 @@ vi.mock('./supabase', () => {
     upsert: (v: { data: unknown }) => ({
       select: () => ({
         single: async () => {
+          await server.pause?.();
           server.row = { data: JSON.parse(JSON.stringify(v.data)), updated_at: `t${++clock}` };
           return { data: { updated_at: server.row.updated_at }, error: null };
         },
@@ -45,6 +46,27 @@ beforeEach(async () => {
 });
 
 describe('account sync', () => {
+  it('uploads a change made while an upload was already in flight', async () => {
+    await syncOnStart('u0', () => true);
+    await db.profile.update('me', { playerName: 'Before' });
+    // Hold the first upload open (its data is already packaged) while another change lands.
+    let release!: () => void;
+    let held!: () => void;
+    const isHeld = new Promise<void>((r) => (held = r));
+    server.pause = () => {
+      server.pause = undefined;
+      held();
+      return new Promise((r) => (release = r));
+    };
+    const first = upload();
+    await isHeld;
+    await db.profile.update('me', { playerName: 'During' });
+    release();
+    await first;
+    await new Promise((r) => setTimeout(r, 1100)); // the follow-up upload
+    expect(JSON.stringify(server.row?.data)).toContain('During');
+  });
+
   it('starts a brand-new account with what is on the phone', async () => {
     await db.profile.update('me', { playerName: 'Jack' });
     await syncOnStart('u1', () => true);
