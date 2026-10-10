@@ -181,3 +181,35 @@ table.score th:first-child, table.score td:first-child { text-align: left; }
 .editor h3 { margin-top: 14px; }
 .editor h3:first-child { margin-top: 0; }
 .sticky-actions { position: sticky; bottom: 0; background: var(--bg); padding: 10px 0 calc(env(safe-area-inset-bottom) + 6px); display: flex; gap: 8px; }
+
+/* Tour colors: categorical slots assigned in subscription order (light / dark steps of the same hues). */
+:root {
+  --tour-1: #2a78d6; --tour-2: #eb6834; --tour-3: #1baf7a; --tour-4: #eda100;
+  --tour-5: #e87ba4; --tour-6: #008300; --tour-7: #6250d6; --tour-8: #e34948; --tour-other: #8f978c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --tour-1: #3987e5; --tour-2: #d95926; --tour-3: #199e70; --tour-4: #c98500;
+    --tour-5: #d55181; --tour-6: #008300; --tour-7: #9085e9; --tour-8: #e66767; --tour-other: #727a70;
+  }
+}
+:root[data-theme='dark'] {
+  --tour-1: #3987e5; --tour-2: #d95926; --tour-3: #199e70; --tour-4: #c98500;
+  --tour-5: #d55181; --tour-6: #008300; --tour-7: #9085e9; --tour-8: #e66767; --tour-other: #727a70;
+}
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8rem; color: var(--text-2); margin-top: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* month calendar */
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+.cal .dow { font-size: 0.7rem; color: var(--muted); padding: 4px 0; }
+.cal button.day { min-height: 46px; padding: 4px 0; border-radius: 10px; border: 1px solid transparent; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.9rem; }
+.cal button.day.out { color: var(--muted); opacity: 0.5; }
+.cal button.day.today { border-color: var(--accent); }
+.cal button.day.sel { background: var(--accent-soft); }
+.cal .dots { display: flex; gap: 2px; min-height: 8px; }
+.cal .dots .dot { width: 7px; height: 7px; }
+.alert { border-left: 4px solid var(--warn); }
+.tour-stripe { width: 4px; align-self: stretch; border-radius: 4px; flex: none; }

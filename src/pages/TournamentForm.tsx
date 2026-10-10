@@ -8,7 +8,7 @@ import TourPicker from '../components/TourPicker';
 import { AGE_GROUPS } from '../data/uskids';
 
 const LEVELS: TourLevel[] = ['Local', 'State', 'Regional', 'World', 'Other'];
-const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Played', 'Withdrew'];
+const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Waitlisted', 'Played', 'Withdrew'];
 
 export default function TournamentForm() {
   const { id } = useParams();

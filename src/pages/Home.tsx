@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
 import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
 import { DateBox, Kpi, fmtDate, today } from '../components/ui';
+import { findConflicts, upcomingDeadlines } from '../lib/schedule';
 
 export default function Home() {
   const profile = useLiveQuery(() => db.profile.get('me'), []);
@@ -14,6 +15,9 @@ export default function Home() {
   const inProgress = useLiveQuery(() => db.rounds.filter((r) => !r.complete).toArray(), []);
   const recent = useLiveQuery(() => db.rounds.orderBy('date').reverse().filter((r) => !!r.complete).limit(10).toArray(), []);
   const lastPractice = useLiveQuery(() => db.practice.orderBy('date').reverse().first(), []);
+  const allEvents = useLiveQuery(() => db.tournaments.toArray(), []);
+  const deadlines = allEvents ? upcomingDeadlines(allEvents, today()) : [];
+  const conflictCount = allEvents ? findConflicts(allEvents, today()).size : 0;
   const courseName = (id?: number) => courses?.find((c) => c.id === id)?.name ?? '';
   const stats = recent ? computeStats(recent) : undefined;
 
@@ -42,6 +46,33 @@ export default function Home() {
           </div>
         </Link>
       ))}
+
+      {deadlines.length > 0 && (
+        <div className="card alert">
+          <h2>Registration deadlines</h2>
+          <ul className="list">
+            {deadlines.map((d) => (
+              <li key={d.tournament.id}>
+                <Link to={`/tournament/${d.tournament.id}`}>
+                  <div className="grow">
+                    <div>{d.tournament.name}</div>
+                    <div className="muted small">
+                      Register by {fmtDate(d.date)} · {d.tournament.status}
+                    </div>
+                  </div>
+                  <b>{d.daysLeft === 0 ? 'Today' : d.daysLeft === 1 ? '1 day' : `${d.daysLeft} days`}</b>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {conflictCount > 0 && (
+        <Link to="/schedule" className="card link alert">
+          ⚠ {conflictCount} upcoming events have overlapping dates. Review schedule ›
+        </Link>
+      )}
 
       <div className="card">
         <div className="row between">

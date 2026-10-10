@@ -27,7 +27,9 @@ export default function MyTours({ profile }: { profile: Profile }) {
   return (
     <div className="card">
       <h2>My tours</h2>
-      <p className="muted small">Tap the tours and series he plays. They're listed first when you add an event, and filter the Events tab.</p>
+      <p className="muted small">
+        Subscribe to the tours he plays. Their events show up in Events → Available, and they're listed first when you add an event.
+      </p>
       <div className="chips" style={{ marginBottom: 10 }}>
         {tours?.map((t) => (
           <button key={t.id} className={`chip${mine.includes(t.id) ? ' on' : ''}`} onClick={() => toggle(t.id)}>

@@ -2,7 +2,12 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
-import { Kpi, PageHead, fmtDate } from '../components/ui';
+import { Chips, Kpi, PageHead, fmtDate, today } from '../components/ui';
+import { findConflicts } from '../lib/schedule';
+import { buildIcs, openIcs, tournamentToIcs } from '../lib/ics';
+import type { EventStatus } from '../lib/types';
+
+const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Waitlisted', 'Played', 'Withdrew'];
 
 export default function TournamentDetail() {
   const id = Number(useParams().id);
@@ -10,7 +15,10 @@ export default function TournamentDetail() {
   const t = useLiveQuery(() => db.tournaments.get(id), [id]);
   const course = useLiveQuery(() => (t?.courseId ? db.courses.get(t.courseId) : undefined), [t?.courseId]);
   const rounds = useLiveQuery(() => db.rounds.where('tournamentId').equals(id).sortBy('roundNumber'), [id]);
+  const tour = useLiveQuery(() => (t?.tourId ? db.tours.get(t.tourId) : undefined), [t?.tourId]);
+  const all = useLiveQuery(() => db.tournaments.toArray(), []);
   if (!t) return null;
+  const clashes = all ? findConflicts(all, today()).get(id) : undefined;
   const stats = rounds?.length ? computeStats(rounds) : undefined;
   const totals = rounds?.map(summarizeRound);
 
@@ -34,10 +42,22 @@ export default function TournamentDetail() {
       />
       <div className="card stack">
         <div className="row wrap">
+          {tour && <span className="tag">{tour.name}</span>}
           <span className="tag">{t.level}</span>
-          <span className={`tag${t.status === 'Registered' ? ' accent' : ''}`}>{t.status}</span>
           {t.ageGroup && <span className="tag">{t.ageGroup}</span>}
         </div>
+        <Chips options={STATUSES} value={t.status} scroll onChange={(v) => v && db.tournaments.update(id, { status: v })} />
+        {clashes && (
+          <div className="small">
+            ⚠ Same dates as{' '}
+            {clashes.map((c, i) => (
+              <span key={c.id}>
+                {i > 0 && ', '}
+                <Link to={`/tournament/${c.id}`}>{c.name}</Link>
+              </span>
+            ))}
+          </div>
+        )}
         <div>
           {fmtDate(t.startDate)}
           {t.endDate && t.endDate !== t.startDate && ` – ${fmtDate(t.endDate)}`}
@@ -65,9 +85,15 @@ export default function TournamentDetail() {
         )}
         {t.url && (
           <a href={t.url} target="_blank" rel="noreferrer">
-            US Kids event page ↗
+            Event page ↗
           </a>
         )}
+        <button
+          className="block"
+          onClick={() => openIcs(buildIcs(tournamentToIcs(t, course ? `${course.name}${course.city ? `, ${course.city}` : ''}` : undefined, tour?.name)))}
+        >
+          📅 Add to Calendar
+        </button>
         {t.notes && <p className="muted">{t.notes}</p>}
       </div>
 

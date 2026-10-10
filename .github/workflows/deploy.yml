@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Pushes made by the scraper's GITHUB_TOKEN don't trigger `push`, so redeploy when it finishes.
+  workflow_run:
+    workflows: ['Scrape tour events']
+    types: [completed]
   workflow_dispatch:
 
 permissions:

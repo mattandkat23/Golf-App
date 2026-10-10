@@ -1,5 +1,5 @@
 export type TourLevel = 'Local' | 'State' | 'Regional' | 'World' | 'Other';
-export type EventStatus = 'Considering' | 'Registered' | 'Played' | 'Withdrew';
+export type EventStatus = 'Considering' | 'Registered' | 'Waitlisted' | 'Played' | 'Withdrew';
 
 export interface Tee {
   name: string; // e.g. "Age 9 tees", "Blue"
@@ -30,6 +30,8 @@ export interface Tournament {
   name: string;
   level: TourLevel;
   tourId?: string;
+  /** Id of the scraped event this was added from (public/events.json). */
+  sourceEventId?: string;
   courseId?: number;
   startDate: string; // YYYY-MM-DD
   endDate?: string;

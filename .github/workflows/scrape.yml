@@ -1,0 +1,49 @@
+name: Scrape tour events
+
+on:
+  schedule:
+    - cron: '17 10 * * *' # daily, ~5:17am Central
+  workflow_dispatch:
+    inputs:
+      tour:
+        description: 'Only scrape this tour id (optional, e.g. ntpga)'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright-core install --with-deps chromium
+      - name: Scrape
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TOUR: ${{ inputs.tour }}
+        run: node --experimental-strip-types scraper/scrape.ts $TOUR
+      - name: Commit updated events
+        if: always()
+        run: |
+          git config user.name "golf-tracker-bot"
+          git config user.email "golf-tracker-bot@users.noreply.github.com"
+          git add public/events.json scraper/cache.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update tour events"
+            git push
+          fi
