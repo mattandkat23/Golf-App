@@ -127,6 +127,25 @@ export function robotsAllows(robotsTxt: string, path: string, agent = 'golftrack
   return !robotsMatch(robotsTxt, path, agent)?.startsWith('Disallow');
 }
 
+/** Crawl-delay (seconds) for the `*` group, or 0. */
+export function robotsCrawlDelay(robotsTxt: string): number {
+  let inStar = false;
+  let lastWasAgent = false;
+  for (const line of robotsTxt.split(/\r?\n/)) {
+    const m = line.replace(/#.*/, '').trim().match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
+    if (!m) continue;
+    const k = m[1].toLowerCase();
+    if (k === 'user-agent') {
+      inStar = (lastWasAgent && inStar) || m[2].trim() === '*';
+      lastWasAgent = true;
+      continue;
+    }
+    lastWasAgent = false;
+    if (inStar && k === 'crawl-delay') return Math.min(Number(m[2]) || 0, 60);
+  }
+  return 0;
+}
+
 /** Cheap content hash used to skip the Claude call when a page hasn't changed. */
 export function hashText(s: string): string {
   let h1 = 0x811c9dc5, h2 = 5381;

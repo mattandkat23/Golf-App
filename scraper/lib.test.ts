@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { eventId, mergeEventsFile, normalizeEvents, robotsAllows } from './lib.ts';
+import { eventId, mergeEventsFile, normalizeEvents, robotsAllows, robotsCrawlDelay } from './lib.ts';
 
 describe('normalizeEvents', () => {
   it('drops bad rows, past events and duplicates; keeps stable ids', () => {
@@ -56,5 +56,13 @@ describe('robotsAllows', () => {
     expect(robotsAllows(robots, '/private/schedule/2026')).toBe(true);
     expect(robotsAllows(robots, '/files/a.pdf')).toBe(false);
     expect(robotsAllows('', '/anything')).toBe(true);
+  });
+});
+
+describe('robotsCrawlDelay', () => {
+  it('reads the * group delay', () => {
+    expect(robotsCrawlDelay('User-agent: *\nCrawl-delay: 10\nDisallow: /x')).toBe(10);
+    expect(robotsCrawlDelay('User-agent: bing\nCrawl-delay: 5\n\nUser-agent: *\nDisallow: /x')).toBe(0);
+    expect(robotsCrawlDelay('')).toBe(0);
   });
 });

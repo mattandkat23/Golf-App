@@ -13,7 +13,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 import { z } from 'zod';
 import { chromium, type Browser } from 'playwright-core';
-import { type EventsFile, type ScrapedEvent, hashText, mergeEventsFile, normalizeEvents, robotsAllows } from './lib.ts';
+import { type EventsFile, type ScrapedEvent, hashText, mergeEventsFile, normalizeEvents, robotsAllows, robotsCrawlDelay } from './lib.ts';
 
 // Paths can be overridden for local testing.
 const EVENTS_PATH = process.env.SCRAPER_EVENTS_PATH ?? 'public/events.json';
@@ -30,6 +30,8 @@ interface Source {
   startUrls: string[];
   hint: string;
   maxPages?: number;
+  /** Forces every event from this source to this level (e.g. US Kids state championships). */
+  level?: 'Local' | 'State' | 'Regional' | 'World' | 'Other';
 }
 
 const Extraction = z.object({
@@ -73,15 +75,28 @@ function loadJson<T>(path: string, fallback: T): T {
 }
 
 const robotsCache = new Map<string, string>();
-async function allowedByRobots(url: string): Promise<boolean> {
-  const u = new URL(url);
-  if (!robotsCache.has(u.origin)) {
-    const txt = await fetch(`${u.origin}/robots.txt`, { headers: { 'user-agent': USER_AGENT } })
+async function robotsFor(origin: string): Promise<string> {
+  if (!robotsCache.has(origin)) {
+    const txt = await fetch(`${origin}/robots.txt`, { headers: { 'user-agent': USER_AGENT } })
       .then((r) => (r.ok ? r.text() : ''))
       .catch(() => '');
-    robotsCache.set(u.origin, txt);
+    robotsCache.set(origin, txt);
   }
-  return robotsAllows(robotsCache.get(u.origin)!, u.pathname + u.search);
+  return robotsCache.get(origin)!;
+}
+async function allowedByRobots(url: string): Promise<boolean> {
+  const u = new URL(url);
+  return robotsAllows(await robotsFor(u.origin), u.pathname + u.search);
+}
+
+/** Waits out the site's Crawl-delay since our last page load on that site. */
+const lastLoad = new Map<string, number>();
+async function politeWait(url: string) {
+  const origin = new URL(url).origin;
+  const delayMs = Math.max(robotsCrawlDelay(await robotsFor(origin)), 2) * 1000;
+  const wait = (lastLoad.get(origin) ?? 0) + delayMs - Date.now();
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  lastLoad.set(origin, Date.now());
 }
 
 async function renderPage(browser: Browser, url: string) {
@@ -152,6 +167,7 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
       }
       pages++;
       console.log(`  page ${pages}: ${url}`);
+      await politeWait(url);
       const { finalUrl, text, links } = await renderPage(browser, url);
       visited.add(finalUrl);
       const key = `${source.tourId}|${finalUrl}`;
@@ -179,7 +195,10 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
   }
   const events: ScrapedEvent[] = normalizeEvents(
     source.tourId,
-    raw.map((r) => Object.fromEntries(Object.entries(r).filter(([, v]) => v !== null))) as Omit<ScrapedEvent, 'id' | 'tourId'>[],
+    raw.map((r) => ({
+      ...Object.fromEntries(Object.entries(r).filter(([, v]) => v !== null)),
+      ...(source.level && { level: source.level }),
+    })) as Omit<ScrapedEvent, 'id' | 'tourId'>[],
     today,
   );
   // Finding nothing usually means the site changed or blocked us; keep last run's events in that case.

@@ -4,13 +4,77 @@
     "label": "US Kids Golf – Austin local tour",
     "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin"],
     "hint": "List every event on the Austin Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's Austin schedule.",
-    "maxPages": 3
+    "maxPages": 3,
+    "level": "Local"
   },
   {
     "tourId": "usk-dallas",
     "label": "US Kids Golf – Dallas local tour",
     "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas"],
     "hint": "List every event on the Dallas Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's Dallas schedule.",
-    "maxPages": 3
+    "maxPages": 3,
+    "level": "Local"
+  },
+  {
+    "tourId": "usk-houston",
+    "label": "US Kids Golf – Houston local tour",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284880/houston"],
+    "hint": "List every event on the Houston Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's Houston schedule.",
+    "maxPages": 3,
+    "level": "Local"
+  },
+  {
+    "tourId": "usk-san-antonio",
+    "label": "US Kids Golf – San Antonio local tour",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio"],
+    "hint": "List every event on the San Antonio Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's San Antonio schedule.",
+    "maxPages": 3,
+    "level": "Local"
+  },
+  {
+    "tourId": "usk-el-paso",
+    "label": "US Kids Golf – El Paso local tour",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso"],
+    "hint": "List every event on the El Paso Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's El Paso schedule.",
+    "maxPages": 3,
+    "level": "Local"
+  },
+  {
+    "tourId": "usk-state",
+    "label": "US Kids Golf – Texas state championships",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/state"],
+    "hint": "US Kids Golf state-level events held in Texas only (e.g. Texas State Championship, Texas Spring/Fall State Invitational). Follow links to the list or search of state events to find the Texas ones; ignore other states.",
+    "maxPages": 5,
+    "level": "State"
+  },
+  {
+    "tourId": "usk-regional",
+    "label": "US Kids Golf – regional championships",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/regional"],
+    "hint": "US Kids Golf regional championships held in Texas or a neighboring state (Oklahoma, Louisiana, Arkansas, New Mexico). Put the city and state in the city field (e.g. 'Horseshoe Bay, TX'). Follow links to the list of regional events; ignore regionals in other states.",
+    "maxPages": 5,
+    "level": "Regional"
+  },
+  {
+    "tourId": "usk-world",
+    "label": "US Kids Golf – World Championships",
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/world"],
+    "hint": "The upcoming US Kids Golf World Championship events (e.g. the World Championship and Teen World Championship, usually at Pinehurst, NC). Put city and state in the city field. Follow links to the current year's World Championship pages.",
+    "maxPages": 4,
+    "level": "World"
+  },
+  {
+    "tourId": "ajga",
+    "label": "AJGA – tournaments in Texas",
+    "startUrls": ["https://www.ajga.org/schedule"],
+    "hint": "AJGA tournaments held in Texas only (any Texas city). Skip tournaments in other states. Use the tournament's own page link as the url when the schedule shows one.",
+    "maxPages": 2
+  },
+  {
+    "tourId": "tga-ljt",
+    "label": "TGA / Legends Junior Tour",
+    "startUrls": ["https://txga.org/tournaments/"],
+    "hint": "Junior events run by the Texas Golf Association: the Legends Junior Tour (LJT) schedule and TGA junior championships (e.g. Texas Junior Amateur, junior invitationals). Skip adult and senior events. Follow links to the Legends Junior Tour or junior schedule page.",
+    "maxPages": 5
   }
 ]

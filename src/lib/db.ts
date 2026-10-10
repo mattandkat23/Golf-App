@@ -28,6 +28,19 @@ class GolfDB extends Dexie {
     // Bump the version whenever SEED_TOURS changes so existing phones get the new built-in list.
     this.version(3).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.version(4).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
+    // v5 splits "US Kids – State, Regional & World" into three tours.
+    this.version(5).upgrade(async (tx) => {
+      await tx.table('tours').delete('usk-championships');
+      await tx.table('tours').bulkPut(SEED_TOURS);
+      await tx.table('profile').toCollection().modify((p: Profile) => {
+        if (p.myTours?.includes('usk-championships')) {
+          p.myTours = [...p.myTours.filter((t) => t !== 'usk-championships'), 'usk-state', 'usk-regional', 'usk-world'];
+        }
+      });
+      await tx.table('tournaments').toCollection().modify((t: Tournament) => {
+        if (t.tourId === 'usk-championships') t.tourId = t.level === 'World' ? 'usk-world' : t.level === 'Regional' ? 'usk-regional' : 'usk-state';
+      });
+    });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
