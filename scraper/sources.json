@@ -83,12 +83,12 @@
   },
   {
     "tourId": "ajga",
-    "label": "AJGA – tournaments in Texas",
+    "label": "AJGA – all tournaments",
     "startUrls": [
       "https://www.ajga.org/schedule"
     ],
-    "hint": "AJGA tournaments held in Texas only (any Texas city). Skip tournaments in other states. Use the tournament's own page link as the url when the schedule shows one.",
-    "maxPages": 2
+    "hint": "Every upcoming AJGA tournament nationwide. Put the city and state in the city field (e.g. 'Farmers Branch, TX'). Use the tournament's own page link as the url when the schedule shows one. If there's a link to next year's full schedule, suggest it.",
+    "maxPages": 3
   },
   {
     "tourId": "tga-ljt",

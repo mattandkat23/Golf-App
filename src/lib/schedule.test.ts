@@ -74,6 +74,8 @@ describe('course matching', () => {
     expect(regionForCity('Round Rock')).toBe('Austin');
     expect(regionForCity('Frisco, TX')).toBe('Dallas–Fort Worth');
     expect(regionForCity('Lubbock')).toBe('Other Texas');
+    expect(regionForCity('Pinehurst, NC')).toBe('Other');
+    expect(regionForCity('Austin, Texas')).toBe('Austin');
   });
 });
 

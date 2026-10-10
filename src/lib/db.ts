@@ -42,6 +42,7 @@ class GolfDB extends Dexie {
       });
     });
     this.version(6).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
+    this.version(7).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);

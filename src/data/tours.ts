@@ -16,7 +16,7 @@ export const SEED_TOURS: Tour[] = [
   { id: 'usk-world', name: 'US Kids – World Championships', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/world', region: 'Other' },
   { id: 'ntpga', name: 'Northern Texas PGA Junior Tour', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
   { id: 'stpga', name: 'South Texas PGA Junior Tour', org: 'STPGA', url: 'https://www.stpga.com/', region: 'Houston' },
-  { id: 'ajga', name: 'AJGA (incl. Under Armour / Jordan Spieth)', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga', name: 'AJGA (nationwide, incl. Under Armour / Jordan Spieth)', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
   { id: 'under-armour', name: 'Under Armour Junior Tour', org: 'Under Armour', url: 'https://www.uagolftour.com/' },
   { id: 'hjgt', name: 'Hurricane Junior Golf Tour (HJGT)', org: 'HJGT', url: 'https://www.hjgt.org/' },
   { id: 'tga-ljt', name: 'TGA / Legends Junior Tour', org: 'Texas Golf Association', url: 'https://txga.org/ljt-landing-3/' },

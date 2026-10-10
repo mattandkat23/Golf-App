@@ -35,6 +35,8 @@ const REGION_CITIES: [Course['region'], string[]][] = [
 ];
 
 export function regionForCity(city?: string): Course['region'] {
+  const state = city?.match(/,\s*([A-Za-z .]+)$/)?.[1].trim().toLowerCase();
+  if (state && state !== 'tx' && state !== 'texas') return 'Other';
   const c = city?.toLowerCase().replace(/,.*$/, '').trim();
   if (!c) return 'Other Texas';
   return REGION_CITIES.find(([, cities]) => cities.includes(c))?.[0] ?? 'Other Texas';
