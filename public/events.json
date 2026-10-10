@@ -1,1 +1,93 @@
-{"generatedAt":null,"sources":{},"events":[]}
+{
+ "generatedAt": "2026-10-10T19:42:44.652Z",
+ "sources": {
+  "usk-austin": {
+   "checkedAt": "2026-10-10T19:42:44.652Z",
+   "ok": true,
+   "eventCount": 3
+  },
+  "usk-dallas": {
+   "checkedAt": "2026-10-10T19:42:44.652Z",
+   "ok": true,
+   "eventCount": 4
+  },
+  "ntpga": {
+   "checkedAt": "2026-10-10T19:42:44.652Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "No events found"
+  }
+ },
+ "events": [
+  {
+   "id": "usk-austin-2026-10-25-1mj6mut",
+   "tourId": "usk-austin",
+   "name": "Mill Creek Golf Club",
+   "startDate": "2026-10-25",
+   "courseName": "Mill Creek Golf Club",
+   "registrationDeadline": "2026-10-22",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519219/mill-creek-golf-club",
+   "level": "Local"
+  },
+  {
+   "id": "usk-dallas-2026-11-14-q7f3ki",
+   "tourId": "usk-dallas",
+   "name": "Dallas Local Tour - Oak Hollow Golf Course",
+   "startDate": "2026-11-14",
+   "courseName": "Oak Hollow Golf Course",
+   "registrationDeadline": "2026-11-11",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519045/oak-hollow-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-dallas-2026-11-15-1ehpo81",
+   "tourId": "usk-dallas",
+   "name": "Dallas Local Tour - WestRidge Golf Course",
+   "startDate": "2026-11-15",
+   "courseName": "WestRidge Golf Course",
+   "registrationDeadline": "2026-11-12",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519046/westridge-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-austin-2026-11-15-aamb0h",
+   "tourId": "usk-austin",
+   "name": "Jimmy Clay Golf Course",
+   "startDate": "2026-11-15",
+   "courseName": "Jimmy Clay Golf Course",
+   "registrationDeadline": "2026-11-12",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519220/jimmy-clay-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-dallas-2026-11-21-q7f3lg",
+   "tourId": "usk-dallas",
+   "name": "Dallas Local Tour - Oak Hollow Golf Course",
+   "startDate": "2026-11-21",
+   "courseName": "Oak Hollow Golf Course",
+   "registrationDeadline": "2026-11-18",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519047/oak-hollow-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-dallas-2026-11-23-p60ua9",
+   "tourId": "usk-dallas",
+   "name": "Dallas Local Tour Championship - Brookhaven Country Club",
+   "startDate": "2026-11-23",
+   "courseName": "Brookhaven Country Club",
+   "registrationDeadline": "2026-11-20",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519048/brookhaven-country-club-tour-championship",
+   "level": "Local"
+  },
+  {
+   "id": "usk-austin-2026-12-06-wna0n7",
+   "tourId": "usk-austin",
+   "name": "Delaware Springs Golf Course (Tour Championship)",
+   "startDate": "2026-12-06",
+   "courseName": "Delaware Springs Golf Course",
+   "registrationDeadline": "2026-12-03",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519221/delaware-springs-golf-course-tour-championship",
+   "level": "Local"
+  }
+ ]
+}
