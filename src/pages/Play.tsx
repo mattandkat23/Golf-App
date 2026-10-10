@@ -135,6 +135,11 @@ export default function Play() {
           persist(r);
           navigate(r.tournamentId ? `/tournament/${r.tournamentId}` : '/');
         }}
+        onDelete={async () => {
+          if (!confirm('Delete this round and all its shots? This can’t be undone.')) return;
+          await db.rounds.delete(id);
+          navigate(round.tournamentId ? `/tournament/${round.tournamentId}` : '/', { replace: true });
+        }}
       />
     );
   }
@@ -319,7 +324,19 @@ export default function Play() {
   );
 }
 
-function RoundSummary({ round, courseName, onBack, onSave }: { round: Round; courseName?: string; onBack: () => void; onSave: (r: Round) => void }) {
+function RoundSummary({
+  round,
+  courseName,
+  onBack,
+  onSave,
+  onDelete,
+}: {
+  round: Round;
+  courseName?: string;
+  onBack: () => void;
+  onSave: (r: Round) => void;
+  onDelete: () => void;
+}) {
   const [r, setR] = useState(round);
   const s = summarizeRound(r);
   const refl = r.reflection ?? {};
@@ -371,6 +388,9 @@ function RoundSummary({ round, courseName, onBack, onSave }: { round: Round; cou
           Not done yet? <Link to="/">Leave it in progress</Link> — it's saved as you go.
         </p>
       )}
+      <button className="danger block" style={{ marginTop: 16 }} onClick={onDelete}>
+        Delete round
+      </button>
     </>
   );
 }

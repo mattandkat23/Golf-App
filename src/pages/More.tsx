@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { db, exportBackup, importBackup } from '../lib/db';
 import type { Profile } from '../lib/types';
 import { Field, PageHead, today } from '../components/ui';
-import { AGE_GROUPS, US_KIDS_LINKS } from '../data/uskids';
+import { AGE_GROUPS } from '../data/uskids';
+import MyTours from '../components/MyTours';
 
 export default function More() {
   const profile = useLiveQuery(() => db.profile.get('me'), []);
@@ -57,6 +58,8 @@ export default function More() {
         </Field>
       </div>
 
+      <MyTours profile={profile} />
+
       <div className="card">
         <h2>Bag & carry distances</h2>
         <p className="muted small">Clubs here appear in play mode. Update carry yardages as he grows.</p>
@@ -86,13 +89,9 @@ export default function More() {
           <li>
             <Link to="/courses">Courses & scorecards ›</Link>
           </li>
-          {US_KIDS_LINKS.map((l) => (
-            <li key={l.url}>
-              <a href={l.url} target="_blank" rel="noreferrer">
-                {l.label} ↗
-              </a>
-            </li>
-          ))}
+          <li>
+            <Link to="/rounds">All rounds ›</Link>
+          </li>
         </ul>
       </div>
 

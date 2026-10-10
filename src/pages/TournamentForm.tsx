@@ -4,6 +4,7 @@ import { db } from '../lib/db';
 import type { EventStatus, TourLevel, Tournament } from '../lib/types';
 import { Chips, Field, PageHead, today } from '../components/ui';
 import CoursePicker from '../components/CoursePicker';
+import TourPicker from '../components/TourPicker';
 import { AGE_GROUPS } from '../data/uskids';
 
 const LEVELS: TourLevel[] = ['Local', 'State', 'Regional', 'World', 'Other'];
@@ -16,7 +17,10 @@ export default function TournamentForm() {
 
   useEffect(() => {
     if (id) db.tournaments.get(Number(id)).then((x) => x && setT(x));
-    else db.profile.get('me').then((p) => p?.ageGroup && setT((cur) => ({ ...cur, ageGroup: cur.ageGroup ?? p.ageGroup })));
+    else
+      db.profile.get('me').then((p) =>
+        setT((cur) => ({ ...cur, ageGroup: cur.ageGroup ?? p?.ageGroup, tourId: cur.tourId ?? (p?.myTours?.length === 1 ? p.myTours[0] : undefined) })),
+      );
   }, [id]);
 
   const set = <K extends keyof Tournament>(k: K, v: Tournament[K]) => setT((cur) => ({ ...cur, [k]: v }));
@@ -24,7 +28,8 @@ export default function TournamentForm() {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    const name = t.name.trim() || `US Kids ${t.level}`;
+    const tour = t.tourId ? await db.tours.get(t.tourId) : undefined;
+    const name = t.name.trim() || `${tour?.name ?? 'Tournament'} – ${t.level}`;
     const newId = await db.tournaments.put({ ...t, name });
     navigate(`/tournament/${newId}`, { replace: true });
   }
@@ -33,7 +38,10 @@ export default function TournamentForm() {
     <form onSubmit={save}>
       <PageHead title={id ? 'Edit event' : 'Add event'} back={id ? `/tournament/${id}` : '/schedule'} />
       <div className="card">
-        <Field label="Tour level">
+        <Field label="Tour / series">
+          <TourPicker value={t.tourId} onChange={(v) => set('tourId', v)} />
+        </Field>
+        <Field label="Level">
           <Chips options={LEVELS} value={t.level} onChange={(v) => v && set('level', v)} />
         </Field>
         <Field label="Event name">

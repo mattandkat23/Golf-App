@@ -17,10 +17,19 @@ export interface Course {
   notes?: string;
 }
 
+export interface Tour {
+  id: string;
+  name: string;
+  org?: string;
+  url?: string;
+  custom?: boolean;
+}
+
 export interface Tournament {
   id?: number;
   name: string;
   level: TourLevel;
+  tourId?: string;
   courseId?: number;
   startDate: string; // YYYY-MM-DD
   endDate?: string;
@@ -104,4 +113,5 @@ export interface Profile {
   playerName: string;
   ageGroup?: string;
   bag: Club[];
+  myTours?: string[];
 }

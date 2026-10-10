@@ -67,14 +67,20 @@ function Trend({ rounds }: { rounds: Round[] }) {
 export default function StatsPage() {
   const [range, setRange] = useState<Range>('Last 10');
   const [kind, setKind] = useState<Kind>('All rounds');
+  const [tourId, setTourId] = useState<string>();
   const all = useLiveQuery(() => db.rounds.orderBy('date').toArray(), []);
   const tournaments = useLiveQuery(() => db.tournaments.toArray(), []);
-  if (!all || !tournaments) return null;
+  const tours = useLiveQuery(() => db.tours.toArray(), []);
+  if (!all || !tournaments || !tours) return null;
+
+  const tourOf = (r: Round) => tournaments.find((t) => t.id === r.tournamentId)?.tourId;
+  const playedTours = tours.filter((t) => all.some((r) => tourOf(r) === t.id));
 
   const levelOf = (r: Round) => tournaments.find((t) => t.id === r.tournamentId)?.level;
   let rounds = all.filter((r) => r.holes.some((h) => h.shots.length));
   if (kind === 'Tournaments') rounds = rounds.filter((r) => r.tournamentId);
   else if (kind !== 'All rounds') rounds = rounds.filter((r) => levelOf(r) === kind);
+  if (tourId) rounds = rounds.filter((r) => tourOf(r) === tourId);
   const year = String(new Date().getFullYear());
   if (range === 'Season') rounds = rounds.filter((r) => r.date.startsWith(year));
   if (range === 'Last 5') rounds = rounds.slice(-5);
@@ -90,6 +96,16 @@ export default function StatsPage() {
       <div className="stack" style={{ marginBottom: 12 }}>
         <Chips options={['Last 5', 'Last 10', 'Season', 'All'] as Range[]} value={range} scroll onChange={(v) => v && setRange(v)} />
         <Chips options={['All rounds', 'Tournaments', 'Local', 'State', 'Regional', 'World'] as Kind[]} value={kind} scroll onChange={(v) => v && setKind(v)} />
+        {playedTours.length > 0 && (
+          <Chips
+            options={playedTours.map((t) => t.id)}
+            value={tourId}
+            scroll
+            allowClear
+            label={(id) => tours.find((t) => t.id === id)?.name ?? id}
+            onChange={setTourId}
+          />
+        )}
       </div>
 
       {s.holes === 0 ? (
