@@ -1,18 +1,112 @@
 {
- "generatedAt": "2026-10-10T19:46:29.083Z",
+ "generatedAt": "2026-10-10T20:18:58.238Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T19:46:29.083Z",
+   "checkedAt": "2026-10-10T20:18:58.238Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T19:46:29.083Z",
+   "checkedAt": "2026-10-10T20:18:58.238Z",
    "ok": true,
    "eventCount": 4
+  },
+  "usk-houston": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": true,
+   "eventCount": 7
+  },
+  "usk-san-antonio": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": true,
+   "eventCount": 4
+  },
+  "usk-el-paso": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": true,
+   "eventCount": 2
+  },
+  "usk-state": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "No events found"
+  },
+  "usk-regional": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf: page.goto: Download is starting\nCall log:\n  - navigating to \"https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf\", waiting until \"domcontentloaded\"\n"
+  },
+  "usk-world": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": true,
+   "eventCount": 2
+  },
+  "ajga": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": true,
+   "eventCount": 1
+  },
+  "tga-ljt": {
+   "checkedAt": "2026-10-10T20:18:58.238Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "No events found"
   }
  },
  "events": [
+  {
+   "id": "usk-san-antonio-2026-10-10-fd1w0k",
+   "tourId": "usk-san-antonio",
+   "name": "Olmos Basin Golf Course",
+   "startDate": "2026-10-10",
+   "courseName": "Olmos Basin Golf Course",
+   "city": "San Antonio",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519506/olmos-basin-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-san-antonio-2026-10-11-9eacn0",
+   "tourId": "usk-san-antonio",
+   "name": "Mission Del Lago Municipal Golf Course",
+   "startDate": "2026-10-11",
+   "courseName": "Mission Del Lago Municipal Golf Course",
+   "city": "San Antonio",
+   "registrationDeadline": "2026-10-08",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519507/mission-del-lago-municipal-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-10-18-1inqa8n",
+   "tourId": "usk-houston",
+   "name": "Northgate Country Club",
+   "startDate": "2026-10-18",
+   "courseName": "Northgate Country Club",
+   "registrationDeadline": "2026-10-15",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519077/northgate-country-club",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-10-24-mqcf07",
+   "tourId": "usk-houston",
+   "name": "Grand Lake Golf Club",
+   "startDate": "2026-10-24",
+   "courseName": "Grand Lake Golf Club",
+   "registrationDeadline": "2026-10-21",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519076/grand-lake-golf-club",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-10-25-1deu2w4",
+   "tourId": "usk-houston",
+   "name": "April Sound Country Club",
+   "startDate": "2026-10-25",
+   "courseName": "April Sound Country Club",
+   "registrationDeadline": "2026-10-22",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519074/april-sound-country-club",
+   "level": "Local"
+  },
   {
    "id": "usk-austin-2026-10-25-1mj6mut",
    "tourId": "usk-austin",
@@ -24,6 +118,36 @@
    "level": "Local"
   },
   {
+   "id": "usk-el-paso-2026-11-01-31skag",
+   "tourId": "usk-el-paso",
+   "name": "El Paso Local Tour - Painted Dunes Golf Club - East/West",
+   "startDate": "2026-11-01",
+   "courseName": "Painted Dunes Golf Club - East/West",
+   "registrationDeadline": "2026-10-29",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519394/painted-dunes-golf-club-east-west",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-11-01-1pi0idf",
+   "tourId": "usk-houston",
+   "name": "Panorama Golf Club",
+   "startDate": "2026-11-01",
+   "courseName": "Panorama Golf Club",
+   "registrationDeadline": "2026-10-29",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519081/panorama-golf-club",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-11-08-1ino2dz",
+   "tourId": "usk-houston",
+   "name": "Northgate Country Club",
+   "startDate": "2026-11-08",
+   "courseName": "Northgate Country Club",
+   "registrationDeadline": "2026-11-05",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519078/northgate-country-club",
+   "level": "Local"
+  },
+  {
    "id": "usk-dallas-2026-11-14-fve1n8",
    "tourId": "usk-dallas",
    "name": "Oak Hollow Golf Course",
@@ -31,6 +155,16 @@
    "courseName": "Oak Hollow Golf Course",
    "registrationDeadline": "2026-11-11",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519045/oak-hollow-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-11-15-15z0ey5",
+   "tourId": "usk-houston",
+   "name": "Blackhorse Golf Club",
+   "startDate": "2026-11-15",
+   "courseName": "Blackhorse Golf Club",
+   "registrationDeadline": "2026-11-12",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519079/blackhorse-golf-club",
    "level": "Local"
   },
   {
@@ -64,6 +198,49 @@
    "level": "Local"
   },
   {
+   "id": "ajga-2026-11-21-g9um3p",
+   "tourId": "ajga",
+   "name": "Rolex Tournament of Champions",
+   "startDate": "2026-11-21",
+   "endDate": "2026-11-25",
+   "courseName": "TPC San Antonio - Canyons Course",
+   "city": "San Antonio",
+   "url": "https://www.ajga.org/tournaments/2026147",
+   "level": "Other"
+  },
+  {
+   "id": "usk-san-antonio-2026-11-21-4x1bqu",
+   "tourId": "usk-san-antonio",
+   "name": "Willow Springs Golf Course",
+   "startDate": "2026-11-21",
+   "courseName": "Willow Springs Golf Course",
+   "city": "San Antonio",
+   "registrationDeadline": "2026-11-18",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519508/willow-springs-golf-course",
+   "level": "Local"
+  },
+  {
+   "id": "usk-el-paso-2026-11-22-ck7v6v",
+   "tourId": "usk-el-paso",
+   "name": "El Paso Local Tour Championship - New Mexico State University Golf Course",
+   "startDate": "2026-11-22",
+   "courseName": "New Mexico State University Golf Course",
+   "registrationDeadline": "2026-11-19",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519395/new-mexico-state-university-golf-course-tour-championship",
+   "level": "Local"
+  },
+  {
+   "id": "usk-san-antonio-2026-11-22-1tsww8c",
+   "tourId": "usk-san-antonio",
+   "name": "Hyatt Hill Country Golf Club (Tour Championship)",
+   "startDate": "2026-11-22",
+   "courseName": "Hyatt Hill Country Golf Club",
+   "city": "San Antonio",
+   "registrationDeadline": "2026-11-19",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519509/hyatt-hill-country-golf-club-tour-championship",
+   "level": "Local"
+  },
+  {
    "id": "usk-dallas-2026-11-23-1eo0vm3",
    "tourId": "usk-dallas",
    "name": "Brookhaven Country Club (Tour Championship)",
@@ -82,6 +259,36 @@
    "registrationDeadline": "2026-12-03",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519221/delaware-springs-golf-course-tour-championship",
    "level": "Local"
+  },
+  {
+   "id": "usk-houston-2026-12-13-16v189u",
+   "tourId": "usk-houston",
+   "name": "April Sound Country Club (Tour Championship)",
+   "startDate": "2026-12-13",
+   "courseName": "April Sound Country Club",
+   "registrationDeadline": "2026-12-10",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519080/april-sound-country-club-tour-championship",
+   "level": "Local"
+  },
+  {
+   "id": "usk-world-2027-07-22-1ialgum",
+   "tourId": "usk-world",
+   "name": "U.S. Kids Golf World Championship 2027",
+   "startDate": "2027-07-22",
+   "endDate": "2027-07-24",
+   "city": "Pinehurst, NC",
+   "ageGroups": "Ages 5-12",
+   "level": "World"
+  },
+  {
+   "id": "usk-world-2027-07-25-1oemgsh",
+   "tourId": "usk-world",
+   "name": "World Van Horn Cup 2027",
+   "startDate": "2027-07-25",
+   "courseName": "Pinehurst No. 4",
+   "city": "Pinehurst, NC",
+   "ageGroups": "Top 12-year-old boys and girls",
+   "level": "World"
   }
  ]
 }
