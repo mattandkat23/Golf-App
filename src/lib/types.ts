@@ -23,6 +23,8 @@ export interface Tour {
   org?: string;
   url?: string;
   custom?: boolean;
+  /** Where most of the tour's events are; used to file courses created from its events. */
+  region?: Course['region'];
 }
 
 export interface Tournament {

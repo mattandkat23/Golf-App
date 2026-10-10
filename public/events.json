@@ -10,12 +10,6 @@
    "checkedAt": "2026-10-10T19:42:44.652Z",
    "ok": true,
    "eventCount": 4
-  },
-  "ntpga": {
-   "checkedAt": "2026-10-10T19:42:44.652Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "No events found"
   }
  },
  "events": [

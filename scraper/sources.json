@@ -2,22 +2,15 @@
   {
     "tourId": "usk-austin",
     "label": "US Kids Golf – Austin local tour",
-    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local"],
-    "hint": "Find the US Kids Golf local tour for Austin, Texas (it may be called Austin, Central Texas or similar) and list that tour's events only. The local tour pages list each event with a date and a course. Ignore tours in other cities.",
-    "maxPages": 8
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin"],
+    "hint": "List every event on the Austin Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's Austin schedule.",
+    "maxPages": 3
   },
   {
     "tourId": "usk-dallas",
     "label": "US Kids Golf – Dallas local tour",
-    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local"],
-    "hint": "Find the US Kids Golf local tour(s) for Dallas, Texas (names may include Dallas or North Dallas) and list those tours' events only. Ignore Fort Worth and tours in other cities unless the tour name includes Dallas.",
-    "maxPages": 8
-  },
-  {
-    "tourId": "ntpga",
-    "label": "Northern Texas PGA Junior Tour",
-    "startUrls": ["https://www.ntpgajuniorgolf.com/"],
-    "hint": "Find the Northern Texas PGA Junior Tour tournament schedule (all tours/divisions, e.g. Prep, Medalist, All American) and list every upcoming tournament.",
-    "maxPages": 8
+    "startUrls": ["https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas"],
+    "hint": "List every event on the Dallas Local Tour schedule (all seasons shown). If the page lists no events, suggest the link to the current season's Dallas schedule.",
+    "maxPages": 3
   }
 ]
