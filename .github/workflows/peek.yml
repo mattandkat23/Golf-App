@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'Page URL'
+        description: 'Page URL (several allowed, separated by spaces)'
         required: true
       filter:
         description: 'Only print lines matching this regex (optional)'
@@ -28,4 +28,9 @@ jobs:
         env:
           URL: ${{ inputs.url }}
           FILTER: ${{ inputs.filter }}
-        run: node --experimental-strip-types scraper/peek.ts "$URL" "$FILTER"
+        run: |
+          for u in $URL; do
+            echo "===== $u"
+            node --experimental-strip-types scraper/peek.ts "$u" "$FILTER" || echo "(failed)"
+          done
+          echo "===== END"
