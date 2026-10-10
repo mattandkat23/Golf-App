@@ -19,7 +19,7 @@ import { type EventsFile, type ScrapedEvent, hashText, mergeEventsFile, normaliz
 const EVENTS_PATH = process.env.SCRAPER_EVENTS_PATH ?? 'public/events.json';
 const CACHE_PATH = process.env.SCRAPER_CACHE_PATH ?? 'scraper/cache.json';
 const SOURCES_PATH = process.env.SCRAPER_SOURCES_PATH ?? 'scraper/sources.json';
-const PROMPT_VERSION = 1; // bump to invalidate cached extractions after changing the prompt or schema
+const PROMPT_VERSION = 2; // bump to invalidate cached extractions after changing the prompt or schema
 const MODEL = 'claude-opus-5-5';
 const USER_AGENT = 'Mozilla/5.0 (compatible; GolfTrackerBot/1.0; +https://github.com/mattandkat23/Golf-App)';
 const MAX_PAGE_CHARS = 150_000;
@@ -49,6 +49,9 @@ const Extraction = z.object({
       level: z.enum(['Local', 'State', 'Regional', 'World', 'Other']).nullable(),
     }),
   ),
+  isSchedulePage: z
+    .boolean()
+    .describe("True if this page is the requested tour's schedule or event list (even if none of its events match the request), false for overview, news or unrelated pages"),
   nextUrls: z.array(z.string()).describe('Up to 3 absolute URLs from the link list worth opening next to find more of this tour’s events'),
   notes: z.string().describe('One short sentence on what this page contained'),
 });
@@ -173,6 +176,7 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
   const queue = [...source.startUrls];
   const visited = new Set<string>();
   const raw: Extraction['events'] = [];
+  let sawSchedule = false;
   const errors: string[] = [];
   let pages = 0;
   while (queue.length && pages < (source.maxPages ?? 8)) {
@@ -212,6 +216,7 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
       }
       console.log(`    ${extraction.events.length} events · ${extraction.notes}`);
       raw.push(...extraction.events);
+      if (extraction.isSchedulePage) sawSchedule = true;
       for (const next of extraction.nextUrls.slice(0, 3)) {
         try {
           const abs = new URL(next, finalUrl).toString();
@@ -235,7 +240,8 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
   );
   // Finding no events at all (past or upcoming) usually means the site changed or blocked us; keep
   // last run's events in that case. Events that were found but are all in the past are a valid result.
-  const ok = raw.length > 0;
+  // A schedule page with no matching events (e.g. no Texas events this season) is also a valid result.
+  const ok = raw.length > 0 || sawSchedule;
   const error = ok ? (errors.length ? errors.join(' | ') : undefined) : errors.join(' | ') || 'No events found';
   return { tourId: source.tourId, ok, events, error };
 }
