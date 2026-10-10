@@ -42,9 +42,9 @@ function Nine({ holes, label }: { holes: HoleResult[]; label: string }) {
         <tr>
           <td>Putts</td>
           {holes.map((h) => (
-            <td key={h.hole}>{holeComplete(h) ? holePutts(h) : ''}</td>
+            <td key={h.hole}>{holeComplete(h) ? (holePutts(h) ?? '') : ''}</td>
           ))}
-          <td>{done.reduce((n, h) => n + holePutts(h), 0) || ''}</td>
+          <td>{done.reduce((n, h) => n + (holePutts(h) ?? 0), 0) || ''}</td>
         </tr>
         <tr>
           <td>FW</td>
@@ -56,9 +56,10 @@ function Nine({ holes, label }: { holes: HoleResult[]; label: string }) {
         </tr>
         <tr>
           <td>GIR</td>
-          {holes.map((h) => (
-            <td key={h.hole}>{holeComplete(h) ? (isGIR(h) ? '✓' : '·') : ''}</td>
-          ))}
+          {holes.map((h) => {
+            const gir = holeComplete(h) ? isGIR(h) : undefined;
+            return <td key={h.hole}>{gir === undefined ? '' : gir ? '✓' : '·'}</td>;
+          })}
           <td>{done.filter(isGIR).length || ''}</td>
         </tr>
       </tbody>

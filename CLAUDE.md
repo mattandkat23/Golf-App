@@ -25,7 +25,10 @@ GitHub/console settings, and keep replies short.
   `'me'`). Query them by golferId; use `useGolfer()` (`src/lib/golfer.tsx`) for the selected golfer, never `profile.get('me')`.
   Courses, tours and Available events are shared.
 - New Dexie tables/indexes also need a new version. Add new data to `exportBackup`/`importBackup`.
-- Stats: only holes whose last shot is `Holed` count. Proximity/putt distance are 5 ft buckets (`leaveFt` = lower bound).
+- Two entry modes per round (`Round.detailed`): **Basic** (default) stores `score`/`fairway`/`gir`/`putts` on the hole;
+  **Detailed** stores `shots`, which win when present. A hole counts when its last shot is `Holed` or (no shots) it has a
+  `score`. GIR falls back to score − putts; putts/GIR/fairways stats only use holes that recorded them.
+  Proximity/putt distance are 5 ft buckets (`leaveFt` = lower bound).
 - Keep it phone-first: big tap targets, native selects, works offline.
 
 ## Tour schedule scraper (`scraper/`, `.github/workflows/scrape.yml`)

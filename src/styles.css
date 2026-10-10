@@ -124,6 +124,8 @@ textarea { min-height: 80px; resize: vertical; }
 .grid-btns.c2 { grid-template-columns: repeat(2, 1fr); }
 .grid-btns.c3 { grid-template-columns: repeat(3, 1fr); }
 .grid-btns.c4 { grid-template-columns: repeat(4, 1fr); }
+.grid-btns.c5 { grid-template-columns: repeat(5, 1fr); }
+.grid-btns.c6 { grid-template-columns: repeat(6, 1fr); }
 .grid-btns .chip { border-radius: 12px; padding: 0 6px; }
 
 /* tab bar */
@@ -176,6 +178,8 @@ table.score th:first-child, table.score td:first-child { text-align: left; }
 .hole-strip button { min-height: 34px; min-width: 34px; padding: 0; border-radius: 8px; font-size: 0.8rem; flex: none; }
 .hole-strip button.cur { border: 2px solid var(--accent); font-weight: 700; }
 .hole-strip button.done { background: var(--surface-2); }
+.mode-switch { margin-top: 8px; }
+.mode-switch .chip { min-height: 32px; padding: 0 14px; font-size: 0.85rem; }
 .shot-list { list-style: none; padding: 0; margin: 0 0 12px; }
 .shot-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 6px; }
 .shot-list li.editing { border-color: var(--accent); }

@@ -6,8 +6,17 @@ import { useGolfer } from '../lib/golfer';
 import type { Round } from '../lib/types';
 import { Chips, Field, PageHead, today } from '../components/ui';
 import CoursePicker from '../components/CoursePicker';
+import { ENTRY_MODE_KEY } from './Play';
 
 const NEW_TEE = '__new__';
+
+function lastEntryMode() {
+  try {
+    return localStorage.getItem(ENTRY_MODE_KEY);
+  } catch {
+    return null;
+  }
+}
 
 export default function StartRound() {
   const [params] = useSearchParams();
@@ -52,6 +61,7 @@ export default function StartRound() {
       date,
       roundNumber: existing + 1,
       numHoles,
+      detailed: lastEntryMode() === 'detailed',
       holes: Array.from({ length: numHoles }, (_, i) => ({ hole: i + 1, par: pars[i] ?? 4, yards: tee?.yardages?.[i], shots: [] })),
     };
     const id = await db.rounds.add(round);

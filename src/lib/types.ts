@@ -70,11 +70,20 @@ export interface Shot {
   penalty?: number;
 }
 
+export type FairwayHit = 'Hit' | 'Left' | 'Right';
+
 export interface HoleResult {
   hole: number; // 1-based
   par: number;
   yards?: number;
+  /** Shot-by-shot detail. When present it is the source of truth and the basic fields below are ignored. */
   shots: Shot[];
+  /** Basic entry: strokes including penalties. */
+  score?: number;
+  fairway?: FairwayHit;
+  /** Green in regulation; when unset it's worked out from score and putts. */
+  gir?: boolean;
+  putts?: number;
 }
 
 export interface Round {
@@ -87,6 +96,8 @@ export interface Round {
   roundNumber: number;
   holes: HoleResult[];
   numHoles: 9 | 18;
+  /** Shot-by-shot entry instead of basic (score, fairway, green, putts). Unset = basic unless shots were entered. */
+  detailed?: boolean;
   weather?: string;
   reflection?: { wentWell?: string; workOn?: string; mental?: number };
   complete?: boolean;

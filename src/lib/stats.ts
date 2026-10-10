@@ -1,5 +1,8 @@
 import type { Contact, EndLie, HoleResult, Lie, Miss, Round, Shot, ShotType } from './types';
 
+/** Whether a round is entered shot by shot (rounds from before basic entry existed have shots). */
+export const isDetailed = (r: Round) => r.detailed ?? r.holes.some((h) => h.shots.length > 0);
+
 export const LEAVE_BUCKETS = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 export const bucketLabel = (ft: number) => (ft >= 60 ? '60+ ft' : `${ft}–${ft + 5} ft`);
 /** Representative distance for a bucket, used for averages. */
@@ -10,16 +13,19 @@ export const MISSES: Miss[] = ['Left', 'Right', 'Short', 'Long'];
 
 const onGreen = (l?: EndLie) => l === 'Green' || l === 'Holed';
 
+const hasShots = (h: HoleResult) => h.shots.length > 0;
+
 export function holeStrokes(h: HoleResult): number {
-  return h.shots.reduce((n, s) => n + 1 + (s.penalty ?? 0), 0);
+  return hasShots(h) ? h.shots.reduce((n, s) => n + 1 + (s.penalty ?? 0), 0) : (h.score ?? 0);
 }
 
-export function holePutts(h: HoleResult): number {
-  return h.shots.filter((s) => s.type === 'Putt').length;
+/** Putts on the hole, or undefined when a basic-entry hole didn't record them. */
+export function holePutts(h: HoleResult): number | undefined {
+  return hasShots(h) ? h.shots.filter((s) => s.type === 'Putt').length : h.putts;
 }
 
 export function holeComplete(h: HoleResult): boolean {
-  return h.shots.at(-1)?.endLie === 'Holed';
+  return hasShots(h) ? h.shots.at(-1)?.endLie === 'Holed' : h.score !== undefined;
 }
 
 /** Stroke count (incl. penalties) at which the ball first reached the green, or undefined. */
@@ -32,7 +38,12 @@ function strokesToGreen(h: HoleResult): number | undefined {
   return undefined;
 }
 
-export function isGIR(h: HoleResult): boolean {
+/** Green in regulation, or undefined when a basic-entry hole doesn't say and has no putts to work it out from. */
+export function isGIR(h: HoleResult): boolean | undefined {
+  if (!hasShots(h)) {
+    if (h.gir !== undefined) return h.gir;
+    return h.score !== undefined && h.putts !== undefined ? h.score - h.putts <= h.par - 2 : undefined;
+  }
   const n = strokesToGreen(h);
   return n !== undefined && n <= h.par - 2;
 }
@@ -41,6 +52,7 @@ export type FairwayResult = 'Hit' | 'Left' | 'Right' | 'Missed' | undefined;
 
 export function fairwayResult(h: HoleResult): FairwayResult {
   if (h.par < 4) return undefined;
+  if (!hasShots(h)) return h.fairway;
   const tee = h.shots[0];
   if (!tee?.endLie) return undefined;
   if (tee.endLie === 'Fairway' || tee.endLie === 'Green' || tee.endLie === 'Holed') return 'Hit';
@@ -91,6 +103,8 @@ export interface Stats {
   fairways: Rate;
   fairwayMiss: Record<'Left' | 'Right' | 'Missed', number>;
   gir: Rate;
+  /** Holes with putts recorded (basic-entry holes may leave them out). */
+  puttHoles: number;
   puttsPerHole?: number;
   puttsPer18?: number;
   threePutts: number;
@@ -119,6 +133,7 @@ export function computeStats(rounds: Round[]): Stats {
     fairways: { made: 0, total: 0 },
     fairwayMiss: { Left: 0, Right: 0, Missed: 0 },
     gir: { made: 0, total: 0 },
+    puttHoles: 0,
     threePutts: 0,
     scrambling: { made: 0, total: 0 },
     sandSaves: { made: 0, total: 0 },
@@ -143,8 +158,11 @@ export function computeStats(rounds: Round[]): Stats {
     const hp = holePutts(h);
     strokes += hs;
     par += h.par;
-    putts += hp;
-    if (hp >= 3) s.threePutts++;
+    if (hp !== undefined) {
+      putts += hp;
+      s.puttHoles++;
+      if (hp >= 3) s.threePutts++;
+    }
 
     const diff = hs - h.par;
     s.scoreDist[diff <= -2 ? 'Eagle+' : diff === -1 ? 'Birdie' : diff === 0 ? 'Par' : diff === 1 ? 'Bogey' : diff === 2 ? 'Double' : 'Triple+']++;
@@ -162,9 +180,9 @@ export function computeStats(rounds: Round[]): Stats {
     }
 
     const gir = isGIR(h);
-    s.gir.total++;
+    if (gir !== undefined) s.gir.total++;
     if (gir) s.gir.made++;
-    else {
+    else if (gir === false) {
       s.scrambling.total++;
       if (hs <= h.par) s.scrambling.made++;
     }
@@ -213,8 +231,10 @@ export function computeStats(rounds: Round[]): Stats {
   const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : undefined);
   s.scoringAvg18 = (strokes / holes.length) * 18;
   s.toParPer18 = ((strokes - par) / holes.length) * 18;
-  s.puttsPerHole = putts / holes.length;
-  s.puttsPer18 = s.puttsPerHole * 18;
+  if (s.puttHoles) {
+    s.puttsPerHole = putts / s.puttHoles;
+    s.puttsPer18 = s.puttsPerHole * 18;
+  }
   for (const p of [3, 4, 5] as const) if (s.byPar[p].holes) s.byPar[p].avg = parSums[p] / s.byPar[p].holes;
   s.approachProximityFt = avg(proximities);
   s.firstPuttAvgFt = avg(firstPutts);
@@ -225,6 +245,7 @@ export interface RoundSummary {
   strokes: number;
   par: number;
   holesPlayed: number;
+  /** Sum over holes with putts recorded. */
   putts: number;
   front?: number;
   back?: number;
@@ -239,7 +260,7 @@ export function summarizeRound(r: Round): RoundSummary {
     strokes: sum(done),
     par: done.reduce((n, h) => n + h.par, 0),
     holesPlayed: done.length,
-    putts: done.reduce((n, h) => n + holePutts(h), 0),
+    putts: done.reduce((n, h) => n + (holePutts(h) ?? 0), 0),
     front: front.length ? sum(front) : undefined,
     back: back.length ? sum(back) : undefined,
   };

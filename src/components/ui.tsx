@@ -41,7 +41,7 @@ export function Chips<T extends string | number>({
   onChange: (v: T | undefined) => void;
   allowClear?: boolean;
   scroll?: boolean;
-  grid?: 2 | 3 | 4;
+  grid?: 2 | 3 | 4 | 5 | 6;
   label?: (o: T) => ReactNode;
 }) {
   return (

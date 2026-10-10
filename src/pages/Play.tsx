@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
-import type { Contact, EndLie, HoleResult, Lie, Miss, Round, Shot, ShotType } from '../lib/types';
+import type { Contact, EndLie, FairwayHit, HoleResult, Lie, Miss, Round, Shot, ShotType } from '../lib/types';
 import {
   CONTACTS,
   LEAVE_BUCKETS,
@@ -12,12 +12,17 @@ import {
   holePutts,
   holeStrokes,
   inferShotType,
+  isDetailed,
+  isGIR,
   nextStartLie,
   summarizeRound,
   toParLabel,
 } from '../lib/stats';
 import { Chips, MultiChips } from '../components/ui';
 import Scorecard from '../components/Scorecard';
+
+/** Remembers the last entry mode so new rounds start the same way. */
+export const ENTRY_MODE_KEY = 'entryMode';
 
 const LIES: Lie[] = ['Tee', 'Fairway', 'Rough', 'Bunker', 'Fringe', 'Green', 'Recovery'];
 const TYPES: ShotType[] = ['Tee', 'Approach', 'Short game', 'Putt'];
@@ -66,7 +71,9 @@ export default function Play() {
   }, [id]);
 
   const hole = round?.holes[holeIdx];
-  const done = hole ? holeComplete(hole) : false;
+  const detailed = round ? isDetailed(round) : false;
+  // In detailed mode a hole scored in basic mode (no shots yet) is still open for shot entry.
+  const done = hole ? holeComplete(hole) && (!detailed || hole.shots.length > 0) : false;
 
   // Fresh draft whenever we land on a hole / finish editing.
   useEffect(() => {
@@ -114,6 +121,16 @@ export default function Play() {
   function removeShot(i: number) {
     updateHole({ ...hole!, shots: hole!.shots.filter((_, j) => j !== i) });
     setEditIdx(-1);
+  }
+
+  function setDetailed(on: boolean) {
+    persist({ ...round!, detailed: on });
+    setEditIdx(-1);
+    try {
+      localStorage.setItem(ENTRY_MODE_KEY, on ? 'detailed' : 'basic');
+    } catch {
+      // Not remembered in private browsing; that's fine.
+    }
   }
 
   function goHole(i: number) {
@@ -183,9 +200,32 @@ export default function Play() {
             </button>
           ))}
         </div>
+        <div className="chips mode-switch" role="tablist" aria-label="Entry mode">
+          {([false, true] as const).map((on) => (
+            <button key={String(on)} role="tab" aria-selected={detailed === on} className={`chip${detailed === on ? ' on' : ''}`} onClick={() => setDetailed(on)}>
+              {on ? 'Detailed' : 'Basic'}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {hole.shots.length > 0 && (
+      {!detailed && (
+        <BasicHole
+          hole={hole}
+          isLast={isLast}
+          onChange={updateHole}
+          onNext={() => (isLast ? setShowCard(true) : goHole(holeIdx + 1))}
+          onDetailed={() => setDetailed(true)}
+        />
+      )}
+
+      {detailed && hole.shots.length === 0 && hole.score !== undefined && (
+        <p className="muted small">
+          Scored {hole.score} in basic mode. Shots you enter here replace that score.
+        </p>
+      )}
+
+      {detailed && hole.shots.length > 0 && (
         <ul className="shot-list">
           {hole.shots.map((s, i) => (
             <li
@@ -209,7 +249,7 @@ export default function Play() {
         </ul>
       )}
 
-      {done && editIdx === -1 && (
+      {detailed && done && editIdx === -1 && (
         <div className="card" style={{ textAlign: 'center' }}>
           <div className="big">{holeStrokes(hole)}</div>
           <div className="muted">
@@ -229,7 +269,7 @@ export default function Play() {
         </div>
       )}
 
-      {draft && (
+      {detailed && draft && (
         <div className="card editor">
           <div className="row between">
             <h2>{editIdx === -1 ? `Shot ${hole.shots.length + 1}` : `Edit shot ${editIdx + 1}`}</h2>
@@ -315,12 +355,85 @@ export default function Play() {
         </div>
       )}
 
-      {editIdx === -1 && hole.shots.length > 0 && !done && (
+      {detailed && editIdx === -1 && hole.shots.length > 0 && !done && (
         <button className="block" onClick={() => removeShot(hole.shots.length - 1)}>
           Undo last shot
         </button>
       )}
     </>
+  );
+}
+
+const FAIRWAY: FairwayHit[] = ['Left', 'Hit', 'Right'];
+
+/** Quick per-hole entry: score, fairway, green in regulation and putts. */
+function BasicHole({
+  hole,
+  isLast,
+  onChange,
+  onNext,
+  onDetailed,
+}: {
+  hole: HoleResult;
+  isLast: boolean;
+  onChange: (h: HoleResult) => void;
+  onNext: () => void;
+  onDetailed: () => void;
+}) {
+  if (hole.shots.length > 0) {
+    return (
+      <div className="card" style={{ textAlign: 'center' }}>
+        <div className="big">{holeComplete(hole) ? holeStrokes(hole) : '–'}</div>
+        <p className="muted small">This hole was entered shot by shot.</p>
+        <div className="row">
+          <button className="grow" onClick={onDetailed}>
+            Edit shots
+          </button>
+          <button className="grow primary" onClick={onNext}>
+            {isLast ? 'Finish round' : 'Next hole ›'}
+          </button>
+        </div>
+      </div>
+    );
+  }
+  const set = (patch: Partial<HoleResult>) => onChange({ ...hole, ...patch });
+  const scores = Array.from({ length: hole.par + 5 }, (_, i) => i + 1);
+  if (hole.score && !scores.includes(hole.score)) scores.push(hole.score);
+  const gir = isGIR(hole);
+  return (
+    <div className="card editor">
+      <h3>Score</h3>
+      <Chips options={scores} value={hole.score} grid={5} onChange={(v) => set({ score: v })} />
+      {hole.score === undefined || hole.score < hole.par + 5 ? null : (
+        <div className="row" style={{ marginTop: 8 }}>
+          <button className="small-btn" onClick={() => set({ score: hole.score! + 1 })}>
+            + 1 more
+          </button>
+        </div>
+      )}
+
+      {hole.par >= 4 && (
+        <>
+          <h3>Fairway</h3>
+          <Chips options={FAIRWAY} value={hole.fairway} grid={3} allowClear label={(f) => (f === 'Hit' ? 'Hit ✓' : f === 'Left' ? '← Left' : 'Right →')} onChange={(v) => set({ fairway: v })} />
+        </>
+      )}
+
+      <h3>Green in regulation</h3>
+      <Chips options={['Yes', 'No'] as const} value={gir === undefined ? undefined : gir ? 'Yes' : 'No'} grid={2} onChange={(v) => v && set({ gir: v === 'Yes' })} />
+
+      <h3>Putts</h3>
+      <Chips options={[0, 1, 2, 3, 4, 5]} value={hole.putts} grid={6} allowClear onChange={(v) => set({ putts: v })} />
+
+      <div className="sticky-actions">
+        <button className="primary block" disabled={hole.score === undefined} onClick={onNext}>
+          {isLast ? 'Finish round' : 'Next hole ›'}
+        </button>
+      </div>
+      <p className="muted small" style={{ textAlign: 'center', marginBottom: 0 }}>
+        Want clubs, misses, lies and putt distances? Switch to <a href="#" onClick={(e) => (e.preventDefault(), onDetailed())}>Detailed</a>.
+      </p>
+    </div>
   );
 }
 

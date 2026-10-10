@@ -112,3 +112,35 @@ describe('summarizeRound', () => {
     expect(summarizeRound(round)).toMatchObject({ strokes: 15, par: 12, holesPlayed: 3, putts: 6, front: 15 });
   });
 });
+
+describe('basic (non shot-by-shot) holes', () => {
+  const basic = (hole: number, par: number, extra: Partial<HoleResult>): HoleResult => ({ hole, par, shots: [], ...extra });
+
+  it('uses the entered score, fairway, green and putts', () => {
+    const h = basic(1, 4, { score: 5, fairway: 'Left', putts: 2 });
+    expect(holeStrokes(h)).toBe(5);
+    expect(fairwayResult(h)).toBe('Left');
+    expect(isGIR(h)).toBe(false); // on in 3 on a par 4
+    expect(isGIR(basic(2, 4, { score: 4, putts: 2 }))).toBe(true);
+    expect(isGIR(basic(3, 4, { score: 4, putts: 2, gir: false }))).toBe(false); // explicit answer wins
+    expect(isGIR(basic(4, 4, { score: 4 }))).toBeUndefined();
+  });
+
+  it('mixes with shot-by-shot holes and only counts what was recorded', () => {
+    const r: Round = {
+      golferId: 'me',
+      date: '2026-10-02',
+      roundNumber: 1,
+      numHoles: 9,
+      holes: [par4, basic(2, 4, { score: 4, fairway: 'Hit', putts: 2 }), basic(3, 3, { score: 3 }), basic(4, 5, {})],
+    };
+    const s = computeStats([r]);
+    expect(s.holes).toBe(3); // the hole with no score isn't finished
+    expect(s.scoringAvg18).toBeCloseTo(((4 + 4 + 3) / 3) * 18);
+    expect(s.puttHoles).toBe(2);
+    expect(s.puttsPerHole).toBe(2);
+    expect(s.gir).toEqual({ made: 2, total: 2 });
+    expect(s.fairways).toEqual({ made: 1, total: 2 });
+    expect(summarizeRound(r)).toMatchObject({ strokes: 11, holesPlayed: 3, putts: 4 });
+  });
+});
