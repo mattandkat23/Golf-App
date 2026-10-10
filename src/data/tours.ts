@@ -12,7 +12,7 @@ export const SEED_TOURS: Tour[] = [
   { id: 'usk-san-antonio', name: 'US Kids – San Antonio', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio', region: 'San Antonio' },
   { id: 'usk-el-paso', name: 'US Kids – El Paso', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso', region: 'Other Texas' },
   { id: 'usk-state', name: 'US Kids – Texas State', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/state' },
-  { id: 'usk-regional', name: 'US Kids – Regionals', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/regional' },
+  { id: 'usk-regional', name: 'US Kids – Regionals (all)', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/regional' },
   { id: 'usk-world', name: 'US Kids – World Championships', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/world', region: 'Other' },
   { id: 'ntpga', name: 'Northern Texas PGA Junior Tour', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
   { id: 'stpga', name: 'South Texas PGA Junior Tour', org: 'STPGA', url: 'https://www.stpga.com/', region: 'Houston' },

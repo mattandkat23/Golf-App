@@ -62,13 +62,14 @@
   },
   {
     "tourId": "usk-regional",
-    "label": "US Kids Golf – regional championships",
+    "label": "US Kids Golf – regional championships (all)",
     "startUrls": [
-      "https://tournaments.uskidsgolf.com/tournaments/regional",
-      "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf"
+      "https://tournaments.uskidsgolf.com/sites/default/files/2027_regional_invitation_schedule.pdf",
+      "https://tournaments.uskidsgolf.com/sites/default/files/2026_regional_invitation_schedule.pdf",
+      "https://tournaments.uskidsgolf.com/tournaments/regional"
     ],
-    "hint": "US Kids Golf regional championships held in Texas or a neighboring state (Oklahoma, Louisiana, Arkansas, New Mexico), for the current and next season. Put the city and state in the city field (e.g. 'Horseshoe Bay, TX'). The regional schedule may be a PDF. Ignore regionals in other states.",
-    "maxPages": 5,
+    "hint": "Every US Kids Golf regional championship in every state, for the current and next season. Put the city and state in the city field (e.g. 'Horseshoe Bay, TX'). The regional schedule is usually a PDF; also use each regional's own page link as the url when available.",
+    "maxPages": 4,
     "level": "Regional"
   },
   {
