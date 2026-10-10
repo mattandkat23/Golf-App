@@ -1,66 +1,65 @@
 {
- "generatedAt": "2026-10-10T20:51:37.902Z",
+ "generatedAt": "2026-10-10T20:56:59.674Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-houston": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 7
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 2
   },
   "usk-state": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 0
   },
   "usk-regional": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 19
   },
   "usk-world": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 2
   },
   "ajga": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 8
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 4
   },
   "stpga": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
+   "checkedAt": "2026-10-10T20:56:59.674Z",
    "ok": true,
    "eventCount": 1
   },
   "hjgt": {
-   "checkedAt": "2026-10-10T20:51:37.902Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "No events found"
+   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "ok": true,
+   "eventCount": 0
   }
  },
  "events": [
@@ -103,7 +102,6 @@
    "name": "Olmos Basin Golf Course",
    "startDate": "2026-10-10",
    "courseName": "Olmos Basin Golf Course",
-   "city": "San Antonio",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519506/olmos-basin-golf-course",
    "level": "Local"
   },
@@ -144,7 +142,6 @@
    "name": "Mission Del Lago Municipal Golf Course",
    "startDate": "2026-10-11",
    "courseName": "Mission Del Lago Municipal Golf Course",
-   "city": "San Antonio",
    "registrationDeadline": "2026-10-08",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519507/mission-del-lago-municipal-golf-course",
    "level": "Local"
@@ -201,9 +198,9 @@
    "level": "Local"
   },
   {
-   "id": "usk-el-paso-2026-11-01-31skag",
+   "id": "usk-el-paso-2026-11-01-13kewlp",
    "tourId": "usk-el-paso",
-   "name": "El Paso Local Tour - Painted Dunes Golf Club - East/West",
+   "name": "Painted Dunes Golf Club - East/West",
    "startDate": "2026-11-01",
    "courseName": "Painted Dunes Golf Club - East/West",
    "registrationDeadline": "2026-10-29",
@@ -346,19 +343,8 @@
    "name": "Willow Springs Golf Course",
    "startDate": "2026-11-21",
    "courseName": "Willow Springs Golf Course",
-   "city": "San Antonio",
    "registrationDeadline": "2026-11-18",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519508/willow-springs-golf-course",
-   "level": "Local"
-  },
-  {
-   "id": "usk-el-paso-2026-11-22-ck7v6v",
-   "tourId": "usk-el-paso",
-   "name": "El Paso Local Tour Championship - New Mexico State University Golf Course",
-   "startDate": "2026-11-22",
-   "courseName": "New Mexico State University Golf Course",
-   "registrationDeadline": "2026-11-19",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519395/new-mexico-state-university-golf-course-tour-championship",
    "level": "Local"
   },
   {
@@ -367,9 +353,18 @@
    "name": "Hyatt Hill Country Golf Club (Tour Championship)",
    "startDate": "2026-11-22",
    "courseName": "Hyatt Hill Country Golf Club",
-   "city": "San Antonio",
    "registrationDeadline": "2026-11-19",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519509/hyatt-hill-country-golf-club-tour-championship",
+   "level": "Local"
+  },
+  {
+   "id": "usk-el-paso-2026-11-22-hcricu",
+   "tourId": "usk-el-paso",
+   "name": "New Mexico State University Golf Course (Tour Championship)",
+   "startDate": "2026-11-22",
+   "courseName": "New Mexico State University Golf Course",
+   "registrationDeadline": "2026-11-19",
+   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519395/new-mexico-state-university-golf-course-tour-championship",
    "level": "Local"
   },
   {
@@ -457,7 +452,7 @@
    "city": "Horseshoe Bay",
    "ageGroups": "Boys & Girls 11-18",
    "url": "https://www.stpgajuniorgolf.com/junior-tour-fall-championship",
-   "level": "State"
+   "level": "Local"
   },
   {
    "id": "usk-houston-2026-12-13-16v189u",
@@ -549,7 +544,7 @@
    "startDate": "2027-07-22",
    "endDate": "2027-07-24",
    "city": "Pinehurst, NC",
-   "ageGroups": "Boys & Girls 5-12",
+   "ageGroups": "Ages 5-12",
    "level": "World"
   },
   {
@@ -558,7 +553,7 @@
    "name": "World Van Horn Cup 2027",
    "startDate": "2027-07-25",
    "city": "Pinehurst, NC",
-   "ageGroups": "Boys & Girls 12",
+   "ageGroups": "Top 12-year-old boys and girls",
    "level": "World"
   },
   {
