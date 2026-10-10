@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import type { EventStatus, TourLevel, Tournament } from '../lib/types';
 import { Chips, Field, PageHead, today } from '../components/ui';
 import CoursePicker from '../components/CoursePicker';
@@ -13,14 +14,17 @@ const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Waitlisted', 'Pla
 export default function TournamentForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [t, setT] = useState<Tournament>({ name: '', level: 'Local', startDate: today(), status: 'Registered' });
+  const { golfer } = useGolfer();
+  const [t, setT] = useState<Tournament>({ golferId: golfer.id, name: '', level: 'Local', startDate: today(), status: 'Registered' });
 
   useEffect(() => {
     if (id) db.tournaments.get(Number(id)).then((x) => x && setT(x));
     else
-      db.profile.get('me').then((p) =>
-        setT((cur) => ({ ...cur, ageGroup: cur.ageGroup ?? p?.ageGroup, tourId: cur.tourId ?? (p?.myTours?.length === 1 ? p.myTours[0] : undefined) })),
-      );
+      setT((cur) => ({
+        ...cur,
+        ageGroup: cur.ageGroup ?? golfer.ageGroup,
+        tourId: cur.tourId ?? (golfer.myTours?.length === 1 ? golfer.myTours[0] : undefined),
+      }));
   }, [id]);
 
   const set = <K extends keyof Tournament>(k: K, v: Tournament[K]) => setT((cur) => ({ ...cur, [k]: v }));

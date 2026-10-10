@@ -21,6 +21,9 @@ GitHub/console settings, and keep replies short.
 
 - **Changing `SEED_TOURS`** → add a new `this.version(N).upgrade(... bulkPut(SEED_TOURS))` in `db.ts`, or
   existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration (see v5).
+- **Multiple golfers** (v10): tournaments, rounds and practice carry `golferId` (a `profile` id; first golfer is
+  `'me'`). Query them by golferId; use `useGolfer()` (`src/lib/golfer.tsx`) for the selected golfer, never `profile.get('me')`.
+  Courses, tours and Available events are shared.
 - New Dexie tables/indexes also need a new version. Add new data to `exportBackup`/`importBackup`.
 - Stats: only holes whose last shot is `Holed` count. Proximity/putt distance are 5 ft buckets (`leaveFt` = lower bound).
 - Keep it phone-first: big tap targets, native selects, works offline.
@@ -60,7 +63,6 @@ deploy. The scrape workflow commits to `main` too, so pull/rebase before pushing
 ## Open ideas / not built yet
 
 - Live sharing with coach/spouse (invites, view-only/edit) — needs a backend (e.g. Supabase free tier).
-- Multiple golfers per phone.
 - Reading each US Kids event page for fees/age groups/city.
 - Under Armour Junior Tour (uagolftour.com) and TJGT aren't scraped yet.
 - Verify "Add to Calendar" (.ics) behavior on a real iPhone.

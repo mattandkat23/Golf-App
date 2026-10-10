@@ -1,21 +1,21 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
 import { DateBox, Kpi, fmtDate, today } from '../components/ui';
 import { findConflicts, upcomingDeadlines } from '../lib/schedule';
 
 export default function Home() {
-  const profile = useLiveQuery(() => db.profile.get('me'), []);
-  const upcoming = useLiveQuery(
-    () => db.tournaments.where('startDate').aboveOrEqual(today()).filter((t) => t.status !== 'Withdrew').limit(3).toArray(),
-    [],
-  );
+  const { golfer } = useGolfer();
+  const gid = golfer.id;
   const courses = useLiveQuery(() => db.courses.toArray(), []);
-  const inProgress = useLiveQuery(() => db.rounds.filter((r) => !r.complete).toArray(), []);
-  const recent = useLiveQuery(() => db.rounds.orderBy('date').reverse().filter((r) => !!r.complete).limit(10).toArray(), []);
-  const lastPractice = useLiveQuery(() => db.practice.orderBy('date').reverse().first(), []);
-  const allEvents = useLiveQuery(() => db.tournaments.toArray(), []);
+  const rounds = useLiveQuery(() => db.rounds.where('golferId').equals(gid).sortBy('date'), [gid]);
+  const inProgress = rounds?.filter((r) => !r.complete);
+  const recent = rounds?.filter((r) => !!r.complete).slice(-10);
+  const lastPractice = useLiveQuery(async () => (await db.practice.where('golferId').equals(gid).sortBy('date')).at(-1), [gid]);
+  const allEvents = useLiveQuery(() => db.tournaments.where('golferId').equals(gid).sortBy('startDate'), [gid]);
+  const upcoming = allEvents?.filter((t) => t.startDate >= today() && t.status !== 'Withdrew').slice(0, 3);
   const deadlines = allEvents ? upcomingDeadlines(allEvents, today()) : [];
   const conflictCount = allEvents ? findConflicts(allEvents, today()).size : 0;
   const courseName = (id?: number) => courses?.find((c) => c.id === id)?.name ?? '';
@@ -26,7 +26,7 @@ export default function Home() {
       <div className="page-head">
         <div>
           <div className="muted small">{fmtDate(today())}</div>
-          <h1>{profile?.playerName ?? 'Golf'}</h1>
+          <h1>{golfer.playerName || 'Golf'}</h1>
         </div>
         <Link className="btn primary" to="/round/new">
           Start round

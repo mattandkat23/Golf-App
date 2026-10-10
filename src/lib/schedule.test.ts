@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { findConflicts, seasonSummary, upcomingDeadlines } from './schedule';
+import { findConflicts, findFamilyClashes, seasonSummary, upcomingDeadlines } from './schedule';
 import { courseKey, matchCourse, regionForCity } from './courseMatch';
 import { buildIcs, tournamentToIcs } from './ics';
 import type { Course, Tournament } from './types';
 
-const T = (id: number, startDate: string, extra: Partial<Tournament> = {}): Tournament => ({ id, name: `E${id}`, level: 'Local', startDate, status: 'Registered', ...extra });
+const T = (id: number, startDate: string, extra: Partial<Tournament> = {}): Tournament => ({ id, name: `E${id}`, golferId: 'me', level: 'Local', startDate, status: 'Registered', ...extra });
 
 describe('findConflicts', () => {
   it('flags overlapping upcoming events only', () => {
@@ -21,6 +21,26 @@ describe('findConflicts', () => {
     );
     expect([...c.keys()].sort()).toEqual([1, 2]);
     expect(c.get(1)!.map((t) => t.id)).toEqual([2]);
+  });
+});
+
+describe('findFamilyClashes', () => {
+  it("flags a sibling's different event on the same dates, not the same event", () => {
+    const c = findFamilyClashes(
+      [
+        T(1, '2026-11-07', { endDate: '2026-11-08' }),
+        T(2, '2026-11-08', { golferId: 'p-2' }), // sibling elsewhere: clash
+        T(3, '2026-11-07', { golferId: 'p-2', courseId: 9 }), // same course and day as 4: same event
+        T(4, '2026-11-07', { courseId: 9, endDate: '2026-11-07' }),
+        T(5, '2026-12-01', { sourceEventId: 'x' }),
+        T(6, '2026-12-01', { golferId: 'p-2', sourceEventId: 'x' }),
+        T(7, '2026-11-08', { golferId: 'p-2', status: 'Withdrew' }),
+      ],
+      'me',
+      '2026-10-10',
+    );
+    expect([...c.keys()]).toEqual([1]);
+    expect(c.get(1)!.map((t) => t.id)).toEqual([2, 3]);
   });
 });
 
@@ -89,6 +109,9 @@ describe('ics', () => {
     expect(ics).toContain('SUMMARY:Register: Fall\\, Classic');
     expect(ics).toContain('LOCATION:Grey Rock Golf Club\\, Austin');
     expect(ics.split('\r\n').every((l) => l.length <= 75)).toBe(true);
+    const named = buildIcs(tournamentToIcs(t, undefined, undefined, 'Emma'));
+    expect(named).toContain('SUMMARY:⛳ Emma: Fall\\, Classic');
+    expect(named).toContain('SUMMARY:Register: Fall\\, Classic (Emma)');
     const timed = buildIcs(tournamentToIcs(T(8, '2026-11-07', { teeTime: '08:30' })));
     expect(timed).toContain('DTSTART:20261107T083000');
   });

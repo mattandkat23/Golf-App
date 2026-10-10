@@ -16,7 +16,7 @@ export default function TournamentDetail() {
   const course = useLiveQuery(() => (t?.courseId ? db.courses.get(t.courseId) : undefined), [t?.courseId]);
   const rounds = useLiveQuery(() => db.rounds.where('tournamentId').equals(id).sortBy('roundNumber'), [id]);
   const tour = useLiveQuery(() => (t?.tourId ? db.tours.get(t.tourId) : undefined), [t?.tourId]);
-  const all = useLiveQuery(() => db.tournaments.toArray(), []);
+  const all = useLiveQuery(() => (t ? db.tournaments.where('golferId').equals(t.golferId).toArray() : []), [t?.golferId]);
   if (!t) return null;
   const clashes = all ? findConflicts(all, today()).get(id) : undefined;
   const stats = rounds?.length ? computeStats(rounds) : undefined;

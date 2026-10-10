@@ -42,12 +42,16 @@ export function buildIcs(events: IcsEvent[], stamp = new Date()): string {
   return lines.map(fold).join('\r\n') + '\r\n';
 }
 
-/** Calendar entries for a tournament: the event itself, plus a reminder on its registration deadline if he isn't registered yet. */
-export function tournamentToIcs(t: Tournament, courseLabel?: string, tourName?: string): IcsEvent[] {
+/**
+ * Calendar entries for a tournament: the event itself, plus a reminder on its registration deadline if he isn't registered yet.
+ * Pass `golferName` when the phone has several golfers so the calendar shows whose event it is.
+ */
+export function tournamentToIcs(t: Tournament, courseLabel?: string, tourName?: string, golferName?: string): IcsEvent[] {
+  const who = golferName ? `${golferName}: ` : '';
   const out: IcsEvent[] = [
     {
       uid: `t${t.id}`,
-      title: `⛳ ${t.name}`,
+      title: `⛳ ${who}${t.name}`,
       startDate: t.startDate,
       endDate: t.endDate,
       time: t.teeTime,
@@ -57,7 +61,7 @@ export function tournamentToIcs(t: Tournament, courseLabel?: string, tourName?: 
     },
   ];
   if (t.registrationDeadline && (t.status === 'Considering' || t.status === 'Waitlisted')) {
-    out.push({ uid: `t${t.id}-reg`, title: `Register: ${t.name}`, startDate: t.registrationDeadline, url: t.url });
+    out.push({ uid: `t${t.id}-reg`, title: `Register: ${t.name}${golferName ? ` (${golferName})` : ''}`, startDate: t.registrationDeadline, url: t.url });
   }
   return out;
 }

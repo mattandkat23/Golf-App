@@ -51,7 +51,7 @@ export default function Play() {
   const [editIdx, setEditIdx] = useState<number>(-1); // -1 = new shot
   const [draft, setDraft] = useState<Shot>();
   const [showCard, setShowCard] = useState(false);
-  const profile = useLiveQuery(() => db.profile.get('me'), []);
+  const profile = useLiveQuery(() => (round ? db.profile.get(round.golferId) : undefined), [round?.golferId]);
   const course = useLiveQuery(() => (round?.courseId ? db.courses.get(round.courseId) : undefined), [round?.courseId]);
   const clubs = useMemo(() => profile?.bag.map((c) => c.name).filter((c) => c !== 'Putter') ?? [], [profile]);
 

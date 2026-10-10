@@ -29,6 +29,8 @@ export interface Tour {
 
 export interface Tournament {
   id?: number;
+  /** Profile id of the golfer this event belongs to. */
+  golferId: string;
   name: string;
   level: TourLevel;
   tourId?: string;
@@ -77,6 +79,7 @@ export interface HoleResult {
 
 export interface Round {
   id?: number;
+  golferId: string;
   tournamentId?: number; // undefined = casual/practice round
   courseId?: number;
   teeName?: string;
@@ -98,6 +101,7 @@ export interface Drill {
 
 export interface PracticeSession {
   id?: number;
+  golferId: string;
   date: string;
   location?: string;
   minutes: number;
@@ -112,8 +116,9 @@ export interface Club {
   updated?: string;
 }
 
+/** One golfer. The first golfer on a phone has id 'me'; golfers added later get 'p-<timestamp>'. */
 export interface Profile {
-  id: 'me';
+  id: string;
   playerName: string;
   ageGroup?: string;
   bag: Club[];

@@ -1,11 +1,13 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import type { PracticeFocus } from '../lib/types';
 import { Bars, DateBox, PageHead, today } from '../components/ui';
 
 export default function Practice() {
-  const sessions = useLiveQuery(() => db.practice.orderBy('date').reverse().toArray(), []);
+  const gid = useGolfer().golfer.id;
+  const sessions = useLiveQuery(async () => (await db.practice.where('golferId').equals(gid).sortBy('date')).reverse(), [gid]);
   const since = new Date();
   since.setDate(since.getDate() - 30);
   const cutoff = since.toISOString().slice(0, 10);

@@ -1,17 +1,19 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import { summarizeRound, toParLabel } from '../lib/stats';
 import { DateBox, PageHead } from '../components/ui';
 
 export default function Rounds() {
-  const rounds = useLiveQuery(() => db.rounds.orderBy('date').reverse().toArray(), []);
+  const { golfer } = useGolfer();
+  const rounds = useLiveQuery(async () => (await db.rounds.where('golferId').equals(golfer.id).sortBy('date')).reverse(), [golfer.id]);
   const courses = useLiveQuery(() => db.courses.toArray(), []);
   const tournaments = useLiveQuery(() => db.tournaments.toArray(), []);
 
   return (
     <>
-      <PageHead title="All rounds" back="/more" />
+      <PageHead title={golfer.playerName ? `${golfer.playerName}'s rounds` : 'All rounds'} back="/more" />
       <div className="card">
         {rounds?.length ? (
           <ul className="list">

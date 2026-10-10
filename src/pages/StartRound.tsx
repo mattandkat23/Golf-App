@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import type { Round } from '../lib/types';
 import { Chips, Field, PageHead, today } from '../components/ui';
 import CoursePicker from '../components/CoursePicker';
@@ -12,6 +13,7 @@ export default function StartRound() {
   const [params] = useSearchParams();
   const tournamentId = params.get('tournament') ? Number(params.get('tournament')) : undefined;
   const navigate = useNavigate();
+  const { golfer } = useGolfer();
   const tournament = useLiveQuery(() => (tournamentId ? db.tournaments.get(tournamentId) : undefined), [tournamentId]);
   const [courseId, setCourseId] = useState<number>();
   const [teeName, setTeeName] = useState('');
@@ -43,6 +45,7 @@ export default function StartRound() {
     const pars = tee?.pars ?? Array(numHoles).fill(4);
     const existing = tournamentId ? await db.rounds.where('tournamentId').equals(tournamentId).count() : 0;
     const round: Round = {
+      golferId: tournament?.golferId ?? golfer.id,
       tournamentId,
       courseId,
       teeName: course ? name : undefined,

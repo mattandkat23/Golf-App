@@ -13,6 +13,7 @@ import CourseForm from './pages/CourseForm';
 import More from './pages/More';
 import Rounds from './pages/Rounds';
 import Import from './pages/Import';
+import { GolferProvider, GolferSwitch } from './lib/golfer';
 
 const icon = (d: string) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -31,9 +32,11 @@ const TABS = [
 function Shell() {
   const { pathname } = useLocation();
   const playing = pathname.startsWith('/play/');
+  const onTab = TABS.some((t) => t.to === pathname);
   return (
     <>
       <main className={`app${playing ? ' play' : ''}`}>
+        {onTab && <GolferSwitch />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/schedule" element={<Schedule />} />
@@ -71,7 +74,9 @@ function Shell() {
 export default function App() {
   return (
     <HashRouter>
-      <Shell />
+      <GolferProvider>
+        <Shell />
+      </GolferProvider>
     </HashRouter>
   );
 }

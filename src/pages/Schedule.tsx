@@ -2,10 +2,11 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
-import type { Course, Tour, Tournament } from '../lib/types';
+import type { Course, Profile, Tour, Tournament } from '../lib/types';
 import { DateBox, PageHead, fmtDate, today } from '../components/ui';
 import MonthCalendar from '../components/MonthCalendar';
-import { ON_SCHEDULE, findConflicts, seasonSummary } from '../lib/schedule';
+import { ON_SCHEDULE, findConflicts, findFamilyClashes, seasonSummary } from '../lib/schedule';
+import { useGolfer } from '../lib/golfer';
 import { tourColor, useMyTours } from '../lib/tourColors';
 import { buildIcs, openIcs, shareIcs, tournamentToIcs } from '../lib/ics';
 import { type AvailableEvent, type AvailableFile, addAvailableEvent, useAvailableEvents } from '../lib/available';
@@ -16,7 +17,22 @@ function courseLabel(c?: Course) {
   return c ? `${c.name}${c.city ? `, ${c.city}` : ''}` : undefined;
 }
 
-function EventRow({ t, courses, tours, color, conflict }: { t: Tournament; courses: Course[]; tours: Tour[]; color: string; conflict?: boolean }) {
+function EventRow({
+  t,
+  courses,
+  tours,
+  color,
+  conflict,
+  busy,
+}: {
+  t: Tournament;
+  courses: Course[];
+  tours: Tour[];
+  color: string;
+  conflict?: boolean;
+  /** Names of siblings playing a different event on these dates. */
+  busy?: string[];
+}) {
   return (
     <li>
       <Link to={`/tournament/${t.id}`}>
@@ -30,6 +46,7 @@ function EventRow({ t, courses, tours, color, conflict }: { t: Tournament; cours
           <div className="row wrap" style={{ marginTop: 4 }}>
             <span className={`tag${t.status === 'Registered' ? ' accent' : ''}`}>{t.status}</span>
             {conflict && <span className="tag">⚠ Date conflict</span>}
+            {busy?.length ? <span className="tag">⚠ {busy.join(' & ')} playing elsewhere</span> : null}
             {t.finish && (
               <span className="tag">
                 Finished {t.finish}
@@ -48,13 +65,18 @@ export default function Schedule() {
   const [tab, setTab] = useState<Tab>(() => (params.get('tab') as Tab) || 'schedule');
   const [view, setView] = useState<'calendar' | 'list'>('list');
   const [day, setDay] = useState<string>();
-  const tournaments = useLiveQuery(() => db.tournaments.orderBy('startDate').toArray(), []);
+  const { golfer, golfers } = useGolfer();
+  const family = useLiveQuery(() => db.tournaments.orderBy('startDate').toArray(), []);
   const courses = useLiveQuery(() => db.courses.toArray(), []) ?? [];
   const tours = useLiveQuery(() => db.tours.toArray(), []) ?? [];
   const myTours = useMyTours();
-  if (!tournaments) return null;
+  if (!family) return null;
 
   const t0 = today();
+  const tournaments = family.filter((t) => t.golferId === golfer.id);
+  const nameOf = (id: string) => golfers.find((g) => g.id === id)?.playerName || 'Golfer';
+  const clashes = findFamilyClashes(family, golfer.id, t0);
+  const busyOf = (t: Tournament) => [...new Set(clashes.get(t.id!)?.map((o) => nameOf(o.golferId)))];
   const colorOf = (t: { tourId?: string }) => tourColor(t.tourId, myTours);
   const onSchedule = tournaments.filter((t) => ON_SCHEDULE.has(t.status));
   const upcoming = onSchedule.filter((t) => (t.endDate ?? t.startDate) >= t0 && t.status !== 'Played');
@@ -64,7 +86,12 @@ export default function Schedule() {
 
   function exportSchedule() {
     const items = upcoming.flatMap((t) =>
-      tournamentToIcs(t, courseLabel(courses.find((c) => c.id === t.courseId)), tours.find((x) => x.id === t.tourId)?.name),
+      tournamentToIcs(
+        t,
+        courseLabel(courses.find((c) => c.id === t.courseId)),
+        tours.find((x) => x.id === t.tourId)?.name,
+        golfers.length > 1 ? golfer.playerName : undefined,
+      ),
     );
     return buildIcs(items);
   }
@@ -115,6 +142,19 @@ export default function Schedule() {
             </div>
           )}
 
+          {clashes.size > 0 && (
+            <div className="card alert">
+              <b>⚠ Family overlaps</b>
+              <ul className="small" style={{ margin: '6px 0 0', paddingLeft: 18 }}>
+                {[...clashes.entries()].map(([id, others]) => (
+                  <li key={id}>
+                    {tournaments.find((t) => t.id === id)?.name} is the same dates as {others.map((o) => `${nameOf(o.golferId)}'s ${o.name}`).join(', ')}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="row" style={{ marginBottom: 12 }}>
             {(['list', 'calendar'] as const).map((v) => (
               <button key={v} className={`chip${view === v ? ' on' : ''}`} onClick={() => setView(v)}>
@@ -141,7 +181,7 @@ export default function Schedule() {
                   {onSchedule
                     .filter((t) => t.startDate <= day && day <= (t.endDate ?? t.startDate))
                     .map((t) => (
-                      <EventRow key={t.id} t={t} courses={courses} tours={tours} color={colorOf(t)} conflict={conflicts.has(t.id!)} />
+                      <EventRow key={t.id} t={t} courses={courses} tours={tours} color={colorOf(t)} conflict={conflicts.has(t.id!)} busy={busyOf(t)} />
                     ))}
                 </ul>
               )}
@@ -151,7 +191,7 @@ export default function Schedule() {
               {upcoming.length ? (
                 <ul className="list">
                   {upcoming.map((t) => (
-                    <EventRow key={t.id} t={t} courses={courses} tours={tours} color={colorOf(t)} conflict={conflicts.has(t.id!)} />
+                    <EventRow key={t.id} t={t} courses={courses} tours={tours} color={colorOf(t)} conflict={conflicts.has(t.id!)} busy={busyOf(t)} />
                   ))}
                 </ul>
               ) : (
@@ -181,7 +221,7 @@ export default function Schedule() {
         </>
       )}
 
-      {tab === 'available' && <Available tournaments={tournaments} tours={tours} myTours={myTours} colorOf={colorOf} />}
+      {tab === 'available' && <Available family={family} golfer={golfer} golfers={golfers} tours={tours} myTours={myTours} colorOf={colorOf} />}
 
       {tab === 'past' && (
         <div className="card">
@@ -255,12 +295,16 @@ function SeasonCard({ tournaments, tours, colorOf }: { tournaments: Tournament[]
 }
 
 function Available({
-  tournaments,
+  family,
+  golfer,
+  golfers,
   tours,
   myTours,
   colorOf,
 }: {
-  tournaments: Tournament[];
+  family: Tournament[];
+  golfer: Profile;
+  golfers: Profile[];
   tours: Tour[];
   myTours: string[];
   colorOf: (t: { tourId?: string }) => string;
@@ -283,11 +327,12 @@ function Available({
     .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .filter((e) => (e.endDate ?? e.startDate) >= t0)
     .filter((e) => (effective === 'mine' ? myTours.includes(e.tourId) : effective === 'all' ? true : e.tourId === effective));
-  const added = new Map(tournaments.filter((t) => t.sourceEventId).map((t) => [t.sourceEventId!, t]));
+  const added = new Map(family.filter((t) => t.sourceEventId && t.golferId === golfer.id).map((t) => [t.sourceEventId!, t]));
+  const siblingsIn = (ev: AvailableEvent) => family.filter((t) => t.sourceEventId === ev.id && t.golferId !== golfer.id);
 
   async function add(ev: AvailableEvent, status: 'Considering' | 'Registered') {
     setBusy(ev.id);
-    await addAvailableEvent(ev, status);
+    await addAvailableEvent(ev, status, golfer);
     setBusy(undefined);
   }
 
@@ -303,7 +348,7 @@ function Available({
       {!subscribed && (
         <div className="card">
           <p className="small" style={{ margin: 0 }}>
-            Subscribe to his tours under <Link to="/more">More → My tours</Link> so only those events show here. Showing all tours for now.
+            Subscribe to {golfer.playerName || 'your golfer'}'s tours under <Link to="/more">More → My tours</Link> so only those events show here. Showing all tours for now.
           </p>
         </div>
       )}
@@ -363,6 +408,11 @@ function Available({
                             </button>
                           </>
                         )}
+                        {siblingsIn(ev).map((t) => (
+                          <span key={t.id} className="tag">
+                            {golfers.find((g) => g.id === t.golferId)?.playerName || 'Golfer'}: {t.status}
+                          </span>
+                        ))}
                         {ev.url && (
                           <a className="small" href={ev.url} target="_blank" rel="noreferrer">
                             Event page ↗

@@ -118,6 +118,7 @@ textarea { min-height: 80px; resize: vertical; }
   background: var(--surface); color: var(--text); white-space: nowrap; font-size: 0.95rem;
 }
 .chip.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.golfer-switch { margin-bottom: 10px; }
 .chip.on-danger { background: var(--danger); color: #fff; border-color: var(--danger); }
 .grid-btns { display: grid; gap: 8px; }
 .grid-btns.c2 { grid-template-columns: repeat(2, 1fr); }
@@ -140,6 +141,7 @@ textarea { min-height: 80px; resize: vertical; }
 .list li { border-bottom: 1px solid var(--border); }
 .list li:last-child { border-bottom: 0; }
 .list a, .list .li { display: flex; align-items: center; gap: 12px; padding: 12px 0; text-decoration: none; color: inherit; }
+.list button.li { width: 100%; border: 0; border-radius: 0; background: none; text-align: left; }
 .date-box { width: 48px; text-align: center; border-radius: 10px; background: var(--surface-2); padding: 4px 0; flex: none; }
 .date-box b { display: block; font-size: 1.15rem; }
 .date-box small { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); }

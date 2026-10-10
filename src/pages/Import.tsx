@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import { parseSchedule, type ParsedEvent } from '../lib/importParse';
 import { courseKey, matchCourse } from '../lib/courseMatch';
 import { eventId } from '../../scraper/lib';
@@ -21,7 +22,11 @@ export default function Import() {
   const [saving, setSaving] = useState(false);
   const courses = useLiveQuery(() => db.courses.toArray(), []) ?? [];
   const tour = useLiveQuery(() => (tourId ? db.tours.get(tourId) : undefined), [tourId]);
-  const onSchedule = useLiveQuery(async () => new Set((await db.tournaments.toArray()).map((t) => t.sourceEventId).filter(Boolean)), []);
+  const gid = useGolfer().golfer.id;
+  const onSchedule = useLiveQuery(
+    async () => new Set((await db.tournaments.where('golferId').equals(gid).toArray()).map((t) => t.sourceEventId).filter(Boolean)),
+    [gid],
+  );
   const alreadyImported = useLiveQuery(async () => new Set(await db.imported.toCollection().primaryKeys()), []);
   const t0 = today();
 

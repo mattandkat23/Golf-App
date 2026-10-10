@@ -1,5 +1,4 @@
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from './db';
+import { useGolfer } from './golfer';
 
 /**
  * Color for a tour. Subscribed tours get the categorical slots in subscription order, so a tour keeps
@@ -11,5 +10,5 @@ export function tourColor(tourId: string | undefined, myTours: string[]): string
 }
 
 export function useMyTours() {
-  return useLiveQuery(() => db.profile.get('me').then((p) => p?.myTours ?? []), []) ?? [];
+  return useGolfer().golfer.myTours ?? [];
 }

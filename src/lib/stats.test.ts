@@ -40,7 +40,7 @@ const par5: HoleResult = {
   ],
 };
 
-const round: Round = { date: '2026-10-01', roundNumber: 1, numHoles: 9, holes: [par4, par3, par5] };
+const round: Round = { golferId: 'me', date: '2026-10-01', roundNumber: 1, numHoles: 9, holes: [par4, par3, par5] };
 
 describe('hole helpers', () => {
   it('counts strokes including penalties', () => {

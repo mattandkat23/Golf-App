@@ -1,19 +1,36 @@
-import { useLiveQuery } from 'dexie-react-hooks';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db, exportBackup, importBackup } from '../lib/db';
+import { db, deleteGolfer, exportBackup, importBackup, newGolfer } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import type { Profile } from '../lib/types';
 import { Field, PageHead, today } from '../components/ui';
 import { AGE_GROUPS } from '../data/uskids';
 import MyTours from '../components/MyTours';
 
 export default function More() {
-  const profile = useLiveQuery(() => db.profile.get('me'), []);
+  const { golfer: profile, golfers, setGolferId } = useGolfer();
   const fileRef = useRef<HTMLInputElement>(null);
   const [msg, setMsg] = useState('');
-  if (!profile) return null;
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState('');
 
   const save = (p: Partial<Profile>) => db.profile.put({ ...profile, ...p });
+
+  async function addGolfer() {
+    if (!newName.trim()) return;
+    const g = newGolfer(newName.trim());
+    await db.profile.add(g);
+    setGolferId(g.id);
+    setNewName('');
+    setAdding(false);
+  }
+
+  async function removeGolfer() {
+    const name = profile.playerName || 'this golfer';
+    if (!confirm(`Remove ${name} and all of ${name}'s events, rounds and practice? This can't be undone.`)) return;
+    await deleteGolfer(profile.id);
+    setGolferId(golfers.find((g) => g.id !== profile.id)!.id);
+  }
 
   async function doExport() {
     const data = await exportBackup();
@@ -44,7 +61,35 @@ export default function More() {
     <>
       <PageHead title="More" />
       <div className="card">
-        <h2>Player</h2>
+        <h2>Golfers</h2>
+        <p className="muted small">Each golfer has their own schedule, rounds, stats, practice, tours and bag. Courses are shared.</p>
+        <ul className="list" style={{ marginBottom: 10 }}>
+          {golfers.map((g) => (
+            <li key={g.id}>
+              <button className="li" onClick={() => setGolferId(g.id)}>
+                <span className="grow">{g.playerName || 'Golfer'}</span>
+                {g.id === profile.id && <span className="tag accent">Selected</span>}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {adding ? (
+          <div className="row">
+            <input className="grow" autoFocus placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addGolfer()} />
+            <button onClick={() => setAdding(false)}>Cancel</button>
+            <button className="primary" onClick={addGolfer}>
+              Add
+            </button>
+          </div>
+        ) : (
+          <button className="block" onClick={() => setAdding(true)}>
+            + Add golfer
+          </button>
+        )}
+      </div>
+
+      <div className="card">
+        <h2>{profile.playerName || 'Player'}</h2>
         <Field label="Name">
           <input value={profile.playerName} onChange={(e) => save({ playerName: e.target.value })} />
         </Field>
@@ -56,13 +101,18 @@ export default function More() {
             ))}
           </select>
         </Field>
+        {golfers.length > 1 && (
+          <button className="block danger" onClick={removeGolfer}>
+            Remove {profile.playerName || 'this golfer'}
+          </button>
+        )}
       </div>
 
       <MyTours profile={profile} />
 
       <div className="card">
         <h2>Bag & carry distances</h2>
-        <p className="muted small">Clubs here appear in play mode. Update carry yardages as he grows.</p>
+        <p className="muted small">Clubs here appear in play mode. Update carry yardages as they grow.</p>
         {profile.bag.map((c, i) => (
           <div className="row" key={i} style={{ marginBottom: 6 }}>
             <input className="grow" value={c.name} onChange={(e) => save({ bag: profile.bag.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)) })} />
@@ -99,7 +149,7 @@ export default function More() {
         <h2>Backup & sharing</h2>
         <p className="muted small">
           Everything is stored on this phone and works offline. Export a backup regularly; you can also send the file to a coach or spouse, who can
-          import it to view his stats on their phone.
+          import it to view the stats on their phone.
         </p>
         <div className="row">
           <button className="grow primary" onClick={doExport}>

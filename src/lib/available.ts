@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { db } from './db';
 import { matchCourse, regionForCity } from './courseMatch';
-import type { EventStatus, TourLevel, Tournament } from './types';
+import type { EventStatus, Profile, TourLevel, Tournament } from './types';
 
 /** One event from public/events.json, written daily by the scraper (see scraper/). */
 export interface AvailableEvent {
@@ -43,9 +43,9 @@ export function useAvailableEvents() {
   return { data, error };
 }
 
-/** Adds a scraped event to his schedule, matching (or creating) its course. Returns the new tournament id. */
-export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus): Promise<number> {
-  const existing = await db.tournaments.filter((t) => t.sourceEventId === ev.id).first();
+/** Adds a scraped event to a golfer's schedule, matching (or creating) its course. Returns the new tournament id. */
+export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus, golfer: Profile): Promise<number> {
+  const existing = await db.tournaments.where('golferId').equals(golfer.id).filter((t) => t.sourceEventId === ev.id).first();
   if (existing) {
     await db.tournaments.update(existing.id!, { status });
     return existing.id!;
@@ -57,8 +57,8 @@ export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus)
     const region = ev.city ? regionForCity(ev.city) : (tourRegion ?? 'Other Texas');
     courseId = course?.id ?? (await db.courses.add({ name: ev.courseName, city: ev.city ?? '', region, tees: [] }));
   }
-  const profile = await db.profile.get('me');
   const t: Tournament = {
+    golferId: golfer.id,
     name: ev.name,
     level: ev.level ?? 'Local',
     tourId: ev.tourId || undefined,
@@ -67,7 +67,7 @@ export async function addAvailableEvent(ev: AvailableEvent, status: EventStatus)
     startDate: ev.startDate,
     endDate: ev.endDate,
     status,
-    ageGroup: profile?.ageGroup,
+    ageGroup: golfer.ageGroup,
     registrationDeadline: ev.registrationDeadline,
     entryFee: ev.entryFee,
     url: ev.url,

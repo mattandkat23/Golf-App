@@ -48,6 +48,20 @@ class GolfDB extends Dexie {
     this.version(8).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     // v9: events pasted in from tour schedules, listed under Events → Available.
     this.version(9).stores({ imported: 'id, tourId, startDate' });
+    // v10: multiple golfers. Events, rounds and practice belong to a golfer; existing data goes to the first one ('me').
+    this.version(10)
+      .stores({
+        tournaments: '++id, startDate, status, level, courseId, tourId, golferId',
+        rounds: '++id, date, tournamentId, courseId, golferId',
+        practice: '++id, date, golferId',
+      })
+      .upgrade(async (tx) => {
+        for (const name of ['tournaments', 'rounds', 'practice']) {
+          await tx.table(name).toCollection().modify((x: { golferId?: string }) => {
+            x.golferId ??= 'me';
+          });
+        }
+      });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
@@ -62,6 +76,20 @@ class GolfDB extends Dexie {
 }
 
 export const db = new GolfDB();
+
+export function newGolfer(playerName: string): Profile {
+  return { id: `p-${Date.now()}`, playerName, bag: DEFAULT_BAG.map((name) => ({ name })), myTours: [] };
+}
+
+/** Deletes a golfer and everything that belongs to them. */
+export async function deleteGolfer(id: string) {
+  await db.transaction('rw', [db.profile, db.tournaments, db.rounds, db.practice], async () => {
+    await db.rounds.where('golferId').equals(id).delete();
+    await db.tournaments.where('golferId').equals(id).delete();
+    await db.practice.where('golferId').equals(id).delete();
+    await db.profile.delete(id);
+  });
+}
 
 export interface Backup {
   app: 'golf-tracker';
@@ -99,10 +127,13 @@ export async function importBackup(data: Backup) {
     await db.imported.bulkPut(data.imported ?? []);
     // Older backups have no tours; keep the built-in list and add any custom ones from the file.
     await db.tours.bulkPut(data.tours ?? []);
+    // Backups from before multiple golfers have no golferId; their data belongs to the one golfer in the file.
+    const owner = data.profile[0]?.id ?? 'me';
+    const own = <T extends { golferId?: string }>(rows: T[]) => rows.map((x) => ({ ...x, golferId: x.golferId ?? owner }));
     await db.courses.bulkAdd(data.courses);
-    await db.tournaments.bulkAdd(data.tournaments);
-    await db.rounds.bulkAdd(data.rounds);
-    await db.practice.bulkAdd(data.practice);
+    await db.tournaments.bulkAdd(own(data.tournaments));
+    await db.rounds.bulkAdd(own(data.rounds));
+    await db.practice.bulkAdd(own(data.practice));
     await db.profile.bulkAdd(data.profile);
   });
 }

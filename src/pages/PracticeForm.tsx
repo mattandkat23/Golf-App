@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import type { PracticeFocus, PracticeSession } from '../lib/types';
 import { Field, PageHead, today } from '../components/ui';
 
@@ -18,7 +19,8 @@ const SUGGESTED_DRILLS = [
 export default function PracticeForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [s, setS] = useState<PracticeSession>({ date: today(), minutes: 60, focus: [], drills: [] });
+  const { golfer } = useGolfer();
+  const [s, setS] = useState<PracticeSession>({ golferId: golfer.id, date: today(), minutes: 60, focus: [], drills: [] });
   const pastDrills = useLiveQuery(async () => {
     const all = await db.practice.toArray();
     return [...new Set([...SUGGESTED_DRILLS, ...all.flatMap((p) => p.drills.map((d) => d.name))])];

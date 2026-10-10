@@ -17,6 +17,24 @@ export function findConflicts(tournaments: Tournament[], today: string): Map<num
   return out;
 }
 
+/** Same tournament entered for two siblings: same scraped event, or same course on the same start date. */
+const sameEvent = (a: Tournament, b: Tournament) =>
+  (!!a.sourceEventId && a.sourceEventId === b.sourceEventId) || (a.courseId !== undefined && a.courseId === b.courseId && a.startDate === b.startDate);
+
+/**
+ * Upcoming events of `golferId` that overlap a different event another golfer is playing,
+ * so the family would need to be in two places. Returns id → the siblings' overlapping events.
+ */
+export function findFamilyClashes(tournaments: Tournament[], golferId: string, today: string): Map<number, Tournament[]> {
+  const active = tournaments.filter((t) => ACTIVE.has(t.status) && end(t) >= today && t.id !== undefined);
+  const out = new Map<number, Tournament[]>();
+  for (const a of active.filter((t) => t.golferId === golferId)) {
+    const clash = active.filter((b) => b.golferId !== golferId && a.startDate <= end(b) && b.startDate <= end(a) && !sameEvent(a, b));
+    if (clash.length) out.set(a.id!, clash);
+  }
+  return out;
+}
+
 export interface Deadline {
   tournament: Tournament;
   date: string;

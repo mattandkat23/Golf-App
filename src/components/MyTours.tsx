@@ -12,13 +12,13 @@ export default function MyTours({ profile }: { profile: Profile }) {
   const mine = profile.myTours ?? [];
 
   const toggle = (id: string) =>
-    db.profile.update('me', { myTours: mine.includes(id) ? mine.filter((x) => x !== id) : [...mine, id] });
+    db.profile.update(profile.id, { myTours: mine.includes(id) ? mine.filter((x) => x !== id) : [...mine, id] });
 
   async function add() {
     if (!name.trim()) return;
     const id = `custom-${Date.now()}`;
     await db.tours.add({ id, name: name.trim(), url: url.trim() || undefined, custom: true });
-    await db.profile.update('me', { myTours: [...mine, id] });
+    await db.profile.update(profile.id, { myTours: [...mine, id] });
     setName('');
     setUrl('');
     setAdding(false);
@@ -28,7 +28,7 @@ export default function MyTours({ profile }: { profile: Profile }) {
     <div className="card">
       <h2>My tours</h2>
       <p className="muted small">
-        Subscribe to the tours he plays. Their events show up in Events → Available, and they're listed first when you add an event.
+        Subscribe to the tours {profile.playerName || 'your golfer'} plays. Their events show up in Events → Available, and they're listed first when you add an event.
       </p>
       <div className="chips" style={{ marginBottom: 10 }}>
         {tours?.map((t) => (

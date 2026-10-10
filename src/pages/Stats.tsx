@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import { db } from '../lib/db';
+import { useGolfer } from '../lib/golfer';
 import { CONTACTS, bucketLabel, computeStats, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
 import type { Miss, Round, TourLevel } from '../lib/types';
 import { Bars, Chips, Kpi, PageHead } from '../components/ui';
@@ -68,7 +69,8 @@ export default function StatsPage() {
   const [range, setRange] = useState<Range>('Last 10');
   const [kind, setKind] = useState<Kind>('All rounds');
   const [tourId, setTourId] = useState<string>();
-  const all = useLiveQuery(() => db.rounds.orderBy('date').toArray(), []);
+  const gid = useGolfer().golfer.id;
+  const all = useLiveQuery(() => db.rounds.where('golferId').equals(gid).sortBy('date'), [gid]);
   const tournaments = useLiveQuery(() => db.tournaments.toArray(), []);
   const tours = useLiveQuery(() => db.tours.toArray(), []);
   if (!all || !tournaments || !tours) return null;
