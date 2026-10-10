@@ -19,6 +19,6 @@ export const SEED_TOURS: Tour[] = [
   { id: 'ajga', name: 'AJGA (incl. Under Armour / Jordan Spieth)', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
   { id: 'under-armour', name: 'Under Armour Junior Tour', org: 'Under Armour', url: 'https://www.uagolftour.com/' },
   { id: 'hjgt', name: 'Hurricane Junior Golf Tour (HJGT)', org: 'HJGT', url: 'https://www.hjgt.org/' },
-  { id: 'tga-ljt', name: 'TGA / Legends Junior Tour', org: 'Texas Golf Association', url: 'https://txga.org/' },
+  { id: 'tga-ljt', name: 'TGA / Legends Junior Tour', org: 'Texas Golf Association', url: 'https://txga.org/ljt-landing-3/' },
   { id: 'tjgt', name: 'Texas Junior Golf Tour (TJGT)', org: 'TJGT', url: 'https://www.tjgt.com/' },
 ];

@@ -41,6 +41,7 @@ class GolfDB extends Dexie {
         if (t.tourId === 'usk-championships') t.tourId = t.level === 'World' ? 'usk-world' : t.level === 'Regional' ? 'usk-regional' : 'usk-state';
       });
     });
+    this.version(6).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);

@@ -127,8 +127,32 @@ async function renderPage(browser: Browser, url: string) {
   }
 }
 
-async function extract(client: Anthropic, source: Source, url: string, text: string, links: { text: string; href: string }[], today: string) {
-  const linkList = links.map((l) => `- ${l.text || '(no text)'} → ${l.href}`).join('\n');
+type PageContent = { kind: 'html'; text: string; links: { text: string; href: string }[] } | { kind: 'pdf'; base64: string };
+
+const MAX_PDF_BYTES = 20 * 1024 * 1024;
+async function fetchPdf(url: string): Promise<string> {
+  const res = await fetch(url, { headers: { 'user-agent': USER_AGENT } });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (buf.length > MAX_PDF_BYTES) throw new Error(`PDF too large (${buf.length} bytes): ${url}`);
+  if (buf.subarray(0, 4).toString() !== '%PDF') throw new Error(`Not a PDF: ${url}`);
+  return buf.toString('base64');
+}
+
+async function extract(client: Anthropic, source: Source, url: string, page: PageContent, today: string) {
+  const header = `Tour: ${source.label}\nWhat to collect: ${source.hint}\nToday's date: ${today}\nPage URL: ${url}`;
+  const content: Anthropic.Beta.BetaContentBlockParam[] =
+    page.kind === 'pdf'
+      ? [
+          { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: page.base64 } },
+          { type: 'text', text: `${header}\n\nThe schedule is the attached PDF. It has no clickable links, so return an empty nextUrls list.` },
+        ]
+      : [
+          {
+            type: 'text',
+            text: `${header}\n\n<page_text>\n${page.text}\n</page_text>\n\n<links>\n${page.links.map((l) => `- ${l.text || '(no text)'} → ${l.href}`).join('\n')}\n</links>`,
+          },
+        ];
   const res = await client.beta.messages.parse({
     model: MODEL,
     max_tokens: 16000,
@@ -136,12 +160,7 @@ async function extract(client: Anthropic, source: Source, url: string, text: str
     fallbacks: 'default',
     output_config: { effort: 'low', format: zodOutputFormat(Extraction) },
     system: SYSTEM,
-    messages: [
-      {
-        role: 'user',
-        content: `Tour: ${source.label}\nWhat to collect: ${source.hint}\nToday's date: ${today}\nPage URL: ${url}\n\n<page_text>\n${text}\n</page_text>\n\n<links>\n${linkList}\n</links>`,
-      },
-    ],
+    messages: [{ role: 'user', content }],
   });
   if (res.stop_reason === 'refusal') throw new Error(`Claude declined to read ${url}`);
   if (res.stop_reason === 'max_tokens') throw new Error(`Response cut off for ${url}`);
@@ -168,14 +187,27 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
       pages++;
       console.log(`  page ${pages}: ${url}`);
       await politeWait(url);
-      const { finalUrl, text, links } = await renderPage(browser, url);
+      let finalUrl = url;
+      let page: PageContent;
+      if (/\.pdf($|\?)/i.test(url)) page = { kind: 'pdf', base64: await fetchPdf(url) };
+      else {
+        try {
+          const r = await renderPage(browser, url);
+          finalUrl = r.finalUrl;
+          page = { kind: 'html', text: r.text, links: r.links };
+        } catch (e) {
+          // Links without a .pdf extension can still be file downloads.
+          if (!/Download is starting/.test((e as Error).message)) throw e;
+          page = { kind: 'pdf', base64: await fetchPdf(url) };
+        }
+      }
       visited.add(finalUrl);
       const key = `${source.tourId}|${finalUrl}`;
-      const hash = hashText(source.hint + text + links.map((l) => l.href).join());
+      const hash = hashText(source.hint + (page.kind === 'pdf' ? page.base64 : page.text + page.links.map((l) => l.href).join()));
       let extraction = cache[key]?.hash === hash && cache[key].promptVersion === PROMPT_VERSION ? cache[key].extraction : undefined;
       if (extraction) console.log('    unchanged since last run (cached)');
       else {
-        extraction = await extract(client, source, finalUrl, text, links, today);
+        extraction = await extract(client, source, finalUrl, page, today);
         cache[key] = { hash, promptVersion: PROMPT_VERSION, extraction };
       }
       console.log(`    ${extraction.events.length} events · ${extraction.notes}`);
@@ -201,9 +233,10 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
     })) as Omit<ScrapedEvent, 'id' | 'tourId'>[],
     today,
   );
-  // Finding nothing usually means the site changed or blocked us; keep last run's events in that case.
-  const ok = events.length > 0;
-  const error = ok ? undefined : errors.join(' | ') || 'No events found';
+  // Finding no events at all (past or upcoming) usually means the site changed or blocked us; keep
+  // last run's events in that case. Events that were found but are all in the past are a valid result.
+  const ok = raw.length > 0;
+  const error = ok ? (errors.length ? errors.join(' | ') : undefined) : errors.join(' | ') || 'No events found';
   return { tourId: source.tourId, ok, events, error };
 }
 
