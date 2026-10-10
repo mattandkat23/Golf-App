@@ -1,7 +1,10 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db, deleteGolfer, exportBackup, importBackup, newGolfer } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
+import { useAuth } from '../lib/auth';
+import { supabase } from '../lib/supabase';
+import { clearPhone, onSyncStatus, signOutAndClear, syncStatus, type SyncStatus } from '../lib/sync';
 import type { Profile } from '../lib/types';
 import { Field, PageHead, today } from '../components/ui';
 import { AGE_GROUPS } from '../data/uskids';
@@ -145,11 +148,13 @@ export default function More() {
         </ul>
       </div>
 
+      <AccountCard />
+
       <div className="card">
         <h2>Backup & sharing</h2>
         <p className="muted small">
-          Everything is stored on this phone and works offline. Export a backup regularly; you can also send the file to a coach or spouse, who can
-          import it to view the stats on their phone.
+          Everything is saved to your account automatically and works offline on the course. You can also export a backup file to keep or to send
+          to a coach.
         </p>
         <div className="row">
           <button className="grow primary" onClick={doExport}>
@@ -171,10 +176,77 @@ export default function More() {
           }}
         />
         {msg && <p className="small" style={{ marginTop: 8 }}>{msg}</p>}
-        <p className="muted small" style={{ marginTop: 8 }}>
-          Live sharing with invites and view-only or edit access needs a free cloud account. It's planned as the next step.
-        </p>
       </div>
     </>
+  );
+}
+
+const STATUS: Record<SyncStatus, string> = {
+  idle: '',
+  syncing: 'Saving…',
+  saved: 'All changes saved to your account.',
+  offline: 'Offline. Changes will save when you’re back online.',
+  error: 'Couldn’t save just now. It will try again.',
+};
+
+function AccountCard() {
+  const { session } = useAuth();
+  const [status, setStatus] = useState(syncStatus());
+  const [busy, setBusy] = useState(false);
+  useEffect(() => onSyncStatus(setStatus), []);
+  const [plan, setPlan] = useState<string>();
+  const uid = session?.user.id;
+  useEffect(() => {
+    if (uid)
+      supabase
+        .from('accounts')
+        .select('plan')
+        .eq('id', uid)
+        .maybeSingle()
+        .then(({ data }) => setPlan(data?.plan));
+  }, [uid]);
+
+  async function signOut() {
+    setBusy(true);
+    if (!(await signOutAndClear())) {
+      alert('Couldn’t save your latest changes, so you’re still signed in. Connect to the internet and try again.');
+      setBusy(false);
+      return;
+    }
+    location.reload();
+  }
+
+  async function deleteAccount() {
+    if (!confirm('Delete your account and all your golfers, events, rounds and practice? This can’t be undone.')) return;
+    if (!confirm('Are you sure? Everything will be permanently deleted.')) return;
+    setBusy(true);
+    const { error } = await supabase.rpc('delete_my_account');
+    if (error) {
+      alert(`Couldn’t delete the account: ${error.message}`);
+      setBusy(false);
+      return;
+    }
+    await supabase.auth.signOut();
+    await clearPhone();
+    location.reload();
+  }
+
+  return (
+    <div className="card">
+      <h2>Account</h2>
+      <p className="small" style={{ marginTop: 0 }}>
+        {session?.user.email ?? 'Offline'}
+        {plan && <span className="tag" style={{ marginLeft: 8 }}>{plan === 'paid' ? 'Paid plan' : 'Free plan'}</span>}
+      </p>
+      {STATUS[status] && <p className="muted small">{STATUS[status]}</p>}
+      <div className="row">
+        <button className="grow" disabled={busy || !session} onClick={signOut}>
+          Sign out
+        </button>
+      </div>
+      <button className="block danger" style={{ marginTop: 8 }} disabled={busy || !session} onClick={deleteAccount}>
+        Delete my account
+      </button>
+    </div>
   );
 }

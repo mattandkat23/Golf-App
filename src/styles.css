@@ -119,6 +119,8 @@ textarea { min-height: 80px; resize: vertical; }
 }
 .chip.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
 .golfer-switch { margin-bottom: 10px; }
+.signin { max-width: 420px; margin: 0 auto; padding: calc(env(safe-area-inset-top) + 32px) 16px 24px; }
+.signin-brand { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 16px; color: var(--accent); }
 .chip.on-danger { background: var(--danger); color: #fff; border-color: var(--danger); }
 .grid-btns { display: grid; gap: 8px; }
 .grid-btns.c2 { grid-template-columns: repeat(2, 1fr); }

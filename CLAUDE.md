@@ -10,7 +10,13 @@ GitHub/console settings, and keep replies short.
 ## Stack and layout
 
 - React 18 + TypeScript + Vite, `vite-plugin-pwa` (offline, installable), Dexie (IndexedDB). HashRouter.
-- All user data lives on the phone (no backend). Backup = JSON export/import (More tab).
+- Sign-in is required (Supabase Auth, project `jcqvzumkfmbksduzdrbx`; URL + publishable key in `src/lib/supabase.ts`).
+  The phone (Dexie) stays the working copy so the app works offline; `src/lib/sync.ts` uploads the backup JSON to
+  `family_data` a few seconds after changes and downloads when another device saved newer. Uploads are blocked until the
+  first compare with the account after sign-in/reconnect succeeds (never overwrite the account with a stale phone).
+- Sign-up and password reset use 6-digit email codes (`verifyOtp`), not links: an installed iPhone PWA doesn't share
+  storage with Safari. Email templates/site URL live in `supabase/auth-config.json`.
+- `accounts.plan` ('free' | 'paid') is set only server-side; nothing is gated by plan yet.
 - `src/lib/types.ts` data model · `src/lib/db.ts` Dexie schema + migrations · `src/lib/stats.ts` stat engine
 - `src/pages/Play.tsx` per-shot play mode · `Schedule.tsx` Events tab (My schedule / Available / Past)
 - `src/lib/available.ts` scraped + pasted events → schedule · `src/lib/importParse.ts` paste-in parser (no AI)
@@ -18,6 +24,12 @@ GitHub/console settings, and keep replies short.
 - `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter Texas course list
 
 ## Rules that bite
+
+- **Database changes** go in a new `supabase/migrations/<timestamp>_name.sql` (never edit applied ones); every table
+  needs row-level security. The "Update database" workflow applies them on push to `main` (secrets
+  `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`). This container can't reach Supabase; test against it with the
+  "Test sign-in and sync" workflow (`scripts/e2e-account.mjs`, secret `SUPABASE_SECRET_KEY`, throwaway user).
+- Supabase's built-in email only reaches the project's team members; other parents need custom SMTP before launch.
 
 - **Changing `SEED_TOURS`** → add a new `this.version(N).upgrade(... bulkPut(SEED_TOURS))` in `db.ts`, or
   existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration (see v5).
@@ -65,7 +77,8 @@ deploy. The scrape workflow commits to `main` too, so pull/rebase before pushing
 
 ## Open ideas / not built yet
 
-- Live sharing with coach/spouse (invites, view-only/edit) — needs a backend (e.g. Supabase free tier).
+- Live sharing with coach/spouse (invites, view-only/edit) on top of the accounts.
+- Results database + name search (step 2 of the results plan); free vs paid feature split.
 - Reading each US Kids event page for fees/age groups/city.
 - Under Armour Junior Tour (uagolftour.com) and TJGT aren't scraped yet.
 - Verify "Add to Calendar" (.ics) behavior on a real iPhone.

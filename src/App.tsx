@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule';
@@ -14,6 +15,9 @@ import More from './pages/More';
 import Rounds from './pages/Rounds';
 import Import from './pages/Import';
 import { GolferProvider, GolferSwitch } from './lib/golfer';
+import { AuthProvider, useAuth, useSignedIn } from './lib/auth';
+import { syncOnStart } from './lib/sync';
+import SignIn from './pages/SignIn';
 
 const icon = (d: string) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -71,12 +75,34 @@ function Shell() {
   );
 }
 
+/** Brings the phone and the account in step whenever a parent is signed in. */
+function Sync() {
+  const uid = useAuth().session?.user.id;
+  useEffect(() => {
+    if (uid)
+      void syncOnStart(uid, () =>
+        confirm('This phone and your account both have changes that haven’t been combined.\n\nOK keeps what’s on this phone. Cancel uses what’s saved in your account.'),
+      );
+  }, [uid]);
+  return null;
+}
+
+function Gate() {
+  if (!useSignedIn()) return <SignIn />;
+  return (
+    <GolferProvider>
+      <Sync />
+      <Shell />
+    </GolferProvider>
+  );
+}
+
 export default function App() {
   return (
     <HashRouter>
-      <GolferProvider>
-        <Shell />
-      </GolferProvider>
+      <AuthProvider>
+        <Gate />
+      </AuthProvider>
     </HashRouter>
   );
 }
