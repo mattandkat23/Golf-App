@@ -19,6 +19,11 @@ export interface AvailableEvent {
   level?: TourLevel;
 }
 
+/** An event the parent pasted in (Events → Paste). Stored on the phone and listed in Available. */
+export interface ImportedEvent extends AvailableEvent {
+  importedAt: string;
+}
+
 export interface AvailableFile {
   generatedAt: string | null;
   sources: Record<string, { checkedAt: string; ok: boolean; eventCount: number; error?: string }>;

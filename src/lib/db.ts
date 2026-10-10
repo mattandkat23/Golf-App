@@ -1,5 +1,6 @@
 import Dexie, { type Table } from 'dexie';
 import type { Course, PracticeSession, Profile, Round, Tour, Tournament } from './types';
+import type { ImportedEvent } from './available';
 import { SEED_COURSES } from '../data/courses';
 import { SEED_TOURS } from '../data/tours';
 
@@ -12,6 +13,7 @@ class GolfDB extends Dexie {
   practice!: Table<PracticeSession, number>;
   profile!: Table<Profile, string>;
   tours!: Table<Tour, string>;
+  imported!: Table<ImportedEvent, string>;
 
   constructor(name = 'golf-tracker') {
     super(name);
@@ -44,6 +46,8 @@ class GolfDB extends Dexie {
     this.version(6).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.version(7).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
     this.version(8).upgrade((tx) => tx.table('tours').bulkPut(SEED_TOURS));
+    // v9: events pasted in from tour schedules, listed under Events → Available.
+    this.version(9).stores({ imported: 'id, tourId, startDate' });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
@@ -69,6 +73,7 @@ export interface Backup {
   practice: PracticeSession[];
   profile: Profile[];
   tours?: Tour[];
+  imported?: ImportedEvent[];
 }
 
 export async function exportBackup(): Promise<Backup> {
@@ -82,14 +87,16 @@ export async function exportBackup(): Promise<Backup> {
     practice: await db.practice.toArray(),
     profile: await db.profile.toArray(),
     tours: await db.tours.toArray(),
+    imported: await db.imported.toArray(),
   };
 }
 
 /** Replaces all local data with the backup's contents. */
 export async function importBackup(data: Backup) {
   if (data?.app !== 'golf-tracker') throw new Error('Not a Golf Tracker backup file');
-  await db.transaction('rw', [db.courses, db.tournaments, db.rounds, db.practice, db.profile, db.tours], async () => {
-    await Promise.all([db.courses.clear(), db.tournaments.clear(), db.rounds.clear(), db.practice.clear(), db.profile.clear()]);
+  await db.transaction('rw', [db.courses, db.tournaments, db.rounds, db.practice, db.profile, db.tours, db.imported], async () => {
+    await Promise.all([db.courses.clear(), db.tournaments.clear(), db.rounds.clear(), db.practice.clear(), db.profile.clear(), db.imported.clear()]);
+    await db.imported.bulkPut(data.imported ?? []);
     // Older backups have no tours; keep the built-in list and add any custom ones from the file.
     await db.tours.bulkPut(data.tours ?? []);
     await db.courses.bulkAdd(data.courses);

@@ -4,10 +4,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import { parseSchedule, type ParsedEvent } from '../lib/importParse';
 import { courseKey, matchCourse } from '../lib/courseMatch';
-import { addAvailableEvent } from '../lib/available';
 import { eventId } from '../../scraper/lib';
-import type { EventStatus } from '../lib/types';
-import { Chips, Field, PageHead, today } from '../components/ui';
+import { Field, PageHead, today } from '../components/ui';
 import TourPicker from '../components/TourPicker';
 
 interface Row extends ParsedEvent {
@@ -20,11 +18,11 @@ export default function Import() {
   const [tourId, setTourId] = useState<string | undefined>(params.get('tour') ?? undefined);
   const [text, setText] = useState('');
   const [rows, setRows] = useState<Row[]>();
-  const [status, setStatus] = useState<EventStatus>('Considering');
   const [saving, setSaving] = useState(false);
   const courses = useLiveQuery(() => db.courses.toArray(), []) ?? [];
   const tour = useLiveQuery(() => (tourId ? db.tours.get(tourId) : undefined), [tourId]);
-  const existing = useLiveQuery(async () => new Set((await db.tournaments.toArray()).map((t) => t.sourceEventId).filter(Boolean)), []);
+  const onSchedule = useLiveQuery(async () => new Set((await db.tournaments.toArray()).map((t) => t.sourceEventId).filter(Boolean)), []);
+  const alreadyImported = useLiveQuery(async () => new Set(await db.imported.toCollection().primaryKeys()), []);
   const t0 = today();
 
   const idFor = (r: ParsedEvent) => `import-${eventId(tourId ?? 'none', r.name, r.startDate)}`;
@@ -40,23 +38,22 @@ export default function Import() {
 
   async function addAll() {
     setSaving(true);
-    for (const r of selected) {
-      await addAvailableEvent(
-        {
-          id: idFor(r),
-          tourId: tourId ?? '',
-          name: r.name.trim(),
-          startDate: r.startDate,
-          endDate: r.endDate,
-          courseName: r.courseName?.trim() || undefined,
-          city: r.city,
-          entryFee: r.entryFee,
-        },
-        status,
-      );
-    }
+    const now = new Date().toISOString();
+    await db.imported.bulkPut(
+      selected.map((r) => ({
+        id: idFor(r),
+        tourId: tourId ?? '',
+        name: r.name.trim(),
+        startDate: r.startDate,
+        endDate: r.endDate,
+        courseName: r.courseName?.trim() || undefined,
+        city: r.city,
+        entryFee: r.entryFee,
+        importedAt: now,
+      })),
+    );
     setSaving(false);
-    navigate('/schedule', { replace: true });
+    navigate('/schedule?tab=available', { replace: true });
   }
 
   return (
@@ -117,13 +114,14 @@ export default function Import() {
           )}
 
           {rows.map((r, i) => {
-            const already = existing?.has(idFor(r));
+            const id = idFor(r);
+            const label = onSchedule?.has(id) ? 'Already on his schedule' : alreadyImported?.has(id) ? 'Already imported — will update' : 'Add this event';
             const match = matchCourse(courses, r.courseName, r.city);
             return (
               <div className="card" key={i} style={{ opacity: r.checked ? 1 : 0.6 }}>
                 <label className="row" style={{ marginBottom: 8 }}>
                   <input type="checkbox" style={{ width: 22, minHeight: 22 }} checked={r.checked} onChange={(e) => update(i, { checked: e.target.checked })} />
-                  <b className="grow">{already ? 'Already on schedule — will update status' : 'Add this event'}</b>
+                  <b className="grow">{label}</b>
                 </label>
                 <Field label="Event name">
                   <input value={r.name} onChange={(e) => update(i, { name: e.target.value })} />
@@ -150,11 +148,11 @@ export default function Import() {
 
           {rows.length > 0 && (
             <div className="card">
-              <Field label="Add them as">
-                <Chips options={['Considering', 'Registered'] as EventStatus[]} value={status} label={(s) => (s === 'Considering' ? 'Interested' : s)} onChange={(v) => v && setStatus(v)} />
-              </Field>
+              <p className="muted small" style={{ marginTop: 0 }}>
+                They'll appear under Events → Available with the tour's other events. Mark the ones he's playing as Interested or Registered there.
+              </p>
               <button className="primary block" disabled={!selected.length || saving} onClick={addAll}>
-                Add {selected.length} event{selected.length === 1 ? '' : 's'}
+                Add {selected.length} event{selected.length === 1 ? '' : 's'} to Available
               </button>
             </div>
           )}

@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import type { Course, Tour, Tournament } from '../lib/types';
 import { DateBox, PageHead, fmtDate, today } from '../components/ui';
@@ -8,7 +8,7 @@ import MonthCalendar from '../components/MonthCalendar';
 import { ON_SCHEDULE, findConflicts, seasonSummary } from '../lib/schedule';
 import { tourColor, useMyTours } from '../lib/tourColors';
 import { buildIcs, openIcs, shareIcs, tournamentToIcs } from '../lib/ics';
-import { type AvailableEvent, addAvailableEvent, useAvailableEvents } from '../lib/available';
+import { type AvailableEvent, type AvailableFile, addAvailableEvent, useAvailableEvents } from '../lib/available';
 
 type Tab = 'schedule' | 'available' | 'past';
 
@@ -44,7 +44,8 @@ function EventRow({ t, courses, tours, color, conflict }: { t: Tournament; cours
 }
 
 export default function Schedule() {
-  const [tab, setTab] = useState<Tab>('schedule');
+  const [params] = useSearchParams();
+  const [tab, setTab] = useState<Tab>(() => (params.get('tab') as Tab) || 'schedule');
   const [view, setView] = useState<'calendar' | 'list'>('list');
   const [day, setDay] = useState<string>();
   const tournaments = useLiveQuery(() => db.tournaments.orderBy('startDate').toArray(), []);
@@ -264,18 +265,22 @@ function Available({
   myTours: string[];
   colorOf: (t: { tourId?: string }) => string;
 }) {
-  const { data, error } = useAvailableEvents();
+  const { data: fetched, error } = useAvailableEvents();
+  const imported = useLiveQuery(() => db.imported.toArray(), []);
   const [filter, setFilter] = useState<string>('mine'); // 'mine' | 'all' | tourId
   const [busy, setBusy] = useState<string>();
   const t0 = today();
 
-  if (error) return <div className="card empty">Couldn't load events ({error}). Check your connection and try again.</div>;
-  if (!data) return <div className="card empty">Loading events…</div>;
+  if ((!fetched && !error) || !imported) return <div className="card empty">Loading events…</div>;
+  const data: AvailableFile = fetched ?? { generatedAt: null, sources: {}, events: [] };
 
+  const importedIds = new Set(imported.map((e) => e.id));
   const scrapedTours = tours.filter((x) => data.sources[x.id]);
+  const chipTours = tours.filter((x) => data.sources[x.id] || imported.some((e) => e.tourId === x.id));
   const subscribed = myTours.length > 0;
   const effective = filter === 'mine' && !subscribed ? 'all' : filter;
-  const events = data.events
+  const events = [...data.events, ...imported]
+    .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .filter((e) => (e.endDate ?? e.startDate) >= t0)
     .filter((e) => (effective === 'mine' ? myTours.includes(e.tourId) : effective === 'all' ? true : e.tourId === effective));
   const added = new Map(tournaments.filter((t) => t.sourceEventId).map((t) => [t.sourceEventId!, t]));
@@ -288,6 +293,13 @@ function Available({
 
   return (
     <>
+      {error && (
+        <div className="card">
+          <p className="small" style={{ margin: 0 }}>
+            Couldn't load the latest tour schedules ({error}). Showing the events you've pasted in.
+          </p>
+        </div>
+      )}
       {!subscribed && (
         <div className="card">
           <p className="small" style={{ margin: 0 }}>
@@ -304,7 +316,7 @@ function Available({
         <button className={`chip${effective === 'all' ? ' on' : ''}`} onClick={() => setFilter('all')}>
           All tours
         </button>
-        {scrapedTours.map((x) => (
+        {chipTours.map((x) => (
           <button key={x.id} className={`chip${effective === x.id ? ' on' : ''}`} onClick={() => setFilter(x.id)}>
             {x.name}
           </button>
@@ -356,6 +368,16 @@ function Available({
                             Event page ↗
                           </a>
                         )}
+                        {importedIds.has(ev.id) && (
+                          <>
+                            <span className="tag">Pasted in</span>
+                            {!mine && (
+                              <button className="small-btn" aria-label={`Remove ${ev.name}`} onClick={() => db.imported.delete(ev.id)}>
+                                Remove
+                              </button>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -365,14 +387,17 @@ function Available({
           </ul>
         ) : (
           <div className="empty">
-            {data.generatedAt ? 'No upcoming events found for these tours yet.' : 'Tour schedules haven’t been collected yet — check back after the first daily update.'}
+            {data.generatedAt || imported.length ? 'No upcoming events found for these tours yet.' : 'Tour schedules haven’t been collected yet — check back after the first daily update.'}
           </div>
         )}
       </div>
 
       <Link to="/import" className="card link">
         <b>Tour not listed here?</b>
-        <div className="muted small">Some tours (like NTPGA) can't be collected automatically. Copy their schedule page and paste it — the app finds the events. ›</div>
+        <div className="muted small">
+          Some tours (like NTPGA and STPGA, whose schedules are on BlueGolf) can't be collected automatically. Copy their schedule page and paste it —
+          the events show up here. ›
+        </div>
       </Link>
 
       {scrapedTours.length > 0 && (
