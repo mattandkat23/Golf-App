@@ -1,0 +1,90 @@
+GET 200 https://js.authorize.net/v1/AcceptCore.js
+  post: 
+  body: !function(a){"use strict";function b(a,b){if("undefined"!=typeof isReady&&isReady)if(void 0===a||void 0===a.cardData&&void 0===a.bankData||void 0===a.authData||void 0===b)l("E_WC_04",C.messageInfo.E_WC_04);else if(a.cardData&&a.bankData)l("E_WC_23",C.messageInfo.E_WC_23);else{p(a),a.cardData?(j(a),o(a),n(a),h(a.cardData)):(c(a.bankData),d(a.bankData),e(a.bankData),f(a.bankData));do{if(void 0!==a.authData.clientKey&&0===a.authData.clientKey.length)l("E_WC_18",C.messageInfo.E_WC_18);else{if(void 0!==a.authData.clientKey)break;void 0!==a.authData.fingerprint?g(a.authData.fingerprint):l("E_WC_18",C.messageInfo.E_WC_18)}}while(!1)}else l("E_WC_14",C.messageInfo.E_WC_14)}function c(a){var b=a.accountType?a.accountType.replace(/[\. ,:-]+/g,""):"",c=String(b).toLowerCase();if("checking"===c)a.accountType="checking";else if("savings"===c)a.accountType="savings";else{if("businesschecking"!==c)return void l("E_WC_27",C.messageInfo.E_WC_27);a.accountType="businessChecking"}}function d(a){var b=a.routingNumber?a.routingNumber.replace(/[\. ,:-]+/g,""):"";if(!/^[0-9]{0,9}$/.exec(b))return void l("E_WC_25",C.messageInfo.E_WC_25);a.routingNumber=b}function e(a){var b=a.accountNumber?a.accountNumber.replace(/[\. ,:-]+/g,""):"";if(!/^[0-9]{5,17}$/.exec(b))return void l("E_WC_24",C.messageInfo.E_WC_24);a.accountNumber=b}function f(a){var b=a.nameOnAccount?a.nameOnAccount:"";if(!/^[a-zA-Z0-9(). #,]{0,22}$/.exec(b))return void l("E_WC_26",C.messageInfo.E_WC_26);a.nameOnAccount=b}function g(a){var b={timestamp:"E_WC_11",sequence:"E_WC_12",hashValue:"E_WC_09",amount:"E_WC_13"};for(var c in b)(!1===a.hasOwnProperty(c)||a[c].length<=0)&&l(b[c],C.messageInfo[b[c]])}function h(a){var b={cardCode:{errorCode:"E_WC_15",regex:"^([0-9]{3,4})$"},zip:{errorCode:"E_WC_16",regex:"^.{1,20}$"},fullName:{errorCode:"E_WC_17",regex:"^.{1,64}$"}};for(var c in b)if(a.hasOwnProperty(c)&&0!==a[c].length){var d=new RegExp(b[c].regex,"g");a[c].match(d)||l(b[c].errorCode,C.messageInfo[b[c].errorCode])}}function i(){var a="E_WC_02",b="E_WC_01",c=A+"Accept.js";0!==document.querySelectorAll('script[src="'+c+'"]').length||k(z,b)||(y.warn("Library is not coming from Accept CDN."),m(b,C.messageInfo.E_WC_01)),"https:"===window.location.protocol||k(z,a)||(y.warn("An HTTPs connection is required to secure delivery of payment information."),m(a,C.messageInfo.E_WC_02))}function j(a){var b=void 0!==a.cardData.cardNumber?a.cardData.cardNumber.replace(/[\. ,:-]+/g,""):"";if(!/^[0-9]{13,16}$/.exec(b))return void l("E_WC_05",C.messageInfo.E_WC_05);var c=0,d=0,e=!1;b=b.replace(/\D/g,"");for(var f=b.length-1;f>=0;f--){var g=b.charAt(f);d=parseInt(g,10),e&&(d*=2)>9&&(d-=9),c+=d,e=!e}return c%10!=0?void l("E_WC_05",C.messageInfo.E_WC_05):void 0}function k(a,b){for(var c=a.length;c--;)if(a[c].code==b)return!0;return!1}function l(a,b){x.messages.resultCode="Error",x.messages.message.push({code:a,text:b})}function m(a,b){z.push({code:a,text:b})}function n(a){var b;void 0!==a.cardData.month&&(b=1===a.cardData.month.le
+
+POST 200 https://www.google-analytics.com/j/collect?v=1&_v=j102&a=1730995799&t=pageview&_s=1&dl=https%3A%2F%2Fwww.ajga.org%2Ftournaments%2F2026145%2Fleaderboard&ul=en-us&dt=AJGA%20Junior%20All-Star%20Invitational%20-%202026%20Leaderboard&sr=1280x720&vp=1280x720&_u=IEBAAEABAAAAACAAI~&jid=1128906393&gjid=810647422&cid=1472848592.1791750319&tid=UA-29088772-1&_gid=1035241003.1791750319&_r=1&_slc=1&z=761255622
+  post: 
+  body: 2,cG-081Y0TYXQX
+
+GET 200 https://www.ajga.org/tournaments/2026145/leaderboard?_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490004&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=d798f78b8af3aa90aa182b8b3cc01859c41d00d1&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjAiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiL2xlYWRlcmJvYXJkL0xlYWRlcmJvYXJkVGFibGUuaGJzIiwiZnJhZ21lbnRVcmkiXQ%3D%3D&event_id=522977
+  post: 
+  body: {"badges":[{"legend":"leadershiplinks","badgeHtml":"<div class=\"Badge\" data-badge=\"leadership-link\">\n    \n    \n\n    <ps-tool-tip class=\"ToolTip\">\n        \n            <button\n                    type=\"button\"\n                    class=\"ToolTip-button\"\n                    aria-describedby=\"tooltip-content-\"\n                    aria-label=\"More information\"\n                    tabindex=\"0\">\n                <svg aria-hidden=\"true\" focusable=\"false\">\n                    <use xlink:href=\"#icon-leadership-links\"/>\n                </svg>\n            </button>\n        \n\n        <!--\n          The content should be rendered in the DOM, not inside a script tag.\n          We use role=\"tooltip\" and an ID to link it to the button above.\n        -->\n        <div\n                id=\"tooltip-content-\"\n                class=\"ToolTip-content\"\n                role=\"tooltip\"\n                aria-hidden=\"true\">\n\n            \n            <div class=\"Badge-tooltip\">\n            \n\n            \n                Character building, junior led character initiative. Visit <span class=\"Enhancement\"><span class=\"Enhancement-item\"><a class=\"Link\" href=\"https://www.leadershiplinks.org/\" target=\"_blank\">LeadershipLinks.org</a></span></span>\n for more info.\n            \n\n            \n            </div>\n            \n        </div>\n    </ps-tool-tip>\n\n\n</div>","ids":["44232812","44232801","44232814","44232817","44232792","44232818","44232829","44232809","44232842","44232787","44232830"]}],"errors":[],"fragmentUri":"/tournaments/2026145/leaderboard?event_id=522977&_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490004&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=d798f78b8af3aa90aa182b8b3cc01859c41d00d1&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjAiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiZnJhZ21lbnRVcmkiLCJmcmFnbWVudFVyaSJd","fragmentParams":"_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490004&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=d798f78b8af3aa90aa182b8b3cc01859c41d00d1&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjAiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiZnJhZ21lbnRVcmkiLCJmcmFnbWVudFBhcmFtcyJd","primaryColor":"#bf2c37","primaryTextColor":"#2a2a2a","secondaryTextColor":"#3e556d","secondaryColor2":"#356745","secondaryColor3":"#315074","secondaryColor4":"#f1f1f1","secondaryColor5":"#002855","headerHeight":"80px","mobileLeftAlignNavigation":true,"footerbackgroundColor":"#202020","footerTextColor":"#cccccc","hideExternalLinkIcon":false,"promoModuleAlignment":"left","hidePromoDropShadow":false,"videoPlayerHighlight":false,"headerHeightDesktop":"90px"}
+
+POST 204 https://www.ajga.org/_track
+  post: {"s":"00000167-c745-dba6-a9f7-efd5bbe70000","p":["e30edf29-8fe1-3857-864d-a0240c664e80","000001a0-ee5a-d65a-abbe-ffdb514b0000"],"r":"","ci":"000001a0-ee5a-d65a-abbe-ffdb514b0000","u":"https://www.ajga.org/tournaments/2026145/leaderboard","e":["uv","v","pv"]}
+  body: 
+
+GET 200 https://www.ajga.org/tournaments/2026145/leaderboard?_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490006&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=183bc740fb311589efaec3405641ca7f30883725&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjEiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiL2xlYWRlcmJvYXJkL0xlYWRlcmJvYXJkVGFibGUuaGJzIiwiZnJhZ21lbnRVcmkiXQ%3D%3D&event_id=522977
+  post: 
+  body: {"badges":[{"legend":"leadershiplinks","badgeHtml":"<div class=\"Badge\" data-badge=\"leadership-link\">\n    \n    \n\n    <ps-tool-tip class=\"ToolTip\">\n        \n            <button\n                    type=\"button\"\n                    class=\"ToolTip-button\"\n                    aria-describedby=\"tooltip-content-\"\n                    aria-label=\"More information\"\n                    tabindex=\"0\">\n                <svg aria-hidden=\"true\" focusable=\"false\">\n                    <use xlink:href=\"#icon-leadership-links\"/>\n                </svg>\n            </button>\n        \n\n        <!--\n          The content should be rendered in the DOM, not inside a script tag.\n          We use role=\"tooltip\" and an ID to link it to the button above.\n        -->\n        <div\n                id=\"tooltip-content-\"\n                class=\"ToolTip-content\"\n                role=\"tooltip\"\n                aria-hidden=\"true\">\n\n            \n            <div class=\"Badge-tooltip\">\n            \n\n            \n                Character building, junior led character initiative. Visit <span class=\"Enhancement\"><span class=\"Enhancement-item\"><a class=\"Link\" href=\"https://www.leadershiplinks.org/\" target=\"_blank\">LeadershipLinks.org</a></span></span>\n for more info.\n            \n\n            \n            </div>\n            \n        </div>\n    </ps-tool-tip>\n\n\n</div>","ids":["44232812","44232801","44232814","44232817","44232792","44232818","44232829","44232809","44232842","44232787","44232830"]}],"errors":[],"fragmentUri":"/tournaments/2026145/leaderboard?event_id=522977&_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490006&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=183bc740fb311589efaec3405641ca7f30883725&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjEiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiZnJhZ21lbnRVcmkiLCJmcmFnbWVudFVyaSJd","fragmentParams":"_fragmentId=000001a0-ee5a-d65a-abbe-ffdb51490006&_fragmentParent=000001a0-ee5a-d65a-abbe-ffdb514b0000&_fragmentSignature=183bc740fb311589efaec3405641ca7f30883725&_fragmentContext=WyIvY29yZS9wYWdlL1BhZ2UuaGJzIiwibWFpbiIsIm1haW46MSIsIi9jb3JlL3RhYi9UYWJzLmhicyIsInRhYnMiLCJ0YWJzOjEiLCIvY29yZS90YWIvVGFiSXRlbS5oYnMiLCIvY29yZS90YWIvQm90dG9tQm9yZGVyVGFiSXRlbS5oYnMiLCJjb250ZW50IiwiY29udGVudDowIiwiZnJhZ21lbnRVcmkiLCJmcmFnbWVudFBhcmFtcyJd","primaryColor":"#bf2c37","primaryTextColor":"#2a2a2a","secondaryTextColor":"#3e556d","secondaryColor2":"#356745","secondaryColor3":"#315074","secondaryColor4":"#f1f1f1","secondaryColor5":"#002855","headerHeight":"80px","mobileLeftAlignNavigation":true,"footerbackgroundColor":"#202020","footerTextColor":"#cccccc","hideExternalLinkIcon":false,"promoModuleAlignment":"left","hidePromoDropShadow":false,"videoPlayerHighlight":false,"headerHeightDesktop":"90px"}
+
+POST 204 https://analytics.google.com/g/collect?v=2&tid=G-081Y0TYXQX&gtm=45je6a72v9120440927za20gxf1&_p=1791750318700&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&_eu=ABAIACAC&cid=1472848592.1791750319&frm=0&ibt=1&ngs=1&pscdl=noapi&rcb=10&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=100940059~115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121046263~121046271~121246026~121246034&dl=https%3A%2F%2Fwww.ajga.org%2Ftournaments%2F2026145%2Fleaderboard&dt=AJGA%20Junior%20All-Star%20Invitational%20-%202026%20Leaderboard&sid=1791750318&sct=1&seg=0&en=page_view&_fv=1&_ss=1&_ee=1&tfd=757
+  post: 
+  body: 
+
+GET 200 https://www.ajga.org/api/scorecard?event_id=522977&tournament_id=4867645&team_play=false&aggregate_id=2468296415&member_id=44232816
+  post: 
+  body: 
+<div class="CourseTable" data-nineHoleCourse="false">
+
+    
+
+    
+        
+    <div class="CourseTableScorecardTabs"
+         data-widget="Tabs"
+         data-dropdown-mobile-design
+         data-no-anchors
+         data-default-active-tab="round-3">
+        
+        <!-- This creates the row of tabs for navigation -->
+        
+            <div class="CourseTableScorecardTabs-tabsWrapper">
+                <ul class="CourseTableScorecardTabs-tabs" data-tab-dropdown
+                    >
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-1"
+                               data-tab
+                               data-tab-id="round-1"
+                            >Round 1</a>
+                        </li>
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-2"
+                               data-tab
+                               data-tab-id="round-2"
+                            >Round 2</a>
+                        </li>
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-3"
+                               data-tab
+                               data-tab-id="round-3"
+                            >Round 3</a>
+                        </li>
+                    
+                    <li class="CourseTableScorecardTabs-tabListItem" data-dropdown-icon>
+                        <div class="CourseTableScorecardTabs-quiver">
+                            <svg class="icon-dropdown CourseTableScorecardTabs-dropdownIcon">
+                                <use xlink:href="#icon-dropdown"/>
+                            </svg>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        
+        <div class="CourseTableScorecardTabs-content">
+            
+                <div class="CourseTableScorecardTabs-panel" id="round-1" data-tab-panel>
+                    
+                        <div class="CourseTableScorecardTabs-title">Round 1</div>
+                    
+                    <div class="CourseTableScorecardTabs-playerPanel">
+                        <div class="CourseTableScorecardTabs-playerPanelContents">
+                            <div class="CourseTableScorecardTabs-playerImage">
+                                
+                                    
+                                        
+                                            
+    <img class="Image" data-image-size="scorecardAvatar" alt="Beckett McLaughlin with trophy - 2026 Callaway Junior All-Star" srcset="https://ajga.brightspotcdn.com/dims4/default/68fd2e4/2147483647/strip/true/crop/1314x1314+2115+480/resize/200x200!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0
