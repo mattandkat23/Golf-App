@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>Links Tournament Manager</title>
+    <link type="text/css" id="orientation-css" rel="Stylesheet" href="Portrait.css">
+    <link type="text/css" rel="Stylesheet" href="LinksViews.css">
+    <link href="//fonts.googleapis.com/css?family=Fondamento" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../includes/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../includes/js/jquery.cookie.js"></script>
+</head>
+<body>
+
+    <input type="hidden" id="links_tournament" value="23126">
+    <input type="hidden" id="links_account" value="1108">
+    <input type="hidden" id="links_view" value="results">
+    <input type="hidden" id="links_fmt" value="nohead">
+    <input type="hidden" id="links_block_meta" value="0">
+    <input type="hidden" id="links_ajax_prefix" value="../admin">
+    <input type="hidden" id="views_flight" value="300140">
+    <input type="hidden" id="views_round">
+    <input type="hidden" id="views_report">
+    <div id="plus_loading_msg" class="load_msg" style="text-align: center; display: none;">
+        <img src="../includes/images/loading.gif" alt="Loading..."> Loading Tournament Information<br>
+        <div style="display: inline-block; margin-top: 40px; width: 400px; height: auto; padding: 20px; border: 1px solid #900; font-size: 14px">
+            If you are having any issues, please update to the most recent version of Internet Explorer or try another browser like Chrome.</div>
+    </div>
+    <div id="report_msg" class="load_msg" style="display: none">
+        <img src="../includes/images/loading.gif" alt="Loading..."> Loading Age Group Information
+    </div>
+    <div id="report_canvas" style="display: none">
+    </div>
+    <div id="view_flight_msg" style="display: none;" class="load_msg">
+        <img src="../includes/images/loading.gif" alt="Loading..."> Loading Age Group Information
+    </div>
+    <div id="view_flight_header" style="display: block;">
+        <table id="view_flight_header_table">
+            <colgroup>
+                <col style="width:150px">
+                <col>
+                <col style="width:150px">
+            </colgroup>
+            <tbody><tr>
+                <td>
+                    <div id="view_flight_round">
+                        <div id="view_flight_round_details" style="display: none;">
+                        </div>
+                    </div>
+                    <div id="view_flight_age_groups">
+                        <select id="view_flight_age_group"><option value="300140">Boys 6 &amp; Under</option><option value="300141">Boys 7</option><option value="300142">Boys 8</option><option value="300143">Boys 9</option><option value="300144">Boys 10</option><option value="300145">Boys 11</option><option value="300146">Boys 12</option><option value="300147">Boys 13-14</option><option value="300152">Boys 15-18</option><option value="300148">Girls 8 &amp; Under</option><option value="300149">Girls 9-10</option><option value="300150">Girls 11-12</option><option value="300151">Girls 13-14</option><option value="300153">Girls 15-18</option></select>
+                    </div>
+                </td>
+                <td>
+                    <div id="view_flight_title">
+                        <div id="view_flight_tournament">Mill Creek Golf Club</div>
+                        <div id="view_flight_daterange">August 16</div>
+                    </div>
+                    <div id="view_flight_info">9 Holes&nbsp;•&nbsp;Mill Creek Golf Club</div>
+                </td>
+                <td>
+                    <div style="text-align: center; margin-bottom:10px;">
+                        <button onclick="view_refresh()">
+                            Refresh</button>
+                    </div>
+                    <div id="view_flight_sort_area" style="display: none">
+                        Sort by:
+                        <select id="view_flight_sort">
+                            <option value="hole">Hole and Tee Time</option>
+                            <option value="name">Name</option>
+                            <option value="time">Tee Time</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="view_flight_unpublished" style="display: none;" class="err_msg">
+        No rounds have been published for <span id="view_flight_unpublished_flight"></span>
+        <br>
+        <br>
+    </div>
+        <div id="view_flight_golf_genius" style="display: none;" class="err_msg">
+        The Boys 10 (rounds 1 &amp; 2) Tee Times can be found in the <a target="_blank" href="https://tournaments.uskidsgolf.com/node/504666">Tournament Hub</a><span id="view_flight_golf_genius_flight"></span>
+        <br>
+        <br>
+    </div>
+    <div id="view_flight_headings" style="display: block;"><table class="view_table" style="width:100%"><colgroup><col width="45"><col width="45"><col width="100%"><col width="60"><col width="75"><col width="75"><col width="75"></colgroup><tbody><tr><th colspan="2">POSITION</th><th class="alignL" style="padding-left:28px">PLAYER</th><th>SCORE</th><th>R1</th><th>STROKES</th><th>POINTS</th></tr></tbody></table></div>
+    <div id="view_flight_list" style="display: block;"><table class="view_table view_players" style="width:100%"><colgroup><col width="45"><col width="45"><col width="100%"><col width="60"><col width="75"><col width="75"><col width="75"></colgroup><tbody><tr id="player_1806640" class="odd"><td>1</td><td>-</td><td class="alignL"><img src="../admin/../includes/images/flags/gif/US.gif?052624" height="11" width="16" title="United States"><span class="player"><a href="#" onclick="results_scorecard(event,1806640)">Bennett SPRADLIN</a>&nbsp;<sup></sup></span><br><span class="hometown">Knoxville, TN - UNITED STATES</span></td><td class="under_par">-1</td><td><span class="under_par">35</span></td><td class="under_par">35</td><td>30.00</td></tr><tr id="player_1814906" class="even"><td>2</td><td>-</td><td class="alignL"><img src="../admin/../includes/images/flags/gif/US.gif?052624" height="11" width="16" title="United States"><span class="player"><a href="#" onclick="results_scorecard(event,1814906)">Ford SMITH</a>&nbsp;<sup></sup></span><br><span class="hometown">Woodway, TX - UNITED STATES</span></td><td>+7</td><td>43</td><td>43</td><td>20.00</td></tr><tr id="player_1805179" class="odd"><td>3</td><td>-</td><td class="alignL"><img src="../admin/../includes/images/flags/gif/US.gif?052624" height="11" width="16" title="United States"><span class="player"><a href="#" onclick="results_scorecard(event,1805179)">Skyler MARUSCO</a>&nbsp;<sup></sup></span><br><span class="hometown">Cedar Park, TX - UNITED STATES</span></td><td>+32</td><td>68</td><td>68</td><td>15.00</td></tr></tbody></table></div>
+    <script type="text/javascript" src="../includes/js/scrollDiv.js"></script>
+    <script type="text/javascript" src="../includes/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="../includes/js/Utils.js?010726"></script>
+    <script type="text/javascript" src="../includes/js/Country.js?010726"></script>
+    <script type="text/javascript" src="LinksViews.js?010726"></script>
+
+    
+
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-N0RGZD7N1F"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N0RGZD7N1F');
+</script>
+
+
+
+
+</body></html>
