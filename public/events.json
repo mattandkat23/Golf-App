@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-11T19:06:20.213Z",
+ "generatedAt": "2026-10-11T21:09:04.359Z",
  "sources": {
   "usk-austin": {
    "checkedAt": "2026-10-11T10:32:25.506Z",
@@ -90,354 +90,14 @@
    "checkedAt": "2026-10-11T18:16:03.466Z",
    "ok": true,
    "eventCount": 25
+  },
+  "under-armour": {
+   "checkedAt": "2026-10-11T21:09:04.359Z",
+   "ok": true,
+   "eventCount": 3
   }
  },
  "events": [
-  {
-   "id": "stpga-prestige-2026-08-09-1hw5k7p",
-   "tourId": "stpga-prestige",
-   "name": "Parent/Junior - Forest Creek Golf Club",
-   "startDate": "2026-08-09",
-   "courseName": "Forest Creek",
-   "city": "Round Rock",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-prestige-2026-08-10-78dm3",
-   "tourId": "stpga-prestige",
-   "name": "PT - STPGA Challenge",
-   "startDate": "2026-08-10",
-   "endDate": "2026-08-11",
-   "courseName": "Blackhorse GC- North",
-   "city": "Cypress",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-prestige-2026-08-15-k8mgkm",
-   "tourId": "stpga-prestige",
-   "name": "PT - Surf & Turf New Braunfels Showcase",
-   "startDate": "2026-08-15",
-   "endDate": "2026-08-16",
-   "courseName": "Landa Park Golf Course",
-   "city": "New Braunfels",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-16-9vnv2d",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Bentwater Country Club",
-   "startDate": "2026-08-16",
-   "courseName": "Bentwater CC Weiskopf",
-   "city": "Montgomery",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-16-4w9rwq",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Oakhurst Golf Club",
-   "startDate": "2026-08-16",
-   "courseName": "Oakhurst GC",
-   "city": "Porter",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-16-jfuccd",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - East River 9",
-   "startDate": "2026-08-16",
-   "courseName": "East River 9",
-   "city": "Houston",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-20-u7pgm",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters- Blackhorse Golf Club",
-   "startDate": "2026-08-20",
-   "courseName": "Blackhorse GC- North",
-   "city": "Cypress",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-23-1jy0g5x",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Atascocita Golf Club",
-   "startDate": "2026-08-23",
-   "courseName": "Atascocita Country Club",
-   "city": "Humble",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-23-jewjzs",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Brackenridge Park GC",
-   "startDate": "2026-08-23",
-   "courseName": "Brackenridge Park GC",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-23-cr7evk",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Champion Lakes GC",
-   "startDate": "2026-08-23",
-   "courseName": "Champion Lakes G.C",
-   "city": "McAllen",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-23-w68p7c",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Champion Lake Golf Course",
-   "startDate": "2026-08-23",
-   "courseName": "Champion Lakes G.C",
-   "city": "McAllen",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-23-x7683g",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Gabe Lozano Golf Course",
-   "startDate": "2026-08-23",
-   "courseName": "Lozano Golf Center - Loz",
-   "city": "Corpus Christi",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-23-1pa0jhj",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Gleannloch Pines Golf Club",
-   "startDate": "2026-08-23",
-   "courseName": "Pines/Gleann",
-   "city": "Spring",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-23-13bye42",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Jimmy Clay GC",
-   "startDate": "2026-08-23",
-   "courseName": "Jimmy Clay Course",
-   "city": "Austin",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-23-fs1jy3",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Willow Springs GC",
-   "startDate": "2026-08-23",
-   "courseName": "Willow Springs",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-23-azfwl1",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Atascocita Golf Club",
-   "startDate": "2026-08-23",
-   "courseName": "Atascocita Country Club",
-   "city": "Humble",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-23-ozxwgo",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Brackenridge Park GC",
-   "startDate": "2026-08-23",
-   "courseName": "Brackenridge Park GC",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-23-x4b7wj",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Champion Lake GC",
-   "startDate": "2026-08-23",
-   "courseName": "Champion Lakes G.C",
-   "city": "McAllen",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-25-17bfrc2",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Hermann Park GC",
-   "startDate": "2026-08-25",
-   "courseName": "Hermann Park GC",
-   "city": "Houston",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-29-k9rvjz",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links- Gabe Lozano Firefly Course",
-   "startDate": "2026-08-29",
-   "courseName": "The Firefly",
-   "city": "Corpus Christi",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-29-cstnk2",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Gabe Lozano Firefly",
-   "startDate": "2026-08-29",
-   "courseName": "The Firefly",
-   "city": "Corpus Christi",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-prestige-2026-08-29-8a0a3v",
-   "tourId": "stpga-prestige",
-   "name": "PT - Vortech Contracting H-Town Showdown",
-   "startDate": "2026-08-29",
-   "endDate": "2026-08-30",
-   "courseName": "Quail Valley GC",
-   "city": "Missouri City",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-30-1f9eczk",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Olympia Hills GC",
-   "startDate": "2026-08-30",
-   "courseName": "Olympia Hills GCC",
-   "city": "Universal City",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-30-15y0zi2",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Point Venture GC",
-   "startDate": "2026-08-30",
-   "courseName": "Point Venture GC",
-   "city": "Point Venture",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-08-30-hxp6tw",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - TAMU",
-   "startDate": "2026-08-30",
-   "courseName": "Texas A&M GC",
-   "city": "College Station",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-30-jaihef",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Magnolia Creek Golf Club",
-   "startDate": "2026-08-30",
-   "courseName": "Magnolia Creek GC",
-   "city": "League City",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-30-196qwes",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - River Bend Golf Club",
-   "startDate": "2026-08-30",
-   "courseName": "River Bend GC",
-   "city": "Floresville",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-08-30-jj10",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - TAMU",
-   "startDate": "2026-08-30",
-   "courseName": "Texas A&M GC",
-   "city": "College Station",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-30-o0eq48",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Falcon Point GC",
-   "startDate": "2026-08-30",
-   "courseName": "The Club at Falcon Point",
-   "city": "Katy",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-30-mm7128",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Olympia Hills GC",
-   "startDate": "2026-08-30",
-   "courseName": "Olympia Hills GCC",
-   "city": "Universal City",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-30-1anlfum",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Point Venture",
-   "startDate": "2026-08-30",
-   "courseName": "Point Venture GC",
-   "city": "Point Venture",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-08-30-894cok",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - TAMU",
-   "startDate": "2026-08-30",
-   "courseName": "Texas A&M GC",
-   "city": "College Station",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-06-2il8gz",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Blackhorse Golf Club",
-   "startDate": "2026-09-06",
-   "courseName": "Blackhorse GC- North",
-   "city": "Cypress",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-06-u5hj7",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Blackhorse Golf Club",
-   "startDate": "2026-09-06",
-   "courseName": "Blackhorse GC- North",
-   "city": "Cypress",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-08-1ql4kqb",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Northern Hills GC",
-   "startDate": "2026-09-08",
-   "courseName": "Northern Hills Golf Club",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-08-onxg5v",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Northern Hills GC",
-   "startDate": "2026-09-08",
-   "courseName": "Northern Hills Golf Club",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-09-albty4",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Mill Creek Country Club",
-   "startDate": "2026-09-09",
-   "courseName": "Mill Creek CC - 1-2",
-   "city": "Salado",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-09-1o8c3cc",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Mill Creek CC",
-   "startDate": "2026-09-09",
-   "courseName": "Mill Creek CC - 1-3",
-   "city": "Salado",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
   {
    "id": "stpga-prestige-2026-09-12-10i946j",
    "tourId": "stpga-prestige",
@@ -1245,6 +905,15 @@
    "courseName": "Lake Park Executive GC",
    "city": "Lewisville",
    "url": "https://www.ntpgajuniorgolf.com/"
+  },
+  {
+   "id": "under-armour-2026-10-16-vebpjk",
+   "tourId": "under-armour",
+   "name": "Jordan Spieth UA Championship",
+   "startDate": "2026-10-16",
+   "endDate": "2026-10-18",
+   "ageGroups": "Ages 6-18",
+   "level": "Other"
   },
   {
    "id": "ntpga-majors-2026-10-17-ligp7u",
@@ -2679,6 +2348,15 @@
    "url": "https://www.stpgajuniorgolf.com/tournaments"
   },
   {
+   "id": "under-armour-2026-11-25-s478ud",
+   "tourId": "under-armour",
+   "name": "Thanksgiving Week Championship",
+   "startDate": "2026-11-25",
+   "endDate": "2026-11-29",
+   "courseName": "Cabot Citrus Farms",
+   "level": "Other"
+  },
+  {
    "id": "stpga-junior-links-2026-11-29-1gqeavh",
    "tourId": "stpga-junior-links",
    "name": "Junior Links - Idylwild Golf Club",
@@ -3060,6 +2738,15 @@
    "registrationDeadline": "2026-12-19",
    "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519796/holiday-classic-2026",
    "level": "Regional"
+  },
+  {
+   "id": "under-armour-2026-12-30-tmiudp",
+   "tourId": "under-armour",
+   "name": "New Years Championship",
+   "startDate": "2026-12-30",
+   "endDate": "2027-01-03",
+   "courseName": "Innisbrook Resort and Spa",
+   "level": "Other"
   },
   {
    "id": "usk-regional-2027-01-16-1aul3jl",
