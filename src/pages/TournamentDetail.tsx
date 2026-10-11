@@ -9,6 +9,7 @@ import { buildIcs, openIcs, tournamentToIcs } from '../lib/ics';
 import { useAuth } from '../lib/auth';
 import { useGolfer } from '../lib/golfer';
 import { supabase } from '../lib/supabase';
+import { ajgaLiveTrackable, ajgaTournamentId, optInAjgaLive, optOutAjgaLive } from '../lib/ajgaLiveTracking';
 import type { EventStatus } from '../lib/types';
 
 const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Waitlisted', 'Played', 'Withdrew'];
@@ -26,8 +27,8 @@ export default function TournamentDetail() {
   const [optInBump, setOptInBump] = useState(0);
   const [savingOptIn, setSavingOptIn] = useState(false);
   const [optInError, setOptInError] = useState('');
-  const ajgaId = t?.tourId === 'ajga' ? t.url?.match(/\/tournaments\/(\w+)/)?.[1] : undefined;
-  const liveTrackable = !!ajgaId && (!t?.endDate || t.endDate >= today());
+  const ajgaId = t ? ajgaTournamentId(t) : undefined;
+  const liveTrackable = !!t && ajgaLiveTrackable(t);
   const optedIn = useLiveQuery(async () => {
     if (!session || !liveTrackable || !ajgaId) return false;
     const { data } = await supabase.from('ajga_hole_requests').select('id').eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId).maybeSingle();
@@ -39,12 +40,10 @@ export default function TournamentDetail() {
   const totals = rounds?.map(summarizeRound);
 
   async function toggleHoleTracking() {
-    if (!session || !ajgaId || !t) return;
+    if (!session || !t) return;
     setSavingOptIn(true);
     setOptInError('');
-    const { error } = optedIn
-      ? await supabase.from('ajga_hole_requests').delete().eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId)
-      : await supabase.from('ajga_hole_requests').insert({ user_id: session.user.id, golfer_name: golfer.playerName, tournament_id: ajgaId, tournament_name: t.name });
+    const { error } = (optedIn ? await optOutAjgaLive(golfer, t) : await optInAjgaLive(session, golfer, t)) ?? {};
     setSavingOptIn(false);
     if (error) setOptInError('Couldn’t save that — check you’re online and try again.');
     else setOptInBump((b) => b + 1);
@@ -116,7 +115,8 @@ export default function TournamentDetail() {
             Event page ↗
           </a>
         )}
-        {liveTrackable && (
+        {liveTrackable && golfer.trackAjgaHoles && <p className="muted small">✓ Tracking hole-by-hole live for {golfer.playerName} (every AJGA event -- see More → Profile).</p>}
+        {liveTrackable && !golfer.trackAjgaHoles && (
           <div>
             <button className="block" disabled={!session || savingOptIn} onClick={toggleHoleTracking}>
               {optedIn ? '✓ Tracking hole-by-hole live' : session ? 'Track hole-by-hole live' : 'Sign in to track hole-by-hole live'}

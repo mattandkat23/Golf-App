@@ -11,6 +11,8 @@ import { tourColor, useMyTours } from '../lib/tourColors';
 import { groupTours, shortTourName } from '../lib/tourGroups';
 import { buildIcs, openIcs, shareIcs, tournamentToIcs } from '../lib/ics';
 import { type AvailableEvent, type AvailableFile, addAvailableEvent, useAvailableEvents } from '../lib/available';
+import { useAuth } from '../lib/auth';
+import { optInAjgaLive } from '../lib/ajgaLiveTracking';
 
 type Tab = 'schedule' | 'available' | 'past';
 
@@ -314,6 +316,7 @@ function Available({
   colorOf: (t: { tourId?: string }) => string;
 }) {
   const { data: fetched, error } = useAvailableEvents();
+  const { session } = useAuth();
   const imported = useLiveQuery(() => db.imported.toArray(), []);
   const [filter, setFilter] = useState<string>('mine'); // 'mine' | 'all' | an org name (grouped) or a single tourId
   const [seriesFilter, setSeriesFilter] = useState<string>(''); // narrows a grouped org to one of its tours; '' = all of them
@@ -344,7 +347,11 @@ function Available({
 
   async function add(ev: AvailableEvent, status: 'Considering' | 'Registered') {
     setBusy(ev.id);
-    await addAvailableEvent(ev, status, golfer);
+    const id = await addAvailableEvent(ev, status, golfer);
+    if (golfer.trackAjgaHoles && session) {
+      const t = await db.tournaments.get(id);
+      if (t) await optInAjgaLive(session, golfer, t);
+    }
     setBusy(undefined);
   }
 

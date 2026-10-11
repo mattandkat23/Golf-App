@@ -138,4 +138,6 @@ export interface Profile {
   ageGroup?: string;
   bag: Club[];
   myTours?: string[];
+  /** Opt in once: live hole-by-hole tracking for every AJGA event this golfer has (see src/lib/ajgaLiveTracking.ts). */
+  trackAjgaHoles?: boolean;
 }

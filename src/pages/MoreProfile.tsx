@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
+import { useAuth } from '../lib/auth';
+import { optInAllAjgaLive, optOutAllAjgaLive } from '../lib/ajgaLiveTracking';
 import type { Profile } from '../lib/types';
 import { Field, PageHead, today } from '../components/ui';
 import { AGE_GROUPS } from '../data/uskids';
 
 export default function MoreProfile() {
   const { golfer: profile } = useGolfer();
+  const { session } = useAuth();
+  const [savingAjga, setSavingAjga] = useState(false);
   const save = (p: Partial<Profile>) => db.profile.put({ ...profile, ...p });
+
+  async function toggleAjgaHoles(on: boolean) {
+    setSavingAjga(true);
+    if (on && session) {
+      const mine = await db.tournaments.where('golferId').equals(profile.id).toArray();
+      await optInAllAjgaLive(session, profile, mine);
+    } else if (!on) {
+      await optOutAllAjgaLive(profile);
+    }
+    await save({ trackAjgaHoles: on });
+    setSavingAjga(false);
+  }
 
   return (
     <>
@@ -23,6 +40,20 @@ export default function MoreProfile() {
             ))}
           </select>
         </Field>
+        <label className="row" style={{ gap: 8, marginTop: 8 }}>
+          <input
+            type="checkbox"
+            checked={!!profile.trackAjgaHoles}
+            disabled={!session || savingAjga}
+            onChange={(e) => toggleAjgaHoles(e.target.checked)}
+          />
+          <span>Track hole-by-hole live for all of {profile.playerName || 'this golfer'}'s AJGA events</span>
+        </label>
+        <p className="muted small" style={{ marginTop: 0 }}>
+          AJGA shows hole-by-hole scores while an event is in progress. Turn this on once and every AJGA event already on{' '}
+          {profile.playerName || 'their'} schedule -- and any added later -- gets pulled in daily, automatically.
+          {!session && ' Sign in to turn this on.'}
+        </p>
       </div>
 
       <div className="card">
