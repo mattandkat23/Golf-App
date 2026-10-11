@@ -10,9 +10,9 @@ import { supabase } from './supabase';
 import type { Profile, Tournament } from './types';
 import { today } from '../components/ui';
 
-/** The numeric AJGA tournament id from a Tournament's url, if this is an AJGA event at all. */
+/** The numeric AJGA tournament id from a Tournament's url, if this is an AJGA event at all (any sub-tour -- see src/data/tours.ts). */
 export function ajgaTournamentId(t: Pick<Tournament, 'tourId' | 'url'>): string | undefined {
-  return t.tourId === 'ajga' ? t.url?.match(/\/tournaments\/(\w+)/)?.[1] : undefined;
+  return t.tourId?.startsWith('ajga-') ? t.url?.match(/\/tournaments\/(\w+)/)?.[1] : undefined;
 }
 
 /** True once an AJGA event's scorecards could plausibly still be public (hasn't ended yet). */

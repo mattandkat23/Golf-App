@@ -15,6 +15,7 @@ import { z } from 'zod';
 import { chromium, type Browser } from 'playwright-core';
 import { type EventsFile, type ScrapedEvent, hashText, mergeEventsFile, normalizeEvents, robotsAllows, robotsCrawlDelay } from './lib.ts';
 import { blockDisallowed } from './polite.ts';
+import { SUB_TOUR_CLASSIFIERS } from './sub-tours.ts';
 
 // Paths can be overridden for local testing.
 const EVENTS_PATH = process.env.SCRAPER_EVENTS_PATH ?? 'public/events.json';
@@ -232,20 +233,22 @@ async function scrapeSource(browser: Browser, client: Anthropic, source: Source,
       console.log(`    error: ${(e as Error).message}`);
     }
   }
-  const events: ScrapedEvent[] = normalizeEvents(
-    source.tourId,
-    raw.map((r) => ({
-      ...Object.fromEntries(Object.entries(r).filter(([, v]) => v !== null)),
-      ...(source.level && { level: source.level }),
-    })) as Omit<ScrapedEvent, 'id' | 'tourId'>[],
-    today,
-  );
+  const cleaned = raw.map((r) => ({
+    ...Object.fromEntries(Object.entries(r).filter(([, v]) => v !== null)),
+    ...(source.level && { level: source.level }),
+  })) as (Omit<ScrapedEvent, 'id' | 'tourId'> & { name: string })[];
   // Finding no events at all (past or upcoming) usually means the site changed or blocked us; keep
   // last run's events in that case. Events that were found but are all in the past are a valid result.
   // A schedule page with no matching events (e.g. no Texas events this season) is also a valid result.
   const ok = raw.length > 0 || sawSchedule;
   const error = ok ? (errors.length ? errors.join(' | ') : undefined) : errors.join(' | ') || 'No events found';
-  return { tourId: source.tourId, ok, events, error };
+  // AJGA mixes Open Championships, Qualifiers, Invitationals, etc. under one schedule -- sort each
+  // event into its own subscribable tour (see sub-tours.ts) instead of dumping them all under source.tourId.
+  const classify = SUB_TOUR_CLASSIFIERS[source.tourId];
+  if (!classify) return [{ tourId: source.tourId, ok, events: normalizeEvents(source.tourId, cleaned, today), error }];
+  const buckets = new Map<string, typeof cleaned>();
+  for (const ev of cleaned) buckets.set(classify(ev.name), [...(buckets.get(classify(ev.name)) ?? []), ev]);
+  return [...buckets.entries()].map(([id, evs]) => ({ tourId: id, ok, events: normalizeEvents(id, evs, today), error }));
 }
 
 async function main() {
@@ -263,7 +266,7 @@ async function main() {
   try {
     for (const source of sources) {
       console.log(`\n${source.label}`);
-      results.push(await scrapeSource(browser, client, source, cache, today));
+      results.push(...(await scrapeSource(browser, client, source, cache, today)));
     }
   } finally {
     await browser.close();

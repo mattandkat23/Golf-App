@@ -32,3 +32,23 @@ describe('SUB_TOUR_CLASSIFIERS.stpga', () => {
     expect(classify('15th Texas Junior Cup Matches')).toBe('stpga-prestige');
   });
 });
+
+describe('SUB_TOUR_CLASSIFIERS.ajga', () => {
+  const classify = SUB_TOUR_CLASSIFIERS.ajga;
+  it('sorts qualifiers by their "Qualifier - " prefix', () => {
+    expect(classify('Qualifier - Russell Henley Junior Championship presented by Pinnacle Financial Partners')).toBe('ajga-qualifier');
+  });
+  it('sorts Invitational, Junior All-Star, Preview and Senior events by keyword', () => {
+    expect(classify('Ninja Invitational hosted by Janet Xiyu Lin')).toBe('ajga-invitational');
+    expect(classify('adidas Junior All-Star')).toBe('ajga-allstar');
+    expect(classify('AJGA Preview at Quail Creek presented by City of Robinson')).toBe('ajga-preview');
+    expect(classify('Marie Birdie Senior Girls Championship')).toBe('ajga-senior');
+  });
+  it('prefers Invitational over Junior All-Star when a name has both', () => {
+    expect(classify('AJGA Junior All-Star Invitational')).toBe('ajga-invitational');
+  });
+  it('falls back to open for regular championships', () => {
+    expect(classify('Russell Henley Junior Championship presented by Pinnacle Financial Partners')).toBe('ajga-open');
+    expect(classify('Randy Wise Junior Open presented by Genesee County')).toBe('ajga-open');
+  });
+});

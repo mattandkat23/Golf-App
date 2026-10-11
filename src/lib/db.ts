@@ -92,6 +92,32 @@ class GolfDB extends Dexie {
         });
       }
     });
+    // v12 splits AJGA into Open/Qualifier/Invitational/Junior All-Star/Preview/Senior (see src/data/tours.ts and scraper/sub-tours.ts).
+    this.version(12).upgrade(async (tx) => {
+      await tx.table('tours').delete('ajga');
+      await tx.table('tours').bulkPut(SEED_TOURS);
+      const classify = (name: string) =>
+        /^Qualifier\b/i.test(name)
+          ? 'ajga-qualifier'
+          : /\bInvitational\b/i.test(name)
+            ? 'ajga-invitational'
+            : /\bJunior All-Star\b/i.test(name)
+              ? 'ajga-allstar'
+              : /\bPreview\b/i.test(name)
+                ? 'ajga-preview'
+                : /\bSenior\b/i.test(name)
+                  ? 'ajga-senior'
+                  : 'ajga-open';
+      await tx.table('profile').toCollection().modify((p: Profile) => {
+        if (p.myTours?.includes('ajga'))
+          p.myTours = [...p.myTours.filter((t) => t !== 'ajga'), 'ajga-open', 'ajga-qualifier', 'ajga-invitational', 'ajga-allstar', 'ajga-preview', 'ajga-senior'];
+      });
+      for (const name of ['tournaments', 'imported'] as const) {
+        await tx.table(name).toCollection().modify((x: { tourId?: string; name: string }) => {
+          if (x.tourId === 'ajga') x.tourId = classify(x.name);
+        });
+      }
+    });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);

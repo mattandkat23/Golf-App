@@ -24,7 +24,15 @@ export const SEED_TOURS: Tour[] = [
   { id: 'stpga-junior-tour', name: 'STPGA – Junior Tour', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
   { id: 'stpga-junior-links', name: 'STPGA – Junior Links', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
   { id: 'stpga-little-linksters', name: 'STPGA – Little Linksters', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
-  { id: 'ajga', name: 'AJGA (nationwide, incl. Under Armour / Jordan Spieth)', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  // AJGA runs one national schedule mixing Open Championships with Qualifiers (~45% of all events),
+  // Invitationals, the ICL Academy Junior All-Star Series, Preview events and Senior tournaments --
+  // split into separate subscribable tours for the same reason as NTPGA/STPGA above.
+  { id: 'ajga-open', name: 'AJGA – Open Championships', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga-qualifier', name: 'AJGA – Qualifiers', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga-invitational', name: 'AJGA – Invitationals', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga-allstar', name: 'AJGA – Junior All-Star Series', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga-preview', name: 'AJGA – Preview Events', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
+  { id: 'ajga-senior', name: 'AJGA – Senior Championships', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
   { id: 'under-armour', name: 'Under Armour Junior Tour', org: 'Under Armour', url: 'https://www.uagolftour.com/' },
   { id: 'hjgt', name: 'Hurricane Junior Golf Tour (HJGT) – Texas', org: 'HJGT', url: 'https://tournaments.hjgt.org/Tournament' },
   { id: 'tga-ljt', name: 'TGA / Legends Junior Tour', org: 'Texas Golf Association', url: 'https://txga.org/ljt-landing-3/' },

@@ -111,19 +111,11 @@ export default function Schedule() {
           </div>
         }
       />
-      <div className="chips" style={{ marginBottom: 12 }}>
-        {(
-          [
-            ['schedule', 'My schedule'],
-            ['available', 'Available'],
-            ['past', 'Past'],
-          ] as const
-        ).map(([k, label]) => (
-          <button key={k} className={`chip${tab === k ? ' on' : ''}`} onClick={() => setTab(k)}>
-            {label}
-          </button>
-        ))}
-      </div>
+      <select style={{ marginBottom: 12 }} value={tab} onChange={(e) => setTab(e.target.value as Tab)}>
+        <option value="schedule">My schedule</option>
+        <option value="available">Available</option>
+        <option value="past">Past</option>
+      </select>
 
       {tab === 'schedule' && (
         <>
@@ -382,7 +374,7 @@ function Available({
           {subscribed && <option value="mine">My tours</option>}
           <option value="all">All tours</option>
           {tourGroups.map(([org, list]) => (
-            <option key={org} value={org}>
+            <option key={org} value={list.length > 1 ? org : list[0].id}>
               {list.length > 1 ? `${org} (all)` : list[0].name}
             </option>
           ))}

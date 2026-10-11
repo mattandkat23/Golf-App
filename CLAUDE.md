@@ -23,7 +23,7 @@ GitHub/console settings, and keep replies short.
 - `src/lib/schedule.ts` conflicts, deadlines, season totals · `src/lib/ics.ts` calendar export
 - `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter Texas course list
 - `src/lib/tourGroups.ts` groups tours by org (SEED_TOURS order) for My tours and the Events → Available
-  "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA) collapses to one
+  "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA, AJGA) collapses to one
   "<org> (all)" option with a second dropdown to narrow to a specific tour, instead of listing every one.
 
 ## Rules that bite
@@ -38,9 +38,9 @@ GitHub/console settings, and keep replies short.
 
 - **Changing `SEED_TOURS`** → add a new `this.version(N).upgrade(... bulkPut(SEED_TOURS))` in `db.ts`, or
   existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration that also
-  remaps `profile.myTours`, `Tournament.tourId` and `ImportedEvent.tourId` (see v5, v11). A tour's `org` field
+  remaps `profile.myTours`, `Tournament.tourId` and `ImportedEvent.tourId` (see v5, v11, v12). A tour's `org` field
   groups it in More → My tours (collapsible, one group per org) — name multi-series tours `"<Org> – <Series>"`
-  (e.g. `NTPGA – Prep Tour`) so the group strips the org prefix back off for display; see v11/sub-tours.ts.
+  (e.g. `NTPGA – Prep Tour`) so the group strips the org prefix back off for display; see v11/v12 and `sub-tours.ts`.
 - **Multiple golfers** (v10): tournaments, rounds and practice carry `golferId` (a `profile` id; first golfer is
   `'me'`). Query them by golferId; use `useGolfer()` (`src/lib/golfer.tsx`) for the selected golfer, never `profile.get('me')`.
   Courses, tours and Available events are shared.
@@ -63,7 +63,8 @@ GitHub/console settings, and keep replies short.
 - Debug helpers (Actions, manual): "Peek at a page" (`scraper/peek.ts`) prints a page's text/links;
   "Check robots.txt" (`scraper/robots-check.ts`).
 - Sources: US Kids Austin, Dallas, Houston, San Antonio, El Paso (all Texas fall local tours), Texas State,
-  Regionals (all states), Worlds; AJGA (nationwide); TGA/Legends Junior Tour; HJGT (Texas only).
+  Regionals (all states), Worlds; AJGA (nationwide, split into sub-tours -- see below); Under Armour Junior
+  Tour; TGA/Legends Junior Tour; HJGT (Texas only).
 - **Do not bypass robots.txt.** NTPGA's and STPGA's schedules are on BlueGolf (`User-agent: * Disallow: /`) —
   can't be scraped, so neither is in `sources.json`; both are kept current by hand. For any tour like that,
   publish its schedule by hand instead of scraping it: paste the tour's schedule text (the same thing a parent
@@ -77,7 +78,16 @@ GitHub/console settings, and keep replies short.
   subscribable tour (`ntpga-majors`, `stpga-junior-tour`, etc. — see `src/data/tours.ts`) by name prefix, so one
   `publish-schedule.ts ntpga`/`stpga` run fans out into several `public/events.json` sources automatically; check
   the output, since a new unrecognized name prefix falls into that org's catch-all bucket (`ntpga-majors`/
-  `stpga-prestige`) instead of its own series. Commit and push to deploy. Parents hit "Tour not listed here?"
+  `stpga-prestige`) instead of its own series.
+- **AJGA is still scraped** (unlike NTPGA/STPGA), but one national schedule mixes Open Championships with
+  Qualifiers (~45% of all events), Invitationals, the ICL Academy Junior All-Star Series, Preview events and
+  Senior tournaments -- the same categories AJGA's own entry-limit rules name. `scrapeSource()` in `scrape.ts`
+  runs the same `SUB_TOUR_CLASSIFIERS.ajga` classifier (by name keyword, not prefix: `Qualifier - ` prefix,
+  then `Invitational`/`Junior All-Star`/`Preview`/`Senior` keywords, else the `ajga-open` catch-all; a name with
+  both "Invitational" and "Junior All-Star" -- it happens -- resolves to Invitational) right after extraction,
+  so one `ajga` source in `sources.json` fans out into `ajga-open`/`ajga-qualifier`/`ajga-invitational`/
+  `ajga-allstar`/`ajga-preview`/`ajga-senior` sources in `events.json`, same idea as the NTPGA/STPGA fan-out above.
+  Commit and push to deploy. Parents hit "Tour not listed here?"
   (Events → Available) to request a tour; requests land in the `tour_requests` table. "Check tour requests"
   (daily, `scraper/check-tour-requests.ts`, `.github/workflows/check-tour-requests.yml`) flags new ones by
   deliberately failing the job (so a failed-scheduled-run email goes out) and listing them in the run log;
