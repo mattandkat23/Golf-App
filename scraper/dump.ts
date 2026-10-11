@@ -4,6 +4,7 @@
  * With CLICK set to a selector, also clicks each matching element (e.g. age-group tabs) and saves after each;
  * with SELECT set to a <select> selector, picks each of its options in turn. Background requests the page
  * makes (and the start of their responses) are logged to dumps/<page>.network.txt.
+ * With RAW=1, downloads each URL as-is without running the page (no background requests at all).
  * Usage: CLICK='a.tab' SELECT='#age' node --experimental-strip-types scraper/dump.ts <url> [url...]
  */
 import fs from 'node:fs';
@@ -45,6 +46,13 @@ for (const url of process.argv.slice(2)) {
     continue;
   }
   netLog = [];
+  if (process.env.RAW) {
+    const res = await fetch(url, { headers: { 'user-agent': USER_AGENT } });
+    fs.writeFileSync(`dumps/${slug(url)}.raw.txt`, `<!-- HTTP ${res.status} ${res.headers.get('content-type')} -->\n${await res.text()}`);
+    console.log(`saved raw ${url} (HTTP ${res.status})`);
+    await new Promise((r) => setTimeout(r, 3000));
+    continue;
+  }
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 });
   await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => undefined);
   const name = slug(url);

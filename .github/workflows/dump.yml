@@ -13,6 +13,9 @@ on:
       select:
         description: 'Optional <select> selector whose options to pick in turn'
         required: false
+      raw:
+        description: 'Download as-is without running the page (yes/no)'
+        required: false
 
 permissions:
   contents: write
@@ -37,6 +40,7 @@ jobs:
           URL: ${{ inputs.url }}
           CLICK: ${{ inputs.click }}
           SELECT: ${{ inputs.select }}
+          RAW: ${{ inputs.raw == 'yes' && '1' || '' }}
         run: node --experimental-strip-types scraper/dump.ts $URL
       - name: Commit to page-dumps branch
         run: |
