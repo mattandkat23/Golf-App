@@ -1,0 +1,282 @@
+GET 200 https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true
+  post: 
+  body: {}
+
+
+POST 204 https://analytics.google.com/g/collect?v=2&tid=G-N0RGZD7N1F&gtm=45je6a80h2v9122628922za208xf1&_p=1791683288970&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=114286627&_eu=AAAAAGQC&cid=2078426685.1791683285&ec_mode=a&frm=0&pscdl=noapi&rcb=4&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121046263~121046271~121246026~121246034&sid=1791683285&sct=1&seg=1&dl=https%3A%2F%2Ftournaments.uskidsgolf.com%2Ftournaments%2Flocal%2Ffind-local-tour%2F284862%2Faustin%2Fresults%3Ftournament_id%3D519216&dt=Results%20for%20Austin%20Local%20Tour%20%7C%20U.S.%20Kids%20Golf&en=page_view&_ee=1&tfd=249
+  post: 
+  body: 
+
+POST 200 https://tourcaddiepro.com/plugins/links/admin/LinksAJAX.aspx?op=GetMeta&t=23126&jbgr=1791683289&c=1
+  post: 
+  body: {
+  "tournament": {
+    "account": "USKG",
+    "tour": "Austin Tour",
+    "name": "Mill Creek Golf Club",
+    "status": 9,
+    "type": 5,
+    "has_season_points": true,
+    "team_size": 1,
+    "format": 1,
+    "start_format": 0,
+    "start_date": "8/16/2026",
+    "end_date": "8/16/2026",
+    "rounds": 1,
+    "shotgun_data": "",
+    "courses": "Mill Creek Golf Club",
+    "fee_9": "75.00",
+    "fee_18": "85.00",
+    "cost_9": "25.00",
+    "cost_18": "35.00",
+    "fee_deposit": "0.00",
+    "players_9": "21",
+    "players_18": "25",
+    "courses": "Mill Creek Golf Club",
+    "hide_players_ggid": false
+  },
+  "age_groups": {
+    "621": {
+      "name": "Boys 6 & Under",
+      "gender": "Boys",
+      "min_age": 5,
+      "tee_marker": "Tee RS",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "124": {
+      "name": "Boys 7",
+      "gender": "Boys",
+      "min_age": 7,
+      "tee_marker": "Tee 1",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "168": {
+      "name": "Boys 8",
+      "gender": "Boys",
+      "min_age": 8,
+      "tee_marker": "Tee 2",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "212": {
+      "name": "Boys 9",
+      "gender": "Boys",
+      "min_age": 9,
+      "tee_marker": "Tee 3",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "256": {
+      "name": "Boys 10",
+      "gender": "Boys",
+      "min_age": 10,
+      "tee_marker": "Tee 4",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "300": {
+      "name": "Boys 11",
+      "gender": "Boys",
+      "min_age": 11,
+      "tee_marker": "Tee 4",
+      "holes_per_round": 18,
+      "pace_of_play_3": 14,
+      "pace_of_play_4": 15,
+      "pace_of_play_5": 16
+    },
+    "344": {
+      "name": "Boys 12",
+      "gender": "Boys",
+      "min_age": 12,
+      "tee_marker": "Tee 5",
+      "holes_per_round": 18,
+      "pace_of_play_3": 14,
+      "pace_of_play_4": 15,
+      "pace_of_play_5": 16
+    },
+    "388": {
+      "name": "Boys 13-14",
+      "gender": "Boys",
+      "min_age": 13,
+      "tee_marker": "Tee 6",
+      "holes_per_round": 18,
+      "pace_of_play_3": 14,
+      "pace_of_play_4": 15,
+      "pace_of_play_5": 16
+    },
+    "2533": {
+      "name": "Girls 8 & Under",
+      "gender": "Girls",
+      "min_age": 5,
+      "tee_marker": "Tee RS",
+      "holes_per_round": 9,
+      "pace_of_play_3": 15,
+      "pace_of_play_4": 16,
+      "pace_of_play_5": 17
+    },
+    "2692": {
+      "name": "Girls 9-10",
+      "gender": "Girls",
+      "min_age": 9,
+      "tee_marker": "Tee 2",
+      "holes_per_round": 9,
+      "pace_of_pla
+
+POST 200 https://tourcaddiepro.com/plugins/links/admin/LinksAJAX.aspx?op=GetPlayerTeeTimes&f=300140&r=1&p=1&t=1&pt=undefined&jbgr=1791683289&c=1
+  post: 
+  body: {
+  "flight_players": {
+    "1805179": {
+      "is_new_player": "**",
+      "is_captain": 0,
+      "first": "Skyler",
+      "last": "Marusco",
+      "handicap": "",
+      "driverLength": "",
+      "teeMarkerName": "Tee RS",
+      "teeMarkerColor": "Green",
+      "team": 0,
+      "place": "Cedar Park, TX",
+      "country": "us",
+      "status": 1,
+      "comments": "",
+      "tiebreaker": 0,
+      "points": 15.00,
+      "points_all": "0",
+      "rounds": {
+        "1": {
+          "strokes": [
+            8,
+            6,
+            6,
+            7,
+            8,
+            8,
+            10,
+            10,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flight_round": "316526",
+          "start_hole": 1,
+          "start_time": "12:54",
+          "group_number": 1,
+          "player_number": 2,
+          "live_scoring_id": "",
+          "num_strokes": 68,
+          "num_holes": 9
+        }
+      },
+      "score": 68,
+      "scores": [
+        "68|9"
+      ]
+    },
+    "1814906": {
+      "is_new_player": "",
+      "is_captain": 0,
+      "first": "Ford",
+      "last": "Smith",
+      "handicap": "",
+      "driverLength": "",
+      "teeMarkerName": "Tee RS",
+      "teeMarkerColor": "Green",
+      "team": 0,
+      "place": "Woodway, TX",
+      "country": "us",
+      "status": 1,
+      "comments": "",
+      "tiebreaker": 0,
+      "points": 20.00,
+      "points_all": "0",
+      "rounds": {
+        "1": {
+          "strokes": [
+            4,
+            6,
+            4,
+            5,
+            7,
+            5,
+            2,
+            6,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flight_round": "316526",
+          "start_hole": 1,
+          "start_time": "12:54",
+          "group_number": 1,
+          "player_number": 1,
+          "live_scoring_id": "",
+          "num_strokes": 43,
+          "num_holes": 9
+        }
+      },
+      "score": 43,
+      "scores": [
+        "43|9"
+      ]
+    },
+    "1806640": {
+      "is_new_player": "*",
+      "is_captain": 0,
+      "first": "Bennett",
+      "last": "Spradlin",
+      "handicap": "",
+      "driverLength": "",
+      "teeMarkerName": "Tee RS",
+      "teeMarkerColor": "Green",
+      "team": 0,
+      "place": "Knoxville, TN",
+      "country": "us",
+      "status": 1,
+      "comments": "",
+      "tiebreaker": 0,
+      "points": 30.00,
+      "points_all": "0",
+      "rounds": {
+        "1": {
+          "strokes": [
+            4,
+            4,
+            3,
+            4,
+            3,
+            6,
+            3,
+            4,
+            4,
+            0,
+            0,
+            0,
+            0,
+   
