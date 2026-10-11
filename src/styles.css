@@ -164,6 +164,18 @@ textarea { min-height: 80px; resize: vertical; }
 .date-box b { display: block; font-size: 1.15rem; }
 .date-box small { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); }
 
+/* collapsible groups (e.g. tours by org) */
+.tour-group { border-bottom: 1px solid var(--border); }
+.tour-group:last-of-type { border-bottom: 0; }
+.tour-group summary {
+  display: flex; align-items: center; gap: 8px; padding: 12px 0; min-height: var(--tap); cursor: pointer;
+  font-weight: 600; list-style: none;
+}
+.tour-group summary::-webkit-details-marker { display: none; }
+.tour-group summary::before { content: '▸'; color: var(--muted); transition: transform 0.15s; flex: none; }
+.tour-group[open] summary::before { transform: rotate(90deg); }
+.tour-group .list { padding-bottom: 8px; }
+
 /* stats */
 .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
 .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }

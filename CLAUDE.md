@@ -34,7 +34,10 @@ GitHub/console settings, and keep replies short.
   (e.g. Resend). Without custom SMTP the templates can't be changed and `mailer_autoconfirm` would have to be on.
 
 - **Changing `SEED_TOURS`** → add a new `this.version(N).upgrade(... bulkPut(SEED_TOURS))` in `db.ts`, or
-  existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration (see v5).
+  existing phones won't see it. Never edit old versions; renamed/removed tour ids need a migration that also
+  remaps `profile.myTours`, `Tournament.tourId` and `ImportedEvent.tourId` (see v5, v11). A tour's `org` field
+  groups it in More → My tours (collapsible, one group per org) — name multi-series tours `"<Org> – <Series>"`
+  (e.g. `NTPGA – Prep Tour`) so the group strips the org prefix back off for display; see v11/sub-tours.ts.
 - **Multiple golfers** (v10): tournaments, rounds and practice carry `golferId` (a `profile` id; first golfer is
   `'me'`). Query them by golferId; use `useGolfer()` (`src/lib/golfer.tsx`) for the selected golfer, never `profile.get('me')`.
   Courses, tours and Available events are shared.
@@ -59,21 +62,21 @@ GitHub/console settings, and keep replies short.
 - Sources: US Kids Austin, Dallas, Houston, San Antonio, El Paso (all Texas fall local tours), Texas State,
   Regionals (all states), Worlds; AJGA (nationwide); TGA/Legends Junior Tour; HJGT (Texas only).
 - **Do not bypass robots.txt.** NTPGA's and STPGA's schedules are on BlueGolf (`User-agent: * Disallow: /`) —
-  can't be scraped, so neither is in `sources.json`; both are kept current by hand (see below). For any tour
-  like that, publish its schedule by hand instead of scraping it: paste the tour's schedule text (the same
-  thing a parent used to paste) to `node --experimental-strip-types scraper/publish-schedule.ts <tourId>`
-  (reads stdin, or `$TEXT`) — it runs the phone's own parser (`src/lib/importParse.ts`) and the scraper's own
-  event builder (`scraper/lib.ts`), replacing that tour's events in `public/events.json` same as a real
-  scrape would. Check the output: `importParse.ts` guesses the course name by keyword, which can swap the
-  event name and course when both contain a word like "Creek" or "Club" — more likely on sites (like STPGA's)
-  where the event name repeats the venue name; NTPGA and STPGA also show deadline text ("Closes Tue Oct 13",
-  "Opens 12/07/2026") and a "favorite" column abbreviation (e.g. "RRGC") right after the date, both of which
-  read as bogus events unless stripped first. STPGA's "<Series> - <Venue>" event names also get split in two
-  by the parser's single-dash handling; `scraper/publish-schedule.ts` won't fix that, so for that format
-  parse it directly by line position instead (date, name, course, city in fixed order) rather than forcing it
-  through `importParse.ts`. Commit and push to deploy. Parents hit "Tour not listed here?" (Events →
-  Available) to request a tour; requests land in the `tour_requests` table. "Check tour requests" (daily,
-  `scraper/check-tour-requests.ts`, `.github/workflows/check-tour-requests.yml`) flags new ones by
+  can't be scraped, so neither is in `sources.json`; both are kept current by hand. For any tour like that,
+  publish its schedule by hand instead of scraping it: paste the tour's schedule text (the same thing a parent
+  used to paste) to `node --experimental-strip-types scraper/publish-schedule.ts <tourId>` (reads stdin, or
+  `$TEXT`) — it runs a parser (`src/lib/importParse.ts` by default; STPGA instead uses `scraper/stpga-schedule.ts`,
+  a dedicated line-position parser, since its "<Series> - <Venue>" names break the generic one's course-by-keyword
+  guess and single-dash splitting — see that file's comment) and the scraper's own event builder (`scraper/lib.ts`),
+  replacing that tour's events in `public/events.json` same as a real scrape would. Both tours actually run
+  several series under one schedule (NTPGA: AAT majors, Medalist Tour, Prep Tour; STPGA: Prestige Tour, Junior
+  Tour, Junior Links, Little Linksters) — `scraper/sub-tours.ts`'s classifiers sort each event into its own
+  subscribable tour (`ntpga-majors`, `stpga-junior-tour`, etc. — see `src/data/tours.ts`) by name prefix, so one
+  `publish-schedule.ts ntpga`/`stpga` run fans out into several `public/events.json` sources automatically; check
+  the output, since a new unrecognized name prefix falls into that org's catch-all bucket (`ntpga-majors`/
+  `stpga-prestige`) instead of its own series. Commit and push to deploy. Parents hit "Tour not listed here?"
+  (Events → Available) to request a tour; requests land in the `tour_requests` table. "Check tour requests"
+  (daily, `scraper/check-tour-requests.ts`, `.github/workflows/check-tour-requests.yml`) flags new ones by
   deliberately failing the job (so a failed-scheduled-run email goes out) and listing them in the run log;
   `scraper/tour-requests-seen.json` is its checkpoint, committed back each time there's something new.
 

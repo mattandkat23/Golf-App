@@ -14,8 +14,16 @@ export const SEED_TOURS: Tour[] = [
   { id: 'usk-state', name: 'US Kids – Texas State', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/state' },
   { id: 'usk-regional', name: 'US Kids – Regionals (all)', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/regional' },
   { id: 'usk-world', name: 'US Kids – World Championships', org: 'US Kids Golf', url: 'https://tournaments.uskidsgolf.com/tournaments/world', region: 'Other' },
-  { id: 'ntpga', name: 'Northern Texas PGA Junior Tour', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
-  { id: 'stpga', name: 'Southern Texas PGA Junior Golf', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
+  // NTPGA and STPGA each run several series under one schedule page -- split into separate
+  // subscribable tours so a parent isn't swamped with every age group's weekly qualifying round
+  // (see scraper/sub-tours.ts, which sorts a pasted/scraped event into the right one of these by name).
+  { id: 'ntpga-majors', name: 'NTPGA – Majors & Invitationals', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
+  { id: 'ntpga-medalist', name: 'NTPGA – Medalist Tour', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
+  { id: 'ntpga-prep', name: 'NTPGA – Prep Tour', org: 'NTPGA', url: 'https://www.ntpgajuniorgolf.com/', region: 'Dallas–Fort Worth' },
+  { id: 'stpga-prestige', name: 'STPGA – Prestige Tour & Majors', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
+  { id: 'stpga-junior-tour', name: 'STPGA – Junior Tour', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
+  { id: 'stpga-junior-links', name: 'STPGA – Junior Links', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
+  { id: 'stpga-little-linksters', name: 'STPGA – Little Linksters', org: 'STPGA', url: 'https://www.stpgajuniorgolf.com/tournaments', region: 'Houston' },
   { id: 'ajga', name: 'AJGA (nationwide, incl. Under Armour / Jordan Spieth)', org: 'AJGA', url: 'https://www.ajga.org/schedule' },
   { id: 'under-armour', name: 'Under Armour Junior Tour', org: 'Under Armour', url: 'https://www.uagolftour.com/' },
   { id: 'hjgt', name: 'Hurricane Junior Golf Tour (HJGT) – Texas', org: 'HJGT', url: 'https://tournaments.hjgt.org/Tournament' },

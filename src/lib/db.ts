@@ -62,6 +62,36 @@ class GolfDB extends Dexie {
           });
         }
       });
+    // v11 splits NTPGA and STPGA into their separate series (see src/data/tours.ts and scraper/sub-tours.ts).
+    this.version(11).upgrade(async (tx) => {
+      await tx.table('tours').delete('ntpga');
+      await tx.table('tours').delete('stpga');
+      await tx.table('tours').bulkPut(SEED_TOURS);
+      const classify = (name: string, base: 'ntpga' | 'stpga') =>
+        base === 'ntpga'
+          ? /^Medalist Tour\b/i.test(name)
+            ? 'ntpga-medalist'
+            : /^Prep Tour\b/i.test(name)
+              ? 'ntpga-prep'
+              : 'ntpga-majors'
+          : /^Junior Tour\b/i.test(name)
+            ? 'stpga-junior-tour'
+            : /^Junior Links\b/i.test(name)
+              ? 'stpga-junior-links'
+              : /^Little Linksters\b/i.test(name)
+                ? 'stpga-little-linksters'
+                : 'stpga-prestige';
+      await tx.table('profile').toCollection().modify((p: Profile) => {
+        if (p.myTours?.includes('ntpga')) p.myTours = [...p.myTours.filter((t) => t !== 'ntpga'), 'ntpga-majors', 'ntpga-medalist', 'ntpga-prep'];
+        if (p.myTours?.includes('stpga'))
+          p.myTours = [...p.myTours.filter((t) => t !== 'stpga'), 'stpga-prestige', 'stpga-junior-tour', 'stpga-junior-links', 'stpga-little-linksters'];
+      });
+      for (const name of ['tournaments', 'imported'] as const) {
+        await tx.table(name).toCollection().modify((x: { tourId?: string; name: string }) => {
+          if (x.tourId === 'ntpga' || x.tourId === 'stpga') x.tourId = classify(x.name, x.tourId);
+        });
+      }
+    });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
