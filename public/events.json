@@ -1,63 +1,63 @@
 {
- "generatedAt": "2026-10-10T20:56:59.674Z",
+ "generatedAt": "2026-10-11T10:32:25.506Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-houston": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 7
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
-   "eventCount": 4
+   "eventCount": 3
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 2
   },
   "usk-state": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 0
   },
   "usk-regional": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 19
   },
   "usk-world": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 2
   },
   "ajga": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 8
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 4
   },
   "stpga": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 1
   },
   "hjgt": {
-   "checkedAt": "2026-10-10T20:56:59.674Z",
+   "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 0
   }
@@ -97,15 +97,6 @@
    "level": "Other"
   },
   {
-   "id": "usk-san-antonio-2026-10-10-fd1w0k",
-   "tourId": "usk-san-antonio",
-   "name": "Olmos Basin Golf Course",
-   "startDate": "2026-10-10",
-   "courseName": "Olmos Basin Golf Course",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519506/olmos-basin-golf-course",
-   "level": "Local"
-  },
-  {
    "id": "usk-regional-2026-10-10-12y7mbq",
    "tourId": "usk-regional",
    "name": "PGA Golf Club Invitational",
@@ -142,7 +133,6 @@
    "name": "Mission Del Lago Municipal Golf Course",
    "startDate": "2026-10-11",
    "courseName": "Mission Del Lago Municipal Golf Course",
-   "registrationDeadline": "2026-10-08",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519507/mission-del-lago-municipal-golf-course",
    "level": "Local"
   },
@@ -553,7 +543,6 @@
    "name": "World Van Horn Cup 2027",
    "startDate": "2027-07-25",
    "city": "Pinehurst, NC",
-   "ageGroups": "Top 12-year-old boys and girls",
    "level": "World"
   },
   {
