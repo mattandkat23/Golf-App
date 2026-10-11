@@ -127,8 +127,8 @@ export default function StatsPage() {
           </div>
           <p className="muted small">
             {s.rounds} round{s.rounds === 1 ? '' : 's'} · {s.holes} holes
-            {s.gir.total < s.holes && ` · greens from ${s.gir.total} holes`}
-            {s.puttHoles < s.holes && ` · putts from ${s.puttHoles} holes`}
+            {s.gir.total > 0 && s.gir.total < s.holes && ` · greens from ${s.gir.total} holes`}
+            {s.puttHoles > 0 && s.puttHoles < s.holes && ` · putts from ${s.puttHoles} holes`}
           </p>
 
           <div className="card">

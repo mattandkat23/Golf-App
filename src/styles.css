@@ -146,6 +146,7 @@ textarea { min-height: 80px; resize: vertical; }
 .list li:last-child { border-bottom: 0; }
 .list a, .list .li { display: flex; align-items: center; gap: 12px; padding: 12px 0; text-decoration: none; color: inherit; }
 .list button.li { width: 100%; border: 0; border-radius: 0; background: none; text-align: left; }
+.list button.li:disabled { opacity: 1; color: inherit; }
 .list button.li.picked { background: var(--accent-soft); border-radius: 10px; padding-left: 8px; padding-right: 8px; }
 .date-box { width: 48px; text-align: center; border-radius: 10px; background: var(--surface-2); padding: 4px 0; flex: none; }
 .date-box b { display: block; font-size: 1.15rem; }

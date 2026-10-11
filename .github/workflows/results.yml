@@ -1,0 +1,41 @@
+name: Collect results
+
+# Reads finished tournament results into the results database (scraper/results/collect.ts).
+# Runs daily after the schedule scraper; run it by hand to backfill (optional tour and since date).
+on:
+  schedule:
+    - cron: '41 11 * * *' # daily, ~6:41am Central
+  workflow_dispatch:
+    inputs:
+      tour:
+        description: 'Only this tour (e.g. hjgt)'
+        required: false
+      since:
+        description: 'Only events since this date (YYYY-MM-DD); default two years back'
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: results
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright-core install --with-deps chromium
+      - name: Collect
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          TOUR: ${{ inputs.tour }}
+          SINCE: ${{ inputs.since }}
+        run: node --experimental-strip-types scraper/results/collect.ts $TOUR ${SINCE:+--since=$SINCE}

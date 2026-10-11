@@ -91,10 +91,11 @@ function addDays(date: string, n: number) {
 /** Builds the rounds for a result: hole-by-hole when the tour published it, otherwise round totals. */
 export function roundsFor(hit: ResultHit, golferId: string, holes: ResultHole[] | null): Omit<Round, 'tournamentId' | 'courseId'>[] {
   const scores = hit.round_scores?.length ? hit.round_scores : hit.total !== null ? [hit.total] : [];
-  const perRound = hit.holes_per_round ?? (holes?.length ? Math.max(...holes.map((h) => h.hole)) : 18);
-  const numHoles: 9 | 18 = perRound <= 9 ? 9 : 18;
   // Par per round from score to par, when the tour gives it.
   const coursePar = hit.to_par !== null && hit.total !== null && scores.length ? (hit.total - hit.to_par) / scores.length : undefined;
+  const perRound =
+    hit.holes_per_round ?? (holes?.length ? Math.max(...holes.map((h) => h.hole)) : coursePar !== undefined ? (coursePar <= 45 ? 9 : 18) : 18);
+  const numHoles: 9 | 18 = perRound <= 9 ? 9 : 18;
   return scores.map((total, i) => {
     const mine = holes?.filter((h) => h.round === i + 1) ?? [];
     const holeList: HoleResult[] = Array.from({ length: numHoles }, (_, j) => {

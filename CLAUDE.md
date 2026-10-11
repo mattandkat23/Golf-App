@@ -61,6 +61,17 @@ GitHub/console settings, and keep replies short.
 - **Do not bypass robots.txt.** NTPGA and STPGA schedules are on BlueGolf (`User-agent: * Disallow: /`);
   those are covered by the Paste importer (Events → Paste), which adds events to Available.
 
+## Results (`scraper/results/`, `.github/workflows/results.yml`, migration `*_results.sql`)
+
+- Daily "Collect results" reads finished events into `result_events`/`results` (secret key). Only HJGT (Texas) so far.
+  Tables have RLS with no policies: the app reads only via `search_results(key)` (signed in, full name, ≤200 rows)
+  and `result_holes(id)`. Names are matched with `scraper/results/names.ts` (shared by app and collector).
+- Every browser request goes through `scraper/polite.ts`, which aborts anything robots.txt disallows. **US Kids results
+  (TourCaddiePro `/plugins/links/admin/`) are disallowed**: covered by Paste results on an event
+  (`src/lib/resultsPaste.ts`) until US Kids gives permission (asked at tournaments@uskidsgolf.com).
+- Imported/pasted rounds store `Round.total`/`par`; stats use them until every hole is filled in (`hasScore`, `usesTotal`).
+- Debug: "Save page layouts" (`scraper/dump.ts`) commits full HTML + background requests to the `page-dumps` branch.
+
 ## Commands
 
 ```sh
@@ -80,7 +91,8 @@ deploy. The scrape workflow commits to `main` too, so pull/rebase before pushing
 ## Open ideas / not built yet
 
 - Live sharing with coach/spouse (invites, view-only/edit) on top of the accounts.
-- Results database + name search (step 2 of the results plan); free vs paid feature split.
+- More results sources: AJGA, TGA/Golf Genius, Drive Chip & Putt, US Kids championship PDFs; free vs paid split.
+- "Is this Ford?" auto-matching of new results for claimed golfers.
 - Reading each US Kids event page for fees/age groups/city.
 - Under Armour Junior Tour (uagolftour.com) and TJGT aren't scraped yet.
 - Verify "Add to Calendar" (.ics) behavior on a real iPhone.

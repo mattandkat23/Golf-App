@@ -15,6 +15,7 @@ import More from './pages/More';
 import Rounds from './pages/Rounds';
 import Import from './pages/Import';
 import PasteResults from './pages/PasteResults';
+import FindResults from './pages/FindResults';
 import { GolferProvider, GolferSwitch } from './lib/golfer';
 import { AuthProvider, useAuth, useSignedIn } from './lib/auth';
 import { syncOnStart } from './lib/sync';
@@ -61,6 +62,7 @@ function Shell() {
           <Route path="/more" element={<More />} />
           <Route path="/rounds" element={<Rounds />} />
           <Route path="/import" element={<Import />} />
+          <Route path="/results" element={<FindResults />} />
         </Routes>
       </main>
       {!playing && (

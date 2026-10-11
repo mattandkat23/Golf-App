@@ -224,6 +224,13 @@ export default function Schedule() {
       {tab === 'available' && <Available family={family} golfer={golfer} golfers={golfers} tours={tours} myTours={myTours} colorOf={colorOf} />}
 
       {tab === 'past' && (
+        <Link to="/results" className="card link">
+          <b>Find past results ›</b>
+          <div className="muted small">Search tour results by name and add them here, with scores that count in stats.</div>
+        </Link>
+      )}
+
+      {tab === 'past' && (
         <div className="card">
           {past.length ? (
             <ul className="list">
