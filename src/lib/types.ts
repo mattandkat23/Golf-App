@@ -98,6 +98,10 @@ export interface Round {
   numHoles: 9 | 18;
   /** Shot-by-shot entry instead of basic (score, fairway, green, putts). Unset = basic unless shots were entered. */
   detailed?: boolean;
+  /** Round total from imported results; used for scoring until every hole has been filled in. */
+  total?: number;
+  /** Course par for the round, when known (imported results give score to par). */
+  par?: number;
   weather?: string;
   reflection?: { wentWell?: string; workOn?: string; mental?: number };
   complete?: boolean;

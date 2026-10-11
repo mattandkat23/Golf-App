@@ -124,6 +124,9 @@ export interface Stats {
 
 const zero = <K extends string>(keys: readonly K[]) => Object.fromEntries(keys.map((k) => [k, 0])) as Record<K, number>;
 
+/** True when an imported round's total should stand in for its holes (not every hole has been filled in). */
+const usesTotal = (r: Round) => r.total !== undefined && !r.holes.every(holeComplete);
+
 export function computeStats(rounds: Round[]): Stats {
   const holes = rounds.flatMap((r) => r.holes.filter(holeComplete));
   const s: Stats = {
@@ -146,9 +149,18 @@ export function computeStats(rounds: Round[]): Stats {
     puttingByDistance: LEAVE_BUCKETS.map((bucket) => ({ bucket, made: 0, total: 0 })),
     scoreDist: { 'Eagle+': 0, Birdie: 0, Par: 0, Bogey: 0, Double: 0, 'Triple+': 0 },
   };
-  if (!holes.length) return s;
+  // Scoring counts imported round totals; everything else needs holes.
+  let strokes = 0, par = 0, putts = 0, scoredHoles = 0;
+  const totalRoundHoles = new Set<HoleResult>();
+  for (const r of rounds.filter(usesTotal)) {
+    strokes += r.total!;
+    par += r.par ?? r.holes.reduce((n, h) => n + h.par, 0);
+    scoredHoles += r.numHoles;
+    r.holes.forEach((h) => totalRoundHoles.add(h));
+  }
+  s.holes = holes.filter((h) => !totalRoundHoles.has(h)).length + scoredHoles;
+  if (!s.holes) return s;
 
-  let strokes = 0, par = 0, putts = 0;
   const parSums: Record<number, number> = { 3: 0, 4: 0, 5: 0 };
   const proximities: number[] = [];
   const firstPutts: number[] = [];
@@ -156,8 +168,11 @@ export function computeStats(rounds: Round[]): Stats {
   for (const h of holes) {
     const hs = holeStrokes(h);
     const hp = holePutts(h);
-    strokes += hs;
-    par += h.par;
+    if (!totalRoundHoles.has(h)) {
+      strokes += hs;
+      par += h.par;
+      scoredHoles++;
+    }
     if (hp !== undefined) {
       putts += hp;
       s.puttHoles++;
@@ -229,8 +244,8 @@ export function computeStats(rounds: Round[]): Stats {
   }
 
   const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : undefined);
-  s.scoringAvg18 = (strokes / holes.length) * 18;
-  s.toParPer18 = ((strokes - par) / holes.length) * 18;
+  s.scoringAvg18 = (strokes / scoredHoles) * 18;
+  s.toParPer18 = ((strokes - par) / scoredHoles) * 18;
   if (s.puttHoles) {
     s.puttsPerHole = putts / s.puttHoles;
     s.puttsPer18 = s.puttsPerHole * 18;
@@ -253,6 +268,14 @@ export interface RoundSummary {
 
 export function summarizeRound(r: Round): RoundSummary {
   const done = r.holes.filter(holeComplete);
+  if (usesTotal(r)) {
+    return {
+      strokes: r.total!,
+      par: r.par ?? r.holes.reduce((n, h) => n + h.par, 0),
+      holesPlayed: r.numHoles,
+      putts: done.reduce((n, h) => n + (holePutts(h) ?? 0), 0),
+    };
+  }
   const sum = (hs: HoleResult[]) => hs.reduce((n, h) => n + holeStrokes(h), 0);
   const front = done.filter((h) => h.hole <= 9);
   const back = done.filter((h) => h.hole > 9);

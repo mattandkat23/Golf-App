@@ -144,3 +144,41 @@ describe('basic (non shot-by-shot) holes', () => {
     expect(summarizeRound(r)).toMatchObject({ strokes: 11, holesPlayed: 3, putts: 4 });
   });
 });
+
+describe('imported rounds with only a total', () => {
+  const imported = (extra: Partial<Round>): Round => ({
+    golferId: 'me',
+    date: '2026-08-16',
+    roundNumber: 1,
+    numHoles: 9,
+    holes: Array.from({ length: 9 }, (_, i) => ({ hole: i + 1, par: 4, shots: [] })),
+    total: 43,
+    par: 36,
+    ...extra,
+  });
+
+  it('counts the total toward scoring until every hole is filled in', () => {
+    const s = computeStats([imported({})]);
+    expect(s.holes).toBe(9);
+    expect(s.scoringAvg18).toBe(86);
+    expect(s.toParPer18).toBe(14);
+    expect(summarizeRound(imported({}))).toMatchObject({ strokes: 43, par: 36, holesPlayed: 9 });
+  });
+
+  it('still uses the total when only some holes have stats, but counts those holes for greens and putts', () => {
+    const r = imported({});
+    r.holes[0] = { ...r.holes[0], score: 5, putts: 2, fairway: 'Hit' };
+    const s = computeStats([r]);
+    expect(s.scoringAvg18).toBe(86);
+    expect(s.holes).toBe(9);
+    expect(s.puttHoles).toBe(1);
+    expect(s.fairways).toEqual({ made: 1, total: 1 });
+  });
+
+  it('switches to the holes once all are filled in', () => {
+    const r = imported({});
+    r.holes = r.holes.map((h) => ({ ...h, score: 5 }));
+    expect(computeStats([r]).scoringAvg18).toBe(90);
+    expect(summarizeRound(r).strokes).toBe(45);
+  });
+});
