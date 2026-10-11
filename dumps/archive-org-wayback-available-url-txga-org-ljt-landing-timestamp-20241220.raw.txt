@@ -1,0 +1,2 @@
+<!-- HTTP 200 application/json -->
+{"url": "txga.org/ljt-landing/", "archived_snapshots": {"closest": {"status": "200", "available": true, "url": "http://web.archive.org/web/20241206201022/https://txga.org/ljt-landing/", "timestamp": "20241206201022"}}, "timestamp": "20241220"}
