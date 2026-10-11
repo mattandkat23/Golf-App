@@ -1,0 +1,2 @@
+<!-- HTTP 200 application/json -->
+{"url": "txga.org/ljt-landing-3/", "archived_snapshots": {}, "timestamp": "20251215"}
