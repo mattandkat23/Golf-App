@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import type { Course, Profile, Tour, Tournament } from '../lib/types';
-import { DateBox, PageHead, fmtDate, today } from '../components/ui';
+import { DateBox, Field, PageHead, fmtDate, today } from '../components/ui';
 import MonthCalendar from '../components/MonthCalendar';
 import { ON_SCHEDULE, findConflicts, findFamilyClashes, seasonSummary } from '../lib/schedule';
 import { useGolfer } from '../lib/golfer';
@@ -152,13 +152,12 @@ export default function Schedule() {
             </div>
           )}
 
-          <div className="row" style={{ marginBottom: 12 }}>
-            {(['list', 'calendar'] as const).map((v) => (
-              <button key={v} className={`chip${view === v ? ' on' : ''}`} onClick={() => setView(v)}>
-                {v === 'list' ? 'List' : 'Calendar'}
-              </button>
-            ))}
-          </div>
+          <Field label="View">
+            <select value={view} onChange={(e) => setView(e.target.value as 'list' | 'calendar')}>
+              <option value="list">List</option>
+              <option value="calendar">Calendar</option>
+            </select>
+          </Field>
 
           {view === 'calendar' ? (
             <div className="card">
@@ -356,21 +355,17 @@ function Available({
           </p>
         </div>
       )}
-      <div className="chips scroll" style={{ marginBottom: 12 }}>
-        {subscribed && (
-          <button className={`chip${effective === 'mine' ? ' on' : ''}`} onClick={() => setFilter('mine')}>
-            My tours
-          </button>
-        )}
-        <button className={`chip${effective === 'all' ? ' on' : ''}`} onClick={() => setFilter('all')}>
-          All tours
-        </button>
-        {chipTours.map((x) => (
-          <button key={x.id} className={`chip${effective === x.id ? ' on' : ''}`} onClick={() => setFilter(x.id)}>
-            {x.name}
-          </button>
-        ))}
-      </div>
+      <Field label="Tour">
+        <select value={effective} onChange={(e) => setFilter(e.target.value)}>
+          {subscribed && <option value="mine">My tours</option>}
+          <option value="all">All tours</option>
+          {chipTours.map((x) => (
+            <option key={x.id} value={x.id}>
+              {x.name}
+            </option>
+          ))}
+        </select>
+      </Field>
 
       <div className="card">
         {events.length ? (
