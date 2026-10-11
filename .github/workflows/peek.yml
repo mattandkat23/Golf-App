@@ -9,6 +9,9 @@ on:
       filter:
         description: 'Only print lines matching this regex (optional)'
         required: false
+      click:
+        description: 'Link text to click after the page loads, before capturing it (optional -- for SPA routes that 404 on direct load)'
+        required: false
 
 permissions:
   contents: read
@@ -28,9 +31,10 @@ jobs:
         env:
           URL: ${{ inputs.url }}
           FILTER: ${{ inputs.filter }}
+          CLICK: ${{ inputs.click }}
         run: |
           for u in $URL; do
             echo "===== $u"
-            node --experimental-strip-types scraper/peek.ts "$u" "$FILTER" || echo "(failed)"
+            node --experimental-strip-types scraper/peek.ts "$u" "$FILTER" "$CLICK" || echo "(failed)"
           done
           echo "===== END"
