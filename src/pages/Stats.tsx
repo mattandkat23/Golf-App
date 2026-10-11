@@ -5,10 +5,12 @@ import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
 import { CONTACTS, bucketLabel, computeStats, hasScore, holeComplete, isDetailed, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
 import type { Miss, Round, TourLevel } from '../lib/types';
-import { Bars, Chips, Kpi, PageHead } from '../components/ui';
+import { Bars, Field, Kpi, PageHead } from '../components/ui';
 
 type Range = 'Last 5' | 'Last 10' | 'Season' | 'All';
 type Kind = 'All rounds' | 'Tournaments' | TourLevel;
+const RANGES: Range[] = ['Last 5', 'Last 10', 'Season', 'All'];
+const KINDS: Kind[] = ['All rounds', 'Tournaments', 'Local', 'State', 'Regional', 'World'];
 
 const ratePct = (r: Rate) => (pct(r) !== undefined ? `${pct(r)}%` : undefined);
 const NA = (v: string | undefined) => v ?? 'N/A';
@@ -67,16 +69,55 @@ function Trend({ rounds }: { rounds: Round[] }) {
   );
 }
 
-/** One stats category: a headline number up top, then its breakdown — or a reason there's nothing yet. */
-function StatCard({ title, hero, heroLabel, empty, children }: { title: string; hero?: string; heroLabel: string; empty?: string; children?: ReactNode }) {
+/**
+ * One stats category, always the same shape: a headline number, a one-line summary, and (if there's
+ * more) a toggle to reveal the detailed breakdown — so every card looks alike at a glance.
+ */
+function StatCard({
+  title,
+  hero,
+  heroLabel,
+  heroNote,
+  summary,
+  empty,
+  openByDefault,
+  children,
+}: {
+  title: string;
+  hero?: string;
+  heroLabel: string;
+  heroNote?: string;
+  summary?: ReactNode;
+  empty?: string;
+  openByDefault?: boolean;
+  children?: ReactNode;
+}) {
+  const [open, setOpen] = useState(!!openByDefault);
   return (
     <div className="card stat-card">
       <h2>{title}</h2>
       <div className="stat-hero">
         <div className="v">{NA(hero)}</div>
-        <div className="l">{heroLabel}</div>
+        <div className="l">
+          {heroLabel}
+          {heroNote && <span> {heroNote}</span>}
+        </div>
       </div>
-      {empty ? <div className="empty">{empty}</div> : children}
+      {empty ? (
+        <div className="empty">{empty}</div>
+      ) : (
+        <>
+          {summary && <p className="muted small stat-summary">{summary}</p>}
+          {children && (
+            <>
+              <button type="button" className="stat-toggle" onClick={() => setOpen((o) => !o)}>
+                {open ? 'Hide breakdown ▲' : 'Show breakdown ▾'}
+              </button>
+              {open && <div className="stat-detail">{children}</div>}
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
@@ -107,6 +148,8 @@ export default function StatsPage() {
   const anyDetailed = rounds.some(isDetailed);
   const par4or5Holes = rounds.flatMap((r) => r.holes).filter((h) => h.par >= 4 && holeComplete(h)).length;
   const girTrackingMsg = 'Record putts (or play Detailed) on a few holes to start tracking this.';
+  const scoringAvg = s.scoringAvg18?.toFixed(1);
+  const toParNote = s.toParPer18 !== undefined ? `(${toParLabel(Math.round(s.toParPer18))})` : undefined;
 
   const clubs = Object.entries(s.contactByClub).sort((a, b) => b[1].Center + b[1].Heel + b[1].Toe + b[1].Fat + b[1].Thin - (a[1].Center + a[1].Heel + a[1].Toe + a[1].Fat + a[1].Thin));
   const contactTotal = CONTACTS.reduce((n, c) => n + s.contact[c], 0);
@@ -114,20 +157,34 @@ export default function StatsPage() {
   return (
     <>
       <PageHead title="Stats" />
-      <div className="stack" style={{ marginBottom: 12 }}>
-        <Chips options={['Last 5', 'Last 10', 'Season', 'All'] as Range[]} value={range} scroll onChange={(v) => v && setRange(v)} />
-        <Chips options={['All rounds', 'Tournaments', 'Local', 'State', 'Regional', 'World'] as Kind[]} value={kind} scroll onChange={(v) => v && setKind(v)} />
-        {playedTours.length > 0 && (
-          <Chips
-            options={playedTours.map((t) => t.id)}
-            value={tourId}
-            scroll
-            allowClear
-            label={(id) => tours.find((t) => t.id === id)?.name ?? id}
-            onChange={setTourId}
-          />
-        )}
+      <div className="grid2" style={{ marginBottom: 2 }}>
+        <Field label="Range">
+          <select value={range} onChange={(e) => setRange(e.target.value as Range)}>
+            {RANGES.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Rounds">
+          <select value={kind} onChange={(e) => setKind(e.target.value as Kind)}>
+            {KINDS.map((k) => (
+              <option key={k}>{k}</option>
+            ))}
+          </select>
+        </Field>
       </div>
+      {playedTours.length > 0 && (
+        <Field label="Tour">
+          <select value={tourId ?? ''} onChange={(e) => setTourId(e.target.value || undefined)}>
+            <option value="">All tours</option>
+            {playedTours.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
 
       {s.holes === 0 ? (
         <div className="card empty">No completed holes for this filter yet.</div>
@@ -141,7 +198,7 @@ export default function StatsPage() {
 
           {/* Snapshot: one headline number per category, like a stats overview page. */}
           <div className="kpis">
-            <Kpi value={s.toParPer18 !== undefined ? toParLabel(Math.round(s.toParPer18 * 10) / 10) : undefined} label="Scoring / 18" />
+            <Kpi value={scoringAvg} label="Scoring avg" />
             <Kpi value={ratePct(s.fairways)} label="Fairways" />
             <Kpi value={ratePct(s.gir)} label="Greens in reg." />
             <Kpi value={s.puttsPer18?.toFixed(1)} label="Putts / 18" />
@@ -149,7 +206,7 @@ export default function StatsPage() {
             <Kpi value={contactTotal ? `${Math.round((100 * s.contact.Center) / contactTotal)}%` : undefined} label="Center contact" />
           </div>
 
-          <StatCard title="Scoring" hero={s.toParPer18 !== undefined ? toParLabel(Math.round(s.toParPer18 * 10) / 10) : undefined} heroLabel="To par, per 18">
+          <StatCard title="Scoring" hero={scoringAvg} heroLabel="Scoring average, per 18" heroNote={toParNote} openByDefault>
             <Trend rounds={rounds} />
             <h3 style={{ marginTop: 14 }}>Average by par</h3>
             <Bars
@@ -164,6 +221,7 @@ export default function StatsPage() {
             title="Off the tee"
             hero={ratePct(s.fairways)}
             heroLabel="Fairways hit"
+            summary={`${s.fairways.made}/${s.fairways.total} fairways`}
             empty={
               s.fairways.total === 0
                 ? par4or5Holes === 0
@@ -173,46 +231,33 @@ export default function StatsPage() {
             }
           >
             <MissCompass miss={s.teeMiss} center={s.fairways.made} centerLabel="Fairways" />
-            <p className="muted small" style={{ marginTop: 8, textAlign: 'center' }}>
-              {s.fairways.made}/{s.fairways.total} fairways
-            </p>
           </StatCard>
 
           <StatCard
             title="Approach"
             hero={ratePct(s.gir)}
             heroLabel="Greens in regulation"
+            summary={`Avg leave ${s.approachProximityFt ? `${Math.round(s.approachProximityFt)} ft` : 'N/A'}${!anyDetailed ? ' · play Detailed to track miss direction' : ''}`}
             empty={s.gir.total === 0 ? girTrackingMsg : undefined}
           >
             <MissCompass miss={s.approachMiss} center={s.approachGreens.made} centerLabel="Greens" />
-            <p className="muted small" style={{ marginTop: 8, textAlign: 'center' }}>
-              Avg leave {s.approachProximityFt ? `${Math.round(s.approachProximityFt)} ft` : 'N/A'}
-              {!anyDetailed && ' · play Detailed to track miss direction and proximity'}
-            </p>
           </StatCard>
 
           <StatCard
             title="Short game"
             hero={ratePct(s.scrambling)}
             heroLabel="Scrambling"
+            summary={`Scrambling ${s.scrambling.made}/${s.scrambling.total} · Sand saves ${s.sandSaves.made}/${s.sandSaves.total}`}
             empty={s.gir.total === 0 ? girTrackingMsg : s.scrambling.total === 0 ? 'No missed greens in this range — nice ball-striking!' : undefined}
-          >
-            <div className="kpis" style={{ gridTemplateColumns: '1fr 1fr', marginBottom: 0 }}>
-              <Kpi value={ratePct(s.scrambling)} label={`Scrambling (${s.scrambling.made}/${s.scrambling.total})`} />
-              <Kpi value={s.sandSaves.total ? ratePct(s.sandSaves) : 'N/A'} label={`Sand saves (${s.sandSaves.made}/${s.sandSaves.total})`} />
-            </div>
-          </StatCard>
+          />
 
           <StatCard
             title="Putting"
             hero={s.puttsPer18?.toFixed(1)}
             heroLabel="Putts, per 18"
+            summary={`${s.threePutts} three-putt${s.threePutts === 1 ? '' : 's'}${s.firstPuttAvgFt !== undefined ? ` · avg first putt ${Math.round(s.firstPuttAvgFt)} ft` : ''}`}
             empty={s.puttHoles === 0 ? girTrackingMsg : undefined}
           >
-            <p className="muted small" style={{ marginTop: 0 }}>
-              {s.threePutts} three-putt{s.threePutts === 1 ? '' : 's'}
-              {s.firstPuttAvgFt !== undefined && ` · avg first putt ${Math.round(s.firstPuttAvgFt)} ft`}
-            </p>
             {s.puttingByDistance.some((b) => b.total) ? (
               <Bars
                 rows={s.puttingByDistance.filter((b) => b.total).map((b) => ({ label: bucketLabel(b.bucket), value: Math.round((100 * b.made) / b.total), note: `${b.made}/${b.total}` }))}

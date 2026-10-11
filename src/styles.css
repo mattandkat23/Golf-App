@@ -169,9 +169,16 @@ textarea { min-height: 80px; resize: vertical; }
 .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
 .kpi .v { font-size: 1.35rem; font-weight: 700; }
 .kpi .l { font-size: 0.75rem; color: var(--muted); }
-.stat-card .stat-hero { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+.stat-card .stat-hero { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
 .stat-card .stat-hero .v { font-size: 2.2rem; font-weight: 700; line-height: 1; }
 .stat-card .stat-hero .l { font-size: 0.85rem; color: var(--muted); }
+.stat-card .stat-summary { margin: 0; }
+.stat-toggle {
+  display: block; width: 100%; text-align: left; min-height: 0; height: auto; padding: 8px 0 0; margin-top: 4px;
+  border: 0; border-top: 1px solid var(--border); border-radius: 0; background: none; color: var(--accent);
+  font-size: 0.85rem; font-weight: 600;
+}
+.stat-detail { margin-top: 10px; }
 .bars { display: grid; gap: 6px; }
 .bar-row { display: grid; grid-template-columns: 84px 1fr minmax(56px, auto); align-items: center; gap: 8px; font-size: 0.85rem; }
 .bar-track { height: 14px; background: var(--grid); border-radius: 4px; overflow: hidden; }

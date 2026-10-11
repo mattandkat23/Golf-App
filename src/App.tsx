@@ -12,6 +12,10 @@ import StatsPage from './pages/Stats';
 import Courses from './pages/Courses';
 import CourseForm from './pages/CourseForm';
 import More from './pages/More';
+import MoreGolfers from './pages/MoreGolfers';
+import MoreProfile from './pages/MoreProfile';
+import MoreTours from './pages/MoreTours';
+import MoreAccount from './pages/MoreAccount';
 import Rounds from './pages/Rounds';
 import Import from './pages/Import';
 import PasteResults from './pages/PasteResults';
@@ -55,6 +59,10 @@ function Shell() {
           <Route path="/courses/new" element={<CourseForm />} />
           <Route path="/courses/:id" element={<CourseForm />} />
           <Route path="/more" element={<More />} />
+          <Route path="/more/golfers" element={<MoreGolfers />} />
+          <Route path="/more/profile" element={<MoreProfile />} />
+          <Route path="/more/tours" element={<MoreTours />} />
+          <Route path="/more/account" element={<MoreAccount />} />
           <Route path="/rounds" element={<Rounds />} />
           <Route path="/import" element={<Import />} />
           <Route path="/results" element={<FindResults />} />

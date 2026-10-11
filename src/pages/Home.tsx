@@ -2,14 +2,14 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
-import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
+import { computeStats, pct, summarizeRound } from '../lib/stats';
 import { DateBox, Kpi, QuickLinks, fmtDate, today } from '../components/ui';
 import { findConflicts, upcomingDeadlines } from '../lib/schedule';
 
 const QUICK_LINKS = [
   { to: '/results', label: 'Find results', icon: 'M21 21l-4.3-4.3M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z' },
   { to: '/courses', label: 'Courses', icon: 'M6 3v18M6 5h12l-3 3.5L18 12H6' },
-  { to: '/import', label: 'Paste schedule', icon: 'M9 3h6M8 5h8a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM9 10h6M9 14h6' },
+  { to: '/schedule', label: 'Schedule', icon: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4' },
   { to: '/more', label: 'Golfers & more', icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21c0-4 4-7 8-7s8 3 8 7' },
 ];
 
@@ -123,7 +123,7 @@ export default function Home() {
         </div>
         {stats && stats.holes > 0 ? (
           <div className="kpis" style={{ marginBottom: 0 }}>
-            <Kpi value={stats.toParPer18 !== undefined ? toParLabel(Math.round(stats.toParPer18)) : undefined} label="Avg to par / 18" />
+            <Kpi value={stats.scoringAvg18?.toFixed(1)} label="Scoring avg" />
             <Kpi value={pct(stats.fairways) !== undefined ? `${pct(stats.fairways)}%` : undefined} label="Fairways" />
             <Kpi value={pct(stats.gir) !== undefined ? `${pct(stats.gir)}%` : undefined} label="Greens" />
             <Kpi value={stats.puttsPer18?.toFixed(1)} label="Putts / 18" />

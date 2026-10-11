@@ -26,7 +26,6 @@ export default function MyTours({ profile }: { profile: Profile }) {
 
   return (
     <div className="card">
-      <h2>My tours</h2>
       <p className="muted small">
         Subscribe to the tours {profile.playerName || 'your golfer'} plays. Their events show up in Events → Available, and they're listed first when you add an event.
       </p>
