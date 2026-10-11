@@ -1,0 +1,13 @@
+<!-- HTTP 200 text/plain -->
+20240521195123 https://txga.org/ljt-landing/ 200
+20240717171346 https://txga.org/ljt-landing/ 200
+20240718145816 https://txga.org/ljt-landing/ 200
+20240815120151 https://txga.org/ljt-landing/ 200
+20240917113756 https://txga.org/ljt-landing/ 200
+20241206201022 https://txga.org/ljt-landing/ 200
+20250321041026 https://txga.org/ljt-landing/ 200
+20250614141651 https://txga.org/ljt-landing/ 200
+20251009172713 https://txga.org/ljt-landing/ 200
+20260122231933 https://txga.org/ljt-landing-3/ 200
+20260208234718 https://txga.org/ljt-landing-3/ 200
+20260519132823 https://txga.org/ljt-landing-3/ 200
