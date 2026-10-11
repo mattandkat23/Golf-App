@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
 import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
-import { DateBox, Kpi, fmtDate, today } from '../components/ui';
+import { DateBox, Kpi, QuickLinks, fmtDate, today } from '../components/ui';
 import { findConflicts, upcomingDeadlines } from '../lib/schedule';
+
+const QUICK_LINKS = [
+  { to: '/results', label: 'Find results', icon: 'M21 21l-4.3-4.3M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z' },
+  { to: '/courses', label: 'Courses', icon: 'M6 3v18M6 5h12l-3 3.5L18 12H6' },
+  { to: '/import', label: 'Paste schedule', icon: 'M9 3h6M8 5h8a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM9 10h6M9 14h6' },
+  { to: '/more', label: 'Golfers & more', icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21c0-4 4-7 8-7s8 3 8 7' },
+];
 
 export default function Home() {
   const { golfer } = useGolfer();
@@ -32,6 +39,8 @@ export default function Home() {
           Start round
         </Link>
       </div>
+
+      <QuickLinks items={QUICK_LINKS} />
 
       {inProgress?.map((r) => (
         <Link key={r.id} to={`/play/${r.id}`} className="card link" style={{ borderColor: 'var(--accent)' }}>

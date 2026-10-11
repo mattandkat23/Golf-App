@@ -19,20 +19,15 @@ import FindResults from './pages/FindResults';
 import { GolferProvider, GolferSwitch } from './lib/golfer';
 import { AuthProvider, useAuth, useSignedIn } from './lib/auth';
 import { syncOnStart } from './lib/sync';
+import { Icon } from './components/ui';
 import SignIn from './pages/SignIn';
 
-const icon = (d: string) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d={d} />
-  </svg>
-);
-
 const TABS = [
-  { to: '/', label: 'Home', icon: icon('M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z') },
-  { to: '/schedule', label: 'Events', icon: icon('M4 6h16v14H4zM4 10h16M8 3v4M16 3v4') },
-  { to: '/practice', label: 'Practice', icon: icon('M7 21V4l10 4-10 4') },
-  { to: '/stats', label: 'Stats', icon: icon('M5 20V10M12 20V4M19 20v-7') },
-  { to: '/more', label: 'More', icon: icon('M5 12h.01M12 12h.01M19 12h.01') },
+  { to: '/', label: 'Home', icon: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z' },
+  { to: '/schedule', label: 'Events', icon: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4' },
+  { to: '/practice', label: 'Practice', icon: 'M7 21V4l10 4-10 4' },
+  { to: '/stats', label: 'Stats', icon: 'M5 20V10M12 20V4M19 20v-7' },
+  { to: '/more', label: 'More', icon: 'M5 12h.01M12 12h.01M19 12h.01' },
 ];
 
 function Shell() {
@@ -69,7 +64,7 @@ function Shell() {
         <nav className="tabbar">
           {TABS.map((t) => (
             <NavLink key={t.to} to={t.to} end={t.to === '/'}>
-              {t.icon}
+              <Icon d={t.icon} />
               {t.label}
             </NavLink>
           ))}

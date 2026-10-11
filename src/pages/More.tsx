@@ -63,6 +63,7 @@ export default function More() {
   return (
     <>
       <PageHead title="More" />
+      <div className="section-label">Golfer</div>
       <div className="card">
         <h2>Golfers</h2>
         <p className="muted small">Each golfer has their own schedule, rounds, stats, practice, tours and bag. Courses are shared.</p>
@@ -137,6 +138,7 @@ export default function More() {
         </button>
       </div>
 
+      <div className="section-label">Data</div>
       <div className="card">
         <ul className="list">
           <li>
@@ -147,8 +149,6 @@ export default function More() {
           </li>
         </ul>
       </div>
-
-      <AccountCard />
 
       <div className="card">
         <h2>Backup & sharing</h2>
@@ -177,6 +177,9 @@ export default function More() {
         />
         {msg && <p className="small" style={{ marginTop: 8 }}>{msg}</p>}
       </div>
+
+      <div className="section-label">Account</div>
+      <AccountCard />
     </>
   );
 }

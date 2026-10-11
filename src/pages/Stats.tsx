@@ -1,15 +1,17 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
-import { CONTACTS, bucketLabel, computeStats, hasScore, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
+import { CONTACTS, bucketLabel, computeStats, hasScore, holeComplete, isDetailed, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
 import type { Miss, Round, TourLevel } from '../lib/types';
 import { Bars, Chips, Kpi, PageHead } from '../components/ui';
 
 type Range = 'Last 5' | 'Last 10' | 'Season' | 'All';
 type Kind = 'All rounds' | 'Tournaments' | TourLevel;
 
-const ratePct = (r: Rate) => (pct(r) !== undefined ? `${pct(r)}%` : '—');
+const ratePct = (r: Rate) => (pct(r) !== undefined ? `${pct(r)}%` : undefined);
+const NA = (v: string | undefined) => v ?? 'N/A';
 
 function MissCompass({ miss, center, centerLabel }: { miss: Record<Miss, number>; center: number; centerLabel: string }) {
   const cell = (m: Miss) => (
@@ -65,6 +67,20 @@ function Trend({ rounds }: { rounds: Round[] }) {
   );
 }
 
+/** One stats category: a headline number up top, then its breakdown — or a reason there's nothing yet. */
+function StatCard({ title, hero, heroLabel, empty, children }: { title: string; hero?: string; heroLabel: string; empty?: string; children?: ReactNode }) {
+  return (
+    <div className="card stat-card">
+      <h2>{title}</h2>
+      <div className="stat-hero">
+        <div className="v">{NA(hero)}</div>
+        <div className="l">{heroLabel}</div>
+      </div>
+      {empty ? <div className="empty">{empty}</div> : children}
+    </div>
+  );
+}
+
 export default function StatsPage() {
   const [range, setRange] = useState<Range>('Last 10');
   const [kind, setKind] = useState<Kind>('All rounds');
@@ -88,6 +104,9 @@ export default function StatsPage() {
   if (range === 'Last 5') rounds = rounds.slice(-5);
   if (range === 'Last 10') rounds = rounds.slice(-10);
   const s = computeStats(rounds);
+  const anyDetailed = rounds.some(isDetailed);
+  const par4or5Holes = rounds.flatMap((r) => r.holes).filter((h) => h.par >= 4 && holeComplete(h)).length;
+  const girTrackingMsg = 'Record putts (or play Detailed) on a few holes to start tracking this.';
 
   const clubs = Object.entries(s.contactByClub).sort((a, b) => b[1].Center + b[1].Heel + b[1].Toe + b[1].Fat + b[1].Thin - (a[1].Center + a[1].Heel + a[1].Toe + a[1].Fat + a[1].Thin));
   const contactTotal = CONTACTS.reduce((n, c) => n + s.contact[c], 0);
@@ -114,84 +133,115 @@ export default function StatsPage() {
         <div className="card empty">No completed holes for this filter yet.</div>
       ) : (
         <>
-          <div className="kpis">
-            <Kpi value={s.toParPer18 !== undefined ? toParLabel(Math.round(s.toParPer18 * 10) / 10) : undefined} label="To par / 18" />
-            <Kpi value={ratePct(s.fairways)} label="Fairways" />
-            <Kpi value={ratePct(s.gir)} label="Greens in reg." />
-            <Kpi value={s.puttsPer18?.toFixed(1)} label="Putts / 18" />
-            <Kpi value={s.threePutts} label="3-putts" />
-            <Kpi value={s.penalties} label="Penalty strokes" />
-            <Kpi value={ratePct(s.scrambling)} label="Scrambling" />
-            <Kpi value={ratePct(s.sandSaves)} label="Sand saves" />
-            <Kpi value={s.approachProximityFt ? `${Math.round(s.approachProximityFt)} ft` : undefined} label="Approach prox." />
-          </div>
           <p className="muted small">
             {s.rounds} round{s.rounds === 1 ? '' : 's'} · {s.holes} holes
             {s.gir.total > 0 && s.gir.total < s.holes && ` · greens from ${s.gir.total} holes`}
             {s.puttHoles > 0 && s.puttHoles < s.holes && ` · putts from ${s.puttHoles} holes`}
           </p>
 
-          <div className="card">
-            <h2>Score to par (per 18)</h2>
-            <Trend rounds={rounds} />
+          {/* Snapshot: one headline number per category, like a stats overview page. */}
+          <div className="kpis">
+            <Kpi value={s.toParPer18 !== undefined ? toParLabel(Math.round(s.toParPer18 * 10) / 10) : undefined} label="Scoring / 18" />
+            <Kpi value={ratePct(s.fairways)} label="Fairways" />
+            <Kpi value={ratePct(s.gir)} label="Greens in reg." />
+            <Kpi value={s.puttsPer18?.toFixed(1)} label="Putts / 18" />
+            <Kpi value={ratePct(s.scrambling)} label="Scrambling" />
+            <Kpi value={contactTotal ? `${Math.round((100 * s.contact.Center) / contactTotal)}%` : undefined} label="Center contact" />
           </div>
 
-          <div className="card">
-            <h2>Scoring</h2>
+          <StatCard title="Scoring" hero={s.toParPer18 !== undefined ? toParLabel(Math.round(s.toParPer18 * 10) / 10) : undefined} heroLabel="To par, per 18">
+            <Trend rounds={rounds} />
+            <h3 style={{ marginTop: 14 }}>Average by par</h3>
             <Bars
               rows={([3, 4, 5] as const).filter((p) => s.byPar[p].holes).map((p) => ({ label: `Par ${p}`, value: s.byPar[p].avg!, note: toParLabel(Math.round((s.byPar[p].avg! - p) * 100) / 100) }))}
               format={(v) => v.toFixed(2)}
             />
             <h3 style={{ marginTop: 14 }}>Hole scores</h3>
             <Bars rows={Object.entries(s.scoreDist).map(([label, value]) => ({ label, value }))} />
-          </div>
+          </StatCard>
 
-          <div className="card">
-            <h2>Off the tee</h2>
+          <StatCard
+            title="Off the tee"
+            hero={ratePct(s.fairways)}
+            heroLabel="Fairways hit"
+            empty={
+              s.fairways.total === 0
+                ? par4or5Holes === 0
+                  ? 'No par-4 or par-5 holes in this range yet.'
+                  : 'Record fairway hit (or play Detailed) on a few holes to start tracking this.'
+                : undefined
+            }
+          >
             <MissCompass miss={s.teeMiss} center={s.fairways.made} centerLabel="Fairways" />
             <p className="muted small" style={{ marginTop: 8, textAlign: 'center' }}>
-              Fairways {ratePct(s.fairways)} ({s.fairways.made}/{s.fairways.total})
+              {s.fairways.made}/{s.fairways.total} fairways
             </p>
-          </div>
+          </StatCard>
 
-          <div className="card">
-            <h2>Approach shots</h2>
+          <StatCard
+            title="Approach"
+            hero={ratePct(s.gir)}
+            heroLabel="Greens in regulation"
+            empty={s.gir.total === 0 ? girTrackingMsg : undefined}
+          >
             <MissCompass miss={s.approachMiss} center={s.approachGreens.made} centerLabel="Greens" />
             <p className="muted small" style={{ marginTop: 8, textAlign: 'center' }}>
-              Hit green {ratePct(s.approachGreens)} · avg leave {s.approachProximityFt ? `${Math.round(s.approachProximityFt)} ft` : '—'}
+              Avg leave {s.approachProximityFt ? `${Math.round(s.approachProximityFt)} ft` : 'N/A'}
+              {!anyDetailed && ' · play Detailed to track miss direction and proximity'}
             </p>
-          </div>
+          </StatCard>
 
-          <div className="card">
-            <h2>Putting — make % by distance</h2>
-            {s.firstPuttAvgFt && <p className="muted small">Avg first putt: {Math.round(s.firstPuttAvgFt)} ft</p>}
+          <StatCard
+            title="Short game"
+            hero={ratePct(s.scrambling)}
+            heroLabel="Scrambling"
+            empty={s.gir.total === 0 ? girTrackingMsg : s.scrambling.total === 0 ? 'No missed greens in this range — nice ball-striking!' : undefined}
+          >
+            <div className="kpis" style={{ gridTemplateColumns: '1fr 1fr', marginBottom: 0 }}>
+              <Kpi value={ratePct(s.scrambling)} label={`Scrambling (${s.scrambling.made}/${s.scrambling.total})`} />
+              <Kpi value={s.sandSaves.total ? ratePct(s.sandSaves) : 'N/A'} label={`Sand saves (${s.sandSaves.made}/${s.sandSaves.total})`} />
+            </div>
+          </StatCard>
+
+          <StatCard
+            title="Putting"
+            hero={s.puttsPer18?.toFixed(1)}
+            heroLabel="Putts, per 18"
+            empty={s.puttHoles === 0 ? girTrackingMsg : undefined}
+          >
+            <p className="muted small" style={{ marginTop: 0 }}>
+              {s.threePutts} three-putt{s.threePutts === 1 ? '' : 's'}
+              {s.firstPuttAvgFt !== undefined && ` · avg first putt ${Math.round(s.firstPuttAvgFt)} ft`}
+            </p>
+            {s.puttingByDistance.some((b) => b.total) ? (
+              <Bars
+                rows={s.puttingByDistance.filter((b) => b.total).map((b) => ({ label: bucketLabel(b.bucket), value: Math.round((100 * b.made) / b.total), note: `${b.made}/${b.total}` }))}
+                format={(v) => `${v}%`}
+                max={100}
+              />
+            ) : (
+              <div className="empty">Play Detailed to see make % by distance.</div>
+            )}
+          </StatCard>
+
+          <StatCard
+            title="Ball striking"
+            hero={contactTotal ? `${Math.round((100 * s.contact.Center) / contactTotal)}%` : undefined}
+            heroLabel="Center contact"
+            empty={!contactTotal ? 'Tag contact quality in Detailed entry (Play mode) to start tracking this.' : undefined}
+          >
+            <Bars rows={CONTACTS.map((c) => ({ label: c, value: s.contact[c] }))} format={(v) => `${Math.round((100 * v) / contactTotal)}%`} />
+            <h3 style={{ marginTop: 14 }}>By club (center %)</h3>
             <Bars
-              rows={s.puttingByDistance.filter((b) => b.total).map((b) => ({ label: bucketLabel(b.bucket), value: Math.round((100 * b.made) / b.total), note: `${b.made}/${b.total}` }))}
+              rows={clubs.map(([club, c]) => {
+                const n = CONTACTS.reduce((t, k) => t + c[k], 0);
+                const worst = CONTACTS.filter((k) => k !== 'Center').sort((a, b) => c[b] - c[a])[0];
+                return { label: club, value: Math.round((100 * c.Center) / n), note: c[worst] ? `${worst} miss` : undefined };
+              })}
               format={(v) => `${v}%`}
               max={100}
             />
-          </div>
-
-          <div className="card">
-            <h2>Contact quality</h2>
-            {contactTotal ? (
-              <>
-                <Bars rows={CONTACTS.map((c) => ({ label: c, value: s.contact[c] }))} format={(v) => `${Math.round((100 * v) / contactTotal)}%`} />
-                <h3 style={{ marginTop: 14 }}>By club (center %)</h3>
-                <Bars
-                  rows={clubs.map(([club, c]) => {
-                    const n = CONTACTS.reduce((t, k) => t + c[k], 0);
-                    const worst = CONTACTS.filter((k) => k !== 'Center').sort((a, b) => c[b] - c[a])[0];
-                    return { label: club, value: Math.round((100 * c.Center) / n), note: c[worst] ? `${worst} miss` : undefined };
-                  })}
-                  format={(v) => `${v}%`}
-                  max={100}
-                />
-              </>
-            ) : (
-              <div className="empty">Tag contact on shots to see this.</div>
-            )}
-          </div>
+          </StatCard>
         </>
       )}
     </>

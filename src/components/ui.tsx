@@ -1,6 +1,28 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
+export function Icon({ d, size = 24 }: { d: string; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d={d} />
+    </svg>
+  );
+}
+
+/** A grid of icon tiles that each link somewhere, for a page that's a navigation hub. */
+export function QuickLinks({ items }: { items: { to: string; label: string; icon: string }[] }) {
+  return (
+    <div className="quicklinks">
+      {items.map((it) => (
+        <Link key={it.to} to={it.to} className="quicklink">
+          <Icon d={it.icon} />
+          <span>{it.label}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function PageHead({ title, back, action }: { title: ReactNode; back?: string; action?: ReactNode }) {
   return (
     <>
