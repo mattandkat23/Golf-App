@@ -1,0 +1,2564 @@
+<!-- HTTP 200 application/javascript -->
+//  START::LINKSViews.JS 
+//  Functionality for Links Tournament Management: External Views (Tee Times & Results)
+
+// GLOBAL data
+
+var VIEWS = {
+    FORMAT: '',
+    VIEW_TITLE: { teetime: "Tee Times", results: "Results" },
+    PLAYER_PAIRINGS: {},
+    PAIRINGS: {},
+    OPENED_PLAYERS: {}      // Index of player_id => 1/0
+};
+
+LINKS_GLOBALS.AJAX_PREFIX = "../admin";
+LINKS_GLOBALS.AJAX_CACHE = 1; // Allow Caching at the server
+
+function page_init() {
+    if (0 && $.browser.msie && $.browser.version < 9) {
+        $('#plus_canvas').hide();
+        $('#report_msg').html('We are currently experiencing issues with older browsers. Please update to the most recent version of Internet Explorer or try another browser like Firefox or Chrome').show();
+        return;
+    }
+
+    JSON_DATA.tournament.is_team = JSON_DATA.tournament.format == 2 || JSON_DATA.tournament.format == 3;
+    JSON_DATA.tournament.is_shotgun = JSON_DATA.tournament.start_format == 1;
+
+    $('#view_flight_sort').change(function () { view_flight_layout(); });
+    $('#view_flight_age_group').change(function () { view_flight_change(); });
+    init_flights();
+    $(window).resize(window_resize);
+
+    if ($.browser.msie && $.browser.version < 9) {
+        $('#view_flight_list').css('margin-top', '0px');
+    }
+
+    var call = location.href.split('CALL=')[1];
+    if (call) {
+        eval(decodeURI(call));
+    }
+}
+
+function window_resize() {
+}
+
+function init_flights() {
+    var view = $('#links_view').val();
+    var flight_indexes = {};
+    var flight_ids = view_flights();
+    var ag_selected = $.cookie('LINKS_VIEW_AGE_GROUP') || '';
+    var options = '';
+    $.each(
+        flight_ids,
+        function (_n, flight_id) {
+
+            // added flight name to age group name 
+            var flightName = typeof JSON_DATA.flights[flight_id].name == 'undefined' ? '' : JSON_DATA.flights[flight_id].name;
+            var label = JSON_DATA.age_groups[JSON_DATA.flights[flight_id].age_group].name + (flightName == '' ? '' : ' ' + flightName);
+            // added flight name to age group name
+
+
+            if (flight_id != '227778' && flight_id != '227781') {
+                options += '<option value="' + flight_id + '"' + (label == ag_selected ? ' selected' : '') + '>' + label + '</option>';
+            }
+        }
+    );
+
+    if (view === 'reports') {
+        var info = {
+            rounds: JSON_DATA.tournament.rounds,
+            flights: options,
+            logos: JSON_DATA.tournament.account == 'USKG' ? LINKS_GLOBALS.SCORECARD_IMAGES : JSON_DATA.tournament.account == 'USSSA' ? LINKS_GLOBALS.SCORECARD_IMAGES_USSSA : LINKS_GLOBALS.SCORECARD_IMAGES_NONE,
+            status: JSON_DATA.tournament.type
+        };
+        if (window.parent.reports_iframe_initialized) {
+            window.parent.reports_iframe_initialized(info);
+        }
+        return;
+    }
+
+    $('#view_flight_age_group').html(options);
+    $('#view_flight_tournament').html(JSON_DATA.tournament.name);
+    $('#view_flight_daterange').html(daterange_s(JSON_DATA.tournament.start_date, JSON_DATA.tournament.end_date));
+    $('#view_flight_course').html('');
+    $('#view_flight_round_details').hide();
+    $('#view_flight_holes_per_round').html('');
+    $('#view_flight').show();
+
+    view_flight_change();
+}
+
+function view_flights() {
+    return object_keys(JSON_DATA.flights).sort(
+        function (a, b) {
+            var a_f = JSON_DATA.flights[a];
+            var b_f = JSON_DATA.flights[b];
+            var a_ag = JSON_DATA.age_groups[a_f.age_group];
+            var b_ag = JSON_DATA.age_groups[b_f.age_group];
+
+            var x = compare(a_ag.gender, b_ag.gender);
+            if (x) return x;
+
+            const ageComparison = a_ag.min_age - b_ag.min_age;
+            if (ageComparison !== 0) return ageComparison;
+
+            return a_f.name.localeCompare(b_f.name);
+
+            // return compare(parseInt(a_ag.min_age), parseInt(b_ag.min_age));
+        }
+    );
+}
+
+function view_refresh() {
+    location.reload(1);
+}
+
+function view_flight_change() {
+    $('#view_flight_content').hide();
+    $('#view_flight_unpublished').hide();
+    $('#view_flight_golf_genius').hide();
+    $('#view_flight_round_details').hide();
+    $('#view_flight_header').hide();
+    $('#view_flight_headings').hide();
+    $('#view_flight_list').hide();
+    $('#view_flight_info').html('');
+    var flight_id = $('#view_flight_age_group').val();
+    if (flight_id) {
+        view_flight(flight_id);
+    }
+}
+
+
+// Removed on 9/4/2025 to fix the points not displaying on the scoreboard report on initial load.
+
+//function report_generate(tournament, report, flight_id, round, logo, flags) {
+//    var extra = '';
+//    var orientation = 'portrait';
+
+//    switch (report) {
+//        case 'scoreboard_az_tty': report = 'scoreboard'; extra = '|az|Y'; orientation = 'landscape'; break;
+//        case 'scoreboard_az_ttn': report = 'scoreboard'; extra = '|az|N'; orientation = 'landscape'; break;
+//        case 'scoreboard_pt_tty': report = 'scoreboard'; extra = '|pt|Y'; orientation = 'landscape'; break;
+//        case 'scoreboard_pt_ttn': report = 'scoreboard'; extra = '|pt|N'; orientation = 'landscape'; break;
+//    }
+
+//    $('#views_report').val(report + '|' + logo + '|' + flags + extra);
+//    $('#views_round').val(round);
+//    $('#report_canvas').html('').hide();
+
+//    set_orientation(orientation);
+
+//    if (report === 'pace' || report === 'pace18') {
+//        return report_pace_of_play(report, tournament, round, logo);
+//    }
+//    if (report === 'payment') {
+//        return report_payment(tournament, logo);
+//    }
+
+//    view_flight(flight_id);
+//}
+
+//function view_flight(flight_id) {
+//    $.cookie('LINKS_VIEW_AGE_GROUP', JSON_DATA.age_groups[JSON_DATA.flights[flight_id].age_group].name, { path: '/', expires: 30 });
+
+//    $('#views_flight').val(flight_id);
+
+//    delete JSON_DATA.flight_players[flight_id];
+//    delete JSON_DATA.tee_times[round_id];
+
+//    var round_num = current_round_num(flight_id);
+//    var round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[flight_id + '_' + round_num];
+//    var get_Players = JSON_DATA.flight_players.hasOwnProperty(flight_id) ? 0 : 1;
+//    var get_TeeTimes = JSON_DATA.tee_times.hasOwnProperty(round_id) ? 0 : 1;
+//    if (get_Players || get_TeeTimes) {
+//        var view = $('#links_view').val();
+
+//        // AJAX CALL to fetch missing data
+//        var url = 'LinksAJAX.aspx?op=GetPlayerTeeTimes';
+//        url += '&f=' + flight_id.split('&').join('__ampersand__');
+//        url += '&r=' + round_num;
+//        url += '&p=' + get_Players;
+//        url += '&t=' + get_TeeTimes;
+//        url += '&pt=' + ($('#views_report').val().split('|')[0] == 'scoreboard' ? '1' : '0');
+
+//        return ajax_call(url, "", view_flight_finish, null, null, $(view == 'reports' ? '#report_msg' : '#view_flight_msg'));
+//    }
+
+//    view_flight_finish();
+//}
+
+// Updated on 9/4/2025 to fix the points not displaying on the scoreboard report on initial load.
+function report_generate(tournament, report, flight_id, round, logo, flags) {
+    var extra = '';
+    var orientation = 'portrait';
+    var pt_param = '0'; // Initialize the parameter to '0' (do not show points)
+
+    // The 'report' variable holds the selected value from the dropdown.
+    // The switch statement then parses this value to set the necessary
+    // variables for the report.
+    switch (report) {
+        case 'scoreboard_az_tty': report = 'scoreboard'; extra = '|az|Y'; orientation = 'landscape'; pt_param = '0'; break;
+        case 'scoreboard_az_ttn': report = 'scoreboard'; extra = '|az|N'; orientation = 'landscape'; pt_param = '0'; break;
+        case 'scoreboard_pt_tty': report = 'scoreboard'; extra = '|pt|Y'; orientation = 'landscape'; pt_param = '1'; break;
+        case 'scoreboard_pt_ttn': report = 'scoreboard'; extra = '|pt|N'; orientation = 'landscape'; pt_param = '1'; break;
+    }
+
+    // Since 'cart_signs', 'teetime', and 'results' are not in the switch,
+    // the 'report' variable retains its original value.
+    // This is a special case in your code's structure where an
+    // if statement handles the logic outside of the main switch.
+    if (report === 'cart_signs') {
+        orientation = 'portrait';
+    }
+
+    $('#views_report').val(report + '|' + logo + '|' + flags + extra);
+    $('#views_round').val(round);
+    $('#report_canvas').html('').hide();
+
+    set_orientation(orientation);
+
+    // If the report type is 'pace' or 'pace18', call a different function
+    // and stop the execution of this function.
+    if (report === 'pace' || report === 'pace18') {
+        return report_pace_of_play(report, tournament, round, logo);
+    }
+    if (report === 'payment') {
+        return report_payment(tournament, logo);
+    }
+
+    // For all other report types (scoreboard, teetime, results, cart_signs),
+    // we call the view_flight function to fetch the data.
+    // We now pass the pt_param variable to this function.
+    view_flight(flight_id, pt_param);
+}
+
+function view_flight(flight_id, pt_param) {
+    $.cookie('LINKS_VIEW_AGE_GROUP', JSON_DATA.age_groups[JSON_DATA.flights[flight_id].age_group].name, { path: '/', expires: 30 });
+
+    $('#views_flight').val(flight_id);
+
+    delete JSON_DATA.flight_players[flight_id];
+    delete JSON_DATA.tee_times[round_id];
+
+    var round_num = current_round_num(flight_id);
+    var round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[flight_id + '_' + round_num];
+    var get_Players = JSON_DATA.flight_players.hasOwnProperty(flight_id) ? 0 : 1;
+    var get_TeeTimes = JSON_DATA.tee_times.hasOwnProperty(round_id) ? 0 : 1;
+    if (get_Players || get_TeeTimes) {
+        var view = $('#links_view').val();
+
+        // AJAX CALL to fetch missing data
+        var url = 'LinksAJAX.aspx?op=GetPlayerTeeTimes';
+        url += '&f=' + flight_id.split('&').join('__ampersand__');
+        url += '&r=' + round_num;
+        url += '&p=' + get_Players;
+        url += '&t=' + get_TeeTimes;
+
+        // This is the updated line that uses the passed pt_param,
+        // which now correctly distinguishes between scoreboard reports.
+        url += '&pt=' + pt_param;
+
+        return ajax_call(url, "", view_flight_finish, null, null, $(view == 'reports' ? '#report_msg' : '#view_flight_msg'));
+    }
+
+    view_flight_finish();
+}
+
+
+function view_flight_finish(data) {
+    var player_id;
+    var player_n = 0;
+
+    var flight_id = $('#views_flight').val();
+    var current_round = current_round_num(flight_id);
+
+    // Reset all global values based on the selected round & flight
+    VIEWS = {
+        FORMAT: $('#links_fmt').val(),
+        PLAYER_PAIRINGS: {},
+        PAIRINGS: {},
+        OPENED_PLAYERS: {}      // Index of player_id => 1/0
+    };
+
+    VIEWS.VIEW = $('#links_view').val();
+    VIEWS.FLIGHT_ID = flight_id;
+    VIEWS.ROUND_NUM = current_round || 1;
+    VIEWS.FLIGHT_ROUND_ID = JSON_DATA.IDX_FLIGHT_ROUNDS[VIEWS.FLIGHT_ID + '_' + VIEWS.ROUND_NUM];
+    VIEWS.FLIGHT = JSON_DATA.flights[VIEWS.FLIGHT_ID];
+    VIEWS.AGE_GROUP = JSON_DATA.age_groups[VIEWS.FLIGHT.age_group];
+
+    // ABOVE *MUST* BE BEFORE THE NEXT TWO CODE BLOCKS SO THAT KEYS ARE CORRECT!
+
+    // If there is data from the AJAX call, store it away.
+    if (data && data.flight_teams) JSON_DATA.flight_teams[VIEWS.FLIGHT_ID] = data.flight_teams;
+    if (data && data.flight_players) JSON_DATA.flight_players[VIEWS.FLIGHT_ID] = data.flight_players;
+    if (data && data.tee_times) JSON_DATA.tee_times[VIEWS.FLIGHT_ROUND_ID] = data.tee_times;
+    if (data && data.tee_times_team) JSON_DATA.tee_times_team[VIEWS.FLIGHT_ROUND_ID] = data.tee_times_team;
+
+    // Hack to hide the WC Boys 10, Rounds 1 and 2 Tee Times  
+    if ((current_round == 0 || current_round == 1 || current_round == 2) && flight_id == 177800 && VIEWS.VIEW == "teetime") {
+        $('#view_flight_golf_genius').show();
+        $('#view_flight_header').show();
+        $('#view_flights').hide();
+        return;
+    }
+    // Hack to hide the WC Boys 10, Rounds 1 and 2 Tee Times
+
+    if (current_round == 0 && VIEWS.VIEW == "teetime") {
+        $('#view_flight_unpublished_flight').html(VIEWS.AGE_GROUP.name);
+        $('#view_flight_unpublished').show();
+        $('#view_flight_header').show();
+        $('#view_flights').hide();
+        return;
+    }
+
+    if (VIEWS.ROUND_NUM == 0) {
+        VIEWS.ROUND_NUM = 1;
+        VIEWS.FLIGHT_ROUND_ID = JSON_DATA.IDX_FLIGHT_ROUNDS[VIEWS.FLIGHT_ID + '_' + VIEWS.ROUND_NUM];
+    }
+
+    VIEWS.FLIGHT_ROUND = JSON_DATA.flight_rounds[VIEWS.FLIGHT_ROUND_ID];
+    VIEWS.PLAYERS = JSON_DATA.flight_players[VIEWS.FLIGHT_ID];
+    VIEWS.TEAMS = JSON_DATA.flight_teams[VIEWS.FLIGHT_ID];
+    VIEWS.TEE_TIMES = JSON_DATA.tee_times[VIEWS.FLIGHT_ROUND_ID];
+    VIEWS.PLAYER_IDS = [];
+
+    // When combining team on one card, organize by team instead of player
+    if (JSON_DATA.tournament.format == 3) {
+        VIEWS.PLAYERS = JSON_DATA.flight_teams[VIEWS.FLIGHT_ID];
+        VIEWS.TEE_TIMES = JSON_DATA.tee_times_team[VIEWS.FLIGHT_ROUND_ID];
+    }
+
+    VIEWS.FLIGHT_COURSES = [];
+    for (var round = 1; round <= JSON_DATA.tournament.rounds; round++) {
+        VIEWS.FLIGHT_COURSES[round] = JSON_DATA.flight_courses[JSON_DATA.IDX_FLIGHT_ROUNDS[VIEWS.FLIGHT_ID + '_' + round]];
+    }
+
+    if (VIEWS.VIEW === "reports")
+        return view_report();
+
+    if (VIEWS.VIEW === "teetime")
+        $('#view_flight_round_details').html('Round ' + VIEWS.FLIGHT_ROUND.round).show();
+
+    //var info = VIEWS.AGE_GROUP.name + '&nbsp;&bull;&nbsp;' + VIEWS.AGE_GROUP.holes_per_round + ' Holes';
+    var info = VIEWS.AGE_GROUP.holes_per_round + ' Holes';
+    if (JSON_DATA.tournament.is_old != 1)
+        info += '&nbsp;&bull;&nbsp;' + JSON_DATA.courses[VIEWS.FLIGHT_ROUND.course].name;
+    $('#view_flight_info').html(info);
+
+    $('#view_flight').addClass('view_' + VIEWS.VIEW);
+
+    $('#view_flight_flight').html(VIEWS.AGE_GROUP.name);
+
+    view_flight_layout();
+
+    $('#view_flights').hide();
+    show_if($('#view_flight_sort_area'), VIEWS.VIEW == 'teetime');
+    $('#view_flight').show();
+
+}
+
+function view_flight_layout() {
+    var view;
+
+    switch (VIEWS.VIEW) {
+        case 'teetime':
+            view_flight_results_data();
+            view_flight_teetimes_data();
+            view = view_flight_teetimes();
+            break;
+
+        case 'results':
+            if ((JSON_DATA.tournament.type == 5 || JSON_DATA.tournament.type == 6) && JSON_DATA.tournament.status == 9) {
+                VIEWS.VIEW = 'points';
+            }
+        case 'points':
+        case 'field':
+            view_flight_results_data();
+            view = view_flight_results();
+            break;
+    }
+
+    $('#view_flight_headings').html(view.headings);
+    $('#view_flight_list').html(view.content);
+    $('#view_flight_content').show();
+    $('#view_flight_header').show();
+    $('#view_flight_headings').show();
+    $('#view_flight_list').show();
+}
+
+function view_report() {
+    var report_params = $('#views_report').val().split('|');
+
+    VIEWS.REPORT = { REPORT: report_params[0], LOGO: report_params[1], FLAGS: parseInt(report_params[2], 10) };
+
+    if (VIEWS.REPORT.REPORT === 'scoreboard') {
+        VIEWS.REPORT.SORT = report_params[3];
+        VIEWS.REPORT.TEETIMES = report_params[4];
+    }
+
+    var html;
+    switch (VIEWS.REPORT.REPORT) {
+        case 'scoreboard':
+            view_scoreboard_data();
+            html = report_scoreboard();
+            break;
+
+        case 'cart_signs':
+            view_flight_results_data();
+            view_flight_teetimes_data();
+            html = report_cart_signs();
+            break;
+
+        case 'teetime':
+            view_flight_results_data();
+            view_flight_teetimes_data();
+            html = report_flight_teetimes();
+            break;
+
+        case 'results':
+        case 'points':
+        case 'field':
+            view_flight_results_data();
+            html = report_flight_results();
+            break;
+    }
+
+    $('#report_canvas').html(html).show();
+
+    if (VIEWS.REPORT.REPORT === 'scoreboard') {
+        setTimeout('scoreboard_resize()', 100);
+    }
+}
+
+function view_flight_results() {
+    var colgroup = '';
+    if (VIEWS.VIEW === 'field') {
+        colgroup += '<col>';
+    }
+    else {
+        colgroup += '<col width="45" /><col width="45" />';
+        colgroup += '<col width="100%" /><col width="60" />';
+        for (var r = 0; r < JSON_DATA.tournament.rounds; r++) {
+            colgroup += '<col width="75" />';
+        }
+        colgroup += '<col width="75" />';
+        if (VIEWS.VIEW === 'points') {
+            colgroup += '<col width="75">';
+        }
+    }
+
+    var html_headings = '';
+    html_headings += '<table class="view_table" style="width:100%">';
+    html_headings += '<colgroup>' + colgroup + '</colgroup>';
+    html_headings += '<tr>';
+
+    if (VIEWS.VIEW === 'field') {
+        html_headings += '<th style="text-align:left;padding-left:31px">' + (JSON_DATA.tournament.is_team ? 'TEAM' : 'PLAYER') + '</th>';
+    }
+    else {
+        html_headings += '<th colspan=2>POSITION</th>';
+        html_headings += '<th class=alignL style="padding-left:28px">' + (JSON_DATA.tournament.is_team ? 'TEAM' : 'PLAYER') + '</th>';
+        html_headings += '<th>SCORE</th>';
+        for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+            html_headings += '<th>R' + r + '</th>';
+        }
+        html_headings += '<th>STROKES</th>';
+        if (VIEWS.VIEW === 'points') {
+            html_headings += '<th>POINTS</th>';
+        }
+    }
+    html_headings += '</tr>';
+    html_headings += '</table>';
+
+    var html_content = '';
+    html_content += '<table class="view_table view_players" style="width:100%">';
+    html_content += '<colgroup>' + colgroup + '</colgroup>';
+
+    // ** hack to hide the field of players
+    //if (VIEWS.VIEW === 'field' || VIEWS.FLIGHT_ROUND.is_published) {
+    //html_content += view_results_rankings({ is_report: 0 });
+    //}
+    if ((VIEWS.VIEW === 'field' && JSON_DATA.tournament.name != 'World Championship 2025x' && JSON_DATA.tournament.name != 'World Teen Championship 2025x') || VIEWS.FLIGHT_ROUND.is_published) {
+        html_content += view_results_rankings({ is_report: 0 });
+    }
+    // hack to hide the field of Players
+
+
+    html_content += '</table>';
+    if (VIEWS.VIEW !== 'field' && !VIEWS.FLIGHT_ROUND.is_published) {
+        html_content += "<br><br>Round is not yet published.";
+    }
+
+    if (VIEWS.FORMAT && VIEWS.FORMAT.match('nohead')) {
+        // remove this  all together ?
+    }
+
+    return { headings: html_headings, content: html_content };
+}
+
+function view_results_rankings(params) {
+    var odd = false;
+    var html = '';
+
+    if (VIEWS.VIEW !== 'field' && !VIEWS.FLIGHT_ROUND.is_published) {
+        return "Round is not yet published.<br><br>";
+    }
+
+    $.each(
+        VIEWS.RESULTS.RANKED_LIST,
+        function (_n, player_rank) {
+            var player = VIEWS.PLAYERS[player_rank.player_id];
+            var pinfo = view_player_info(params.is_report, player_rank.player_id, player);
+
+            odd = !odd;
+            html += '<tr id="player_' + player_rank.player_id + '" class="' + (odd ? 'odd' : 'even') + '">';
+            if (VIEWS.VIEW !== 'field') {
+                html += '<td>' + player_rank.rank + '</td>';
+                html += '<td>' + player_rank.movement + '</td>';
+            }
+            html += '<td class=alignL>';
+            html += pinfo.country;
+            html += '<span class=player>';
+            if (VIEWS.VIEW !== 'field' && !params.is_report && !JSON_DATA.tournament.is_old == 1 && !VIEWS.FLIGHT.is_scorecard_hidden) {
+                html += '<a href="#" onclick="results_scorecard(event,' + player_rank.player_id + ')">';
+            }
+
+            html += pinfo.name;
+            if (!params.is_report) {
+                html += '</a>';
+            }
+            html += '&nbsp;<sup>' + (player_rank.status === 'DQ' ? 'IE' : player_rank.status) + '</sup>';
+            html += '</span>';
+
+            html += params.is_report ? '</td><td class="alignL">' : '<br/>';
+            html += '<span class="hometown">' + pinfo.hometown + '</span>';
+            html += '</td>';
+
+            if (VIEWS.VIEW !== 'field') {
+                html += '<td' + (player_rank.total_under_par ? ' class="under_par"' : '') + '>';
+                html += (JSON_DATA.tournament.is_old == 1 ? '&nbsp;' : player_rank.score_total);
+
+                html += '</td>';
+                var total = 0;
+                for (var r = 0; r < player_rank.round_strokes.length; r++) {
+                    var show_time = 0;
+                    var rstroke = player_rank.round_strokes[r];
+                    var rstrokes = rstroke.strokes;
+                    if (rstrokes == '-' && !player_rank.status && !params.is_report && r < VIEWS.ROUND_NUM) {
+                        var tt_id = VIEWS.PLAYER_TEETIMES[player_rank.player_id];
+                        var tt = tt_id ? VIEWS.TEE_TIMES[tt_id] : null;
+                        rstrokes = tt ? time_m2sap(time_s2m(tt.start_time)) : 0;
+                        show_time = 1;
+                    }
+                    html += '<td>';
+
+                    if (rstroke.under_par) {
+                        html += '<span class="under_par">';
+                    }
+
+
+
+                    // html += rstrokes;
+                    html += rstrokes === '0' ? '-' : rstrokes;
+
+
+                    if (rstroke.under_par) {
+                        html += '</span>';
+                    }
+                    var flight_round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[VIEWS.FLIGHT_ID + '_' + (r + 1)];
+                    var flight_round = JSON_DATA.flight_rounds[flight_round_id];
+                    if (VIEWS.FLIGHT_ROUND.results_indicator) {
+                        html += '<sup>';
+                        html += flight_round.results_indicator == 1 ? player.rounds[r + 1].start_hole : flight_round.results_indicator == 2 ? '*' : '';
+                        html += '</sup>';
+                    }
+                    html += '</td>';
+                }
+
+                html += '<td' + (player_rank.total_under_par ? ' class="under_par"' : '') + '>';
+                html += player_rank.total_strokes + '</td>';
+                if (VIEWS.VIEW === 'points') {
+                    html += '<td>';
+                    html += !isNaN(player.points) ? parseFloat(player.points).toFixed(2) : '&nbsp;';
+                    html += '</td>';
+                }
+            }
+        }
+    );
+
+    return html;
+}
+
+function report_flight_results() {
+    var html_table_pre = '', html_table_post = '', html = '';
+
+    html_table_pre += '<table class="report_table" style="width:100%">';
+    html_table_pre += '<colgroup>';
+    html_table_pre += '<col width="40" /><col width="40" /><col width="*" /><col width="*" /><col width="60" />';
+    for (var r = 0; r < JSON_DATA.tournament.rounds; r++) {
+        html_table_pre += '<col width="50" />';
+    }
+    html_table_pre += '<col width="60" />';
+    html_table_pre += '</colgroup>';
+    html_table_pre += '<tr>';
+    html_table_pre += '<th colspan=2>POSITION</th>';
+    html_table_pre += '<th class=alignL style="padding-left:28px">' + (JSON_DATA.tournament.is_team ? 'TEAM' : 'PLAYER') + '</th>';
+    html_table_pre += '<th class=alignL>' + (JSON_DATA.tournament.is_team ? 'PLAYERS' : 'HOMETOWN') + '</th>';
+    html_table_pre += '<th>SCORE</th>';
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        html_table_pre += '<th>R' + r + '</th>';
+    }
+    html_table_pre += '<th>STROKES</th>';
+    html_table_pre += '</tr>';
+
+
+    html_table_post += '</table>';
+
+    html += report_page_title('results', 0);
+    html += html_table_pre;
+    html += view_results_rankings({ is_report: 1 });
+    html += html_table_post;
+
+    return html;
+
+}
+
+function report_flight_teetimes() {
+    var html_table_pre = '', html_table_post = '', html = '';
+
+    html_table_pre += '<table class="report_table" style="width:100%">';
+    html_table_pre += '<colgroup><col width="40" /><col width="50" /><col width="*" /><col width="*" />';
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        html_table_pre += '<col width="45">';
+    }
+    html_table_pre += '<col width="60" /></colgroup>';
+    html_table_pre += '<tr><th class="hole">HOLE</th><th class="time">TIME</th>';
+    html_table_pre += '<th class=alignL style="padding-left:28px">' + (JSON_DATA.tournament.is_team ? 'TEAM' : 'PLAYER') + '</th>';
+    html_table_pre += '<th class=alignL>';
+    html_table_pre += JSON_DATA.tournament.is_team ? 'PLAYERS' : 'HOMETOWN';
+    html_table_pre += '</th>';
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        html_table_pre += '<th>R' + r + '</th>';
+    }
+    html_table_pre += '<th class="score">STROKES</th>';
+    html_table_pre += '</tr>';
+    html_table_post += '</table>';
+    html += view_flight_teetimes_by_time({ is_report: 1, pre: html_table_pre, post: html_table_post });
+
+    return html;
+}
+
+function report_page_title(report, need_pagebreak) {
+    var report_title = { teetime: 'Tee Times', results: 'Results' };
+
+    var html = '';
+    html = '<table class="reports_title' + (need_pagebreak ? ' pagebreak' : '') + '">';
+    html += '<colgroup><col width="200px"><col><col width="200px"></colgroup>';
+    html += '<tr>';
+    html += '<td class="title_left">';
+    if (VIEWS.REPORT.LOGO && VIEWS.REPORT.LOGO !== 'None') {
+        html += '<img src="../includes/images/logos/' + VIEWS.REPORT.LOGO + '" class="report_logo">';
+    }
+    html += '</td>';
+    html += '<td class="title_center">';
+    html += '<h2>' + report_title[report] + '</h2>';
+    html += '<h2>' + JSON_DATA.tournament.name + '</h2>';
+    html += '<h3>' + daterange_s(JSON_DATA.tournament.start_date, JSON_DATA.tournament.end_date) + '&nbsp;&bull;&nbsp' + VIEWS.AGE_GROUP.tee_marker + '</h3>';
+    html += '</td>';
+    html += '<td class="title_right">';
+    html += '<h2>' + VIEWS.AGE_GROUP.name + '</span></h2>';
+    html += '<h4>' + VIEWS.AGE_GROUP.holes_per_round + ' Holes' + '&nbsp;&bull;&nbsp;' + JSON_DATA.courses[VIEWS.FLIGHT_ROUND.course].name + '</h4>';
+    if (report === "teetime") {
+        html += '<img src="../includes/images/blank.gif" height="5"><br/><span class="reports_round">Round ' + VIEWS.FLIGHT_ROUND.round + '</span>';
+    }
+    html += '</td>';
+    html += '</tr>';
+    html += '</table>';
+
+    return html;
+}
+
+function view_flight_teetimes() {
+    var colgroup = '';
+    colgroup += '<col width="45" /><col width="60" />';
+    if (VIEWS.SORT_TEETIMES === 'name') {
+        colgroup += '<col width="200" />';
+    }
+    colgroup += '<col width="*" />';
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        colgroup += '<col width="70" />';
+    }
+    colgroup += '<col width="70" />';
+
+    var html_headings = '';
+    html_headings += '<table class="view_table" style="width:100%">';
+    html_headings += '<colgroup>' + colgroup + '</colgroup>';
+    html_headings += '<tr><th class="hole">HOLE</th><th class="time">TIME</th><th class=alignL style="padding-left:28px">' + (JSON_DATA.tournament.is_team ? 'TEAM' : 'PLAYER') + '</th>';
+    html_headings += (VIEWS.SORT_TEETIMES === 'name' ? '<th class=alignL>' + (JSON_DATA.tournament.is_team ? 'PLAYERS' : 'PAIRING') + '</th>' : '');
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        html_headings += '<th>R' + r + '</th>';
+    }
+    html_headings += '<th class="score">STROKES</th>';
+    html_headings += '</tr>';
+    html_headings += '</table>';
+
+    var html_content = '';
+    html_content += '<table class="view_table" style="width:100%">';
+    html_content += '<colgroup>' + colgroup + '</colgroup>';
+    html_content += VIEWS.SORT_TEETIMES === 'name' ? view_flight_teetimes_by_name() : view_flight_teetimes_by_time({ is_report: 0 });
+    html_content += '</table>';
+
+    return { headings: html_headings, content: html_content };
+}
+
+function view_flight_teetimes_by_name() {
+    var html = '';
+    var odd = true;
+
+    for (i = 0; i < VIEWS.PLAYER_IDS.length; i++) {
+        odd = !odd;
+        var player_id = VIEWS.PLAYER_IDS[i];
+        var tt = VIEWS.TEE_TIMES[VIEWS.PLAYER_TEETIMES[player_id]];
+        var p = VIEWS.PLAYERS[player_id];
+        var inactive = p.status !== 1 || tt.group_number === 0;
+        var score = p.score;
+        var status = "";
+
+        var pairings_a = [];
+        var pairing_players = object_keys_sorted(VIEWS.PAIRINGS[tt.group_number]);
+        if (player_status_inactive(p.status)) {
+            score = status = LINKS_GLOBALS.PLAYER_STATUS[p.status].code;
+        }
+        var groupX = tee_time_position(tt.group_number);
+        html += '<tr id="tr_' + player_id + '" class="' + (odd ? 'odd' : 'even') + '">';
+        html += '<td class="hole">' + (inactive ? '&nbsp;' : tt.start_hole) + groupX + '</td>';
+        html += '<td class="time">' + (inactive ? '&nbsp;' : time_m2sap(time_s2m(tt.start_time))) + '</td>';
+        $.each(
+            pairing_players,
+            function (_n, pp_num) {
+                var pp = VIEWS.PLAYERS[VIEWS.PAIRINGS[tt.group_number][pp_num]];
+                var pinfo = view_player_info(false, pp_num, pp);
+                pairings_a.push(pinfo.name);
+            }
+        );
+        var pairings_s = pairings_a.join(', ');
+
+        score = player_score_before(p, VIEWS.ROUND_NUM);
+        var pinfo = view_player_info(false, player_id, p);
+
+        if (JSON_DATA.tournament.is_team) {
+            pairings_s = pinfo.hometown;
+            pinfo.hometown = '';
+        }
+        else if (!tt.group_number) {
+            pairings_s = '';
+        }
+
+        html += '<td class=alignL>' + pinfo.country;
+        html += '<span class=player>' + pinfo.name;
+        html += status ? '&nbsp;<sup>' + (status === 'DQ' ? 'IE' : status) + '</sup>' : '';
+        html += '</span>';
+        html += '<br/><span class="hometown">' + pinfo.hometown + '</span></td>';
+        html += '<td class=alignL style="white-space:normal;">' + pairings_s + '</td>';
+
+        for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+            var rstrokes = p.rounds[r] ? p.rounds[r].num_strokes : 0;
+            var under_par = view_flight_teetimes_under_par(player_id, r);
+            if (r >= VIEWS.ROUND_NUM)
+                rstrokes = 0;
+            html += '<td>';
+            if (under_par) html += '<span class="under_par">';
+            html += (rstrokes || '-');
+            if (under_par) html += '</span>';
+            html += '</td>';
+        }
+
+        html += '<td class=score>' + ((inactive || score == 0) ? '-' : score) + '</td>';
+
+        html += '</tr>';
+    }
+    return html;
+}
+
+function view_flight_teetimes_under_par(player_id, r) {
+    if (!VIEWS.RESULTS || !VIEWS.RESULTS.RANKED_LIST) {
+        return 0;
+    }
+    for (var i = 0; i < VIEWS.RESULTS.RANKED_LIST.length; i++) {
+        p = VIEWS.RESULTS.RANKED_LIST[i];
+        if (p.player_id === player_id) {
+            var rstrokes = p.round_strokes[r - 1];
+            if (!rstrokes) return;
+            return rstrokes.under_par;
+        }
+    }
+}
+
+function view_flight_teetimes_by_time(params) {
+    var html = '';
+    var group0 = -1;
+    odd = true;
+    var rows = 0;
+    var hole = 0;
+    var wave_split = 24 * 60 + 1;
+    var wave = 1;
+    var tt_wave = 1;
+
+    if (params.is_report) {
+        html += report_page_title('teetime', 0) + params.pre;
+    }
+
+    if (VIEWS.FLIGHT_ROUND.has_waves) {
+        wave_split = time_s2m(VIEWS.FLIGHT_ROUND.start_wave2);
+    }
+
+    for (i = 0; i < VIEWS.PLAYER_IDS.length; i++) {
+        var player_id = VIEWS.PLAYER_IDS[i];
+        var tt = VIEWS.TEE_TIMES[VIEWS.PLAYER_TEETIMES[player_id]];
+        var player = VIEWS.PLAYERS[player_id];
+        var inactive = player_status_inactive(player.status);
+        var status = inactive | LINKS_GLOBALS.PLAYER_STATUS[player.status].code === 'IE' ? LINKS_GLOBALS.PLAYER_STATUS[player.status].code : "";
+        var score = player_score_before(player, VIEWS.ROUND_NUM);
+
+        var xhtml = '';
+
+        var rowspan = 1;
+        if (tt.group_number != group0) {
+            odd = !odd;
+            group0 = tt.group_number;
+            var pairings_a = [];
+            var tt_m = time_s2m(tt.start_time);
+
+            var groupX = tee_time_position(tt.group_number);
+            rowspan = object_keys_sorted(VIEWS.PAIRINGS[tt.group_number]).length;
+            xhtml += '<td class="hole" rowspan="' + rowspan + '">' + (tt.group_number == 0 ? '&nbsp;' : tt.start_hole) + groupX + '</td>';
+            xhtml += '<td class="time" rowspan="' + rowspan + '">' + (tt.group_number == 0 ? '&nbsp;' : time_m2sap(tt_m)) + '</td>';
+            tt_wave = tt_m < wave_split ? 1 : 2;
+        }
+
+        if (params.is_report && rows) {
+            var split_page = (rows + rowspan) > 45 || tt_wave != wave;
+            if (!JSON_DATA.tournament.is_shotgun) {
+                split_page |= hole != tt.start_hole;
+            }
+            if (split_page) {
+                html += params.post + report_page_title('teetime', 1) + params.pre;
+                rows = 0;
+            }
+        }
+
+        // var liveScoringId = (params.is_report && tt.live_scoring_id != "") ? " " + tt.live_scoring_id : "";
+        var liveScoringId = (params.is_report && !JSON_DATA.tournament.hide_players_ggid && tt.live_scoring_id != "") ? " " + tt.live_scoring_id : "";
+
+        var pinfo = view_player_info(params.is_report, player_id, player);
+        html += '<tr id="tr_' + player_id + '" class="' + (odd ? 'odd' : 'even') + '">';
+        html += xhtml;
+        html += '<td class=alignL>';
+        html += '<div>';
+        html += pinfo.country;
+        html += '<span class=player>' + pinfo.name + liveScoringId;
+        html += status ? '&nbsp;<sup>' + (status === 'DQ' ? 'IE' : status) + '</sup>' : '';
+        html += '</span>';
+        html += params.is_report ? '<td class="alignL">' : '<br/>';
+        html += '<span class="hometown">' + pinfo.hometown + '</span>';
+        html += '</div>';
+        html += params.is_report ? '</td>' : '';
+        html += '</td>';
+
+        for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+            var rstrokes = player.rounds[r] ? player.rounds[r].num_strokes : 0;
+            var under_par = view_flight_teetimes_under_par(player_id, r);
+            if (r >= VIEWS.ROUND_NUM) {
+                rstrokes = 0;
+            }
+            html += '<td>';
+            if (under_par) {
+                html += '<span class="under_par">';
+            }
+            html += rstrokes || '-';
+            if (under_par) {
+                html += '</span>';
+            }
+            html += '</td>';
+        }
+        html += '<td class="score">' + (inactive || score === 0 ? '-' : score) + '</td>';
+        html += '</tr>';
+
+        hole = tt.start_hole;
+        wave = tt_wave;
+        rows++;
+
+    }
+
+    if (params.is_report) {
+        html += params.post;
+    }
+
+    return html;
+}
+
+function view_player(player_id) {
+    if (VIEWS.OPENED_PLAYERS[player_id]) {
+        $('#tr_' + player_id + '_scores').remove();
+        VIEWS.OPENED_PLAYERS[player_id] = 0;
+    }
+    view_player_finish();
+}
+
+function view_player_finish(data) {
+    var html = '';
+    html += '<tr>';
+    html += '<td colspan="6">';
+    html += '</td>';
+    html += '</tr>';
+    $('#tr_' + player_id).after(html);
+    VIEWS.OPENED_PLAYERS[player_id] = 1;
+}
+
+function view_flight_teetimes_data() {
+    VIEWS.SORT_TEETIMES = $('#view_flight_sort').val();
+    VIEWS.PLAYER_TEETIMES = {};
+    VIEWS.PLAYER_IDS = [];
+
+    // create a [player_id => tee_time_id] index
+    for (tee_time_id in VIEWS.TEE_TIMES) {
+        var tee_time = VIEWS.TEE_TIMES[tee_time_id];
+        var key = tee_time.player || tee_time.team;
+        tee_time.start_time_m = time_s2m(tee_time.start_time);
+        VIEWS.PLAYER_TEETIMES[key] = tee_time_id;
+        VIEWS.PLAYER_PAIRINGS[key] = tee_time.group_number;
+        if (VIEWS.PAIRINGS[tee_time.group_number] == undefined)
+            VIEWS.PAIRINGS[tee_time.group_number] = {};
+        VIEWS.PAIRINGS[tee_time.group_number][tee_time.group_number == 0 ? key : tee_time.player_number] = key;
+    }
+
+    // create an array of player ids
+    for (player_id in VIEWS.PLAYERS) {
+        VIEWS.PLAYER_IDS.push(player_id);
+    }
+    // Sort the player ids by group-player numbers
+    VIEWS.PLAYER_IDS.sort(view_flight_teetimes_data_sort);
+}
+
+function view_flight_teetimes_data_sort(a, b) {
+    var att = VIEWS.TEE_TIMES[VIEWS.PLAYER_TEETIMES[a]];
+    var ap = VIEWS.PLAYERS[a];
+    var btt = VIEWS.TEE_TIMES[VIEWS.PLAYER_TEETIMES[b]];
+    var bp = VIEWS.PLAYERS[b];
+
+    var x;
+    if (VIEWS.SORT_TEETIMES == 'name') {
+        x = compare_names(ap, bp);
+        if (x) return x;
+    }
+
+    if (!att) return -1;
+    if (!btt) return 1;
+
+    if (att.group_number == 0) return 1;
+    if (btt.group_number == 0) return -1;
+
+    if (VIEWS.SORT_TEETIMES == 'hole') {
+        x = compare(att.start_hole, btt.start_hole);
+        if (x) return x;
+    }
+
+    x = compare(att.start_time_m, btt.start_time_m);
+    if (x) return x;
+
+    if (att.group_number == btt.group_number)
+        return compare(att.player_number, btt.player_number);
+
+    return compare(att.group_number, btt.group_number);
+}
+
+function view_flight_results_data() {
+    if (VIEWS.VIEW !== 'field' && !VIEWS.FLIGHT_ROUND.is_published) {
+        return;
+    }
+
+    var champion;
+    // Initialize Results Global Variables
+    VIEWS.PLAYER_TEETIMES = {};
+    VIEWS.RESULTS = { PLAYERS: {}, SCORE_PLAYERS: { total: {} }, RANK_SCORE: { total: {} }, SCORE_RANK: { total: {} } };
+
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        VIEWS.RESULTS.SCORE_PLAYERS[r] = {};
+        VIEWS.RESULTS.RANK_SCORE[r] = {};
+        VIEWS.RESULTS.SCORE_RANK[r] = {};
+    }
+
+    // create a [player_id => tee_time_id] index
+    for (tee_time_id in VIEWS.TEE_TIMES) {
+        var tee_time = VIEWS.TEE_TIMES[tee_time_id];
+        var key = tee_time.player || tee_time.team;
+        tee_time.start_time_m = time_s2m(tee_time.start_time);
+        VIEWS.PLAYER_TEETIMES[key] = tee_time_id;
+    }
+
+    // Index all players by their Scores per Round
+    $.each(
+        VIEWS.PLAYERS,
+        function (player_id, player) {
+            var player_results = view_flight_results_data_player(player);
+            VIEWS.RESULTS.PLAYERS[player_id] = player_results;
+            var virgin = !player.rounds[1] || player.rounds[1].num_strokes === 0;
+
+            if (player.tiebreaker === 1) {
+                champion = player_id;
+            }
+
+            $.each(
+                player_results.total_scores,
+                function (round, score) {
+                    if (virgin) {
+                        score = 9999998;
+                    }
+                    if (player_results.inactive) {
+                        score = 9999999;
+                    }
+                    var players = VIEWS.RESULTS.SCORE_PLAYERS[round][score];
+                    if (players) { players.push(player_id); } else { players = [player_id]; }
+                    VIEWS.RESULTS.SCORE_PLAYERS[round][score] = players;
+                }
+            );
+        }
+    );
+
+    // For each round, determine Rank for each score along with the number of players who have that score
+    $.each(
+        VIEWS.RESULTS.SCORE_PLAYERS,
+        function (round, _scores) {
+            var scores = object_keys_sorted(VIEWS.RESULTS.SCORE_PLAYERS[round]);
+            var rank = 1;
+            $.each(
+                scores,
+                function (_n, score) {
+                    var n_players = VIEWS.RESULTS.SCORE_PLAYERS[round][score].length;
+                    VIEWS.RESULTS.RANK_SCORE[round][rank] = { score: score, count: n_players };
+                    VIEWS.RESULTS.SCORE_RANK[round][score] = rank;
+                    rank += n_players;
+                }
+            );
+        }
+    );
+
+    // Create an array in ranked order of player information for display
+    VIEWS.RESULTS.RANKED_LIST = [];
+
+    if (VIEWS.VIEW == 'field') {
+
+        score_players = Object.keys(VIEWS.RESULTS.PLAYERS).sort(function (a, b) {
+            var ap = VIEWS.PLAYERS[a];
+            var bp = VIEWS.PLAYERS[b];
+
+            return compare_names(ap, bp);
+        });
+
+        view_flight_results_data_aux(score_players, 9, { count: score_players.length }, 0);
+        return;
+    }
+
+    $.each(
+        object_keys_sorted(VIEWS.RESULTS.RANK_SCORE['total']),
+        function (_n, rank) {
+            var rank_info = VIEWS.RESULTS.RANK_SCORE['total'][rank];
+            var score_players = VIEWS.RESULTS.SCORE_PLAYERS['total'][rank_info.score].sort(
+                function (a, b) {
+                    var x;
+                    var ap = VIEWS.PLAYERS[a];
+                    var bp = VIEWS.PLAYERS[b];
+
+                    if (VIEWS.VIEW != 'field') {
+
+                        if (ap.tiebreaker) {
+                            if (bp.tiebreaker)
+                                return compare(ap.tiebreaker, bp.tiebreaker);
+                            else
+                                return -1;
+                        }
+                        else if (bp.tiebreaker) {
+                            return 1;
+                        }
+
+                        var a_tt_id = VIEWS.PLAYER_TEETIMES[a];
+                        var b_tt_id = VIEWS.PLAYER_TEETIMES[b];
+
+                        var a_tt = a_tt_id ? VIEWS.TEE_TIMES[a_tt_id] : null;
+                        var b_tt = b_tt_id ? VIEWS.TEE_TIMES[b_tt_id] : null;
+
+                        var a_time_s = a_tt ? time_s2m(a_tt.start_time) : 24 * 60;
+                        var b_time_s = b_tt ? time_s2m(b_tt.start_time) : 24 * 60;
+
+                        if (ap.rounds && ap.rounds[VIEWS.FLIGHT_ROUND.round] && ap.rounds[VIEWS.FLIGHT_ROUND.round].num_strokes) a_time_s = 0;
+                        if (bp.rounds && bp.rounds[VIEWS.FLIGHT_ROUND.round] && bp.rounds[VIEWS.FLIGHT_ROUND.round].num_strokes) b_time_s = 0;
+
+                        x = compare(a_time_s, b_time_s);
+                        if (x) return x;
+                    }
+
+                    x = compare_names(ap, bp);
+                    if (x) return x;
+
+                    return compare(a, b);
+                }
+            );
+
+            view_flight_results_data_aux(score_players, rank, rank_info, champion);
+        }
+    );
+}
+
+function compare_names_field(ap, bp) {
+    if (JSON_DATA.tournament.is_team) {
+        return compare(ap.name.toUpperCase(), bp.name.toUpperCase());
+    }
+
+    var lastNameComparison = compare(ap.last.toUpperCase(), bp.last.toUpperCase());
+    if (lastNameComparison !== 0) {
+        return lastNameComparison;
+    }
+
+    return compare(ap.first.toUpperCase(), bp.first.toUpperCase());
+}
+
+function compare_field(a, b) {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+}
+
+
+function view_flight_results_data_aux(score_players, rank, rank_info, champion) {
+    $.each(
+        score_players,
+        function (_n, player_id) {
+            var player = VIEWS.PLAYERS[player_id];
+            var player_results = VIEWS.RESULTS.PLAYERS[player_id];
+
+            var crank = rank;
+            if (crank == 1 && champion && player_id != champion) {
+                crank = 2;
+            }
+            var movement = '-';
+            var prev_round = player_results.last_full_round;
+            if (player_results.last_partial_round == player_results.last_full_round) {
+                prev_round--;
+            }
+
+            if (prev_round > 0) {
+                var prev_score = player_results.total_scores[prev_round];
+                var prev_rank = VIEWS.RESULTS.SCORE_RANK[prev_round][prev_score];
+                movement = crank - prev_rank;
+                if (movement < 0) {
+                    movement = '<span class="move_up">&#9650;</span>' + Math.abs(movement);
+                }
+                else if (movement > 0) {
+                    movement = '<span class="move_down">&#9660;</span>' + movement;
+                }
+                else {
+                    movement = '-';
+                }
+            }
+
+            var score_total = player_results.inactive ? '-' : score_value(player_results.scores['total']);
+            var score_thru = player_results.inactive ? '-' : player_results.thru[VIEWS.ROUND_NUM];
+            var score_current = player_results.inactive ? '-' : score_value(player_results.scores[VIEWS.ROUND_NUM]);
+            var status = "";
+            if (player_results.inactive) {
+                status = LINKS_GLOBALS.PLAYER_STATUS[player.status].code;
+            }
+            var total = 0, rstrokes = [];
+
+            for (r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+                var sl = (player.scores[r - 1] || '0|0').split('|');
+                var round_strokes = sl[0];
+                if (VIEWS.AGE_GROUP.holes_per_round != sl[1] || r > VIEWS.ROUND_NUM)
+                    round_strokes = '-';
+                if (round_strokes != '-') total += parseInt(round_strokes, 10);
+                rstrokes.push({ strokes: round_strokes, under_par: player_results.scores[r] < 0 });
+            }
+
+            var prank = player_results.inactive ? '-' : ((rank_info.count > 1 ? 'T' : '') + rank);
+            if (prank == 'T1' && champion) {
+                prank = player_id == champion ? 1 : (rank_info.count == 2 ? 2 : 'T2');
+            }
+
+            VIEWS.RESULTS.RANKED_LIST.push(
+                {
+                    player_id: player_id,
+                    inactive: player_results.inactive,
+                    rank: prank,
+                    movement: (player_results.inactive ? '-' : movement),
+                    status: status,
+                    score_total: score_total,
+                    round_strokes: rstrokes,
+                    total_strokes: ((player_results.inactive || total == 0) ? '-' : total),
+                    total_under_par: player_results.scores['total'] < 0
+                }
+            );
+        }
+    );
+}
+
+function view_flight_results_data_player(player) {
+    var results = {
+        inactive: player.status !== 1, thru: {}, strokes: {}, scores: {}, total_scores: {},
+        last_partial_round: 0, last_full_round: 0
+    };
+
+    var total_score = 0, total_strokes = 0;
+    if (!player.rounds[1] || !player.rounds[1].hasOwnProperty("start_hole")) {
+        total_strokes = player.score;
+        total_score = total_strokes;
+    }
+    else {
+        for (var round = 1; round <= JSON_DATA.tournament.rounds; round++) {
+            var par_offset = 0;
+            var player_round = player.rounds ? player.rounds[round] : 0;
+            if (!player_round) break;
+
+            if (VIEWS.AGE_GROUP.holes_per_round == 9) {
+                par_offset = VIEWS.FLIGHT_ROUND.starting_hole - 1;
+            } else {
+                par_offset = 0;
+            }
+
+            var scores = player.rounds[round].strokes;
+            var strokes = 0;
+            var thru = 0;
+            var score = 0;
+            for (var i = 0; i < scores.length; i++) {
+                var stroke = scores[i];
+                if (stroke > 0) {
+                    strokes += stroke;
+                    thru++;
+                    var par = VIEWS.FLIGHT_COURSES[round].pars[par_offset + i];
+                    score += (stroke - par);
+                }
+            }
+            results.thru[round] = thru;
+            results.strokes[round] = strokes;
+            results.scores[round] = score;
+            if (thru) {
+                results.last_partial_round = round;
+            }
+            if (VIEWS.AGE_GROUP.holes_per_round == thru) {
+                results.last_full_round = round;
+            }
+            total_score += score;
+            total_strokes += strokes;
+            results.total_scores[round] = total_score;
+        }
+    }
+
+    results.scores['total'] = total_score;
+    results.total_scores['total'] = total_score;
+    results.strokes['total'] = total_strokes
+
+    return results;
+}
+
+function current_round_num(flight_id) {
+    if ($('#links_view').val() == 'reports') {
+        return $('#views_round').val();
+    }
+    for (var round_num = JSON_DATA.tournament.rounds; round_num; round_num--) {
+        var round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[flight_id + '_' + round_num];
+        var flight_round = JSON_DATA.flight_rounds[round_id];
+
+        if (flight_round && flight_round.is_published)
+            return round_num;
+    }
+    return round_num;
+}
+
+function results_scorecard(e, player_id) {
+    var st = $('body').scrollTop();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    setTimeout('scorecard_scroll(' + st + ')', 10);
+
+    var tr_player = $('#player_' + player_id);
+    var tr_extra = $('#extra_' + player_id);
+
+    if (tr_extra.length) {
+        tr_extra.remove();
+        return false;
+    }
+
+    var player = VIEWS.PLAYERS[player_id];
+    var current_round = VIEWS.ROUND_NUM;
+    while (current_round > 1) {
+        if (player.rounds[current_round].num_strokes) {
+            break;
+        }
+        current_round--;
+    }
+
+    var html = '';
+    var tdspan = (JSON_DATA.tournament.rounds > 1 ? 5 : 6) + JSON_DATA.tournament.rounds;
+    html += '<tr id="extra_' + player_id + '" class="' + (tr_player.hasClass('odd') ? 'odd' : 'even') + '" style="padding: 5px;">';
+    html += '<td colspan="' + tdspan + '">';
+
+    html += '<div class="scorecard_outer">';
+    html += '<div class="scorecard_tabs" id="scorecard_tabs_' + player_id + '">';
+    for (var round = 1; round <= JSON_DATA.tournament.rounds; round++) {
+        html += '<span id="scorecard_tab_' + player_id + '_' + round + '" class="scorecard_tab ' + (round == current_round ? 'on' : 'off') + '">';
+        html += '<a href="#" onclick="scorecard_vis(' + player_id + ',' + round + ')">Round ' + round + '</a>';
+        html += '</span>';
+    }
+    html += '</div>';
+    html += '<div class="scorecard_cards" id="scorecard_cards_' + player_id + '">';
+
+    //var hole_to_pars, status_holes_left, to_par_total;
+    for (var round = 1; round <= JSON_DATA.tournament.rounds; round++) {
+        var player_round = player.rounds[round];
+        var i, offset = 0, front_back, total, par, strokes, score, yards, stroke_class, x_shown = 0;
+
+        html += '<div class="scorecard_card" id="scorecard_card_' + player_id + '_' + round + '"';
+        if (round != current_round)
+            html += ' style="display:none"';
+        html += '>';
+        if (!player_round) {
+            html += '<div style="width:100%;background-color:#fff;text-align:center;"><span style="margin:10px;">&nbsp;<br/>No Scorecard is available for this round.</span><br />&nbsp;</div>';
+            html += '</div>';
+            continue;
+        }
+
+        // We know we have data at this point, calculate the status from the start hole
+        var to_par_total = 0;
+        var hole_to_pars = [];
+        var status_holes_left = VIEWS.AGE_GROUP.holes_per_round;
+
+        // offset to handle tournaments that can start on either the front or back 9.. This is used for the pars, yardages, strokes rows
+        if (VIEWS.AGE_GROUP.holes_per_round === 9) {
+            offset = VIEWS.FLIGHT_ROUND.starting_hole - 1;
+        } else {
+            offset = 0;
+        }
+
+        // offset to handle the running to-par score - starting on the players start hole (supports shotgun starts)
+        if (player_round.start_hole >= 10) {
+            if (VIEWS.AGE_GROUP.holes_per_round == 9) {
+                score_offset = (player_round.start_hole - 9) - 1;
+            } else {
+                score_offset = player_round.start_hole - 1;
+            }
+        } else {
+            score_offset = player_round.start_hole - 1;
+        }
+
+        score_par_offset = score_offset + offset;
+
+        while (status_holes_left--) {
+            hole_strokes = player_round.strokes[score_offset];
+            if (hole_strokes < 0) {
+                hole_strokes = 0;
+            }
+
+            if (hole_strokes > 0) {
+                to_par = hole_strokes - VIEWS.FLIGHT_COURSES[round].pars[score_par_offset];
+            } else {
+                to_par = 0;
+            }
+
+            to_par_total += to_par;
+            hole_to_pars[score_offset] = hole_strokes > 0 ? to_par_total : '-';
+
+            if (player_round.start_hole >= 10) {
+                if (VIEWS.AGE_GROUP.holes_per_round === 9) {
+                    score_offset = score_offset === 8 ? 0 : score_offset + 1;  // the scores for 9 hole events are always stored in the first 9 array elements.
+                    score_par_offset = score_par_offset === 17 ? 9 : score_par_offset + 1;  // the pars are always stored in the appropiate array element
+                } else {
+                    score_offset = score_offset === 17 ? 0 : score_offset + 1;
+                    score_par_offset = score_par_offset === 17 ? 0 : score_par_offset + 1;
+                }
+            } else {
+                if (VIEWS.AGE_GROUP.holes_per_round === 9) {
+                    score_offset = score_offset === 8 ? 0 : score_offset + 1;  // the scores for 9 hole events are always stored in the first 9 array elements.
+                    score_par_offset = score_par_offset === 8 ? 0 : score_par_offset + 1;  // the pars are always stored in the appropiate array element
+                } else {
+                    score_offset = score_offset === 17 ? 0 : score_offset + 1;
+                    score_par_offset = score_par_offset === 17 ? 0 : score_par_offset + 1;
+                }
+            }
+        }
+
+        var course_name = JSON_DATA.courses[VIEWS.FLIGHT_COURSES[round].course].name;
+
+        html += '<table class="scorecard_table">';
+        html += '<tr class=holes>';
+
+        // HOLES row
+        html += '<th>HOLE</th>';
+        for (i = 0; i < VIEWS.AGE_GROUP.holes_per_round; i++) {
+            html += '<td>' + (i + 1) + '</td>';
+            if ((i + 1) % 3 === 0) {
+                html += '<td class=blank></td>';
+            }
+            if (i + 1 === 9 && VIEWS.AGE_GROUP.holes_per_round === 18) {
+                html += '<th>OUT</th>';
+            }
+        }
+        if (VIEWS.AGE_GROUP.holes_per_round === 18) {
+            html += '<td>IN</td>';
+        }
+
+        html += '<td>TOTAL</td>';
+        html += '</tr>';
+
+        // PARS row
+        front_back = 0;
+        total = 0;
+        html += '<tr class=pars>';
+        html += '<th>PAR</th>';
+        for (i = 0; i < VIEWS.AGE_GROUP.holes_per_round; i++) {
+            par = VIEWS.FLIGHT_COURSES[round].pars[offset + i];
+            front_back += par;
+            total += par;
+            html += '<td>' + par + '</td>';
+            if ((i + 1) % 3 == 0)
+                html += '<td class=blank></td>';
+            if ((i + 1) == 9 && VIEWS.AGE_GROUP.holes_per_round == 18) {
+                html += '<td class="summary">' + front_back + '</td>';
+                front_back = 0;
+            }
+        }
+        if (VIEWS.AGE_GROUP.holes_per_round == 18) {
+            html += '<td class="summary">' + front_back + '</td>';
+        }
+        html += '<td class="summary">' + total + '</td>';
+        html += '</tr>';
+
+        // Yards Row
+        front_back = 0;
+        total = 0;
+        html += '<tr class=yards>';
+        html += '<th>YARDS</th>';
+        for (i = 0; i < VIEWS.AGE_GROUP.holes_per_round; i++) {
+            yards = VIEWS.FLIGHT_COURSES[round].lengths[offset + i];
+            html += '<td>' + yards + '</td>';
+            front_back += yards;
+            total += yards;
+            if ((i + 1) % 3 == 0) {
+                html += '<td class=blank></td>';
+            }
+            if ((i + 1) == 9 && VIEWS.AGE_GROUP.holes_per_round == 18) {
+                html += '<td class="summary">' + front_back + '</td>';
+                front_back = 0;
+            }
+        }
+        if (VIEWS.AGE_GROUP.holes_per_round == 18) {
+            html += '<td class="summary">' + front_back + '</td>';
+        }
+        html += '<td class="summary">' + total + '</td>';
+        html += '</tr>';
+
+        // STROKES row
+        front_back = 0;
+        total = 0;
+        html += '<tr class=strokes>';
+        html += '<th>STROKES</th>';
+        for (i = 0; i < VIEWS.AGE_GROUP.holes_per_round; i++) {
+            strokes = player_round.strokes[i] || 0;
+            par = VIEWS.FLIGHT_COURSES[round].pars[offset + i]
+            stroke_class = 'par';
+            if (strokes > 0) {
+                front_back += strokes;
+                total += strokes;
+                if (strokes) {
+                    score = strokes - par;
+                    if (score > 0) stroke_class = 'bogey';
+                    if (score == -1) stroke_class = 'birdie';
+                    if (score < -1) stroke_class = 'eagle';
+                    if (strokes == 1) stroke_class = 'ace';
+                }
+            }
+            var strokesS = (strokes ? strokes : '-');
+            if (strokes == -1) {
+                x_shown = 1;
+                strokesS = 'X';
+            }
+            html += '<td class="strokes_' + stroke_class + '">' + strokesS + '</td>';
+            if ((i + 1) % 3 == 0)
+                html += '<td class=blank></td>';
+            if ((i + 1) == 9 && VIEWS.AGE_GROUP.holes_per_round == 18) {
+                html += '<td class="summary">' + front_back + '</td>';
+                front_back = 0;
+            }
+        }
+        if (VIEWS.AGE_GROUP.holes_per_round == 18)
+            html += '<td class="summary">' + front_back + '</td>';
+        html += '<td class="summary">' + total + '</td>';
+        html += '</tr>';
+
+        // SCORE row
+        front_back = 0;
+        total = 0;
+        html += '<tr class=scores>';
+        html += '<th>SCORE</th>';
+        for (i = 0; i < VIEWS.AGE_GROUP.holes_per_round; i++) {
+            html += '<td>' + (hole_to_pars[i] == '-' ? '-' : score_value(hole_to_pars[i])) + '</td>';
+            if ((i + 1) % 3 == 0) {
+                html += '<td class=blank></td>';
+            }
+            if ((i + 1) == 9 && VIEWS.AGE_GROUP.holes_per_round == 18) {
+                html += '<td class="summary"></td>';
+                front_back = 0;
+            }
+        }
+        if (VIEWS.AGE_GROUP.holes_per_round == 18) {
+            html += '<td class="summary"></td>';
+        }
+        html += '<td class="summary">' + score_value(to_par_total) + '</td>';
+        html += '</tr>';
+
+        html += '<tr>';
+        html += '<td colspan="' + (VIEWS.AGE_GROUP.holes_per_round == 9 ? 14 : 28) + '" style="text-align:left;padding:4px;background-color:#ccc;">';
+        html += '<span><b>' + course_name + '</b> (Started on #<b>' + player_round.start_hole + '</b>)</span>';
+        html += '<span class="scorecard_legend">';
+        html += '<span class="strokes_par score_box"></span>Par';
+        html += '<span class="strokes_birdie score_box"></span>Birdie';
+        html += '<span class="strokes_eagle score_box"></span>Eagle';
+        html += '<span class="strokes_ace score_box"></span>Ace';
+        html += '<span class="strokes_bogey score_box"></span>Bogey+';
+        if (x_shown)
+            html += '<span class="strokes_par score_box" style="padding:1px 3px 1px 3px">X</span>Hole Not Played';
+        html += '</span>';
+        html += '</td>';
+        html += '</tr>';
+        html += '</table>';
+        html += '</div>';
+    }
+
+
+    html += '</div>';
+    html += '</td></tr>';
+
+    tr_player.after(html);
+    //window_resize();
+
+    return false;
+}
+
+function scorecard_scroll(st) {
+    $('body').scrollTop(st);
+}
+
+function scorecard_vis(player_id, round) {
+    $('#scorecard_tabs_' + player_id + ' .scorecard_tab').each(function (_index) { $(this).removeClass('on').addClass('off'); });
+    $('#scorecard_cards_' + player_id + ' .scorecard_card').each(function (_index) { $(this).hide(); });
+    $('#scorecard_tab_' + player_id + '_' + round).removeClass('off').addClass('on');
+    $('#scorecard_card_' + player_id + '_' + round).show();
+
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+    var st = $('body').scrollTop();
+    setTimeout('scorecard_scroll(' + st + ')', 10);
+    return false;
+}
+
+function views_player_country(is_report, player) {
+    if (is_report && !VIEWS.REPORT.FLAGS) {
+        return "";
+    }
+    return player_country_flag(player);
+}
+
+function views_player_country_long(player) {
+    var code = player_country_code(player);
+    var country = code_country[code.toLocaleUpperCase()];
+    if (!country) return "";
+
+    return " - " + country.toUpperCase();
+}
+
+function report_payment(tournament, logo) {
+    var cost_9 = +JSON_DATA.tournament.players_9 * +JSON_DATA.tournament.cost_9;
+    var cost_18 = +JSON_DATA.tournament.players_18 * +JSON_DATA.tournament.cost_18;
+    var total_due = (cost_9 + cost_18) - +JSON_DATA.tournament.fee_deposit;
+
+    var html = '';
+    html += '<div id="payment">';
+    html += '<table class="header">';
+    html += '<tr><td>U.S. Kids Golf - ' + JSON_DATA.tournament.tour + "</td></tr>";
+    html += '<tr><td>' + JSON_DATA.tournament.name + "</td></tr>";
+    html += '</table>';
+    html += '<br><br>'
+    html += '<table class="detail">';
+    html += '<tr><td class="item-heading">Event Date: </td><td>' + JSON_DATA.tournament.start_date + '</td></tr>';
+    html += '<tr><td class="item-heading">Course Name: </td><td>' + JSON_DATA.tournament.courses + '</td></tr>';
+    html += '</table>';
+    html += '<br><br>'
+    html += '<table class="detail">';
+    html += '<tr><td class="item-heading">9 Hole Players: </td><td>' + formatCurrency(cost_9) + '</td><td style="padding-left:10px;">(' + JSON_DATA.tournament.players_9 + " * " + JSON_DATA.tournament.cost_9 + ')</td></tr>';
+    html += '<tr><td class="item-heading">18 Hole Players: </td><td>' + formatCurrency(cost_18) + '</td><td style="padding-left:10px;">(' + JSON_DATA.tournament.players_18 + " * " + JSON_DATA.tournament.cost_18 + ')</td></tr>';
+    html += '<tr><td class="item-heading">Less Deposit: </td><td>' + formatCurrency(JSON_DATA.tournament.fee_deposit) + '</td></tr>';
+    html += '<tr><td>&nbsp;</td><td><hr></td><td>&nbsp;</td></tr>'
+    html += '<tr><td class="item-heading">Total Due for Payment: </td><td>' + formatCurrency(total_due) + '</td><td>&nbsp;</td></tr>';
+    html += '</table>';
+
+
+    $('#report_canvas').html('<div class="payment">' + html + '</div>');
+    $('#report_msg').hide();
+    $('#report_canvas').show();
+}
+
+function report_pace_of_play(report, tournament, round_num, logo) {
+    if (!JSON_DATA.pace_of_play) {
+        JSON_DATA.pace_of_play = {};
+    }
+    if (JSON_DATA.pace_of_play[round_num]) {
+        return report_pace_of_play_finish();
+    }
+    var url = 'LinksAJAX.aspx?op=GetPaceOfPlay&t=' + tournament + '&r=' + round_num;
+    ajax_call(url, "", report_pace_of_play_finish, null, null, $('#report_msg'));
+}
+
+function report_pace_of_play_finish(data) {
+    var round_num = $('#views_round').val();
+    var infoL = $('#views_report').val().split('|');
+    var logo = infoL[1];
+    var paces = {};
+
+    if (data) {
+        JSON_DATA.pace_of_play[round_num] = data;
+    }
+    set_orientation('landscape');
+
+    $.each(JSON_DATA.courses, function (course_id, _course) { paces[course_id] = {}; });
+
+    $.each(
+        JSON_DATA.pace_of_play[round_num],
+        function (_n, tt) {
+            var key = '';
+            var time_m = time_s2m(tt.time);
+
+            if (tt.group) {
+                key += pad_number(time_m, 4);
+                key += '_';
+                key += pad_number(tt.hole, 2);
+                key += '_';
+                key += tt.age_group;
+
+                paces[tt.course][key] = { tt: tt, times: pace_of_play_times(tt, round_num) };
+            }
+        }
+    );
+
+    if (infoL[0] == 'pace18') {
+        html = report_pace_of_play_18(round_num, infoL, logo, paces);
+    }
+    else {
+        html = report_pace_of_play_original(round_num, infoL, logo, paces);
+    }
+
+    $('#report_canvas').html(html);
+    $('#report_msg').hide();
+    $('#report_canvas').show();
+}
+
+function report_pace_of_play_original(round_num, infoL, logo, paces) {
+    var html = '';
+    var summary_heading = '<tr><th>Age Group</th><th>Group</th><th>Start Time</th><th>Hole #4</th><th>Hole #9</th><th>Hole #13</th><th>Hole #18</th></tr>';
+    var detail_heading = '';
+
+    detail_heading += '<tr>';
+    detail_heading += '<th>Age<br>Group</th>';
+    detail_heading += '<th>Group</th>';
+    detail_heading += '<th>Start<br>Hole</th>';
+    detail_heading += '<th>Scheduled<br>Start Time</th>';
+    detail_heading += '<th>Actual<br>Start Time</th>';
+    detail_heading += '<th>Expected Finish Hole #(HOLE)</th>';
+    detail_heading += '<th>Actual Finish</th>';
+    detail_heading += '<th>+/- Expected Finish</th>';
+    detail_heading += '<th>Minutes behind Prev. Group</th>';
+    detail_heading += '<th>Card Issued at Prev. Checkpoint</th>';
+    detail_heading += '<th>Is Group on Time</th>';
+    detail_heading += '<th>Did Group Finish within (LAST_MIN) min of Prev. Group</th>';
+    detail_heading += '<th>Card Issued at Hole #(HOLE)</th>';
+    detail_heading += '</tr>';
+
+    var tables;
+    var page = 0;
+    $.each(
+        JSON_DATA.courses,
+        function (course_id, _course) {
+            tables0 = {
+                summary_1_am: '', summary_1_pm: '', summary_10_am: '', summary_10_pm: '',
+                details_1_4_am: '', details_1_4_pm: '', details_10_4_am: '', details_10_4_pm: '',
+                details_1_9_am: '', details_1_9_pm: '', details_10_9_am: '', details_10_9_pm: '',
+                details_1_13_am: '', details_1_13_pm: '', details_10_13_am: '', details_10_13_pm: '',
+                details_1_18_am: '', details_1_18_pm: '', details_10_18_am: '', details_10_18_pm: ''
+            };
+
+            tables = {
+                summary_1: '', summary_10: '', details_4: '', details_9: '', details_13: '', details_18: ''
+            };
+            var details = {
+                4: {}, 9: {}, 13: {}, 18: {}
+            };
+
+            var class_name, odd = { 1: true, 10: true, '1_4': true, '10_4': true, '1_9': true, '10_9': true, '1_13': true, '10_13': true, '1_18': true, '10_18': true };
+
+            $.each(
+                object_keys_sorted(paces[course_id]),
+                function (_n, key) {
+                    var pace_data = paces[course_id][key];
+                    var start_mins = time_s2m(pace_data.tt.time);
+                    var start_time = time_m2sap(start_mins);
+                    var start_hole = pace_data.tt.hole;
+                    var class_name = odd[start_hole] ? 'odd' : 'even';
+
+                    odd[start_hole] = !odd[start_hole];
+
+                    var ampm = start_mins < 12 * 60 ? 'am' : 'pm';
+
+                    var tr = '';
+                    tr += '<tr class="' + class_name + '">';
+                    tr += '<td class="alignL">' + JSON_DATA.age_groups[pace_data.tt.age_group].name + '</td>';
+                    tr += '<td>#' + pace_data.tt.group + '</td>';
+                    tr += '<td>' + start_time + '</td>';
+                    $.each([3, 8, 12, 17], function (_n, hole) { tr += '<td>' + (pace_data.times[hole] ? time_m2sap(pace_data.times[hole]) : '&nbsp;') + '</td>'; });
+                    tr += '</tr>';
+
+                    tables['summary_' + start_hole] += tr;
+
+                    $.each(
+                        [4, 9, 13, 18],
+                        function (_n, hole) {
+                            var hole_time = pace_data.times[hole - 1];
+                            if (hole_time) {
+                                details[hole][hole_time] = pace_of_play_detail(pace_data.tt, start_hole, hole, start_time, hole_time, odd);
+                            }
+                        }
+                    );
+                }
+            );
+
+            /*
+            // Removed 12/2015 JBG
+            $.each(
+                ['1', '10'],
+                function (_n, key)
+                {
+                    html += pace_of_play_table(course_id, round_num, 'summary_' + key, tables, summary_heading, html == '', logo);
+                }
+            );
+            */
+
+            $.each(
+                [4, 9, 13, 18],
+                function (_n, hole) {
+                    var html = '';
+                    var odd = false;
+                    var n = 0;
+                    $.each(
+                        object_keys_sorted(details[hole]),
+                        function (__n, hole_time) {
+                            html += details[hole][hole_time];
+                            html = html.split('CLASS_NAME').join(odd ? 'odd' : 'even');
+                            odd = !odd;
+                            n++;
+                            if (n == 32) {
+                                html += '__PAGE_BREAK__';
+                                n = 0;
+                            }
+                        }
+                    );
+                    tables['details_' + hole] = html;
+                }
+            );
+
+            $.each(
+                [4, 9, 13, 18],
+                function (_n, hole) {
+                    html += pace_of_play_table(course_id, round_num, 'details_' + hole, tables, detail_heading, html == '', logo);
+                }
+            );
+        }
+    );
+
+    return '<div class="pace_of_play">' + html + '</div>';
+}
+
+function pace_of_play_detail(tt, start_hole, hole, start_time, finish_time, odd) {
+    //var key = start_hole + '_' + hole;
+    var key = hole;
+    var class_name = odd[key] ? 'odd' : 'even';
+
+    odd[key] = !odd[key];
+    var hole_per_round = JSON_DATA.age_groups[tt.age_group].holes_per_round;
+
+    var last_hole = 0;
+    if (hole == 9 && (start_hole == 10 || hole_per_round == 9)) last_hole = 1;
+    if (hole == 18 && (start_hole == 1 || hole_per_round == 9)) last_hole = 1;
+
+    var groupX = tee_time_position(tt.group);
+    if (!JSON_DATA.tournament.is_shotgun) {
+        //groupX = '#' + groupX;
+        groupX = '#' + tt.group;
+    }
+
+    var tr = '';
+    tr += '<tr class="CLASS_NAME">';
+    tr += '<td>' + JSON_DATA.age_groups[tt.age_group].name + '</td>';
+    tr += '<td>' + groupX + '</td>';
+    tr += '<td>' + start_hole + '</td>';
+    tr += '<td>' + start_time + '</td>';
+    tr += '<td></td>';
+    tr += '<td>' + time_m2sap(finish_time) + '</td>';
+    tr += '<td></td>';
+    tr += '<td></td>';
+    tr += '<td></td>';
+    tr += '<td>' + ((hole == 4 && start_hole == 1) || (hole == 13 && start_hole == 10) ? 'N/A' : 'Green / Red') + '</td>';
+    tr += '<td>Yes / No</td>';
+    tr += '<td>Yes ';
+    if (hole == 9 || hole == 18)
+        tr += '(' + (last_hole ? 19 : 14) + ') ';
+    tr += '/ No</td>';
+    tr += '<td>Green / Red</td>';
+    tr += '</tr>';
+
+    return tr;
+}
+
+function pace_of_play_table(course_id, round_num, key, tables, heading0, first_page, logo) {
+    var html = '';
+    var table = tables[key];
+    var keyL = key.split('_');
+    var detail_colgroup = '<colgroup><col width="70"><col width="40"><col width="35"><col width="75"><col width="70"><col width="75"><col width="50"><col width="60"><col width="80"><col width="90"><col width="60"><col width="100"><col width="*"></colgroup>';
+    var page_start = '';
+    var page_end = '';
+    var table_start = '';
+    var table_end = '';
+    var final_footer = '';
+    var start_hole, hole, ampm, table_type, subtitle = '', content = '', last_min;
+
+    switch (keyL[0]) {
+        case 'summary':
+            start_hole = keyL[1];
+            ampm = keyL[2];
+            table_start += '<table  class="view_table" style="width:99%;">';
+            content = heading0 + tables[key];
+            break;
+
+        case 'details':
+            start_hole = '__SH__'; //  keyL[1];
+            hole = keyL[1];
+            ampm = keyL[3];
+            last_min = (hole == 9 || hole == 18) ? '14/19' : '14';
+
+            table_start += '<table  class="view_table" style="width:99%;">';
+            table_start += detail_colgroup;
+            table_start += heading0.split('(START)').join(start_hole).split('(HOLE)').join(hole).split('(LAST_MIN)').join(last_min);
+
+            content += tables[key];
+
+            table_end += '</table>';
+
+            final_footer += '<br>';
+            final_footer += '<table  class="view_table" style="width:99%">';
+            final_footer += detail_colgroup;
+            final_footer += '<tr>';
+            final_footer += '<td colspan="9" rowspan="5" style="border:none;vertical-align:top;text-align:left;padding:5px 10px !important;white-space:normal !important;">';
+            if (last_min == '14/19') {
+                final_footer += 'LAST HOLE ONLY: If a group completes the play of their last hole behind the allocated time and more than';
+                final_footer += '19 minutes behind the group in front of them they will automatically receive a red card and a one-stroke penalty';
+            }
+            final_footer += '</td>';
+            final_footer += '<th>IF</th><th>IF</th><th>THEN</th></tr>';
+            final_footer += '<tr><td>Yes</td><td>Yes</td><td>Green</td></tr>';
+            final_footer += '<tr><td>Yes</td><td>No</td><td>Green</td></tr>';
+            final_footer += '<tr><td>No</td><td>Yes</td><td>Green</td></tr>';
+            final_footer += '<tr><td>No</td><td>No</td><td>Red</td></tr>';
+            final_footer += '</table>';
+            break;
+    }
+
+    if (!tables[key]) return '';
+
+
+    page_start += '<div' + (first_page ? '' : ' class="pagebreak"') + ' style="height:auto">';
+    page_start += '<div class="div_auto reports_pop_title" style="height:60px">';
+    if (logo != '' && logo != 'None')
+        page_start += '<img src="../includes/images/logos/' + logo + '" style="float:left;height:60px">';
+    page_start += '<div class="div_auto" style="float:left;margin-left:10px;">';
+    page_start += '<h1 style="text-align:left">' + JSON_DATA.tournament.name + '</h1>';
+    page_start += '<h2 style="text-align:left">' + daterange_s(JSON_DATA.tournament.start_date, JSON_DATA.tournament.end_date) + '</h2>';
+    page_start += '</div>';
+    page_start += '<div class="div_auto" style="float:right;" >';
+    //    page_start += '<h3>' + JSON_DATA.courses[course_id].name + '<br>Starting on Hole#' + start_hole + subtitle + '</h3>';
+    if (keyL[0] == 'summary') {
+        page_start += '<h3>' + JSON_DATA.courses[course_id].name + '<br>Starting on Hole#' + start_hole + '</h3>';
+    }
+    else {
+        page_start += '<h3>' + JSON_DATA.courses[course_id].name + '</h3>';
+        page_start += '<h3>Hole #' + hole + ' [__PAGE__]</h3>';
+    }
+    //    page_start += '<div class="div_auto reports_round">Round ' + round_num + ' - ' + (ampm == 'am' ? 'Morning' : 'Afternoon') + '</div>';
+    page_start += '<div class="div_auto reports_round">Round ' + round_num + '</div>';
+    page_start += '</div>';
+    page_start += '</div>';
+
+
+    page_end += '</table>';
+    page_end += '</div>';
+
+    var tables = content.split('__PAGE_BREAK__');
+    if (tables[tables.length - 1] == '') {
+        tables.length = tables.length - 1;
+    }
+    var tmax = tables.length - 1;
+    for (var t = 0; t <= tmax; t++) {
+        var page_loc = (t + 1).toString() + ' of ' + (tmax + 1).toString();
+        html += page_start.split('__PAGE__').join(page_loc);
+        html += table_start + tables[t] + table_end;
+        //if (t == tmax) { html += final_footer;}
+        html += final_footer;
+        html += page_end;
+    };
+
+    return html;
+}
+
+function pace_of_play_times(tt, round_num) {
+    var times = [];
+    var hole = tt.hole;
+    var time = time_s2m(tt.time);
+    var flight_round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[tt.flight + '_' + round_num];
+    var flight_course = JSON_DATA.flight_courses[flight_round_id];
+    var n = JSON_DATA.age_groups[tt.age_group].holes_per_round;
+    var i;
+
+    for (i = 0; i < 18; i++) times[i] = 0;
+
+    while (n--) {
+        time += parseInt(flight_course.paces[hole - 1]);
+        times[hole - 1] = time;
+        if (hole == 9) time += flight_course.turn_9;
+        if (hole == 18) time += flight_course.turn_18;
+        hole++;
+        if (hole == 19) hole = 1;
+    }
+
+    return times;
+}
+
+function report_pace_of_play_18(round_num, infoL, logo, paces) {
+    var html = '';
+
+    // #TODO
+    page_n = 0;
+    $.each(
+        JSON_DATA.courses,
+        function (course_id, _course) {
+            var tr_html = '';
+            var odd = true;
+            var course_paces = paces[course_id];
+            var secondary_index = {};
+            $.each(object_keys_sorted(course_paces),
+                function (_n, key) {
+                    var pace_data = paces[course_id][key];
+                    var second_key = pad_number(pace_data.tt.hole, 2) + '_' + key;
+                    secondary_index[second_key] = key;
+                }
+            );
+
+            $.each(
+                object_keys_sorted(secondary_index),
+                function (_n, key0) {
+                    var key = secondary_index[key0];
+                    var pace_data = paces[course_id][key];
+                    var class_name = odd ? 'odd' : 'even';
+                    odd = !odd;
+
+                    var tr = '';
+                    tr += '<tr class="' + class_name + '">';
+                    tr += '<td>' + pace_data.tt.hole + '</td>';
+                    tr += '<td>' + time_m2sap(time_s2m(pace_data.tt.time)) + '</td>';
+                    for (hole = 0; hole < 18; hole++) {
+                        tr += '<td>' + (pace_data.times[hole] ? time_m2sap(pace_data.times[hole]) : '&nbsp;') + '</td>';
+                        if (hole == 8) tr += '<td></td>';
+                    }
+                    tr += '</tr>';
+
+                    tr_html += tr;
+                    if ((_n + 1) % 38 == 0) tr_html += '__PAGE_BREAK__';
+                }
+            );
+
+            var table_start = '';
+            table_start += '<table  class="view_table" style="width:99%;">';
+            table_start += '<tr>';
+            table_start += '<th>Start Hole</th>';
+            table_start += '<th>Start Time</th>';
+            for (hole = 1; hole <= 18; hole++) {
+                table_start += '<th>' + hole + '</th>';
+                if (hole == 9) table_start += '<th></th>';
+            }
+            table_start += '</tr>';
+
+            var table_end = '</table>';
+
+            if (tr_html != '') {
+                var table_parts = tr_html.split('__PAGE_BREAK__');
+                if (table_parts[table_parts.length - 1] == '') {
+                    table_parts.length = table_parts.length - 1;
+                }
+                var pages = table_parts.length;
+                for (var part = 0; part < pages; part++) {
+                    var page = part + 1;
+                    html += report_pace_of_play_18_page_head(course_id, page_n == 0, logo, round_num, page, pages);
+                    html += table_start;
+                    html += table_parts[part];
+                    html += table_end;
+                    html += '</div>';
+                    page_n++;
+                }
+            }
+        });
+
+    return '<div class="pace_of_play">' + html + '</div>';
+}
+
+function report_pace_of_play_18_page_head(course_id, first_page, logo, round_num, page, pages) {
+    page_start = '';
+
+    page_start += '<div' + (first_page ? '' : ' class="pagebreak"') + ' style="height:auto">';
+    page_start += '<div class="div_auto reports_pop_title" style="height:60px">';
+    if (logo != '' && logo != 'None') {
+        page_start += '<img src="../includes/images/logos/' + logo + '" style="float:left;height:60px">';
+    }
+    page_start += '<div class="div_auto" style="float:left;margin-left:10px;">';
+    page_start += '<h1 style="text-align:left">' + JSON_DATA.tournament.name + '</h1>';
+    page_start += '<h2 style="text-align:left">' + daterange_s(JSON_DATA.tournament.start_date, JSON_DATA.tournament.end_date) + '</h2>';
+    page_start += '</div>';
+    page_start += '<div class="div_auto" style="float:right;" >';
+    page_start += '<h3>' + JSON_DATA.courses[course_id].name + '</h3>';
+    page_start += '<div class="div_auto reports_round">Round ' + round_num + '</div>';
+    page_start += '<div>Page ' + page + ' of ' + pages + '</div>';
+    page_start += '</div>';
+    page_start += '</div>';
+
+    return page_start;
+}
+
+function view_scoreboard_data() {
+    VIEWS.PLAYER_TEETIMES = {};
+    VIEWS.RESULTS = { PLAYERS: {}, SCORE_PLAYERS: { total: {} }, RANK_SCORE: { total: {} }, SCORE_RANK: { total: {} } };
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        VIEWS.RESULTS.SCORE_PLAYERS[r] = {};
+        VIEWS.RESULTS.RANK_SCORE[r] = {};
+        VIEWS.RESULTS.SCORE_RANK[r] = {};
+    }
+
+    // create a [player_id => tee_time_id] index
+    for (tee_time_id in VIEWS.TEE_TIMES) {
+        var tee_time = VIEWS.TEE_TIMES[tee_time_id];
+        var key = tee_time.player || tee_time.team;
+        tee_time.start_time_m = time_s2m(tee_time.start_time);
+        VIEWS.PLAYER_TEETIMES[key] = tee_time_id;
+    }
+
+    var sorted_players = object_keys_sorted(VIEWS.PLAYERS).sort(
+        function (a, b) {
+            var ap = VIEWS.PLAYERS[a];
+            var bp = VIEWS.PLAYERS[b];
+
+            if (VIEWS.REPORT.SORT == 'pt') {
+                x = compare(bp.points_all, ap.points_all);
+                if (x) return x;
+            }
+
+            if (JSON_DATA.tournament.is_team) {
+                x = compare(team_sort_name(ap), team_sort_name(bp));
+                if (x) return x;
+
+            }
+            else {
+                x = compare_names(ap, bp);
+                if (x) return x;
+            }
+
+            return compare(a, b);
+        });
+
+    VIEWS.RESULTS.PLAYERS = sorted_players;
+}
+
+function team_sort_name(team) {
+    if (!team.sort_name) {
+        var nameL = team.name.toUpperCase().split(' / ');
+        var name1L = [];
+
+        for (var i = 0; i < nameL.length; i++) {
+            var n = nameL[i];
+            var nL = n.split('. ');
+            name1L.push(nL[1] + '.' + nL[0]);
+        }
+        team.sort_name = name1L.join(' / ');
+    }
+    return team.sort_name;
+}
+
+function report_scoreboard() {
+    var html = '';
+    var pars = {};
+    var total_par = 0;
+    for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+        var fpars = VIEWS.FLIGHT_COURSES[r].pars;
+        var par = 0;
+        for (var p = 0; p < fpars.length; p++) {
+            par += fpars[p];
+        }
+        pars[r] = par;
+        total_par += par;
+    }
+
+    //colgroup = '<colgroup>';
+    //if (VIEWS.REPORT.TEETIMES == 'Y') {
+    //    colgroup += '<col width="90">';
+    //}
+    //colgroup += '<col width="*">';
+    //var n_col = 2;
+    //if (JSON_DATA.tournament.rounds > 1) {
+    //    n_col += JSON_DATA.tournament.rounds;
+    //}
+    //while (n_col--) {
+    //    colgroup += '<col width="100">';
+    //}
+    //colgroup += '</colgroup>';
+
+
+    // === When show/hide points adjust the colgroup ===
+    var colgroup = '<colgroup>';
+
+    // Conditional Tee Time Column
+    if (VIEWS.REPORT.TEETIMES == 'Y') {
+        colgroup += '<col width="90">';
+    }
+
+    // Player Name Column
+    colgroup += '<col width="*">';
+
+    // Conditional Points Column
+    var showPointsColumn = (JSON_DATA.tournament.type === 5 || JSON_DATA.tournament.type === 6) && (VIEWS.REPORT.SORT === 'pt');
+    if (showPointsColumn) {
+        colgroup += '<col width="100">';
+    } else {
+        colgroup += '<col width="100">';
+    }
+
+    // Round Score Columns (dynamic)
+    if (JSON_DATA.tournament.rounds > 1) {
+        for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+            colgroup += '<col width="100">';
+        }
+    }
+
+    // Total Score Column
+    colgroup += '<col width="100">';
+
+    colgroup += '</colgroup>';
+    // === END CORRECTED COLGROUP LOGIC ===
+
+
+    var td_icon = '<td>';
+    if (VIEWS.REPORT.LOGO && VIEWS.REPORT.LOGO !== 'None') {
+        td_icon += '<img height="80" src="../includes/images/logos/' + VIEWS.REPORT.LOGO + '" class="report_logo">';
+    }
+    td_icon += '</td>';
+
+    html += '<div class="scoreboard">';
+    html += '<table class="header"><tr>' + td_icon + '<td>';
+    html += '<span id="age_group" style="font-size:1em">' + VIEWS.AGE_GROUP.name + '</span>';
+    html += '</td>' + td_icon + '</tr></table>';
+    html += '<table class="players">';
+    html += colgroup;
+
+    html += '<tr>';
+    if (VIEWS.REPORT.TEETIMES === 'Y') {
+        html += '<th class="time">Tee Time</th>';
+    }
+    html += '<th class="player">Name</th>';
+
+
+    //if ((JSON_DATA.tournament.type === 5 || JSON_DATA.tournament.type === 6)) {
+        //html += '<th class="points">Points</th>';
+    //}
+    //else {
+        //html += '<th class="points">&nbsp;</th>';
+    //}
+
+    // === Show/Hide the Points Heading ===
+
+    var showPointsColumn = (JSON_DATA.tournament.type === 5 || JSON_DATA.tournament.type === 6) && (VIEWS.REPORT.SORT === 'pt');
+    if (showPointsColumn) {
+        html += '<th class="points">Points</th>';
+    } else {
+        html += '<th class="points">&nbsp;</th>';
+    }
+    // === END MODIFIED CODE BLOCK ===
+
+
+    if (JSON_DATA.tournament.rounds > 1) {
+        for (var r = 1; r <= JSON_DATA.tournament.rounds; r++)
+            html += '<th class="score">R' + r + '</th>';
+    }
+    html += '<th class="score">Total</th>';
+    html += '</tr>';
+
+    var page_max = 8;
+    var page_left = 6; // First page
+
+    for (var i = 0; i < VIEWS.RESULTS.PLAYERS.length; i++) {
+        var player_id = VIEWS.RESULTS.PLAYERS[i];
+        var player = VIEWS.PLAYERS[player_id];
+
+        if (player.status === 1 || player.status === 2) {
+
+            if (!page_left) {
+                html += '</table>';
+                html += '<table class="players pagebreak">';
+                html += colgroup;
+
+                page_left = page_max;
+            }
+
+            page_left--;
+            html += '<tr id="player_' + player_id + '">';
+
+            if (VIEWS.REPORT.TEETIMES === 'Y') {
+                var tt_id = VIEWS.PLAYER_TEETIMES[player_id];
+                var tt = VIEWS.TEE_TIMES[tt_id];
+                html += '<td class="time">' + time_m2sap(time_s2m(tt.start_time)) + '</br><span style="font-size:18px">Hole ' + tt.start_hole + '</span></td>';
+            }
+
+            html += '<td class="player">';
+            html += '<span class="name_wrap" style="font-size:1em">';
+            var pinfo = view_player_info(true, player_id, player);
+
+            html += pinfo.scname;
+            html += '</span>';
+            html += '</td>';
+
+            //html += '<td class="points">';
+            //if (JSON_DATA.tournament.type === 5 || JSON_DATA.tournament.type === 6) {
+                //html += !isNaN(player.points_all) ? parseFloat(player.points_all).toFixed(2) : '0.00';
+            //}
+            //html += '</td>';
+
+            // === Show/Hide the Player Points ===
+            html += '<td class="points">';
+            if (showPointsColumn) {
+                // Only display the points value if the column is meant to be shown.
+                if (JSON_DATA.tournament.type === 5 || JSON_DATA.tournament.type === 6) {
+                    html += !isNaN(player.points_all) ? parseFloat(player.points_all).toFixed(2) : '0.00';
+                }
+            } else {
+                html += '&nbsp;';
+            }
+            html += '</td>';
+            // === END MODIFIED CODE BLOCK ===
+
+
+            if (JSON_DATA.tournament.rounds > 1) {
+
+                for (var r = 1; r <= JSON_DATA.tournament.rounds; r++) {
+                    var player_round = player.rounds[r];
+                    var rstrokes = '';
+                    var under_par = 0;
+                    if (player_round) {
+                        rstrokes = player_round.num_strokes;
+                        under_par = rstrokes <= pars[r];
+
+                    }
+                    if (rstrokes == 0) rstrokes = '';
+                    html += '<td class="score">';
+                    if (under_par) {
+                        html += '<span class="under_par">';
+                    }
+                    html += rstrokes;
+                    if (under_par) {
+                        html += '</span>';
+                    }
+                    var flight_round_id = JSON_DATA.IDX_FLIGHT_ROUNDS[VIEWS.FLIGHT_ID + '_' + (r + 1)];
+                    var flight_round = JSON_DATA.flight_rounds[flight_round_id];
+                    if (VIEWS.FLIGHT_ROUND.results_indicator) {
+                        html += '<sup>';
+                        html += flight_round.results_indicator == 1 ? player.rounds[r + 1].start_hole : flight_round.results_indicator == 2 ? '*' : '';
+                        html += '</sup>';
+                    }
+                    html += '</td>';
+                }
+            }
+            var total_under_par = player.score <= total_par;
+            html += '<td class="score ' + (total_under_par ? ' under_par' : '') + '"></td>';
+
+            html += '</tr>';
+        }
+
+    }
+
+    html += '</table>';
+    html += '</div>';
+    return html;
+}
+
+function print_carts() {
+    $('#print_button').hide();
+    window.print();
+    $('#print_button').show();
+}
+
+function report_cart_signs() {
+    var orientation = 'portrait';
+    set_orientation(orientation);
+
+    if (!VIEWS.FLIGHT_ROUND.is_published) {
+        return "<br><br>Round is not yet published.";
+    }
+
+    var html = '';
+    html += '<div id="print_button"><button onclick="print_carts()">Print Cart Signs</button></div>';
+
+    var icon = '';
+    if (VIEWS.REPORT.LOGO && VIEWS.REPORT.LOGO != 'None') {
+        icon += '<img height="80" src="../includes/images/logos/' + VIEWS.REPORT.LOGO + '" class="report_logo">';
+    }
+
+    var sort_signs = {};
+    var player_ids = object_keys(VIEWS.RESULTS.PLAYERS);
+    for (var i = 0; i < player_ids.length; i++) {
+        var player_id = player_ids[i];
+        var player = VIEWS.PLAYERS[player_id];
+        if (player.status === 1 || player.status === 2) {
+            var tt_id = VIEWS.PLAYER_TEETIMES[player_id];
+            var tt = VIEWS.TEE_TIMES[tt_id];
+            var key = pad_number(tt.start_hole, 2) + ',' + pad_number(tt.start_time_m, 5) + ',' + pad_number(tt.group_number, 2) + ',' + pad_number(i, 8) + ',' + pad_number(player_id, 10);
+            sort_signs[key] = player_id;
+        }
+    }
+
+    var sort_keys = object_keys(sort_signs).sort();
+
+    var n = 0;
+    var player_ids = object_keys(VIEWS.RESULTS.PLAYERS);
+    for (var i = 0; i < sort_keys.length; i++) {
+        var sort_key = sort_keys[i];
+        var player_id = sort_signs[sort_key];
+        var player = VIEWS.PLAYERS[player_id];
+        var pagebreak = '';
+
+        if (player.status === 1 || player.status === 2) {
+
+            if (n % 2 === 0) {
+                pagebreak = ' cart_pagebreak';
+            }
+            n++;
+
+            html += '<div class="cart_sign' + pagebreak + '" id="cart_sign_' + (i + 1) + '">';
+
+            var tt_id = VIEWS.PLAYER_TEETIMES[player_id];
+            var tt = VIEWS.TEE_TIMES[tt_id];
+
+            html += '<div class="cart_icon">' + icon + '</div>';
+            html += '<div class="cart_tournament">' + JSON_DATA.tournament.name + '</div>';
+
+            if (JSON_DATA.tournament.is_team) {
+                var pinfo = view_player_info(true, player_id, player);
+                var members = pinfo.hometown.split(', ');
+
+                html += '<div class="cart_team">';
+                for (var j = 0; j < members.length; j++) {
+                    var member = members[j];
+                    html += '<div class="cart_member">' + member.toUpperCase() + '</div>';
+                }
+            }
+            else {
+                html += '<div class="cart_team">';
+                html += '<div class="cart_member">' + player.first.toUpperCase() + " " + player.last.toUpperCase() + '</div>';
+            }
+
+            var groupX = tee_time_position(tt.group_number);
+            html += '</div>';
+            html += '<div class="cart_flight">' + JSON_DATA.age_groups[VIEWS.FLIGHT.age_group].name + '</div>';
+            html += '<div class="cart_hole">Starting Hole: ' + tt.start_hole + groupX + ' (' + time_m2sap(time_s2m(tt.start_time)) + ')</div>';
+
+            html += '</div>';
+        }
+    }
+    return html;
+}
+
+$.fn.hasOverflow = function (maxH, maxW) {
+    var $this = $(this);
+
+    var elH = $this.height();
+    var elW = $this.width();
+
+    return (elH > maxH || elW > maxW);
+};
+
+function scoreboard_resize() {
+    var age_group_h = 83;
+    var age_group_w = $('.header tr td:nth-child(2)').width();
+    var player_h = 82;
+    var player_w = $('.players tr td:nth-child(' + (VIEWS.REPORT.TEETIMES == 'Y' ? '2' : '1') + ')').width();
+    scoreboard_resize_aux($('#age_group'), age_group_h, age_group_w);
+    $('.name_wrap').each(function (_n, el) { scoreboard_resize_aux(el, player_h, player_w); });
+}
+
+function scoreboard_resize_aux(el, maxH, maxW) {
+    $el = $(el);
+
+    size = 1;
+    while (size > 0.25 && $el.hasOverflow(maxH, maxW)) {
+        size -= .05;
+        $el.css('font-size', size + 'em');
+    }
+}
+
+function set_orientation(orientation) {
+    $('#orientation-css').attr('href', orientation + '.css');
+}
+
+function formatCurrency(total) {
+    var neg = false;
+    if (total < 0) {
+        neg = true;
+        total = Math.abs(total);
+    }
+    return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+}
+
+function compare_names(ap, bp) {
+    if (JSON_DATA.tournament.is_team) {
+        x = compare(ap.name.toUpperCase(), bp.name.toUpperCase());
+        return x;
+    }
+
+    x = compare(ap.last.toUpperCase(), bp.last.toUpperCase());
+    if (x) return x;
+
+    x = compare(ap.first.toUpperCase(), bp.first.toUpperCase());
+    if (x) return x;
+
+    return 0;
+}
+
+function team_name(team_id) {
+    var names = [];
+    var hnames = [];
+    var players = {};
+    var hplayers = {};
+
+    for (var player_id in JSON_DATA.flight_players[VIEWS.FLIGHT_ID]) {
+        var player = JSON_DATA.flight_players[VIEWS.FLIGHT_ID][player_id];
+        if (player.team == team_id) {
+            player_first_letter = player.first.substring(0, 1);
+            var name1 = player_first_letter + '. ' + player.last.toUpperCase();
+            var hname1 = name1;
+            if (player.handicap && player.handicap != "Child") {
+                hname1 += ' (' + player.handicap + ')';
+            }
+            if (player.is_captain) {
+                names.push(name1);
+                hnames.push(hname1);
+            }
+            else {
+                players[player.last + '|' + player_first_letter + '|' + player_id] = name1;
+                hplayers[player.last + '|' + player_first_letter + '|' + player_id] = hname1;
+            }
+        }
+    }
+
+    var keys = object_keys(players).sort();
+    for (var i = 0; i < keys.length; i++) {
+        names.push(players[keys[i]]);
+        hnames.push(hplayers[keys[i]]);
+    }
+
+    return { name: names.join(' / '), hname: hnames.join(' / ') };
+}
+
+function view_player_info(is_report, player_id, player) {
+    var name = '';
+    var ucname = '';
+    var hname = '';
+    var country = '';
+    var hometown = '';
+
+    if (JSON_DATA.tournament.is_team) {
+        switch (JSON_DATA.tournament.format) {
+            case 2: // Individual Scoring for Team
+                name = player.first + ' ' + player.last.toUpperCase();
+                scname = '<span class="last_name">' + player.last.toUpperCase() + '</span> <span class="first_name">' + player.first + '</span>';
+                hname = name;
+                if (player.handicap) {
+                    hname += ' (' + player.handicap + ')';
+                }
+                break;
+
+            case 3: // Combined Scoring for Team
+                var names = team_name(player_id); // player.name.toUpperCase();
+                name = names.name;
+                scname = '<span class="last_name">' + name.toUpperCase() + '</span>';
+                hname = names.hname;
+                hometown = view_team_player_names(player_id);
+                break;
+        }
+    }
+    else {
+        country = views_player_country(is_report, player);
+        name = player.first + ' ' + player.last.toUpperCase();
+        scname = '<span class="last_name">' + player.last.toUpperCase() + '</span> <span class="first_name">' + player.first + '</span>';
+
+        hname = name;
+        if (player.handicap) {
+            hname += ' (' + player.handicap + ')';
+        }
+        hometown = player.place + views_player_country_long(player);
+    }
+
+    return { name: name, scname: scname, country: country, hometown: hometown, hname: hname };
+}
+
+function view_team_player_names(team_id) {
+    var players = {};
+    for (var player_id in JSON_DATA.flight_players[VIEWS.FLIGHT_ID]) {
+        var player = JSON_DATA.flight_players[VIEWS.FLIGHT_ID][player_id];
+        if (player.team == team_id) {
+            players[(player.is_captain ? 'A' : 'Z') + player.last.toUpperCase() + '|' + player.first + '|' + player_id] = player.first + " " + player.last.toUpperCase();
+        }
+    }
+
+    var names = [];
+    var keys = object_keys(players).sort();
+    for (var i = 0; i < keys.length; i++) {
+        names.push(players[keys[i]]);
+    }
+
+    return names.join(', ');
+}
+
+function tee_time_position(group_number) {
+    if (!JSON_DATA.tournament.is_shotgun) {
+        return '';
+    }
+    switch (group_number % 10) {
+        case 1: return 'A';
+        case 2: return 'B';
+        case 3: return 'C';
+        case 4: return 'D';
+        case 5: return 'E';
+        case 6: return 'F';
+    }
+}
+
+//  END::LINKSViews.JS 
