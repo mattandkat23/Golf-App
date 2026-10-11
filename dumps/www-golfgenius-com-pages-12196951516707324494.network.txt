@@ -1,0 +1,31 @@
+BLOCKED by robots.txt: https://golfgenius.supporthero.io/api/trackClient?clientId=260&clientDomain=www.golfgenius.com
+
+BLOCKED by robots.txt: https://golfgenius.supporthero.io/api/context/light?clientId=260
+
+BLOCKED by robots.txt: https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=7046594&time=1791685780454&li_adsId=7e02c590-df89-4b79-9758-77f5ba5b72e7&pageLoadId=6588d4c5-412d-40e7-96a1-256dfb1e8c01&url=https%3A%2F%2Fwww.golfgenius.com%2Fleagues%2F12196951365007737763%2Fwidgets%2Ftournament_results%3Fshared%3Dfalse&tm=gtmv2
+
+BLOCKED by robots.txt: https://ib.adnxs.com/pixie/up?pi=6fc97d2d-6d5e-4047-9c79-27700110c4ba
+
+BLOCKED by robots.txt: https://js-agent.newrelic.com/nr-full-1.323.0.min.js
+
+BLOCKED by robots.txt: https://js-agent.newrelic.com/nr-full-1.323.0.min.js
+
+BLOCKED by robots.txt: https://js-agent.newrelic.com/nr-full-1.323.0.min.js
+
+BLOCKED by robots.txt: https://js-agent.newrelic.com/nr-full-1.323.0.min.js
+
+POST 204 https://analytics.google.com/g/collect?v=2&tid=G-7XT39VL2Z4&gtm=45je6a72h1v886504184za208zd886504184xf1&_p=1791685779166&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAACAC&cid=1332040163.1791685779&frm=0&ibt=1&ngs=1&pscdl=noapi&rcb=16&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121046263~121046271~121246026~121246034&sid=1791685779&sct=1&seg=0&dl=https%3A%2F%2Fwww.golfgenius.com%2Fpages%2F12196951516707324494&dt=2026%20Winter%20Classic%20Event%20%3A%3A%20Leaderboard&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=1861
+  post: 
+  body: 
+
+POST 200 https://www.google-analytics.com/j/collect?v=1&_v=j102&a=2048448061&t=pageview&_s=1&dl=https%3A%2F%2Fwww.golfgenius.com%2Fpages%2F12196951516707324494&ul=en-us&dt=2026%20Winter%20Classic%20Event%20%3A%3A%20Leaderboard&sr=1280x720&vp=1280x720&_u=IADAAEABAAAAACAAI~&jid=992667835&gjid=1613773989&cid=1332040163.1791685779&tid=UA-29080419-1&_gid=420513061.1791685779&_r=1&_slc=1&z=1438173678
+  post: 
+  body: 2,x
+
+POST 200 https://www.google.com/ccm/collect?rcb=4&frm=1&apvc=1&ae=g&auid=525681960.1791685780&en=page_view&dl=https%3A%2F%2Fwww.golfgenius.com%2Fpages%2F12196951516707324494&dr=https%3A%2F%2Fwww.golfgenius.com%2Fpages%2F12196951516707324494&scrsrc=www.googletagmanager.com&rnd=2128640024.1791685780&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6a72v9179466469za200zd9179466469xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938469~118131808~118897920~118897930~120385423~120469145~120469153~121046263~121046271~121246026~121246034&tft=1791685779667&tfd=502&fmt=8
+  post: 
+  body: 
+
+POST 204 https://analytics.google.com/g/collect?v=2&tid=G-7XT39VL2Z4&gtm=45je6a72v886504184za20ozb9179466469zd9179466469xf1&_p=1791685779511&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAACQC&cid=1332040163.1791685779&frm=1&ibt=1&ngs=1&pscdl=noapi&rcb=10&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121046263~121046271~121246026~121246034&sid=1791685779&sct=1&seg=1&dl=https%3A%2F%2Fwww.golfgenius.com%2Fleagues%2F12196951365007737763%2Fwidgets%2Ftournament_results%3Fshared%3Dfalse&dr=https%3A%2F%2Fwww.golfgenius.com%2Fpages%2F12196951516707324494&dt=Golf%20Genius%20%3A%3A&en=page_view&tfd=1121
+  post: 
+  body: 
