@@ -7,9 +7,10 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { chromium, type Page } from 'playwright-core';
-import { USER_AGENT, blockDisallowed } from '../polite.ts';
+import { USER_AGENT, allowed, blockDisallowed } from '../polite.ts';
 import { displayName, nameKey } from './names.ts';
 import { HJGT_BASE, HJGT_SEASONS, divisions, parseHjgtList, readLeaderboard, type HjgtListed, type HjgtRow } from './hjgt.ts';
+import { TGA_LIST_PAGES, parseTgaList, readTgaResults, resultsFrame, type TgaListed } from './tga.ts';
 
 const SUPABASE_URL = 'https://jcqvzumkfmbksduzdrbx.supabase.co';
 const key = process.env.SUPABASE_SECRET_KEY;
@@ -185,6 +186,95 @@ async function collectHjgt(page: Page) {
   console.log(`HJGT: saved ${n} events`);
 }
 
+/* ----------------------------------- TGA ----------------------------------- */
+
+async function tgaList(): Promise<TgaListed[]> {
+  const byPage = new Map<string, TgaListed>();
+  for (const url of TGA_LIST_PAGES) {
+    if (!(await allowed(url))) {
+      console.log(`  robots.txt disallows ${url}, skipped`);
+      continue;
+    }
+    const res = await fetch(url, { headers: { 'user-agent': USER_AGENT } }).catch(() => undefined);
+    if (!res?.ok) {
+      console.log(`  couldn't read ${url} (${res?.status ?? 'network error'})`);
+      continue;
+    }
+    for (const ev of parseTgaList(await res.text())) if (!byPage.has(ev.pageId)) byPage.set(ev.pageId, ev); // live page first
+    await pause(3000);
+  }
+  return [...byPage.values()];
+}
+
+async function tgaEvent(page: Page, ev: TgaListed): Promise<{ event: EventRow; results: ResultRow[] }> {
+  const url = `https://www.golfgenius.com/pages/${ev.pageId}`;
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+  let frame = resultsFrame(page);
+  for (let i = 0; i < 20 && !frame; i++) {
+    await pause(1000);
+    frame = resultsFrame(page);
+  }
+  if (!frame) return { event: undefined as never, results: [] };
+  await frame.waitForSelector('a.expand-tournament', { timeout: 20_000 }).catch(() => undefined);
+  const rows = await readTgaResults(frame);
+  const sizes = rows.reduce((m, r) => m.set(r.division, (m.get(r.division) ?? 0) + 1), new Map<string, number>());
+  const results: ResultRow[] = rows
+    .filter((r) => r.name)
+    .map((r) => ({
+      event_id: `tga:${ev.pageId}`,
+      division: r.division,
+      position: r.position || null,
+      pos_num: posNum(r.position),
+      field_size: sizes.get(r.division) ?? rows.length,
+      player_name: displayName(r.name),
+      name_key: nameKey(r.name),
+      hometown: r.hometown ?? null,
+      grad_year: r.gradYear ?? null,
+      to_par: toParNum(r.toPar),
+      total: r.total ?? null,
+      round_scores: r.rounds.length ? r.rounds : null,
+      points: null,
+    }));
+  return {
+    event: {
+      id: `tga:${ev.pageId}`,
+      tour_id: 'tga-ljt',
+      name: ev.name,
+      start_date: ev.startDate,
+      end_date: ev.endDate ?? null,
+      course_name: ev.course ?? null,
+      city: ev.city ? `${ev.city}, TX` : null,
+      url,
+      num_rounds: Math.max(0, ...rows.map((r) => r.rounds.length)) || null,
+      holes_per_round: 18,
+    },
+    results,
+  };
+}
+
+async function collectTga(page: Page) {
+  const listed = (await tgaList()).filter((e) => e.startDate >= since);
+  const done = await finishedIds('tga-ljt');
+  const todo = listed.filter((e) => (e.endDate ?? e.startDate) < today && !done.has(`tga:${e.pageId}`));
+  console.log(`TGA: ${listed.length} junior events since ${since}, ${todo.length} to read`);
+  let n = 0;
+  for (const ev of todo.slice(0, limit)) {
+    try {
+      const { event, results } = await tgaEvent(page, ev);
+      if (!results.length) console.log(`  ${ev.startDate} ${ev.name}: no stroke-play results shown, skipped`);
+      else {
+        await save(event, results);
+        console.log(`  ${ev.startDate} ${ev.name}: ${results.length} results`);
+        n++;
+      }
+    } catch (e) {
+      console.log(`  ${ev.startDate} ${ev.name}: failed (${(e as Error).message})`);
+    }
+    await pause(4000);
+  }
+  console.log(`TGA: saved ${n} events`);
+}
+
 /* ---------------------------------------------------------------------------- */
 
 const browser = await chromium.launch();
@@ -193,6 +283,7 @@ try {
   const blocked = await blockDisallowed(context);
   const page = await context.newPage();
   if (!only || only === 'hjgt') await collectHjgt(page);
+  if (!only || only === 'tga') await collectTga(page);
   if (blocked.length) console.log(`Blocked by robots.txt (not loaded): ${[...new Set(blocked.map((u) => new URL(u).origin + new URL(u).pathname))].slice(0, 20).join(', ')}`);
 } finally {
   await browser.close();

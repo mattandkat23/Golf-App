@@ -63,7 +63,9 @@ GitHub/console settings, and keep replies short.
 
 ## Results (`scraper/results/`, `.github/workflows/results.yml`, migration `*_results.sql`)
 
-- Daily "Collect results" reads finished events into `result_events`/`results` (secret key). Only HJGT (Texas) so far.
+- Daily "Collect results" reads finished events into `result_events`/`results` (secret key): HJGT (Texas) and TGA
+  junior events (Golf Genius results pages; past seasons' event links come from Internet Archive copies of
+  txga.org/ljt-landing/ listed in `TGA_LIST_PAGES`, since TGA removes old seasons).
   Tables have RLS with no policies: the app reads only via `search_results(key)` (signed in, full name, ≤200 rows)
   and `result_holes(id)`. Names are matched with `scraper/results/names.ts` (shared by app and collector).
 - Every browser request goes through `scraper/polite.ts`, which aborts anything robots.txt disallows. **US Kids results
