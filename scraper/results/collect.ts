@@ -12,7 +12,17 @@ import { USER_AGENT, allowed, blockDisallowed } from '../polite.ts';
 import { displayName, nameKey } from './names.ts';
 import { HJGT_BASE, HJGT_SEASONS, divisions, parseHjgtList, readLeaderboard, type HjgtListed, type HjgtRow } from './hjgt.ts';
 import { TGA_LIST_PAGES, parseTgaList, readTgaResults, resultsFrame, type TgaListed } from './tga.ts';
-import { parseAjgaScheduleList, pageParameter, politeFetch, readAjgaLeaderboard, type AjgaListed } from './ajga.ts';
+import {
+  ajgaEventMeta,
+  ajgaScorecardLoginWalled,
+  parseAjgaScheduleList,
+  parseAjgaScorecard,
+  pageParameter,
+  politeFetch,
+  readAjgaLeaderboard,
+  readAjgaScorecardLinks,
+  type AjgaListed,
+} from './ajga.ts';
 
 const SUPABASE_URL = 'https://jcqvzumkfmbksduzdrbx.supabase.co';
 const key = process.env.SUPABASE_SECRET_KEY;
@@ -54,6 +64,7 @@ interface ResultRow {
   total: number | null;
   round_scores: number[] | null;
   points: number | null;
+  holes?: unknown[] | null; // optional hole-by-hole (AJGA opt-in live tracking only); see ajga_hole_requests
 }
 
 /** Event ids already collected long enough after they ended that their results are final. */
@@ -356,6 +367,12 @@ async function collectAjga() {
       const { event, results } = ajgaEvent(ev, html);
       if (!results.length) console.log(`  ${ev.startDate} ${ev.name}: no results shown, skipped`);
       else {
+        // Carry over any hole-by-hole already collected live (collectAjgaLive) before this overwrites the event's rows.
+        const { data: existingHoles } = await db.from('results').select('name_key, holes').eq('event_id', event.id).not('holes', 'is', null);
+        if (existingHoles?.length) {
+          const byKey = new Map(existingHoles.map((r) => [r.name_key, r.holes]));
+          for (const r of results) if (byKey.has(r.name_key)) r.holes = byKey.get(r.name_key);
+        }
         await save(event, results);
         console.log(`  ${ev.startDate} ${ev.name}: ${results.length} results`);
         n++;
@@ -368,9 +385,81 @@ async function collectAjga() {
   console.log(`AJGA: saved ${n} events`);
 }
 
+/**
+ * Hole-by-hole for golfers a parent opted into (ajga_hole_requests): AJGA only publishes scorecards while
+ * an event is in progress (archived events ask for an AJGA account login instead), so this has to run
+ * daily while the event is live rather than waiting for it to finish like collectAjga() above.
+ */
+async function collectAjgaLive() {
+  const { data: requests, error } = await db.from('ajga_hole_requests').select('golfer_name, tournament_id');
+  if (error) {
+    console.log(`AJGA live: couldn't read ajga_hole_requests (${error.message})`);
+    return;
+  }
+  if (!requests?.length) {
+    console.log('AJGA live: no opt-in requests');
+    return;
+  }
+  const byTournament = new Map<string, { golfer_name: string }[]>();
+  for (const r of requests) byTournament.set(r.tournament_id, [...(byTournament.get(r.tournament_id) ?? []), r]);
+  console.log(`AJGA live: ${requests.length} opt-in request(s) across ${byTournament.size} tournament(s)`);
+  for (const [tournamentId, reqs] of byTournament) {
+    const url = `https://www.ajga.org/tournaments/${tournamentId}/leaderboard`;
+    const html = await politeFetch(url);
+    if (!html) continue;
+    const eventId = `ajga:${tournamentId}`;
+    const { data: existingEvent } = await db.from('result_events').select('id').eq('id', eventId).maybeSingle();
+    if (!existingEvent) {
+      const meta = ajgaEventMeta(html);
+      if (!meta) {
+        console.log(`  ${tournamentId}: couldn't read the event's name/dates yet, skipped`);
+        continue;
+      }
+      const e1 = await db
+        .from('result_events')
+        .insert({ id: eventId, tour_id: 'ajga', name: meta.name, start_date: meta.startDate, end_date: meta.endDate, url, holes_per_round: 18, collected_at: new Date().toISOString() });
+      if (e1.error) {
+        console.log(`  ${tournamentId}: couldn't create its event row (${e1.error.message})`);
+        continue;
+      }
+    }
+    const links = readAjgaScorecardLinks(html);
+    for (const req of reqs) {
+      const key = nameKey(req.golfer_name);
+      const link = links.find((l) => nameKey(l.name) === key);
+      if (!link) {
+        console.log(`  ${tournamentId}: no leaderboard row yet for ${req.golfer_name}`);
+        continue;
+      }
+      await pause(2000); // polite pace between the per-player scorecard requests
+      const scorecardUrl = `https://www.ajga.org/api/scorecard?event_id=${link.eventId}&tournament_id=${link.tournamentId}&team_play=false&aggregate_id=${link.aggregateId}&member_id=${link.memberId}`;
+      const scorecardHtml = await politeFetch(scorecardUrl);
+      if (!scorecardHtml) continue;
+      if (ajgaScorecardLoginWalled(scorecardHtml)) {
+        console.log(`  ${tournamentId}: ${req.golfer_name}'s scorecard is login-walled now (event's gone final)`);
+        continue;
+      }
+      const holes = parseAjgaScorecard(scorecardHtml);
+      if (!holes.length) {
+        console.log(`  ${tournamentId}: ${req.golfer_name} hasn't teed off yet`);
+        continue;
+      }
+      const e2 = await db
+        .from('results')
+        .upsert({ event_id: eventId, division: link.division, player_name: displayName(link.name), name_key: key, holes }, { onConflict: 'event_id,division,name_key' });
+      if (e2.error) console.log(`  ${tournamentId}: couldn't save ${req.golfer_name}'s holes (${e2.error.message})`);
+      else console.log(`  ${tournamentId}: saved ${holes.length} holes for ${req.golfer_name}`);
+    }
+    await pause(3000);
+  }
+}
+
 /* ---------------------------------------------------------------------------- */
 
-if (!only || only === 'ajga') await collectAjga(); // plain fetch, no browser needed
+if (!only || only === 'ajga') {
+  await collectAjgaLive(); // plain fetch, no browser needed
+  await collectAjga();
+}
 
 if (!only || only === 'hjgt' || only === 'tga') {
   const browser = await chromium.launch();

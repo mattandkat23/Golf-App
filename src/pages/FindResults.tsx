@@ -65,7 +65,7 @@ export default function FindResults() {
           {busy && !groups ? 'Searching…' : 'Search'}
         </button>
         <p className="muted small" style={{ margin: 0 }}>
-          Covers TGA / Legends Junior Tour and HJGT (Texas) for the last two years so far, with more tours coming. For US Kids, open an event and use Paste results.
+          Covers TGA / Legends Junior Tour, HJGT (Texas) and AJGA (nationwide) for the last two years so far, with more tours coming. For US Kids, open an event and use Paste results.
         </p>
       </form>
 

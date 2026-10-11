@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
@@ -5,6 +6,9 @@ import { computeStats, holeComplete, pct, summarizeRound, toParLabel } from '../
 import { Chips, Kpi, PageHead, fmtDate, today } from '../components/ui';
 import { findConflicts } from '../lib/schedule';
 import { buildIcs, openIcs, tournamentToIcs } from '../lib/ics';
+import { useAuth } from '../lib/auth';
+import { useGolfer } from '../lib/golfer';
+import { supabase } from '../lib/supabase';
 import type { EventStatus } from '../lib/types';
 
 const STATUSES: EventStatus[] = ['Considering', 'Registered', 'Waitlisted', 'Played', 'Withdrew'];
@@ -17,10 +21,30 @@ export default function TournamentDetail() {
   const rounds = useLiveQuery(() => db.rounds.where('tournamentId').equals(id).sortBy('roundNumber'), [id]);
   const tour = useLiveQuery(() => (t?.tourId ? db.tours.get(t.tourId) : undefined), [t?.tourId]);
   const all = useLiveQuery(() => (t ? db.tournaments.where('golferId').equals(t.golferId).toArray() : []), [t?.golferId]);
+  const { session } = useAuth();
+  const { golfer } = useGolfer();
+  const [optInBump, setOptInBump] = useState(0);
+  const [savingOptIn, setSavingOptIn] = useState(false);
+  const ajgaId = t?.tourId === 'ajga' ? t.url?.match(/\/tournaments\/(\w+)/)?.[1] : undefined;
+  const liveTrackable = !!ajgaId && (!t?.endDate || t.endDate >= today());
+  const optedIn = useLiveQuery(async () => {
+    if (!session || !liveTrackable || !ajgaId) return false;
+    const { data } = await supabase.from('ajga_hole_requests').select('id').eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId).maybeSingle();
+    return !!data;
+  }, [session?.user.id, ajgaId, liveTrackable, golfer.playerName, optInBump]);
   if (!t) return null;
   const clashes = all ? findConflicts(all, today()).get(id) : undefined;
   const stats = rounds?.length ? computeStats(rounds) : undefined;
   const totals = rounds?.map(summarizeRound);
+
+  async function toggleHoleTracking() {
+    if (!session || !ajgaId || !t) return;
+    setSavingOptIn(true);
+    if (optedIn) await supabase.from('ajga_hole_requests').delete().eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId);
+    else await supabase.from('ajga_hole_requests').insert({ user_id: session.user.id, golfer_name: golfer.playerName, tournament_id: ajgaId, tournament_name: t.name });
+    setSavingOptIn(false);
+    setOptInBump((b) => b + 1);
+  }
 
   async function remove() {
     if (!confirm('Delete this event and its rounds?')) return;
@@ -87,6 +111,14 @@ export default function TournamentDetail() {
           <a href={t.url} target="_blank" rel="noreferrer">
             Event page ↗
           </a>
+        )}
+        {liveTrackable && (
+          <div>
+            <button className="block" disabled={!session || savingOptIn} onClick={toggleHoleTracking}>
+              {optedIn ? '✓ Tracking hole-by-hole live' : session ? 'Track hole-by-hole live' : 'Sign in to track hole-by-hole live'}
+            </button>
+            <p className="muted small">AJGA shows hole-by-hole scores while this event is in progress. Opt in and we'll pull them in once a day for {golfer.playerName}.</p>
+          </div>
         )}
         <button
           className="block"

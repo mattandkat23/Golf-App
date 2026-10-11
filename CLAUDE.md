@@ -92,13 +92,21 @@ GitHub/console settings, and keep replies short.
   completed-events list, so an event isn't collected until the day after it ends).
   Tables have RLS with no policies: the app reads only via `search_results(key)` (signed in, full name, ≤200 rows)
   and `result_holes(id)`. Names are matched with `scraper/results/names.ts` (shared by app and collector).
-- **AJGA hole-by-hole is publicly available, but not through `scraper/results/ajga.ts` yet.** Clicking a
-  player's name on `/tournaments/<id>/leaderboard` opens an in-page scorecard modal (par/yardage/score per
-  hole, one tab per round) with no login needed -- confirmed directly against a live event with `peek.ts`'s
-  click-through support (its third argument). The modal is reached by clicking the row, not by navigating to
-  the `/tournaments2/details/<id>` link each row also has (that 404s standalone). Capturing it needs browser
-  automation (the leaderboard page + a click per player, unlike the plain `fetch()` the collector uses today)
-  -- not built yet; see "Open ideas" below.
+- **AJGA hole-by-hole, opt-in only** (`ajga_hole_requests` table, `collectAjgaLive()` in `scraper/results/collect.ts`,
+  button on the Tournament detail page for AJGA events that haven't finished yet). AJGA only publishes
+  scorecards (par/yardage/score per hole, one tab per round) while an event is in progress -- clicking a
+  player's name on `/tournaments/<id>/leaderboard` calls `/api/scorecard?event_id=&tournament_id=&aggregate_id=&member_id=`,
+  a plain unauthenticated GET (no browser/click needed -- all four ids are already in the leaderboard page's
+  HTML: `data-scorecard-endpoint` per division, `data-aggregate-id`/`data-member-ids` per row). Once the event
+  is archived, the same endpoint asks for an AJGA account login instead (confirmed: a finished event 404s the
+  modal's data; a live one doesn't). So instead of scraping every kid nationwide, a parent opts in per
+  golfer+event; `collectAjgaLive()` runs daily (same `ajga` step as the regular collector, before it) reading
+  every opt-in row, matching the golfer's name on that tournament's leaderboard, and writing `results.holes`.
+  `collectAjga()`'s own overwrite (once the event is finished and shows up on AJGA's completed list) carries
+  over any `holes` already collected live, so it isn't lost when the final row replaces the preliminary one.
+  US Kids and NTPGA/STPGA don't have this: US Kids' is disallowed by robots.txt (same as its full results --
+  asked at tournaments@uskidsgolf.com, nothing to build until they say yes); NTPGA/STPGA parents already track
+  their own rounds hole-by-hole live in Play mode, so there's no separate feature needed there.
 - Every browser request goes through `scraper/polite.ts`, which aborts anything robots.txt disallows. **US Kids results
   (TourCaddiePro `/plugins/links/admin/`) are disallowed**: covered by Paste results on an event
   (`src/lib/resultsPaste.ts`) until US Kids gives permission (asked at tournaments@uskidsgolf.com).
@@ -124,8 +132,8 @@ deploy. The scrape workflow commits to `main` too, so pull/rebase before pushing
 ## Open ideas / not built yet
 
 - Live sharing with coach/spouse (invites, view-only/edit) on top of the accounts.
-- More results sources: AJGA, TGA/Golf Genius, Drive Chip & Putt, US Kids championship PDFs; free vs paid split.
+- More results sources: Drive Chip & Putt, US Kids championship PDFs; free vs paid split.
 - "Is this Ford?" auto-matching of new results for claimed golfers.
 - Reading each US Kids event page for fees/age groups/city.
-- Under Armour Junior Tour (uagolftour.com) and TJGT aren't scraped yet.
+- TJGT isn't scraped yet (site was down when checked).
 - Verify "Add to Calendar" (.ics) behavior on a real iPhone.
