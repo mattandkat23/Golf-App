@@ -57,18 +57,25 @@ GitHub/console settings, and keep replies short.
 - Debug helpers (Actions, manual): "Peek at a page" (`scraper/peek.ts`) prints a page's text/links;
   "Check robots.txt" (`scraper/robots-check.ts`).
 - Sources: US Kids Austin, Dallas, Houston, San Antonio, El Paso (all Texas fall local tours), Texas State,
-  Regionals (all states), Worlds; AJGA (nationwide); TGA/Legends Junior Tour; STPGA junior site; HJGT (Texas only).
-- **Do not bypass robots.txt.** NTPGA's schedule is on BlueGolf (`User-agent: * Disallow: /`) — can't be
-  scraped. For any tour like that, publish its schedule by hand instead of scraping it: paste the tour's
-  schedule text (the same thing a parent used to paste) to `node --experimental-strip-types
-  scraper/publish-schedule.ts <tourId>` (reads stdin, or `$TEXT`) — it runs the phone's own parser
-  (`src/lib/importParse.ts`) and the scraper's own event builder (`scraper/lib.ts`), replacing that tour's
-  events in `public/events.json` same as a real scrape would. Commit and push to deploy. Parents hit
-  "Tour not listed here?" (Events → Available) to request a tour; requests land in the `tour_requests`
-  table. "Check tour requests" (daily, `scraper/check-tour-requests.ts`,
-  `.github/workflows/check-tour-requests.yml`) flags new ones by deliberately failing the job (so a
-  failed-scheduled-run email goes out) and listing them in the run log; `scraper/tour-requests-seen.json`
-  is its checkpoint, committed back each time there's something new.
+  Regionals (all states), Worlds; AJGA (nationwide); TGA/Legends Junior Tour; HJGT (Texas only).
+- **Do not bypass robots.txt.** NTPGA's and STPGA's schedules are on BlueGolf (`User-agent: * Disallow: /`) —
+  can't be scraped, so neither is in `sources.json`; both are kept current by hand (see below). For any tour
+  like that, publish its schedule by hand instead of scraping it: paste the tour's schedule text (the same
+  thing a parent used to paste) to `node --experimental-strip-types scraper/publish-schedule.ts <tourId>`
+  (reads stdin, or `$TEXT`) — it runs the phone's own parser (`src/lib/importParse.ts`) and the scraper's own
+  event builder (`scraper/lib.ts`), replacing that tour's events in `public/events.json` same as a real
+  scrape would. Check the output: `importParse.ts` guesses the course name by keyword, which can swap the
+  event name and course when both contain a word like "Creek" or "Club" — more likely on sites (like STPGA's)
+  where the event name repeats the venue name; NTPGA and STPGA also show deadline text ("Closes Tue Oct 13",
+  "Opens 12/07/2026") and a "favorite" column abbreviation (e.g. "RRGC") right after the date, both of which
+  read as bogus events unless stripped first. STPGA's "<Series> - <Venue>" event names also get split in two
+  by the parser's single-dash handling; `scraper/publish-schedule.ts` won't fix that, so for that format
+  parse it directly by line position instead (date, name, course, city in fixed order) rather than forcing it
+  through `importParse.ts`. Commit and push to deploy. Parents hit "Tour not listed here?" (Events →
+  Available) to request a tour; requests land in the `tour_requests` table. "Check tour requests" (daily,
+  `scraper/check-tour-requests.ts`, `.github/workflows/check-tour-requests.yml`) flags new ones by
+  deliberately failing the job (so a failed-scheduled-run email goes out) and listing them in the run log;
+  `scraper/tour-requests-seen.json` is its checkpoint, committed back each time there's something new.
 
 ## Results (`scraper/results/`, `.github/workflows/results.yml`, migration `*_results.sql`)
 

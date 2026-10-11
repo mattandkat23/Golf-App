@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-11T18:16:03.466Z",
+ "generatedAt": "2026-10-11T18:23:18.055Z",
  "sources": {
   "usk-austin": {
    "checkedAt": "2026-10-11T10:32:25.506Z",
@@ -52,9 +52,9 @@
    "eventCount": 4
   },
   "stpga": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-11T18:23:18.055Z",
    "ok": true,
-   "eventCount": 1
+   "eventCount": 210
   },
   "hjgt": {
    "checkedAt": "2026-10-11T10:32:25.506Z",
@@ -68,6 +68,782 @@
   }
  },
  "events": [
+  {
+   "id": "stpga-2026-08-09-tkhmur",
+   "tourId": "stpga",
+   "name": "Parent/Junior - Forest Creek Golf Club",
+   "startDate": "2026-08-09",
+   "courseName": "Forest Creek",
+   "city": "Round Rock"
+  },
+  {
+   "id": "stpga-2026-08-10-brrx71",
+   "tourId": "stpga",
+   "name": "PT - STPGA Challenge",
+   "startDate": "2026-08-10",
+   "endDate": "2026-08-11",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-08-15-1rfkzeo",
+   "tourId": "stpga",
+   "name": "PT - Surf & Turf New Braunfels Showcase",
+   "startDate": "2026-08-15",
+   "endDate": "2026-08-16",
+   "courseName": "Landa Park Golf Course",
+   "city": "New Braunfels"
+  },
+  {
+   "id": "stpga-2026-08-16-vev9zw",
+   "tourId": "stpga",
+   "name": "Junior Tour - Bentwater Country Club",
+   "startDate": "2026-08-16",
+   "courseName": "Bentwater CC Weiskopf",
+   "city": "Montgomery"
+  },
+  {
+   "id": "stpga-2026-08-16-iqugur",
+   "tourId": "stpga",
+   "name": "Junior Tour - Oakhurst Golf Club",
+   "startDate": "2026-08-16",
+   "courseName": "Oakhurst GC",
+   "city": "Porter"
+  },
+  {
+   "id": "stpga-2026-08-16-1hlg2ky",
+   "tourId": "stpga",
+   "name": "Little Linksters - East River 9",
+   "startDate": "2026-08-16",
+   "courseName": "East River 9",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-08-20-192hzrd",
+   "tourId": "stpga",
+   "name": "Little Linksters- Blackhorse Golf Club",
+   "startDate": "2026-08-20",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-08-23-tpdb1f",
+   "tourId": "stpga",
+   "name": "Junior Links - Atascocita Golf Club",
+   "startDate": "2026-08-23",
+   "courseName": "Atascocita Country Club",
+   "city": "Humble"
+  },
+  {
+   "id": "stpga-2026-08-23-1ib2i6m",
+   "tourId": "stpga",
+   "name": "Junior Links - Brackenridge Park GC",
+   "startDate": "2026-08-23",
+   "courseName": "Brackenridge Park GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-08-23-19sv4km",
+   "tourId": "stpga",
+   "name": "Junior Links - Champion Lakes GC",
+   "startDate": "2026-08-23",
+   "courseName": "Champion Lakes G.C",
+   "city": "McAllen"
+  },
+  {
+   "id": "stpga-2026-08-23-znpnfl",
+   "tourId": "stpga",
+   "name": "Junior Tour - Champion Lake Golf Course",
+   "startDate": "2026-08-23",
+   "courseName": "Champion Lakes G.C",
+   "city": "McAllen"
+  },
+  {
+   "id": "stpga-2026-08-23-1byzw91",
+   "tourId": "stpga",
+   "name": "Junior Tour - Gabe Lozano Golf Course",
+   "startDate": "2026-08-23",
+   "courseName": "Lozano Golf Center - Loz",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-08-23-fxmnni",
+   "tourId": "stpga",
+   "name": "Junior Tour - Gleannloch Pines Golf Club",
+   "startDate": "2026-08-23",
+   "courseName": "Pines/Gleann",
+   "city": "Spring"
+  },
+  {
+   "id": "stpga-2026-08-23-11jcfbf",
+   "tourId": "stpga",
+   "name": "Junior Tour - Jimmy Clay GC",
+   "startDate": "2026-08-23",
+   "courseName": "Jimmy Clay Course",
+   "city": "Austin"
+  },
+  {
+   "id": "stpga-2026-08-23-x23sy",
+   "tourId": "stpga",
+   "name": "Junior Tour - Willow Springs GC",
+   "startDate": "2026-08-23",
+   "courseName": "Willow Springs",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-08-23-1evkr4q",
+   "tourId": "stpga",
+   "name": "Little Linksters - Atascocita Golf Club",
+   "startDate": "2026-08-23",
+   "courseName": "Atascocita Country Club",
+   "city": "Humble"
+  },
+  {
+   "id": "stpga-2026-08-23-zk8gl3",
+   "tourId": "stpga",
+   "name": "Little Linksters - Brackenridge Park GC",
+   "startDate": "2026-08-23",
+   "courseName": "Brackenridge Park GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-08-23-wlsl9o",
+   "tourId": "stpga",
+   "name": "Little Linksters - Champion Lake GC",
+   "startDate": "2026-08-23",
+   "courseName": "Champion Lakes G.C",
+   "city": "McAllen"
+  },
+  {
+   "id": "stpga-2026-08-25-p95gfh",
+   "tourId": "stpga",
+   "name": "Little Linksters - Hermann Park GC",
+   "startDate": "2026-08-25",
+   "courseName": "Hermann Park GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-08-29-1lwc7d",
+   "tourId": "stpga",
+   "name": "Junior Links- Gabe Lozano Firefly Course",
+   "startDate": "2026-08-29",
+   "courseName": "The Firefly",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-08-29-3e093h",
+   "tourId": "stpga",
+   "name": "Little Linksters - Gabe Lozano Firefly",
+   "startDate": "2026-08-29",
+   "courseName": "The Firefly",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-08-29-17ys5ql",
+   "tourId": "stpga",
+   "name": "PT - Vortech Contracting H-Town Showdown",
+   "startDate": "2026-08-29",
+   "endDate": "2026-08-30",
+   "courseName": "Quail Valley GC",
+   "city": "Missouri City"
+  },
+  {
+   "id": "stpga-2026-08-30-1fyvgs6",
+   "tourId": "stpga",
+   "name": "Junior Links - Olympia Hills GC",
+   "startDate": "2026-08-30",
+   "courseName": "Olympia Hills GCC",
+   "city": "Universal City"
+  },
+  {
+   "id": "stpga-2026-08-30-1452zv0",
+   "tourId": "stpga",
+   "name": "Junior Links - Point Venture GC",
+   "startDate": "2026-08-30",
+   "courseName": "Point Venture GC",
+   "city": "Point Venture"
+  },
+  {
+   "id": "stpga-2026-08-30-1koxxcy",
+   "tourId": "stpga",
+   "name": "Junior Links - TAMU",
+   "startDate": "2026-08-30",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-08-30-mhcle6",
+   "tourId": "stpga",
+   "name": "Junior Tour - Magnolia Creek Golf Club",
+   "startDate": "2026-08-30",
+   "courseName": "Magnolia Creek GC",
+   "city": "League City"
+  },
+  {
+   "id": "stpga-2026-08-30-1wn7mbx",
+   "tourId": "stpga",
+   "name": "Junior Tour - River Bend Golf Club",
+   "startDate": "2026-08-30",
+   "courseName": "River Bend GC",
+   "city": "Floresville"
+  },
+  {
+   "id": "stpga-2026-08-30-1dnv9vx",
+   "tourId": "stpga",
+   "name": "Junior Tour - TAMU",
+   "startDate": "2026-08-30",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-08-30-1qf1m9j",
+   "tourId": "stpga",
+   "name": "Little Linksters - Falcon Point GC",
+   "startDate": "2026-08-30",
+   "courseName": "The Club at Falcon Point",
+   "city": "Katy"
+  },
+  {
+   "id": "stpga-2026-08-30-bw7wwf",
+   "tourId": "stpga",
+   "name": "Little Linksters - Olympia Hills GC",
+   "startDate": "2026-08-30",
+   "courseName": "Olympia Hills GCC",
+   "city": "Universal City"
+  },
+  {
+   "id": "stpga-2026-08-30-1h2xzch",
+   "tourId": "stpga",
+   "name": "Little Linksters - Point Venture",
+   "startDate": "2026-08-30",
+   "courseName": "Point Venture GC",
+   "city": "Point Venture"
+  },
+  {
+   "id": "stpga-2026-08-30-junie3",
+   "tourId": "stpga",
+   "name": "Little Linksters - TAMU",
+   "startDate": "2026-08-30",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-09-06-zu53bp",
+   "tourId": "stpga",
+   "name": "Junior Links - Blackhorse Golf Club",
+   "startDate": "2026-09-06",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-09-06-192k7os",
+   "tourId": "stpga",
+   "name": "Little Linksters - Blackhorse Golf Club",
+   "startDate": "2026-09-06",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-09-08-wcpr5x",
+   "tourId": "stpga",
+   "name": "Junior Links - Northern Hills GC",
+   "startDate": "2026-09-08",
+   "courseName": "Northern Hills Golf Club",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-08-jhsdcs",
+   "tourId": "stpga",
+   "name": "Little Linksters - Northern Hills GC",
+   "startDate": "2026-09-08",
+   "courseName": "Northern Hills Golf Club",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-09-dt1m0a",
+   "tourId": "stpga",
+   "name": "Junior Links - Mill Creek Country Club",
+   "startDate": "2026-09-09",
+   "courseName": "Mill Creek CC - 1-2",
+   "city": "Salado"
+  },
+  {
+   "id": "stpga-2026-09-09-1fxbuar",
+   "tourId": "stpga",
+   "name": "Little Linksters - Mill Creek CC",
+   "startDate": "2026-09-09",
+   "courseName": "Mill Creek CC - 1-3",
+   "city": "Salado"
+  },
+  {
+   "id": "stpga-2026-09-12-gw6sb1",
+   "tourId": "stpga",
+   "name": "PT - Cavender Buick GMC North Brackenrid",
+   "startDate": "2026-09-12",
+   "endDate": "2026-09-13",
+   "courseName": "Brackenridge Park GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-13-1w3844z",
+   "tourId": "stpga",
+   "name": "Junior Links - Brentwood CC",
+   "startDate": "2026-09-13",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont"
+  },
+  {
+   "id": "stpga-2026-09-13-408c9t",
+   "tourId": "stpga",
+   "name": "Junior Links - Oak Valley",
+   "startDate": "2026-09-13",
+   "courseName": "Oak Valley GC",
+   "city": "Helotes"
+  },
+  {
+   "id": "stpga-2026-09-13-17pq7ay",
+   "tourId": "stpga",
+   "name": "Junior Links - Panorama Golf Club",
+   "startDate": "2026-09-13",
+   "courseName": "Panorama Golf Club",
+   "city": "Conroe"
+  },
+  {
+   "id": "stpga-2026-09-13-1072d42",
+   "tourId": "stpga",
+   "name": "Junior Links - Victoria Country Club",
+   "startDate": "2026-09-13",
+   "courseName": "Victoria CC",
+   "city": "Victoria"
+  },
+  {
+   "id": "stpga-2026-09-13-18a08ni",
+   "tourId": "stpga",
+   "name": "Junior Tour - Atascocita Golf Club",
+   "startDate": "2026-09-13",
+   "courseName": "Atascocita Country Club",
+   "city": "Humble"
+  },
+  {
+   "id": "stpga-2026-09-13-15brgyk",
+   "tourId": "stpga",
+   "name": "Junior Tour - Brentwood CC",
+   "startDate": "2026-09-13",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont"
+  },
+  {
+   "id": "stpga-2026-09-13-1z0ydc0",
+   "tourId": "stpga",
+   "name": "Junior Tour - Fort Sam Houston GC",
+   "startDate": "2026-09-13",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-13-1pqoqtg",
+   "tourId": "stpga",
+   "name": "Junior Tour - Hermann Park Golf Course",
+   "startDate": "2026-09-13",
+   "courseName": "Hermann Park GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-09-13-4dx2jx",
+   "tourId": "stpga",
+   "name": "Junior Tour - Victoria Country Club",
+   "startDate": "2026-09-13",
+   "courseName": "Victoria CC",
+   "city": "Victoria"
+  },
+  {
+   "id": "stpga-2026-09-13-oijd3e",
+   "tourId": "stpga",
+   "name": "Little Linksters - Brentwood CC",
+   "startDate": "2026-09-13",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont"
+  },
+  {
+   "id": "stpga-2026-09-13-1p1fozg",
+   "tourId": "stpga",
+   "name": "Little Linksters - Oak Valley GC",
+   "startDate": "2026-09-13",
+   "courseName": "Oak Valley GC",
+   "city": "Helotes"
+  },
+  {
+   "id": "stpga-2026-09-13-8n44cj",
+   "tourId": "stpga",
+   "name": "Little Linksters - Panorama Golf Club",
+   "startDate": "2026-09-13",
+   "courseName": "Panorama Golf Club",
+   "city": "Conroe"
+  },
+  {
+   "id": "stpga-2026-09-13-xxqfej",
+   "tourId": "stpga",
+   "name": "Little Linksters - Victoria Country Club",
+   "startDate": "2026-09-13",
+   "courseName": "Victoria CC",
+   "city": "Victoria"
+  },
+  {
+   "id": "stpga-2026-09-15-sb2e55",
+   "tourId": "stpga",
+   "name": "Junior Links - Battleground Golf Course",
+   "startDate": "2026-09-15",
+   "courseName": "Battleground at Deer Park",
+   "city": "Deer Park"
+  },
+  {
+   "id": "stpga-2026-09-15-udkk7v",
+   "tourId": "stpga",
+   "name": "Little Linksters - Battleground GC",
+   "startDate": "2026-09-15",
+   "courseName": "Battleground at Deer Park",
+   "city": "Deer Park"
+  },
+  {
+   "id": "stpga-2026-09-19-1ltvy2e",
+   "tourId": "stpga",
+   "name": "15th Texas Junior Cup Matches",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-20",
+   "courseName": "Sand Hill Farm GC",
+   "city": "Waller"
+  },
+  {
+   "id": "stpga-2026-09-19-1ujfscy",
+   "tourId": "stpga",
+   "name": "Junior Links - Oakhurst Golf Club",
+   "startDate": "2026-09-19",
+   "courseName": "Oakhurst GC",
+   "city": "Porter"
+  },
+  {
+   "id": "stpga-2026-09-19-wud3s4",
+   "tourId": "stpga",
+   "name": "Junior Links - Oso Beach Golf Course",
+   "startDate": "2026-09-19",
+   "courseName": "Oso Beach Golf Course",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-09-19-ds2gq3",
+   "tourId": "stpga",
+   "name": "Junior Tour - Oso Beach Golf Course",
+   "startDate": "2026-09-19",
+   "courseName": "Oso Beach Golf Course",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-09-19-1yklctn",
+   "tourId": "stpga",
+   "name": "Little Linksters - Oakhurst Golf Club",
+   "startDate": "2026-09-19",
+   "courseName": "Oakhurst GC",
+   "city": "Porter"
+  },
+  {
+   "id": "stpga-2026-09-19-r8pkot",
+   "tourId": "stpga",
+   "name": "Little Linksters - Oso Beach Golf Course",
+   "startDate": "2026-09-19",
+   "courseName": "Oso Beach Golf Course",
+   "city": "Corpus Christi"
+  },
+  {
+   "id": "stpga-2026-09-19-1vlv8jr",
+   "tourId": "stpga",
+   "name": "PT - The Cowboy Cup",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-20",
+   "courseName": "Flying L Ranch",
+   "city": "Bandera"
+  },
+  {
+   "id": "stpga-2026-09-20-kdcwmn",
+   "tourId": "stpga",
+   "name": "Junior Links - Fort Sam Houston GC",
+   "startDate": "2026-09-20",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-20-sc41ci",
+   "tourId": "stpga",
+   "name": "Junior Links - Gleannloch Golf Club",
+   "startDate": "2026-09-20",
+   "courseName": "Gleann/Loch",
+   "city": "Spring"
+  },
+  {
+   "id": "stpga-2026-09-20-rb5rpt",
+   "tourId": "stpga",
+   "name": "Junior Links - Hilltop Lakes GC",
+   "startDate": "2026-09-20",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-09-20-k4k3xw",
+   "tourId": "stpga",
+   "name": "Junior Links - Lions Municipal GC",
+   "startDate": "2026-09-20",
+   "courseName": "Lions Municipal GC",
+   "city": "Austin"
+  },
+  {
+   "id": "stpga-2026-09-20-g9a932",
+   "tourId": "stpga",
+   "name": "Junior Tour - Hilltop Lakes GC",
+   "startDate": "2026-09-20",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-09-20-wwgsl6",
+   "tourId": "stpga",
+   "name": "Junior Tour - River Plantation Golf Club",
+   "startDate": "2026-09-20",
+   "courseName": "River Plantation CC",
+   "city": "Conroe"
+  },
+  {
+   "id": "stpga-2026-09-20-1t4q5va",
+   "tourId": "stpga",
+   "name": "Little Linksters - Fort Sam Houston GC",
+   "startDate": "2026-09-20",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-09-20-h2nmy8",
+   "tourId": "stpga",
+   "name": "Little Linksters - Gleannloch Pines",
+   "startDate": "2026-09-20",
+   "courseName": "Gleann/Loch",
+   "city": "Spring"
+  },
+  {
+   "id": "stpga-2026-09-20-1gb5mco",
+   "tourId": "stpga",
+   "name": "Little Linksters - Hilltop Lakes GC",
+   "startDate": "2026-09-20",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-09-20-1wlxzd1",
+   "tourId": "stpga",
+   "name": "Little Linksters - Lions GC",
+   "startDate": "2026-09-20",
+   "courseName": "Lions Municipal GC",
+   "city": "Austin"
+  },
+  {
+   "id": "stpga-2026-09-23-vzg9kj",
+   "tourId": "stpga",
+   "name": "Junior Links - Falcon Point Golf Club",
+   "startDate": "2026-09-23",
+   "courseName": "The Club at Falcon Point",
+   "city": "Katy"
+  },
+  {
+   "id": "stpga-2026-09-23-1qf2dys",
+   "tourId": "stpga",
+   "name": "Little Linksters - Falcon Point GC",
+   "startDate": "2026-09-23",
+   "courseName": "The Club at Falcon Point",
+   "city": "Katy"
+  },
+  {
+   "id": "stpga-2026-09-26-a9wz92",
+   "tourId": "stpga",
+   "name": "Junior Links - Chambers County GC",
+   "startDate": "2026-09-26",
+   "courseName": "Chambers County",
+   "city": "Anahuac"
+  },
+  {
+   "id": "stpga-2026-09-26-1dns7in",
+   "tourId": "stpga",
+   "name": "Little Linksters - Chambers County GC",
+   "startDate": "2026-09-26",
+   "courseName": "Chambers County",
+   "city": "Anahuac"
+  },
+  {
+   "id": "stpga-2026-09-26-1n8mi84",
+   "tourId": "stpga",
+   "name": "PT - Antigua Sun City Showdown",
+   "startDate": "2026-09-26",
+   "endDate": "2026-09-27",
+   "courseName": "White Wing GC",
+   "city": "Georgetown"
+  },
+  {
+   "id": "stpga-2026-09-27-14jrw99",
+   "tourId": "stpga",
+   "name": "Junior Links - Horseshoe Bay Resort",
+   "startDate": "2026-09-27",
+   "courseName": "Slick Rock-HSB",
+   "city": "Horseshoe Bay"
+  },
+  {
+   "id": "stpga-2026-09-27-k1lhax",
+   "tourId": "stpga",
+   "name": "Junior Links - Liberty Municipal GC",
+   "startDate": "2026-09-27",
+   "courseName": "Liberty Municipal GC",
+   "city": "Liberty"
+  },
+  {
+   "id": "stpga-2026-09-27-1kp057p",
+   "tourId": "stpga",
+   "name": "Junior Links - TAMU",
+   "startDate": "2026-09-27",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-09-27-1gqu56h",
+   "tourId": "stpga",
+   "name": "Junior Tour - Mill Creek CC",
+   "startDate": "2026-09-27",
+   "courseName": "Mill Creek CC - 1-2",
+   "city": "Salado"
+  },
+  {
+   "id": "stpga-2026-09-27-1tut9sm",
+   "tourId": "stpga",
+   "name": "Junior Tour - Pleasanton CC",
+   "startDate": "2026-09-27",
+   "courseName": "Pleasanton CC",
+   "city": "Pleasanton"
+  },
+  {
+   "id": "stpga-2026-09-27-1dnt216",
+   "tourId": "stpga",
+   "name": "Junior Tour - TAMU",
+   "startDate": "2026-09-27",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-09-27-1893yih",
+   "tourId": "stpga",
+   "name": "Little Linksters - Horseshoe Bay.",
+   "startDate": "2026-09-27",
+   "courseName": "Slick Rock-HSB",
+   "city": "Horseshoe Bay"
+  },
+  {
+   "id": "stpga-2026-09-27-2qke1s",
+   "tourId": "stpga",
+   "name": "Little Linksters - Liberty Municipal GC",
+   "startDate": "2026-09-27",
+   "courseName": "Liberty Municipal GC",
+   "city": "Liberty"
+  },
+  {
+   "id": "stpga-2026-09-27-julajg",
+   "tourId": "stpga",
+   "name": "Little Linksters - TAMU",
+   "startDate": "2026-09-27",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-09-29-1pbepq1",
+   "tourId": "stpga",
+   "name": "Junior Links - Gus Wortham GC",
+   "startDate": "2026-09-29",
+   "courseName": "Gus Wortham Park GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-09-29-18eiurk",
+   "tourId": "stpga",
+   "name": "Little Linksters - Gus Wortham GC",
+   "startDate": "2026-09-29",
+   "courseName": "Gus Wortham Park GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-09-30-192k7m1",
+   "tourId": "stpga",
+   "name": "Little Linksters - Blackhorse Golf Club",
+   "startDate": "2026-09-30",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-10-03-1vns6pb",
+   "tourId": "stpga",
+   "name": "PT - Bay Forest Junior Championship",
+   "startDate": "2026-10-03",
+   "endDate": "2026-10-04",
+   "courseName": "Bay Forest GC",
+   "city": "La Porte"
+  },
+  {
+   "id": "stpga-2026-10-04-glo079",
+   "tourId": "stpga",
+   "name": "Junior Links - Mission Del Lago",
+   "startDate": "2026-10-04",
+   "courseName": "Mission Del Lago GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-10-04-13rcb3y",
+   "tourId": "stpga",
+   "name": "Junior Tour - Houston National Golf Club",
+   "startDate": "2026-10-04",
+   "courseName": "Houston National GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-10-04-1gs12m2",
+   "tourId": "stpga",
+   "name": "Junior Tour - Morris Williams GC",
+   "startDate": "2026-10-04",
+   "courseName": "Morris Williams GC",
+   "city": "Austin"
+  },
+  {
+   "id": "stpga-2026-10-04-1nfipep",
+   "tourId": "stpga",
+   "name": "Little Linksters - Clear Creek Golf Club",
+   "startDate": "2026-10-04",
+   "courseName": "Clear Creek GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-10-04-1upyu0s",
+   "tourId": "stpga",
+   "name": "Little Linksters - Mission Del Lago",
+   "startDate": "2026-10-04",
+   "courseName": "Mission Del Lago GC",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-10-06-1s8e7co",
+   "tourId": "stpga",
+   "name": "Junior Links - Pearland Golf Club",
+   "startDate": "2026-10-06",
+   "courseName": "Pearland GC",
+   "city": "Pearland"
+  },
+  {
+   "id": "stpga-2026-10-06-1g7acht",
+   "tourId": "stpga",
+   "name": "Little Linksters - Pearland Golf Club",
+   "startDate": "2026-10-06",
+   "courseName": "Pearland GC",
+   "city": "Pearland"
+  },
   {
    "id": "ajga-2026-10-08-jbcwqu",
    "tourId": "ajga",
@@ -142,6 +918,86 @@
    "level": "State"
   },
   {
+   "id": "stpga-2026-10-11-r8zkrf",
+   "tourId": "stpga",
+   "name": "Junior Links - Hilltop Lakes GC",
+   "startDate": "2026-10-11",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-10-11-147berq",
+   "tourId": "stpga",
+   "name": "Junior Links - Point Venture GC",
+   "startDate": "2026-10-11",
+   "courseName": "Point Venture GC",
+   "city": "Point Venture"
+  },
+  {
+   "id": "stpga-2026-10-11-b1mzkx",
+   "tourId": "stpga",
+   "name": "Junior Links - River Plantation GC",
+   "startDate": "2026-10-11",
+   "courseName": "River Plantation CC",
+   "city": "Conroe"
+  },
+  {
+   "id": "stpga-2026-10-11-g8pxys",
+   "tourId": "stpga",
+   "name": "Junior Tour - Hilltop Lakes GC",
+   "startDate": "2026-10-11",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-10-11-m54u4b",
+   "tourId": "stpga",
+   "name": "Junior Tour - Liberty Municipal GC",
+   "startDate": "2026-10-11",
+   "courseName": "Liberty Municipal GC",
+   "city": "Liberty"
+  },
+  {
+   "id": "stpga-2026-10-11-adpllb",
+   "tourId": "stpga",
+   "name": "Junior Tour - Riverside GC",
+   "startDate": "2026-10-11",
+   "courseName": "Riverside",
+   "city": "San Antonio"
+  },
+  {
+   "id": "stpga-2026-10-11-1hncwnw",
+   "tourId": "stpga",
+   "name": "Little Linksters - East River 9",
+   "startDate": "2026-10-11",
+   "courseName": "East River 9",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-10-11-1galbc2",
+   "tourId": "stpga",
+   "name": "Little Linksters - Hilltop Lakes GC",
+   "startDate": "2026-10-11",
+   "courseName": "Hilltop Lakes",
+   "city": "Hilltop Lakes"
+  },
+  {
+   "id": "stpga-2026-10-11-1h3g2m3",
+   "tourId": "stpga",
+   "name": "Little Linksters - Point Venture",
+   "startDate": "2026-10-11",
+   "courseName": "Point Venture GC",
+   "city": "Point Venture"
+  },
+  {
+   "id": "stpga-2026-10-11-15xnarc",
+   "tourId": "stpga",
+   "name": "Little Linksters - River Plantation GC",
+   "startDate": "2026-10-11",
+   "courseName": "River Plantation CC",
+   "city": "Conroe"
+  },
+  {
    "id": "usk-san-antonio-2026-10-11-9eacn0",
    "tourId": "usk-san-antonio",
    "name": "Mission Del Lago Municipal Golf Course",
@@ -189,6 +1045,14 @@
    "startDate": "2026-10-12",
    "courseName": "Reese Golf Center",
    "city": "Lubbock"
+  },
+  {
+   "id": "stpga-2026-10-12-s7bn7z",
+   "tourId": "stpga",
+   "name": "Parent/Junior - Willow Creek Golf Club",
+   "startDate": "2026-10-12",
+   "courseName": "Willow Creek GC",
+   "city": "Spring"
   },
   {
    "id": "ntpga-2026-10-12-7mwho3",
@@ -248,12 +1112,148 @@
    "city": "Dallas"
   },
   {
+   "id": "stpga-2026-10-17-1z02hik",
+   "tourId": "stpga",
+   "name": "Junior Tour - Fort Sam Houston GC",
+   "startDate": "2026-10-17",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
    "id": "ntpga-2026-10-17-1cf939x",
    "tourId": "ntpga",
    "name": "Prep Tour: Metro 520",
    "startDate": "2026-10-17",
    "courseName": "Prairie Lakes GC",
    "city": "Grand Prairie"
+  },
+  {
+   "id": "stpga-2026-10-17-h2khw1",
+   "tourId": "stpga",
+   "name": "PT - Discover Victoria South Texas Showc",
+   "startDate": "2026-10-17",
+   "endDate": "2026-10-18",
+   "courseName": "Victoria CC",
+   "city": "Victoria",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-10-18-1w11x3k",
+   "tourId": "stpga",
+   "name": "Junior Links - Brentwood CC",
+   "startDate": "2026-10-18",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-10-18-1vs7did",
+   "tourId": "stpga",
+   "name": "Junior Links - Flying L Ranch",
+   "startDate": "2026-10-18",
+   "courseName": "Flying L Ranch",
+   "city": "Bandera",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-1pw3opx",
+   "tourId": "stpga",
+   "name": "Junior Links - Tierra Del Sol Resort",
+   "startDate": "2026-10-18",
+   "courseName": "Tierra Del Sol GC",
+   "city": "Pharr",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-10-18-1odgp8v",
+   "tourId": "stpga",
+   "name": "Junior Links - Walden on Lake Houston",
+   "startDate": "2026-10-18",
+   "courseName": "Walden on Lake Houston",
+   "city": "Humble",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-15b75xb",
+   "tourId": "stpga",
+   "name": "Junior Tour - Brentwood CC",
+   "startDate": "2026-10-18",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-1xhl996",
+   "tourId": "stpga",
+   "name": "Junior Tour - Stonebridge - Newport",
+   "startDate": "2026-10-18",
+   "courseName": "Stonebridge at Newport",
+   "city": "Crosby",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-10-18-18e0wlo",
+   "tourId": "stpga",
+   "name": "Junior Tour - Tierra Del Solo GC",
+   "startDate": "2026-10-18",
+   "courseName": "Tierra Del Sol GC",
+   "city": "Pharr",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-ohz221",
+   "tourId": "stpga",
+   "name": "Little Linksters - Brentwood CC",
+   "startDate": "2026-10-18",
+   "courseName": "Brentwood CC",
+   "city": "Beaumont",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-10-18-598o2m",
+   "tourId": "stpga",
+   "name": "Little Linksters - Delaware Springs GC",
+   "startDate": "2026-10-18",
+   "courseName": "Delaware Springs GC",
+   "city": "Burnet",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-me0yjg",
+   "tourId": "stpga",
+   "name": "Little Linksters - Flying L Ranch",
+   "startDate": "2026-10-18",
+   "courseName": "Flying L Ranch",
+   "city": "Bandera",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-1ebchww",
+   "tourId": "stpga",
+   "name": "Little Linksters - Sharpstown Park GC",
+   "startDate": "2026-10-18",
+   "courseName": "Sharpstown Park",
+   "city": "Houston",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-18-1m9i39g",
+   "tourId": "stpga",
+   "name": "Little Linksters - Tierra Del Sol R&G",
+   "startDate": "2026-10-18",
+   "courseName": "Tierra Del Sol GC",
+   "city": "Pharr",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-10-18-k6z1rq",
+   "tourId": "stpga",
+   "name": "Little Linksters- Walden on Lake Houston",
+   "startDate": "2026-10-18",
+   "courseName": "Walden on Lake Houston",
+   "city": "Humble",
+   "entryFee": 50
   },
   {
    "id": "ntpga-2026-10-18-13t2c85",
@@ -296,6 +1296,24 @@
    "startDate": "2026-10-18",
    "courseName": "John Pitman Municipal GC",
    "city": "Hereford"
+  },
+  {
+   "id": "stpga-2026-10-20-1rs9oa7",
+   "tourId": "stpga",
+   "name": "Junior Links - Northgate Country Club",
+   "startDate": "2026-10-20",
+   "courseName": "Northgate CC",
+   "city": "Houston",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-20-1lji252",
+   "tourId": "stpga",
+   "name": "Little Linksters- Northgate Country Club",
+   "startDate": "2026-10-20",
+   "courseName": "Northgate CC",
+   "city": "Houston",
+   "entryFee": 50
   },
   {
    "id": "ntpga-2026-10-24-17qrhas",
@@ -347,6 +1365,26 @@
    "city": "Midland"
   },
   {
+   "id": "stpga-2026-10-24-s4verr",
+   "tourId": "stpga",
+   "name": "PT - Fall Showdown",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-25",
+   "courseName": "Panorama Golf Club",
+   "city": "Conroe",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-10-24-1q04emv",
+   "tourId": "stpga",
+   "name": "PT - Fredericksburg Open",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-25",
+   "courseName": "Lady Bird Johnson GC",
+   "city": "Fredericksburg",
+   "entryFee": 260
+  },
+  {
    "id": "tga-ljt-2026-10-24-jm4j0x",
    "tourId": "tga-ljt",
    "name": "TJGA Invitational – Invitational",
@@ -366,6 +1404,76 @@
    "registrationDeadline": "2026-10-22",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519074/april-sound-country-club",
    "level": "Local"
+  },
+  {
+   "id": "stpga-2026-10-25-wdk7ip",
+   "tourId": "stpga",
+   "name": "Junior Links - River Bend GC",
+   "startDate": "2026-10-25",
+   "courseName": "River Bend GC",
+   "city": "Floresville",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-25-1hz8x7g",
+   "tourId": "stpga",
+   "name": "Junior Links - Riverside Golf Course",
+   "startDate": "2026-10-25",
+   "courseName": "Riverside GC - Riverside",
+   "city": "Victoria",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-25-624sj6",
+   "tourId": "stpga",
+   "name": "Junior Tour - Chambers County GC",
+   "startDate": "2026-10-25",
+   "courseName": "Chambers County",
+   "city": "Anahuac",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-10-25-adplm0",
+   "tourId": "stpga",
+   "name": "Junior Tour - Riverside GC",
+   "startDate": "2026-10-25",
+   "courseName": "Riverside GC - Riverside",
+   "city": "Victoria",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-10-25-uiq9nm",
+   "tourId": "stpga",
+   "name": "Junior Tour - Roy Kizer GC",
+   "startDate": "2026-10-25",
+   "courseName": "Roy Kizer GC",
+   "city": "Austin"
+  },
+  {
+   "id": "stpga-2026-10-25-18co8mc",
+   "tourId": "stpga",
+   "name": "Little Linksters - Gus Wortham GC",
+   "startDate": "2026-10-25",
+   "courseName": "Gus Wortham Park GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-10-25-4qb3ns",
+   "tourId": "stpga",
+   "name": "Little Linksters - River Bend GC",
+   "startDate": "2026-10-25",
+   "courseName": "River Bend GC",
+   "city": "Floresville",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-25-17dhq2t",
+   "tourId": "stpga",
+   "name": "Little Linksters - Riverside Golf Course",
+   "startDate": "2026-10-25",
+   "courseName": "Riverside GC - Riverside",
+   "city": "Victoria",
+   "entryFee": 50
   },
   {
    "id": "ntpga-2026-10-25-djz5d7",
@@ -410,12 +1518,58 @@
    "city": "Richardson"
   },
   {
+   "id": "stpga-2026-10-27-15ujg9",
+   "tourId": "stpga",
+   "name": "Junior Links - Clear Creek Golf Club",
+   "startDate": "2026-10-27",
+   "courseName": "Clear Creek GC",
+   "city": "Houston",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-27-1nfipgg",
+   "tourId": "stpga",
+   "name": "Little Linksters - Clear Creek Golf Club",
+   "startDate": "2026-10-27",
+   "courseName": "Clear Creek GC",
+   "city": "Houston",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-31-1l709ib",
+   "tourId": "stpga",
+   "name": "Junior Links - Fort Sam Houston",
+   "startDate": "2026-10-31",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-10-31-1t3ua0u",
+   "tourId": "stpga",
+   "name": "Little Linksters - Fort Sam Houston GC",
+   "startDate": "2026-10-31",
+   "courseName": "Fort Sam Houston GC",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
    "id": "ntpga-2026-10-31-1dkvog0",
    "tourId": "ntpga",
    "name": "Medalist Tour: Metro 608",
    "startDate": "2026-10-31",
    "courseName": "The GC of Dallas",
    "city": "Dallas"
+  },
+  {
+   "id": "stpga-2026-10-31-83ejml",
+   "tourId": "stpga",
+   "name": "PT - The Round Rock Cup",
+   "startDate": "2026-10-31",
+   "endDate": "2026-11-01",
+   "courseName": "Forest Creek",
+   "city": "Round Rock",
+   "entryFee": 260
   },
   {
    "id": "ntpga-2026-10-31-1jaacbr",
@@ -425,6 +1579,104 @@
    "endDate": "2026-11-01",
    "courseName": "Luna Vista GC",
    "city": "Dallas"
+  },
+  {
+   "id": "stpga-2026-11-01-1v8n1fg",
+   "tourId": "stpga",
+   "name": "Junior Links - Eagle Pointe Golf Club",
+   "startDate": "2026-11-01",
+   "courseName": "Eagle Pointe GC",
+   "city": "Mont Belvieu",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-1klgp24",
+   "tourId": "stpga",
+   "name": "Junior Links - Hyatt Hill Country",
+   "startDate": "2026-11-01",
+   "courseName": "Hyatt Hill Country Resort",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-1nh5t2p",
+   "tourId": "stpga",
+   "name": "Junior Links - Morris Williams GC",
+   "startDate": "2026-11-01",
+   "courseName": "Morris Williams GC",
+   "city": "Austin",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-1ko510o",
+   "tourId": "stpga",
+   "name": "Junior Links - TAMU",
+   "startDate": "2026-11-01",
+   "courseName": "Texas A&M GC",
+   "city": "College Station",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-1xcvbup",
+   "tourId": "stpga",
+   "name": "Junior Tour - Delaware Springs GC",
+   "startDate": "2026-11-01",
+   "courseName": "Delaware Springs GC",
+   "city": "Burnet",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-01-1i76imz",
+   "tourId": "stpga",
+   "name": "Junior Tour - Hyatt Hill",
+   "startDate": "2026-11-01",
+   "courseName": "Hyatt Hill Country Resort",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-01-1dlxo5j",
+   "tourId": "stpga",
+   "name": "Junior Tour - TAMU",
+   "startDate": "2026-11-01",
+   "courseName": "Texas A&M GC",
+   "city": "College Station"
+  },
+  {
+   "id": "stpga-2026-11-01-1by0n2l",
+   "tourId": "stpga",
+   "name": "Little Linksters - Hyatt Hill",
+   "startDate": "2026-11-01",
+   "courseName": "Hyatt Hill Country Resort",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-gjq360",
+   "tourId": "stpga",
+   "name": "Little Linksters - Morris Williams GC",
+   "startDate": "2026-11-01",
+   "courseName": "Morris Williams GC",
+   "city": "Austin",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-jspwk1",
+   "tourId": "stpga",
+   "name": "Little Linksters - TAMU",
+   "startDate": "2026-11-01",
+   "courseName": "Texas A&M GC",
+   "city": "College Station",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-01-agfkw5",
+   "tourId": "stpga",
+   "name": "Little Linksters- Eagle Pointe Golf Club",
+   "startDate": "2026-11-01",
+   "courseName": "Eagle Pointe GC",
+   "city": "Mont Belvieu",
+   "entryFee": 50
   },
   {
    "id": "ntpga-2026-11-01-f59f37",
@@ -509,6 +1761,24 @@
    "level": "State"
   },
   {
+   "id": "stpga-2026-11-07-1gj24lu",
+   "tourId": "stpga",
+   "name": "Junior Links - Pleasanton CC",
+   "startDate": "2026-11-07",
+   "courseName": "Pleasanton CC",
+   "city": "Pleasanton",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-07-ueeikr",
+   "tourId": "stpga",
+   "name": "Little Linksters - Pleasanton CC",
+   "startDate": "2026-11-07",
+   "courseName": "Pleasanton CC",
+   "city": "Pleasanton",
+   "entryFee": 50
+  },
+  {
    "id": "ntpga-2026-11-07-1w78pzh",
    "tourId": "ntpga",
    "name": "Medalist Tour: Metro 610",
@@ -542,6 +1812,74 @@
    "startDate": "2026-11-07",
    "courseName": "Watters Creek",
    "city": "Plano"
+  },
+  {
+   "id": "stpga-2026-11-07-1343voi",
+   "tourId": "stpga",
+   "name": "PT - Visit Lake Charles Fall Classic",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "courseName": "Mallard Golf Club",
+   "city": "Lake Charles",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-11-08-wx1cg2",
+   "tourId": "stpga",
+   "name": "Junior Links - Houston National GC",
+   "startDate": "2026-11-08",
+   "courseName": "Houston National GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-11-08-1i79337",
+   "tourId": "stpga",
+   "name": "Junior Links - Roy Kizer GC",
+   "startDate": "2026-11-08",
+   "courseName": "Roy Kizer GC",
+   "city": "Austin",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-08-ni2xqa",
+   "tourId": "stpga",
+   "name": "Junior Tour - Olmos Basin GC",
+   "startDate": "2026-11-08",
+   "courseName": "Olmos Basin GC",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-08-1e6kvjq",
+   "tourId": "stpga",
+   "name": "Junior Tour - Panorama Golf Club",
+   "startDate": "2026-11-08",
+   "courseName": "Panorama Golf Club",
+   "city": "Conroe"
+  },
+  {
+   "id": "stpga-2026-11-08-1fi7aau",
+   "tourId": "stpga",
+   "name": "Junior Tour - Sharpstown Park GC",
+   "startDate": "2026-11-08",
+   "courseName": "Sharpstown Park",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-11-08-19t1uhn",
+   "tourId": "stpga",
+   "name": "Little Linksters - Houston National GC",
+   "startDate": "2026-11-08",
+   "courseName": "Houston National GC",
+   "city": "Houston"
+  },
+  {
+   "id": "stpga-2026-11-08-1v7gtne",
+   "tourId": "stpga",
+   "name": "Little Linksters - Roy Kizer GC",
+   "startDate": "2026-11-08",
+   "courseName": "Roy Kizer GC",
+   "city": "Austin"
   },
   {
    "id": "ntpga-2026-11-08-4j9ts7",
@@ -634,6 +1972,16 @@
    "city": "Richardson"
   },
   {
+   "id": "stpga-2026-11-14-1d2y1fj",
+   "tourId": "stpga",
+   "name": "PT - The Gobbler Cup",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-15",
+   "courseName": "Stonebridge at Newport",
+   "city": "Crosby",
+   "entryFee": 260
+  },
+  {
    "id": "usk-houston-2026-11-15-15z0ey5",
    "tourId": "usk-houston",
    "name": "Blackhorse Golf Club",
@@ -652,6 +2000,96 @@
    "registrationDeadline": "2026-11-12",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519220/jimmy-clay-golf-course",
    "level": "Local"
+  },
+  {
+   "id": "stpga-2026-11-15-1ehyk5",
+   "tourId": "stpga",
+   "name": "Junior Links - April Sound Country Club",
+   "startDate": "2026-11-15",
+   "courseName": "April Sound CC",
+   "city": "Montgomery",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-r52dzb",
+   "tourId": "stpga",
+   "name": "Junior Links - Forest Creek GC",
+   "startDate": "2026-11-15",
+   "courseName": "Forest Creek",
+   "city": "Round Rock",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-pnz8j6",
+   "tourId": "stpga",
+   "name": "Junior Links - Llano Grande Resort & GC",
+   "startDate": "2026-11-15",
+   "courseName": "Llano Grande CC",
+   "city": "Mercedes",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-11-15-ea8g6k",
+   "tourId": "stpga",
+   "name": "Junior Tour - Legacy Hills GC",
+   "startDate": "2026-11-15",
+   "courseName": "Legacy Hills GC",
+   "city": "Georgetown",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-15-3ita26",
+   "tourId": "stpga",
+   "name": "Junior Tour - Llano Grande Golf Club",
+   "startDate": "2026-11-15",
+   "courseName": "Llano Grande CC",
+   "city": "Mercedes",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-1pnw0l2",
+   "tourId": "stpga",
+   "name": "Junior Tour - Olympia Hills GC",
+   "startDate": "2026-11-15",
+   "courseName": "Olympia Hills GCC",
+   "city": "Universal City",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-15-1d9tza4",
+   "tourId": "stpga",
+   "name": "Little Linksters - April Sound CC",
+   "startDate": "2026-11-15",
+   "courseName": "April Sound CC",
+   "city": "Montgomery",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-1hnaou1",
+   "tourId": "stpga",
+   "name": "Little Linksters - East River 9",
+   "startDate": "2026-11-15",
+   "courseName": "East River 9",
+   "city": "Houston",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-14satni",
+   "tourId": "stpga",
+   "name": "Little Linksters - Forest Creek GC",
+   "startDate": "2026-11-15",
+   "courseName": "Forest Creek",
+   "city": "Round Rock",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-15-7qmfb6",
+   "tourId": "stpga",
+   "name": "Little Linksters - Llano Grande CC",
+   "startDate": "2026-11-15",
+   "courseName": "Llano Grande CC",
+   "city": "Mercedes",
+   "entryFee": 35
   },
   {
    "id": "ntpga-2026-11-15-1e5gxu0",
@@ -778,6 +2216,24 @@
    "level": "Local"
   },
   {
+   "id": "stpga-2026-11-22-1i76il6",
+   "tourId": "stpga",
+   "name": "Junior Tour - Hyatt Hill",
+   "startDate": "2026-11-22",
+   "courseName": "Hyatt Hill Country Resort",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-22-12omn22",
+   "tourId": "stpga",
+   "name": "Junior Tour - Quail Valley Golf Club",
+   "startDate": "2026-11-22",
+   "courseName": "Quail Valley GC",
+   "city": "Missouri City",
+   "entryFee": 70
+  },
+  {
    "id": "ntpga-2026-11-22-1t086fp",
    "tourId": "ntpga",
    "name": "Medalist Tour: East Area Championship",
@@ -844,6 +2300,195 @@
    "registrationDeadline": "2026-11-20",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519048/brookhaven-country-club-tour-championship",
    "level": "Local"
+  },
+  {
+   "id": "stpga-2026-11-23-1sh1ij7",
+   "tourId": "stpga",
+   "name": "Junior Links - Corpus Christi CC",
+   "startDate": "2026-11-23",
+   "courseName": "Corpus Christi CC",
+   "city": "Corpus Christi",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-23-1by81pc",
+   "tourId": "stpga",
+   "name": "Junior Links - Tomball Country Club",
+   "startDate": "2026-11-23",
+   "courseName": "Tomball CC",
+   "city": "Tomball",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-23-1j10hwc",
+   "tourId": "stpga",
+   "name": "Junior Tour - Corpus Christi CC",
+   "startDate": "2026-11-23",
+   "courseName": "Corpus Christi CC",
+   "city": "Corpus Christi",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-23-fzcfql",
+   "tourId": "stpga",
+   "name": "Junior Tour - Forest Creek GC",
+   "startDate": "2026-11-23",
+   "courseName": "Forest Creek",
+   "city": "Round Rock",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-23-1gcddjj",
+   "tourId": "stpga",
+   "name": "Junior Tour - Tomball Country Club",
+   "startDate": "2026-11-23",
+   "courseName": "Tomball CC",
+   "city": "Tomball",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-23-1yil1ze",
+   "tourId": "stpga",
+   "name": "Little Linksters - Corpus Christi CC",
+   "startDate": "2026-11-23",
+   "courseName": "Corpus Christi CC",
+   "city": "Corpus Christi",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-23-1v9eod5",
+   "tourId": "stpga",
+   "name": "Little Linksters - Tomball Country Club",
+   "startDate": "2026-11-23",
+   "courseName": "Tomball CC",
+   "city": "Tomball",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-23-97dq38",
+   "tourId": "stpga",
+   "name": "Parent/Junior - River Crossing Golf Club",
+   "startDate": "2026-11-23",
+   "courseName": "River Crossing GC",
+   "city": "Spring Branch"
+  },
+  {
+   "id": "stpga-2026-11-23-1dtorcs",
+   "tourId": "stpga",
+   "name": "PT - Abraham Ancer Classic",
+   "startDate": "2026-11-23",
+   "endDate": "2026-11-24",
+   "courseName": "Clubs of Cordillera Ranch",
+   "city": "Boerne",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-11-23-1f5yi10",
+   "tourId": "stpga",
+   "name": "PT - Omega Transactions Turkey Shootout",
+   "startDate": "2026-11-23",
+   "endDate": "2026-11-24",
+   "courseName": "Walden on Lake Conroe",
+   "city": "Montgomery",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-11-24-12xldgz",
+   "tourId": "stpga",
+   "name": "Junior Tour - Blackhorse Golf Club",
+   "startDate": "2026-11-24",
+   "courseName": "Blackhorse GC- North",
+   "city": "Cypress"
+  },
+  {
+   "id": "stpga-2026-11-24-1spglh",
+   "tourId": "stpga",
+   "name": "Junior Tour - Golf Club of Texas",
+   "startDate": "2026-11-24",
+   "courseName": "Golf Club of Texas",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-29-14uhg57",
+   "tourId": "stpga",
+   "name": "Junior Links - Idylwild Golf Club",
+   "startDate": "2026-11-29",
+   "courseName": "Idylwild Golf Club",
+   "city": "Sour Lake",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-11-29-xxpkm9",
+   "tourId": "stpga",
+   "name": "Junior Links - Magnolia Creek Golf Club",
+   "startDate": "2026-11-29",
+   "courseName": "Magnolia Creek GC",
+   "city": "League City",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-29-2mj6b9",
+   "tourId": "stpga",
+   "name": "Junior Tour - April Sound Country Club",
+   "startDate": "2026-11-29",
+   "courseName": "April Sound CC",
+   "city": "Montgomery",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-29-1f5f2uu",
+   "tourId": "stpga",
+   "name": "Junior Tour - Crystal Falls",
+   "startDate": "2026-11-29",
+   "courseName": "Crystal Falls GC",
+   "city": "Leander",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-29-12yzcs",
+   "tourId": "stpga",
+   "name": "Junior Tour - Eagle Point Golf Club",
+   "startDate": "2026-11-29",
+   "courseName": "Eagle Pointe GC",
+   "city": "Mont Belvieu",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-29-d9z9i3",
+   "tourId": "stpga",
+   "name": "Junior Tour - Flying L GC",
+   "startDate": "2026-11-29",
+   "courseName": "Flying L Ranch",
+   "city": "Bandera",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-11-29-z1y1e2",
+   "tourId": "stpga",
+   "name": "Junior Tour - Idylwild GC",
+   "startDate": "2026-11-29",
+   "courseName": "Idylwild Golf Club",
+   "city": "Sour Lake",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-11-29-metknw",
+   "tourId": "stpga",
+   "name": "Little Linksters - Idylwild GC",
+   "startDate": "2026-11-29",
+   "courseName": "Idylwild Golf Club",
+   "city": "Sour Lake",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-11-29-1ki8yme",
+   "tourId": "stpga",
+   "name": "Little Linksters - Magnolia Creek GC",
+   "startDate": "2026-11-29",
+   "courseName": "Magnolia Creek GC",
+   "city": "League City",
+   "entryFee": 50
   },
   {
    "id": "tga-ljt-2026-12-05-mjuvmb",
@@ -917,6 +2562,104 @@
    "level": "Local"
   },
   {
+   "id": "stpga-2026-12-06-1d3ejhx",
+   "tourId": "stpga",
+   "name": "Junior Links - Quail Valley Golf Course",
+   "startDate": "2026-12-06",
+   "courseName": "Quail Valley GC",
+   "city": "Missouri City",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-12-06-ce4w5b",
+   "tourId": "stpga",
+   "name": "Junior Links - River Bend Resort & GC",
+   "startDate": "2026-12-06",
+   "courseName": "River Bend Resort GC",
+   "city": "Brownsville",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-12-06-1l3ift9",
+   "tourId": "stpga",
+   "name": "Junior Links - Stonebridge at Newport",
+   "startDate": "2026-12-06",
+   "courseName": "Stonebridge at Newport",
+   "city": "Crosby",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-12-06-787q1u",
+   "tourId": "stpga",
+   "name": "Junior Links - Windcrest GC",
+   "startDate": "2026-12-06",
+   "courseName": "Windcrest GC",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-12-06-1of43vy",
+   "tourId": "stpga",
+   "name": "Junior Tour - Northern Hills GC",
+   "startDate": "2026-12-06",
+   "courseName": "Northern Hills Golf Club",
+   "city": "San Antonio",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-12-06-1w2vk63",
+   "tourId": "stpga",
+   "name": "Junior Tour - River Bend Resort and GC",
+   "startDate": "2026-12-06",
+   "courseName": "River Bend Resort GC",
+   "city": "Brownsville",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-12-06-1ll9e5",
+   "tourId": "stpga",
+   "name": "Junior Tour - Walden on Lake Houston",
+   "startDate": "2026-12-06",
+   "courseName": "Walden on Lake Houston",
+   "city": "Humble",
+   "entryFee": 70
+  },
+  {
+   "id": "stpga-2026-12-06-5n8dfb",
+   "tourId": "stpga",
+   "name": "Little Linksters - Quail Valley GC",
+   "startDate": "2026-12-06",
+   "courseName": "Quail Valley GC",
+   "city": "Missouri City"
+  },
+  {
+   "id": "stpga-2026-12-06-1d1r5fq",
+   "tourId": "stpga",
+   "name": "Little Linksters - River Bend Resort GC",
+   "startDate": "2026-12-06",
+   "courseName": "River Bend Resort GC",
+   "city": "Brownsville",
+   "entryFee": 35
+  },
+  {
+   "id": "stpga-2026-12-06-nuvvxd",
+   "tourId": "stpga",
+   "name": "Little Linksters - Stonebridge - Newport",
+   "startDate": "2026-12-06",
+   "courseName": "Stonebridge at Newport",
+   "city": "Crosby",
+   "entryFee": 50
+  },
+  {
+   "id": "stpga-2026-12-06-1p17xsr",
+   "tourId": "stpga",
+   "name": "Little Linksters - Windcrest GC",
+   "startDate": "2026-12-06",
+   "courseName": "Windcrest GC",
+   "city": "San Antonio",
+   "entryFee": 50
+  },
+  {
    "id": "ntpga-2026-12-06-i31q9e",
    "tourId": "ntpga",
    "name": "Medalist Tour: Metro Area Championship",
@@ -936,18 +2679,6 @@
    "level": "Other"
   },
   {
-   "id": "stpga-2026-12-12-idbuev",
-   "tourId": "stpga",
-   "name": "2026 Junior Tour Fall Championship",
-   "startDate": "2026-12-12",
-   "endDate": "2026-12-13",
-   "courseName": "Horseshoe Bay Resort",
-   "city": "Horseshoe Bay",
-   "ageGroups": "Boys & Girls 11-18",
-   "url": "https://www.stpgajuniorgolf.com/junior-tour-fall-championship",
-   "level": "Local"
-  },
-  {
    "id": "ntpga-2026-12-12-10y54mg",
    "tourId": "ntpga",
    "name": "AAT: The Sports Palace Finale",
@@ -955,6 +2686,53 @@
    "endDate": "2026-12-13",
    "courseName": "Sherrill Park GC",
    "city": "Richardson"
+  },
+  {
+   "id": "stpga-2026-12-12-t0a09q",
+   "tourId": "stpga",
+   "name": "Junior Links Fall Championship",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Ram Rock Course-HSB",
+   "city": "Horseshoe Bay"
+  },
+  {
+   "id": "stpga-2026-12-12-1v1555d",
+   "tourId": "stpga",
+   "name": "Junior Tour Fall Championship",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Apple Rock Course-HSB",
+   "city": "Horseshoe Bay"
+  },
+  {
+   "id": "stpga-2026-12-12-1qlsnev",
+   "tourId": "stpga",
+   "name": "Little Linksters Fall Championship",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Ram Rock Course-HSB",
+   "city": "Horseshoe Bay"
+  },
+  {
+   "id": "stpga-2026-12-12-1mq9vl3",
+   "tourId": "stpga",
+   "name": "PT - Jingle Bell Rock",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Texas A&M GC",
+   "city": "College Station",
+   "entryFee": 260
+  },
+  {
+   "id": "stpga-2026-12-12-6pts6u",
+   "tourId": "stpga",
+   "name": "PT - Prestige Tour 4 Ball",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "South Shore Harbour GC",
+   "city": "League City",
+   "entryFee": 260
   },
   {
    "id": "usk-houston-2026-12-13-16v189u",

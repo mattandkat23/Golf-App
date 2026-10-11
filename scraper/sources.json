@@ -102,17 +102,6 @@
     "maxPages": 5
   },
   {
-    "tourId": "stpga",
-    "label": "Southern Texas PGA Junior Golf (Junior Tour & Prestige Tour)",
-    "startUrls": [
-      "https://www.stpgajuniorgolf.com/junior-tour",
-      "https://www.stpgajuniorgolf.com/prestige-tour",
-      "https://www.stpgajuniorgolf.com/tournaments"
-    ],
-    "hint": "Upcoming STPGA junior events: Junior Tour, Prestige Tour and other junior tournaments/programs with dates. Put the city in the city field. If the schedule is only on a linked schedule page, suggest that link.",
-    "maxPages": 6
-  },
-  {
     "tourId": "hjgt",
     "label": "Hurricane Junior Golf Tour – events in Texas",
     "startUrls": [
