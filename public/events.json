@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-11T21:09:04.359Z",
+ "generatedAt": "2026-10-11T21:21:30.719Z",
  "sources": {
   "usk-austin": {
    "checkedAt": "2026-10-11T10:32:25.506Z",
@@ -93,6 +93,21 @@
   },
   "under-armour": {
    "checkedAt": "2026-10-11T21:09:04.359Z",
+   "ok": true,
+   "eventCount": 3
+  },
+  "ajga-invitational": {
+   "checkedAt": "2026-10-11T21:21:30.719Z",
+   "ok": true,
+   "eventCount": 2
+  },
+  "ajga-open": {
+   "checkedAt": "2026-10-11T21:21:30.719Z",
+   "ok": true,
+   "eventCount": 3
+  },
+  "ajga-senior": {
+   "checkedAt": "2026-10-11T21:21:30.719Z",
    "ok": true,
    "eventCount": 3
   }
@@ -637,6 +652,17 @@
    "level": "Other"
   },
   {
+   "id": "ajga-invitational-2026-10-08-mpslkn",
+   "tourId": "ajga-invitational",
+   "name": "AJGA Junior All-Star Invitational",
+   "startDate": "2026-10-08",
+   "endDate": "2026-10-11",
+   "courseName": "Le Triomphe Golf and Country Club",
+   "city": "Broussard, LA",
+   "url": "https://www.ajga.org/tournaments/2026145",
+   "level": "Other"
+  },
+  {
    "id": "ajga-2026-10-08-j6gxw8",
    "tourId": "ajga",
    "name": "Hilton Grand Vacations ANNIKA Invitational presented by Rolex",
@@ -648,8 +674,30 @@
    "level": "Other"
   },
   {
+   "id": "ajga-invitational-2026-10-08-18g0yjt",
+   "tourId": "ajga-invitational",
+   "name": "Hilton Grand Vacations ANNIKA Invitational presented by Rolex",
+   "startDate": "2026-10-08",
+   "endDate": "2026-10-11",
+   "courseName": "The Golf Club of Georgia - Lakeside",
+   "city": "Alpharetta, GA",
+   "url": "https://www.ajga.org/tournaments/2026143",
+   "level": "Other"
+  },
+  {
    "id": "ajga-2026-10-09-iybdex",
    "tourId": "ajga",
+   "name": "Imperial Hawaii Junior Classic at Pearl at Kalauao",
+   "startDate": "2026-10-09",
+   "endDate": "2026-10-12",
+   "courseName": "Pearl at Kalauao",
+   "city": "Aiea, HI",
+   "url": "https://www.ajga.org/tournaments/2026146",
+   "level": "Other"
+  },
+  {
+   "id": "ajga-open-2026-10-09-jz6mds",
+   "tourId": "ajga-open",
    "name": "Imperial Hawaii Junior Classic at Pearl at Kalauao",
    "startDate": "2026-10-09",
    "endDate": "2026-10-12",
@@ -2114,6 +2162,17 @@
    "level": "Other"
   },
   {
+   "id": "ajga-open-2026-11-21-l1yk8s",
+   "tourId": "ajga-open",
+   "name": "Rolex Tournament of Champions",
+   "startDate": "2026-11-21",
+   "endDate": "2026-11-25",
+   "courseName": "TPC San Antonio - Canyons Course",
+   "city": "San Antonio, TX",
+   "url": "https://www.ajga.org/tournaments/2026147",
+   "level": "Other"
+  },
+  {
    "id": "usk-san-antonio-2026-11-21-4x1bqu",
    "tourId": "usk-san-antonio",
    "name": "Willow Springs Golf Course",
@@ -2488,6 +2547,17 @@
    "level": "Other"
   },
   {
+   "id": "ajga-senior-2026-12-05-9gru49",
+   "tourId": "ajga-senior",
+   "name": "The Amundi Evian Showcase - Marie Birdie Senior Girls Championship",
+   "startDate": "2026-12-05",
+   "endDate": "2026-12-07",
+   "courseName": "Las Vegas Golf Club",
+   "city": "Las Vegas, NV",
+   "url": "https://www.ajga.org/tournaments/2026149",
+   "level": "Other"
+  },
+  {
    "id": "ajga-2026-12-05-dajr5c",
    "tourId": "ajga",
    "name": "The Amundi Evian Showcase - Senior Boys (Paiute - Snow Mountain)",
@@ -2499,8 +2569,30 @@
    "level": "Other"
   },
   {
+   "id": "ajga-senior-2026-12-05-2r5wsx",
+   "tourId": "ajga-senior",
+   "name": "The Amundi Evian Showcase - Senior Boys (Paiute - Snow Mountain)",
+   "startDate": "2026-12-05",
+   "endDate": "2026-12-07",
+   "courseName": "Las Vegas Paiute Golf Resort - Snow Mountain",
+   "city": "Las Vegas, NV",
+   "url": "https://www.ajga.org/tournaments/2026850",
+   "level": "Other"
+  },
+  {
    "id": "ajga-2026-12-05-1dq3j99",
    "tourId": "ajga",
+   "name": "The Amundi Evian Showcase - Senior Boys (Paiute - Sun Mountain)",
+   "startDate": "2026-12-05",
+   "endDate": "2026-12-07",
+   "courseName": "Las Vegas Paiute Golf Resort - Sun Mountain",
+   "city": "Las Vegas, NV",
+   "url": "https://www.ajga.org/tournaments/2026150",
+   "level": "Other"
+  },
+  {
+   "id": "ajga-senior-2026-12-05-1994qpo",
+   "tourId": "ajga-senior",
    "name": "The Amundi Evian Showcase - Senior Boys (Paiute - Sun Mountain)",
    "startDate": "2026-12-05",
    "endDate": "2026-12-07",
@@ -2640,6 +2732,17 @@
   {
    "id": "ajga-2026-12-06-1ielksu",
    "tourId": "ajga",
+   "name": "The Amundi Evian Showcase - AJGA Open Championship",
+   "startDate": "2026-12-06",
+   "endDate": "2026-12-08",
+   "courseName": "TPC Las Vegas",
+   "city": "Las Vegas, NV",
+   "url": "https://www.ajga.org/tournaments/2026148",
+   "level": "Other"
+  },
+  {
+   "id": "ajga-open-2026-12-06-ndomv",
+   "tourId": "ajga-open",
    "name": "The Amundi Evian Showcase - AJGA Open Championship",
    "startDate": "2026-12-06",
    "endDate": "2026-12-08",
