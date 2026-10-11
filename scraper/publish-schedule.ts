@@ -31,8 +31,8 @@ if (!tourId) {
 if (!text.trim()) {
   throw new Error('No schedule text given — pipe it in on stdin or set $TEXT.');
 }
-// tourId should match an id in src/data/tours.ts (so parents can subscribe to it) — not checked here
-// to avoid pulling the app's bundler-resolved source into the scraper's stricter Node/ESM build.
+// tourId should match an id in src/data/tours.ts (so parents can subscribe to it) — not checked here,
+// since a sub-tour-split base id like "ntpga" isn't itself a row there (see SUB_TOUR_CLASSIFIERS below).
 
 const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
 const parse: (text: string, today: string) => ParsedEvent[] = tourId === 'stpga' ? parseStpgaSchedule : parseSchedule;
@@ -40,6 +40,16 @@ const parsed = parse(text, today);
 if (!parsed.length) {
   throw new Error('No events found in that text. Make sure it reads like a schedule (one date + name per event) — the same text a parent would paste in the app.');
 }
+
+// No per-event page link in pasted text (unlike a real scrape, which can follow hrefs) -- fall back
+// to the tour's own schedule page, so "Event page" still links somewhere useful. Keep in sync with
+// the matching url in src/data/tours.ts.
+const FALLBACK_URL: Record<string, string> = {
+  ntpga: 'https://www.ntpgajuniorgolf.com/',
+  stpga: 'https://www.stpgajuniorgolf.com/tournaments',
+};
+const fallbackUrl = FALLBACK_URL[tourId];
+if (fallbackUrl) for (const ev of parsed) ev.url ??= fallbackUrl;
 
 const classify = SUB_TOUR_CLASSIFIERS[tourId];
 const buckets = new Map<string, ParsedEvent[]>();

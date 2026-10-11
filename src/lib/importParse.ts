@@ -11,6 +11,8 @@ export interface ParsedEvent {
   courseName?: string;
   city?: string;
   entryFee?: number;
+  /** Not set by parseSchedule itself (plain pasted text has no links) -- callers may fill this in. */
+  url?: string;
 }
 
 const MONTHS: Record<string, number> = {

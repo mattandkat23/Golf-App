@@ -22,6 +22,9 @@ GitHub/console settings, and keep replies short.
 - `src/lib/available.ts` scraped + pasted events → schedule · `src/lib/importParse.ts` paste-in parser (no AI)
 - `src/lib/schedule.ts` conflicts, deadlines, season totals · `src/lib/ics.ts` calendar export
 - `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter Texas course list
+- `src/lib/tourGroups.ts` groups tours by org (SEED_TOURS order) for My tours and the Events → Available
+  "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA) collapses to one
+  "<org> (all)" option with a second dropdown to narrow to a specific tour, instead of listing every one.
 
 ## Rules that bite
 

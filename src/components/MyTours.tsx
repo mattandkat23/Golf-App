@@ -1,22 +1,9 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import { db } from '../lib/db';
-import { SEED_TOURS } from '../data/tours';
 import type { Profile, Tour } from '../lib/types';
+import { groupTours, shortTourName } from '../lib/tourGroups';
 import { Field } from './ui';
-
-const ORG_ORDER = new Map<string, number>();
-SEED_TOURS.forEach((t, i) => {
-  const org = t.org ?? 'Other';
-  if (!ORG_ORDER.has(org)) ORG_ORDER.set(org, i);
-});
-const TOUR_ORDER = new Map(SEED_TOURS.map((t, i) => [t.id, i]));
-
-/** "NTPGA – Prep Tour" -> "Prep Tour", since the group header already says the org. */
-function shortName(name: string) {
-  const i = name.indexOf('–');
-  return i < 0 ? name : name.slice(i + 1).trim();
-}
 
 /** Lets the parent pick which tours their golfer plays, grouped by org so a long list stays scannable. */
 export default function MyTours({ profile }: { profile: Profile }) {
@@ -43,13 +30,7 @@ export default function MyTours({ profile }: { profile: Profile }) {
 
   const q = query.trim().toLowerCase();
   const matches = (t: Tour) => !q || t.name.toLowerCase().includes(q) || (t.org ?? '').toLowerCase().includes(q);
-  const groups = new Map<string, Tour[]>();
-  for (const t of tours.filter(matches)) {
-    const org = t.org ?? 'Other';
-    groups.set(org, [...(groups.get(org) ?? []), t]);
-  }
-  for (const list of groups.values()) list.sort((a, b) => (TOUR_ORDER.get(a.id) ?? Infinity) - (TOUR_ORDER.get(b.id) ?? Infinity) || a.name.localeCompare(b.name));
-  const sortedGroups = [...groups.entries()].sort((a, b) => (ORG_ORDER.get(a[0]) ?? Infinity) - (ORG_ORDER.get(b[0]) ?? Infinity) || a[0].localeCompare(b[0]));
+  const sortedGroups = groupTours(tours.filter(matches));
 
   return (
     <div className="card">
@@ -78,7 +59,7 @@ export default function MyTours({ profile }: { profile: Profile }) {
                   <li key={t.id}>
                     <label className="row">
                       <input type="checkbox" style={{ width: 22, minHeight: 22 }} checked={mine.includes(t.id)} onChange={() => toggle(t.id)} />
-                      <span className="grow">{shortName(t.name)}</span>
+                      <span className="grow">{shortTourName(t.name)}</span>
                     </label>
                   </li>
                 ))}

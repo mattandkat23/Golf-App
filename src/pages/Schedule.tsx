@@ -8,6 +8,7 @@ import MonthCalendar from '../components/MonthCalendar';
 import { ON_SCHEDULE, findConflicts, findFamilyClashes, seasonSummary } from '../lib/schedule';
 import { useGolfer } from '../lib/golfer';
 import { tourColor, useMyTours } from '../lib/tourColors';
+import { groupTours, shortTourName } from '../lib/tourGroups';
 import { buildIcs, openIcs, shareIcs, tournamentToIcs } from '../lib/ics';
 import { type AvailableEvent, type AvailableFile, addAvailableEvent, useAvailableEvents } from '../lib/available';
 
@@ -314,7 +315,8 @@ function Available({
 }) {
   const { data: fetched, error } = useAvailableEvents();
   const imported = useLiveQuery(() => db.imported.toArray(), []);
-  const [filter, setFilter] = useState<string>('mine'); // 'mine' | 'all' | tourId
+  const [filter, setFilter] = useState<string>('mine'); // 'mine' | 'all' | an org name (grouped) or a single tourId
+  const [seriesFilter, setSeriesFilter] = useState<string>(''); // narrows a grouped org to one of its tours; '' = all of them
   const [busy, setBusy] = useState<string>();
   const t0 = today();
 
@@ -324,12 +326,19 @@ function Available({
   const importedIds = new Set(imported.map((e) => e.id));
   const scrapedTours = tours.filter((x) => data.sources[x.id]);
   const chipTours = tours.filter((x) => data.sources[x.id] || imported.some((e) => e.tourId === x.id));
+  const tourGroups = groupTours(chipTours);
   const subscribed = myTours.length > 0;
   const effective = filter === 'mine' && !subscribed ? 'all' : filter;
+  // An org with more than one tour (e.g. US Kids Golf, NTPGA) shows as one "<org> (all)" option, with a
+  // second dropdown to narrow to one of its tours -- keeps the main list from listing every sub-tour.
+  const activeGroup = tourGroups.find(([org]) => org === effective);
+  const groupedTourIds = activeGroup && activeGroup[1].length > 1 ? (seriesFilter ? [seriesFilter] : activeGroup[1].map((t) => t.id)) : undefined;
   const events = [...data.events, ...imported]
     .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .filter((e) => (e.endDate ?? e.startDate) >= t0)
-    .filter((e) => (effective === 'mine' ? myTours.includes(e.tourId) : effective === 'all' ? true : e.tourId === effective));
+    .filter((e) =>
+      effective === 'mine' ? myTours.includes(e.tourId) : effective === 'all' ? true : groupedTourIds ? groupedTourIds.includes(e.tourId) : e.tourId === effective,
+    );
   const added = new Map(family.filter((t) => t.sourceEventId && t.golferId === golfer.id).map((t) => [t.sourceEventId!, t]));
   const siblingsIn = (ev: AvailableEvent) => family.filter((t) => t.sourceEventId === ev.id && t.golferId !== golfer.id);
 
@@ -356,16 +365,34 @@ function Available({
         </div>
       )}
       <Field label="Tour">
-        <select value={effective} onChange={(e) => setFilter(e.target.value)}>
+        <select
+          value={effective}
+          onChange={(e) => {
+            setFilter(e.target.value);
+            setSeriesFilter('');
+          }}
+        >
           {subscribed && <option value="mine">My tours</option>}
           <option value="all">All tours</option>
-          {chipTours.map((x) => (
-            <option key={x.id} value={x.id}>
-              {x.name}
+          {tourGroups.map(([org, list]) => (
+            <option key={org} value={org}>
+              {list.length > 1 ? `${org} (all)` : list[0].name}
             </option>
           ))}
         </select>
       </Field>
+      {activeGroup && activeGroup[1].length > 1 && (
+        <Field label="Series">
+          <select value={seriesFilter} onChange={(e) => setSeriesFilter(e.target.value)}>
+            <option value="">All</option>
+            {activeGroup[1].map((t) => (
+              <option key={t.id} value={t.id}>
+                {shortTourName(t.name)}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
 
       <div className="card">
         {events.length ? (
