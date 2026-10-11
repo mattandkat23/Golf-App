@@ -1,9 +1,10 @@
 /**
  * Collects past tournament results into the results database (run by .github/workflows/results.yml).
- * Every request goes through a browser that blocks anything robots.txt disallows (scraper/polite.ts).
- * Finished events are read once; events from the last few days are re-read in case results were corrected.
+ * Every request respects robots.txt (scraper/polite.ts) — a browser for HJGT/TGA (blocks whatever it disallows),
+ * plain fetch() for AJGA, whose pages are fully server-rendered. Finished events are read once; events from
+ * the last few days are re-read in case results were corrected.
  *
- * Usage: SUPABASE_SECRET_KEY=... node --experimental-strip-types scraper/results/collect.ts [hjgt] [--since=YYYY-MM-DD]
+ * Usage: SUPABASE_SECRET_KEY=... node --experimental-strip-types scraper/results/collect.ts [hjgt|tga|ajga] [--since=YYYY-MM-DD]
  */
 import { createClient } from '@supabase/supabase-js';
 import { chromium, type Page } from 'playwright-core';
@@ -11,6 +12,7 @@ import { USER_AGENT, allowed, blockDisallowed } from '../polite.ts';
 import { displayName, nameKey } from './names.ts';
 import { HJGT_BASE, HJGT_SEASONS, divisions, parseHjgtList, readLeaderboard, type HjgtListed, type HjgtRow } from './hjgt.ts';
 import { TGA_LIST_PAGES, parseTgaList, readTgaResults, resultsFrame, type TgaListed } from './tga.ts';
+import { parseAjgaScheduleList, pageParameter, politeFetch, readAjgaLeaderboard, type AjgaListed } from './ajga.ts';
 
 const SUPABASE_URL = 'https://jcqvzumkfmbksduzdrbx.supabase.co';
 const key = process.env.SUPABASE_SECRET_KEY;
@@ -279,16 +281,107 @@ async function collectTga(page: Page) {
   console.log(`TGA: saved ${n} events`);
 }
 
+/* ---------------------------------- AJGA ---------------------------------- */
+
+async function ajgaList(): Promise<AjgaListed[]> {
+  const startYear = Number(since.slice(0, 4));
+  const endYear = Number(today.slice(0, 4));
+  const all: AjgaListed[] = [];
+  for (let year = endYear; year >= startYear; year--) {
+    const base = `https://www.ajga.org/schedule/${year}/completed`;
+    const first = await politeFetch(base);
+    if (!first) continue;
+    all.push(...parseAjgaScheduleList(first));
+    const param = pageParameter(first);
+    for (let page = 2; param && page <= 30; page++) {
+      await pause(2000);
+      const html = await politeFetch(`${base}?${param}=${page}`);
+      if (!html) break;
+      const rows = parseAjgaScheduleList(html);
+      if (!rows.length) break;
+      all.push(...rows);
+      if (rows[rows.length - 1].startDate < since) break;
+    }
+    await pause(3000);
+  }
+  return all;
+}
+
+function ajgaEvent(ev: AjgaListed, html: string): { event: EventRow; results: ResultRow[] } {
+  const rows = readAjgaLeaderboard(html);
+  const results: ResultRow[] = rows
+    .filter((r) => r.name)
+    .map((r) => ({
+      event_id: `ajga:${ev.id}`,
+      division: r.division,
+      position: r.position || null,
+      pos_num: posNum(r.position),
+      field_size: rows.filter((x) => x.division === r.division).length,
+      player_name: displayName(r.name),
+      name_key: nameKey(r.name),
+      hometown: r.hometown ?? null,
+      grad_year: r.gradYear ?? null,
+      to_par: toParNum(r.toPar),
+      total: r.total ?? (r.rounds.length ? r.rounds.reduce((a, b) => a + b, 0) : null),
+      round_scores: r.rounds.length ? r.rounds : null,
+      points: null,
+    }));
+  return {
+    event: {
+      id: `ajga:${ev.id}`,
+      tour_id: 'ajga',
+      name: ev.name,
+      start_date: ev.startDate,
+      end_date: ev.endDate,
+      course_name: ev.course ?? null,
+      city: ev.city ?? null,
+      url: `https://www.ajga.org/tournaments/${ev.id}/leaderboard`,
+      num_rounds: Math.max(0, ...rows.map((r) => r.rounds.length)) || null,
+      holes_per_round: 18,
+    },
+    results,
+  };
+}
+
+async function collectAjga() {
+  const listed = (await ajgaList()).filter((e) => e.startDate >= since);
+  const done = await finishedIds('ajga');
+  const todo = listed.filter((e) => e.endDate < today && !done.has(`ajga:${e.id}`));
+  console.log(`AJGA: ${listed.length} events since ${since}, ${todo.length} to read`);
+  let n = 0;
+  for (const ev of todo.slice(0, limit)) {
+    try {
+      const html = await politeFetch(`https://www.ajga.org/tournaments/${ev.id}/leaderboard`);
+      if (!html) continue;
+      const { event, results } = ajgaEvent(ev, html);
+      if (!results.length) console.log(`  ${ev.startDate} ${ev.name}: no results shown, skipped`);
+      else {
+        await save(event, results);
+        console.log(`  ${ev.startDate} ${ev.name}: ${results.length} results`);
+        n++;
+      }
+    } catch (e) {
+      console.log(`  ${ev.startDate} ${ev.name}: failed (${(e as Error).message})`);
+    }
+    await pause(4000); // polite pace
+  }
+  console.log(`AJGA: saved ${n} events`);
+}
+
 /* ---------------------------------------------------------------------------- */
 
-const browser = await chromium.launch();
-try {
-  const context = await browser.newContext({ userAgent: USER_AGENT });
-  const blocked = await blockDisallowed(context);
-  const page = await context.newPage();
-  if (!only || only === 'hjgt') await collectHjgt(page);
-  if (!only || only === 'tga') await collectTga(page);
-  if (blocked.length) console.log(`Blocked by robots.txt (not loaded): ${[...new Set(blocked.map((u) => new URL(u).origin + new URL(u).pathname))].slice(0, 20).join(', ')}`);
-} finally {
-  await browser.close();
+if (!only || only === 'ajga') await collectAjga(); // plain fetch, no browser needed
+
+if (!only || only === 'hjgt' || only === 'tga') {
+  const browser = await chromium.launch();
+  try {
+    const context = await browser.newContext({ userAgent: USER_AGENT });
+    const blocked = await blockDisallowed(context);
+    const page = await context.newPage();
+    if (!only || only === 'hjgt') await collectHjgt(page);
+    if (!only || only === 'tga') await collectTga(page);
+    if (blocked.length) console.log(`Blocked by robots.txt (not loaded): ${[...new Set(blocked.map((u) => new URL(u).origin + new URL(u).pathname))].slice(0, 20).join(', ')}`);
+  } finally {
+    await browser.close();
+  }
 }
