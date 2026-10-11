@@ -92,13 +92,13 @@ GitHub/console settings, and keep replies short.
   completed-events list, so an event isn't collected until the day after it ends).
   Tables have RLS with no policies: the app reads only via `search_results(key)` (signed in, full name, ≤200 rows)
   and `result_holes(id)`. Names are matched with `scraper/results/names.ts` (shared by app and collector).
-- **AJGA has no hole-by-hole available to us, live or archived.** Its public leaderboard (live or finished)
-  only ever shows each round's total strokes, which is all `scraper/results/ajga.ts` stores. Each player also
-  has a `/tournaments2/details/<id>` link that looks like a full scorecard, but it 404s on a direct load and,
-  checked directly against a live event with `peek.ts`'s click-through support, still doesn't navigate anywhere
-  even clicked in-session from the leaderboard -- it needs an AJGA account login, not just the event being
-  over. So scraping AJGA more often (e.g. daily while an event is in progress, instead of once it's finished)
-  would not unlock hole-by-hole; the gate is the login wall, not event timing.
+- **AJGA hole-by-hole is publicly available, but not through `scraper/results/ajga.ts` yet.** Clicking a
+  player's name on `/tournaments/<id>/leaderboard` opens an in-page scorecard modal (par/yardage/score per
+  hole, one tab per round) with no login needed -- confirmed directly against a live event with `peek.ts`'s
+  click-through support (its third argument). The modal is reached by clicking the row, not by navigating to
+  the `/tournaments2/details/<id>` link each row also has (that 404s standalone). Capturing it needs browser
+  automation (the leaderboard page + a click per player, unlike the plain `fetch()` the collector uses today)
+  -- not built yet; see "Open ideas" below.
 - Every browser request goes through `scraper/polite.ts`, which aborts anything robots.txt disallows. **US Kids results
   (TourCaddiePro `/plugins/links/admin/`) are disallowed**: covered by Paste results on an event
   (`src/lib/resultsPaste.ts`) until US Kids gives permission (asked at tournaments@uskidsgolf.com).
