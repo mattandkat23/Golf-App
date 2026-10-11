@@ -9,9 +9,7 @@
  */
 import fs from 'node:fs';
 import { chromium } from 'playwright-core';
-import { robotsAllows } from './lib.ts';
-
-const USER_AGENT = 'Mozilla/5.0 (compatible; GolfTrackerBot/1.0; +https://github.com/mattandkat23/Golf-App)';
+import { USER_AGENT, allowed, blockDisallowed } from './polite.ts';
 const click = process.env.CLICK;
 const select = process.env.SELECT;
 let netLog: string[] = [];
@@ -19,7 +17,9 @@ fs.mkdirSync('dumps', { recursive: true });
 const slug = (u: string) => u.replace(/^https?:\/\//, '').replace(/[^a-z0-9]+/gi, '-').slice(0, 100);
 
 const browser = await chromium.launch();
-const page = await (await browser.newContext({ userAgent: USER_AGENT })).newPage();
+const context = await browser.newContext({ userAgent: USER_AGENT });
+const blocked = await blockDisallowed(context);
+const page = await context.newPage();
 page.on('response', async (r) => {
   const type = r.request().resourceType();
   if (type !== 'xhr' && type !== 'fetch') return;
@@ -39,9 +39,7 @@ async function save(name: string) {
 }
 
 for (const url of process.argv.slice(2)) {
-  const u = new URL(url);
-  const robots = await fetch(`${u.origin}/robots.txt`, { headers: { 'user-agent': USER_AGENT } }).then((r) => (r.ok ? r.text() : ''));
-  if (!robotsAllows(robots, u.pathname + u.search)) {
+  if (!(await allowed(url))) {
     console.log(`robots.txt disallows ${url}`);
     continue;
   }
@@ -73,7 +71,7 @@ for (const url of process.argv.slice(2)) {
       await save(`${name}.click${i}`);
     }
   }
-  fs.writeFileSync(`dumps/${name}.network.txt`, netLog.join('\n'));
+  fs.writeFileSync(`dumps/${name}.network.txt`, [...blocked.splice(0).map((b) => `BLOCKED by robots.txt: ${b}\n`), ...netLog].join('\n'));
   await page.waitForTimeout(3000); // be polite between pages
 }
 await browser.close();

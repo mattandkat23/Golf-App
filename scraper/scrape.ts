@@ -14,6 +14,7 @@ import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 import { z } from 'zod';
 import { chromium, type Browser } from 'playwright-core';
 import { type EventsFile, type ScrapedEvent, hashText, mergeEventsFile, normalizeEvents, robotsAllows, robotsCrawlDelay } from './lib.ts';
+import { blockDisallowed } from './polite.ts';
 
 // Paths can be overridden for local testing.
 const EVENTS_PATH = process.env.SCRAPER_EVENTS_PATH ?? 'public/events.json';
@@ -104,6 +105,7 @@ async function politeWait(url: string) {
 
 async function renderPage(browser: Browser, url: string) {
   const ctx = await browser.newContext({ userAgent: USER_AGENT });
+  await blockDisallowed(ctx); // also skip data feeds the page would call that robots.txt disallows
   const page = await ctx.newPage();
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 });
