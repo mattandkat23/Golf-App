@@ -1,0 +1,3844 @@
+<!-- HTTP 200 text/html;charset=UTF-8 -->
+
+<div class="CourseTable" data-nineHoleCourse="false">
+
+    
+
+    
+        
+    <div class="CourseTableScorecardTabs"
+         data-widget="Tabs"
+         data-dropdown-mobile-design
+         data-no-anchors
+         data-default-active-tab="round-3">
+        
+        <!-- This creates the row of tabs for navigation -->
+        
+            <div class="CourseTableScorecardTabs-tabsWrapper">
+                <ul class="CourseTableScorecardTabs-tabs" data-tab-dropdown
+                    >
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-1"
+                               data-tab
+                               data-tab-id="round-1"
+                            >Round 1</a>
+                        </li>
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-2"
+                               data-tab
+                               data-tab-id="round-2"
+                            >Round 2</a>
+                        </li>
+                    
+                        <li class="CourseTableScorecardTabs-tabListItem">
+                            <a class="CourseTableScorecardTabs-tab" href="#round-3"
+                               data-tab
+                               data-tab-id="round-3"
+                            >Round 3</a>
+                        </li>
+                    
+                    <li class="CourseTableScorecardTabs-tabListItem" data-dropdown-icon>
+                        <div class="CourseTableScorecardTabs-quiver">
+                            <svg class="icon-dropdown CourseTableScorecardTabs-dropdownIcon">
+                                <use xlink:href="#icon-dropdown"/>
+                            </svg>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        
+        <div class="CourseTableScorecardTabs-content">
+            
+                <div class="CourseTableScorecardTabs-panel" id="round-1" data-tab-panel>
+                    
+                        <div class="CourseTableScorecardTabs-title">Round 1</div>
+                    
+                    <div class="CourseTableScorecardTabs-playerPanel">
+                        <div class="CourseTableScorecardTabs-playerPanelContents">
+                            <div class="CourseTableScorecardTabs-playerImage">
+                                
+                                    
+                                        
+                                            
+    <img class="Image" data-image-size="scorecardAvatar" alt="Beckett McLaughlin with trophy - 2026 Callaway Junior All-Star" srcset="https://ajga.brightspotcdn.com/dims4/default/68fd2e4/2147483647/strip/true/crop/1314x1314+2115+480/resize/200x200!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG 2x" width="100" height="100"
+         src="https://ajga.brightspotcdn.com/dims4/default/8efe8a4/2147483647/strip/true/crop/1314x1314+2115+480/resize/100x100!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG"
+        >
+
+                                        
+                                    
+                                
+                            </div>
+
+                            
+                                <div class="CourseTableScorecardTabs-playerDetails">
+                                    
+                                        <div class="CourseTableScorecardTabs-playerName">Beckett McLaughlin</div>
+                                    
+
+                                    
+                                        <p class="CourseTableScorecardTabs-affiliation">Austin, Texas (2030)</p>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="CourseTableScorecardTabItem">
+    
+        <div class="CourseTableScorecardTabItem-content">
+            
+<div class="CourseTableScorecardRound-contents">
+        <table class="CourseTableScorecardRound-table">
+            <thead>
+            <tr>
+                
+                
+                    
+                        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Hole</span>
+    </div>
+
+</td>
+
+                    
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >1</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >2</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >7</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >8</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >9</span>
+    </div>
+
+</td>
+
+
+                
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Out</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >10</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >11</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >12</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >13</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >14</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >15</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >16</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >17</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >18</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >In</span>
+    </div>
+
+</td>
+
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Total</span>
+    </div>
+
+</td>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Par</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >72</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+
+            
+                
+                    <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Yardage</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >526</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >378</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >189</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >181</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >163</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >466</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3399</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >360</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >176</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >559</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >432</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >511</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >439</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >175</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >370</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3450</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6849</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+                
+            
+
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Score</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="eagle">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >2</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >33</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="double-bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >69</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+            </tbody>
+        </table>
+
+</div>
+
+    <div class="CourseTableScorecardRound-legend">
+        <ul class="CourseTableScorecardRound-legendList">
+            <!-- <li data-status='start-hole'>Start Hole</li> -->
+            <li class="CourseTableScorecardRound-legendItem" data-status='eagle'>Eagle or Better</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='birdie'>Birdie</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='par'>Par</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='bogie'>Bogey</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='double-bogie'>Double Bogey or Worse</li>
+        </ul>
+    </div>
+
+
+        </div>
+    
+</div>
+                </div>
+            
+                <div class="CourseTableScorecardTabs-panel" id="round-2" data-tab-panel>
+                    
+                        <div class="CourseTableScorecardTabs-title">Round 2</div>
+                    
+                    <div class="CourseTableScorecardTabs-playerPanel">
+                        <div class="CourseTableScorecardTabs-playerPanelContents">
+                            <div class="CourseTableScorecardTabs-playerImage">
+                                
+                                    
+                                        
+                                            
+    <img class="Image" data-image-size="scorecardAvatar" alt="Beckett McLaughlin with trophy - 2026 Callaway Junior All-Star" srcset="https://ajga.brightspotcdn.com/dims4/default/68fd2e4/2147483647/strip/true/crop/1314x1314+2115+480/resize/200x200!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG 2x" width="100" height="100"
+         src="https://ajga.brightspotcdn.com/dims4/default/8efe8a4/2147483647/strip/true/crop/1314x1314+2115+480/resize/100x100!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG"
+        >
+
+                                        
+                                    
+                                
+                            </div>
+
+                            
+                                <div class="CourseTableScorecardTabs-playerDetails">
+                                    
+                                        <div class="CourseTableScorecardTabs-playerName">Beckett McLaughlin</div>
+                                    
+
+                                    
+                                        <p class="CourseTableScorecardTabs-affiliation">Austin, Texas (2030)</p>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="CourseTableScorecardTabItem">
+    
+        <div class="CourseTableScorecardTabItem-content">
+            
+<div class="CourseTableScorecardRound-contents">
+        <table class="CourseTableScorecardRound-table">
+            <thead>
+            <tr>
+                
+                
+                    
+                        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Hole</span>
+    </div>
+
+</td>
+
+                    
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >1</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >2</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >7</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >8</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >9</span>
+    </div>
+
+</td>
+
+
+                
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Out</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >10</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >11</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >12</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >13</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >14</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >15</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >16</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >17</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >18</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >In</span>
+    </div>
+
+</td>
+
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Total</span>
+    </div>
+
+</td>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Par</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >72</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+
+            
+                
+                    <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Yardage</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >526</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >378</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >189</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >181</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >163</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >466</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3399</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >360</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >176</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >559</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >432</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >511</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >439</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >175</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >370</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3450</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6849</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+                
+            
+
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Score</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >35</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="double-bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >7</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="double-bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >2</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >71</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+            </tbody>
+        </table>
+
+</div>
+
+    <div class="CourseTableScorecardRound-legend">
+        <ul class="CourseTableScorecardRound-legendList">
+            <!-- <li data-status='start-hole'>Start Hole</li> -->
+            <li class="CourseTableScorecardRound-legendItem" data-status='eagle'>Eagle or Better</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='birdie'>Birdie</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='par'>Par</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='bogie'>Bogey</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='double-bogie'>Double Bogey or Worse</li>
+        </ul>
+    </div>
+
+
+        </div>
+    
+</div>
+                </div>
+            
+                <div class="CourseTableScorecardTabs-panel" id="round-3" data-tab-panel>
+                    
+                        <div class="CourseTableScorecardTabs-title">Round 3</div>
+                    
+                    <div class="CourseTableScorecardTabs-playerPanel">
+                        <div class="CourseTableScorecardTabs-playerPanelContents">
+                            <div class="CourseTableScorecardTabs-playerImage">
+                                
+                                    
+                                        
+                                            
+    <img class="Image" data-image-size="scorecardAvatar" alt="Beckett McLaughlin with trophy - 2026 Callaway Junior All-Star" srcset="https://ajga.brightspotcdn.com/dims4/default/68fd2e4/2147483647/strip/true/crop/1314x1314+2115+480/resize/200x200!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG 2x" width="100" height="100"
+         src="https://ajga.brightspotcdn.com/dims4/default/8efe8a4/2147483647/strip/true/crop/1314x1314+2115+480/resize/100x100!/quality/90/?url=https%3A%2F%2Fajga-brightspot.s3.us-east-2.amazonaws.com%2Fc0%2F11%2F562cb0644b0687302c4eae09d829%2Fbeckett-with-trophy-2026-callaway-junior-all-stars-1.JPG"
+        >
+
+                                        
+                                    
+                                
+                            </div>
+
+                            
+                                <div class="CourseTableScorecardTabs-playerDetails">
+                                    
+                                        <div class="CourseTableScorecardTabs-playerName">Beckett McLaughlin</div>
+                                    
+
+                                    
+                                        <p class="CourseTableScorecardTabs-affiliation">Austin, Texas (2030)</p>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="CourseTableScorecardTabItem">
+    
+        <div class="CourseTableScorecardTabItem-content">
+            
+<div class="CourseTableScorecardRound-contents">
+        <table class="CourseTableScorecardRound-table">
+            <thead>
+            <tr>
+                
+                
+                    
+                        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Hole</span>
+    </div>
+
+</td>
+
+                    
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >1</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >2</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >7</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >8</span>
+    </div>
+
+</td>
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >9</span>
+    </div>
+
+</td>
+
+
+                
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Out</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >10</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >11</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >12</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >13</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >14</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >15</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >16</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >17</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >18</span>
+    </div>
+
+</td>
+
+                    <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >In</span>
+    </div>
+
+</td>
+
+                
+
+                <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Total</span>
+    </div>
+
+</td>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Par</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >72</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+
+            
+                
+                    <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Yardage</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >526</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >378</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >189</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >181</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >534</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >163</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >466</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3399</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >360</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >176</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >559</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >432</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >511</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >439</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >175</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >370</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >428</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3450</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6849</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+                
+            
+
+            
+                <tr class="CourseTableScorecardRound-row "  >
+    
+        <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="row label"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >Score</span>
+    </div>
+
+</td>
+
+    
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="0"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="1"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="2"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="3"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="4"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="5"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="6"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="7"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="8"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="out"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >35</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="10"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="11"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="12"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >5</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="13"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="double-bogie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >6</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="14"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="birdie">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="15"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="16"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >3</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="17"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="18"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell" data-status="par">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >4</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="in"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >36</span>
+    </div>
+
+</td>
+
+        
+    
+        
+            <td class="CourseTableCell CourseTableScorecardRound-td " data-winning-color="" 
+    data-cell="total"
+    >
+    
+    <div class="CourseTableCell-cell CourseTableScorecardRound-cell">
+        
+        <span class="CourseTableCell-cellText CourseTableScorecardRound-cellText" >71</span>
+    </div>
+
+</td>
+
+        
+    
+</tr>
+
+            
+            </tbody>
+        </table>
+
+</div>
+
+    <div class="CourseTableScorecardRound-legend">
+        <ul class="CourseTableScorecardRound-legendList">
+            <!-- <li data-status='start-hole'>Start Hole</li> -->
+            <li class="CourseTableScorecardRound-legendItem" data-status='eagle'>Eagle or Better</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='birdie'>Birdie</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='par'>Par</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='bogie'>Bogey</li>
+            <li class="CourseTableScorecardRound-legendItem" data-status='double-bogie'>Double Bogey or Worse</li>
+        </ul>
+    </div>
+
+
+        </div>
+    
+</div>
+                </div>
+            
+        </div>
+    </div>
+
+    
+</div>
