@@ -7,11 +7,14 @@
 import type { Frame, Page } from 'playwright-core';
 import { parseDateRange } from './hjgt.ts';
 
-/** The live season page plus archived copies covering earlier seasons (Dec 2024, Jun and Oct 2025). */
+/**
+ * The live season page plus archived copies of earlier seasons' pages: 2025 lived at /2025-ljt-landing/
+ * (copies from Oct and Jun 2025) and 2024 at /ljt-landing/ (Dec 2024).
+ */
 export const TGA_LIST_PAGES = [
   'https://txga.org/ljt-landing/',
-  'https://web.archive.org/web/20251009172713id_/https://txga.org/ljt-landing/',
-  'https://web.archive.org/web/20250614141651id_/https://txga.org/ljt-landing/',
+  'https://web.archive.org/web/20251016070642id_/https://txga.org/2025-ljt-landing/',
+  'https://web.archive.org/web/20250609072649id_/https://txga.org/2025-ljt-landing/',
   'https://web.archive.org/web/20241206201022id_/https://txga.org/ljt-landing/',
 ];
 

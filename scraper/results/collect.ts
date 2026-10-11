@@ -255,13 +255,17 @@ async function tgaEvent(page: Page, ev: TgaListed): Promise<{ event: EventRow; r
 async function collectTga(page: Page) {
   const listed = (await tgaList()).filter((e) => e.startDate >= since);
   const done = await finishedIds('tga-ljt');
-  const todo = listed.filter((e) => (e.endDate ?? e.startDate) < today && !done.has(`tga:${e.pageId}`));
+  const todo = listed.filter((e) => (e.endDate ?? e.startDate) < today && (!done.has(`tga:${e.pageId}`) || /match play/i.test(e.name)));
   console.log(`TGA: ${listed.length} junior events since ${since}, ${todo.length} to read`);
   let n = 0;
   for (const ev of todo.slice(0, limit)) {
     try {
       const { event, results } = await tgaEvent(page, ev);
-      if (!results.length) console.log(`  ${ev.startDate} ${ev.name}: no stroke-play results shown, skipped`);
+      // Match play (and pages without a leaderboard) have no round scores to keep.
+      if (results.filter((r) => r.round_scores).length < Math.max(3, results.length / 2)) {
+        await db.from('result_events').delete().eq('id', `tga:${ev.pageId}`);
+        console.log(`  ${ev.startDate} ${ev.name}: no stroke-play results shown, skipped`);
+      }
       else {
         await save(event, results);
         console.log(`  ${ev.startDate} ${ev.name}: ${results.length} results`);
