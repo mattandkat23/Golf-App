@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-11T10:32:25.506Z",
+ "generatedAt": "2026-10-11T18:16:03.466Z",
  "sources": {
   "usk-austin": {
    "checkedAt": "2026-10-11T10:32:25.506Z",
@@ -60,6 +60,11 @@
    "checkedAt": "2026-10-11T10:32:25.506Z",
    "ok": true,
    "eventCount": 0
+  },
+  "ntpga": {
+   "checkedAt": "2026-10-11T18:16:03.466Z",
+   "ok": true,
+   "eventCount": 63
   }
  },
  "events": [
@@ -95,6 +100,15 @@
    "city": "Aiea, HI",
    "url": "https://www.ajga.org/tournaments/2026146",
    "level": "Other"
+  },
+  {
+   "id": "ntpga-2026-10-10-12re8ph",
+   "tourId": "ntpga",
+   "name": "AAT: Grand Prairie Classic",
+   "startDate": "2026-10-10",
+   "endDate": "2026-10-11",
+   "courseName": "Tangle Ridge GC",
+   "city": "Grand Prairie"
   },
   {
    "id": "usk-regional-2026-10-10-12y7mbq",
@@ -137,6 +151,127 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-10-11-5qynjr",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 517",
+   "startDate": "2026-10-11",
+   "courseName": "Watters Creek",
+   "city": "Plano"
+  },
+  {
+   "id": "ntpga-2026-10-11-p07dgw",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 523",
+   "startDate": "2026-10-11",
+   "courseName": "Fields Ranch- The Swing",
+   "city": "Frisco"
+  },
+  {
+   "id": "ntpga-2026-10-12-1a3x208",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: East 603",
+   "startDate": "2026-10-12",
+   "courseName": "Hollytree CC",
+   "city": "Tyler"
+  },
+  {
+   "id": "ntpga-2026-10-12-lchoe8",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 618",
+   "startDate": "2026-10-12",
+   "courseName": "Brookhaven CC",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-10-12-1g6tteh",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West 604",
+   "startDate": "2026-10-12",
+   "courseName": "Reese Golf Center",
+   "city": "Lubbock"
+  },
+  {
+   "id": "ntpga-2026-10-12-7mwho3",
+   "tourId": "ntpga",
+   "name": "Prep Tour: East 503",
+   "startDate": "2026-10-12",
+   "courseName": "Hollytree CC",
+   "city": "Tyler"
+  },
+  {
+   "id": "ntpga-2026-10-12-1jq4o9n",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 518",
+   "startDate": "2026-10-12",
+   "courseName": "Brookhaven CC",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-10-12-1tgofk2",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 504",
+   "startDate": "2026-10-12",
+   "courseName": "Reese Golf Center",
+   "city": "Lubbock"
+  },
+  {
+   "id": "ntpga-2026-10-13-lag70b",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 519",
+   "startDate": "2026-10-13",
+   "courseName": "The Golf Ranch",
+   "city": "Richardson"
+  },
+  {
+   "id": "ntpga-2026-10-14-1l0tkve",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 605",
+   "startDate": "2026-10-14",
+   "courseName": "Watters Creek",
+   "city": "Plano"
+  },
+  {
+   "id": "ntpga-2026-10-15-167ym47",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 531",
+   "startDate": "2026-10-15",
+   "courseName": "Lake Park Executive GC",
+   "city": "Lewisville"
+  },
+  {
+   "id": "ntpga-2026-10-17-18vbhlb",
+   "tourId": "ntpga",
+   "name": "AAT: Holston Academy Fall Masters",
+   "startDate": "2026-10-17",
+   "endDate": "2026-10-18",
+   "courseName": "Cedar Crest GC",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-10-17-1cf939x",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 520",
+   "startDate": "2026-10-17",
+   "courseName": "Prairie Lakes GC",
+   "city": "Grand Prairie"
+  },
+  {
+   "id": "ntpga-2026-10-18-13t2c85",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 617",
+   "startDate": "2026-10-18",
+   "courseName": "Rusted Rail GC",
+   "city": "Crandall"
+  },
+  {
+   "id": "ntpga-2026-10-18-hr5c4y",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West 605",
+   "startDate": "2026-10-18",
+   "courseName": "John Pitman Municipal GC",
+   "city": "Hereford"
+  },
+  {
    "id": "usk-houston-2026-10-18-1inqa8n",
    "tourId": "usk-houston",
    "name": "Northgate Country Club",
@@ -147,6 +282,31 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-10-18-1pan2yj",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 521",
+   "startDate": "2026-10-18",
+   "courseName": "The Golf Ranch",
+   "city": "Richardson"
+  },
+  {
+   "id": "ntpga-2026-10-18-7ayd9l",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 505",
+   "startDate": "2026-10-18",
+   "courseName": "John Pitman Municipal GC",
+   "city": "Hereford"
+  },
+  {
+   "id": "ntpga-2026-10-24-17qrhas",
+   "tourId": "ntpga",
+   "name": "AAT: Cookie Society Richardson Round Up",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-25",
+   "courseName": "Sherrill Park GC",
+   "city": "Richardson"
+  },
+  {
    "id": "usk-houston-2026-10-24-mqcf07",
    "tourId": "usk-houston",
    "name": "Grand Lake Golf Club",
@@ -155,6 +315,36 @@
    "registrationDeadline": "2026-10-21",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519076/grand-lake-golf-club",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-10-24-tg13vu",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 606",
+   "startDate": "2026-10-24",
+   "courseName": "Keeton Park GC",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-10-24-fwe3zy",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West 606",
+   "startDate": "2026-10-24",
+   "city": "Midland"
+  },
+  {
+   "id": "ntpga-2026-10-24-1lfw71z",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 522",
+   "startDate": "2026-10-24",
+   "courseName": "Timberlinks GC",
+   "city": "Denton"
+  },
+  {
+   "id": "ntpga-2026-10-24-uq0339",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 506",
+   "startDate": "2026-10-24",
+   "city": "Midland"
   },
   {
    "id": "tga-ljt-2026-10-24-jm4j0x",
@@ -178,6 +368,22 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-10-25-djz5d7",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: East 604",
+   "startDate": "2026-10-25",
+   "courseName": "Crown Colony CC",
+   "city": "Lufkin"
+  },
+  {
+   "id": "ntpga-2026-10-25-1u1goju",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 607",
+   "startDate": "2026-10-25",
+   "courseName": "Indian Creek GC",
+   "city": "Carrollton"
+  },
+  {
    "id": "usk-austin-2026-10-25-1mj6mut",
    "tourId": "usk-austin",
    "name": "Mill Creek Golf Club",
@@ -186,6 +392,47 @@
    "registrationDeadline": "2026-10-22",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519219/mill-creek-golf-club",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-10-25-q2sru8",
+   "tourId": "ntpga",
+   "name": "Prep Tour: East 504",
+   "startDate": "2026-10-25",
+   "courseName": "Crown Colony CC",
+   "city": "Lufkin"
+  },
+  {
+   "id": "ntpga-2026-10-25-aq434k",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 513",
+   "startDate": "2026-10-25",
+   "courseName": "The Golf Ranch",
+   "city": "Richardson"
+  },
+  {
+   "id": "ntpga-2026-10-31-1dkvog0",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 608",
+   "startDate": "2026-10-31",
+   "courseName": "The GC of Dallas",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-10-31-1jaacbr",
+   "tourId": "ntpga",
+   "name": "TPC Danzante Bay Trick or Tees Classic",
+   "startDate": "2026-10-31",
+   "endDate": "2026-11-01",
+   "courseName": "Luna Vista GC",
+   "city": "Dallas"
+  },
+  {
+   "id": "ntpga-2026-11-01-f59f37",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 609",
+   "startDate": "2026-11-01",
+   "courseName": "WestRidge GC",
+   "city": "McKinney"
   },
   {
    "id": "usk-el-paso-2026-11-01-13kewlp",
@@ -208,6 +455,21 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-11-01-17g2vx3",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 524",
+   "startDate": "2026-11-01",
+   "courseName": "The Golf Ranch",
+   "city": "Richardson"
+  },
+  {
+   "id": "ntpga-2026-11-01-1xbg3aa",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 507",
+   "startDate": "2026-11-01",
+   "city": "Midland"
+  },
+  {
    "id": "usk-regional-2026-11-07-cs82m2",
    "tourId": "usk-regional",
    "name": "Colonial Williamsburg Classic",
@@ -227,6 +489,15 @@
    "level": "Regional"
   },
   {
+   "id": "ntpga-2026-11-07-1ji8avf",
+   "tourId": "ntpga",
+   "name": "GG WHOSNEXT Major @ Hawks Creek",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "courseName": "Hawks Creek GC",
+   "city": "Westworth Village"
+  },
+  {
    "id": "tga-ljt-2026-11-07-r4drxn",
    "tourId": "tga-ljt",
    "name": "Jackie Burke Cup",
@@ -236,6 +507,14 @@
    "city": "Bullard",
    "url": "https://txga.org/2025-jackie-burke-cup",
    "level": "State"
+  },
+  {
+   "id": "ntpga-2026-11-07-1w78pzh",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 610",
+   "startDate": "2026-11-07",
+   "courseName": "Prairie Lakes GC",
+   "city": "Grand Prairie"
   },
   {
    "id": "usk-regional-2026-11-07-19s0bnl",
@@ -257,6 +536,29 @@
    "level": "Regional"
   },
   {
+   "id": "ntpga-2026-11-07-1kbif00",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 525",
+   "startDate": "2026-11-07",
+   "courseName": "Watters Creek",
+   "city": "Plano"
+  },
+  {
+   "id": "ntpga-2026-11-08-4j9ts7",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: East 606",
+   "startDate": "2026-11-08",
+   "courseName": "Holly Lake Ranch GC"
+  },
+  {
+   "id": "ntpga-2026-11-08-1ghvwhc",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West 607",
+   "startDate": "2026-11-08",
+   "courseName": "Canyon CC",
+   "city": "Canyon"
+  },
+  {
    "id": "usk-houston-2026-11-08-1ino2dz",
    "tourId": "usk-houston",
    "name": "Northgate Country Club",
@@ -267,6 +569,53 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-11-08-z3f3rw",
+   "tourId": "ntpga",
+   "name": "Prep Tour: East 506",
+   "startDate": "2026-11-08",
+   "courseName": "Holly Lake Ranch GC"
+  },
+  {
+   "id": "ntpga-2026-11-08-1ggpzks",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 526",
+   "startDate": "2026-11-08",
+   "city": "Garland"
+  },
+  {
+   "id": "ntpga-2026-11-08-k12pj1",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 527",
+   "startDate": "2026-11-08",
+   "courseName": "Fields Ranch- The Swing",
+   "city": "Frisco"
+  },
+  {
+   "id": "ntpga-2026-11-08-10b5zic",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 508",
+   "startDate": "2026-11-08",
+   "courseName": "Canyon CC",
+   "city": "Canyon"
+  },
+  {
+   "id": "ntpga-2026-11-14-syiq1o",
+   "tourId": "ntpga",
+   "name": "AAT: Srixon/Cleveland Plano Showdown",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-15",
+   "courseName": "Watters Creek",
+   "city": "Plano"
+  },
+  {
+   "id": "ntpga-2026-11-14-a1k70u",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 611",
+   "startDate": "2026-11-14",
+   "courseName": "Squaw Creek GC",
+   "city": "Willow Park"
+  },
+  {
    "id": "usk-dallas-2026-11-14-fve1n8",
    "tourId": "usk-dallas",
    "name": "Oak Hollow Golf Course",
@@ -275,6 +624,14 @@
    "registrationDeadline": "2026-11-11",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519045/oak-hollow-golf-course",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-11-14-o8w2yn",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 528",
+   "startDate": "2026-11-14",
+   "courseName": "The Golf Ranch",
+   "city": "Richardson"
   },
   {
    "id": "usk-houston-2026-11-15-15z0ey5",
@@ -297,6 +654,54 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-11-15-1e5gxu0",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: East 605",
+   "startDate": "2026-11-15",
+   "courseName": "Lake Fork GC",
+   "city": "Emory"
+  },
+  {
+   "id": "ntpga-2026-11-15-66rrqk",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 612",
+   "startDate": "2026-11-15",
+   "courseName": "Tangle Ridge GC",
+   "city": "Grand Prairie"
+  },
+  {
+   "id": "ntpga-2026-11-15-cucmr",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West 608",
+   "startDate": "2026-11-15",
+   "courseName": "Pampa CC",
+   "city": "Pampa"
+  },
+  {
+   "id": "ntpga-2026-11-15-12y7j4j",
+   "tourId": "ntpga",
+   "name": "Prep Tour: East 505",
+   "startDate": "2026-11-15",
+   "courseName": "Lake Fork GC",
+   "city": "Emory"
+  },
+  {
+   "id": "ntpga-2026-11-15-114blwf",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 529",
+   "startDate": "2026-11-15",
+   "courseName": "Prairie Lakes GC",
+   "city": "Grand Prairie"
+  },
+  {
+   "id": "ntpga-2026-11-15-1d6liix",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West 509",
+   "startDate": "2026-11-15",
+   "courseName": "Pampa CC",
+   "city": "Pampa"
+  },
+  {
    "id": "usk-dallas-2026-11-15-gu436v",
    "tourId": "usk-dallas",
    "name": "WestRidge Golf Course",
@@ -305,6 +710,31 @@
    "registrationDeadline": "2026-11-12",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519046/westridge-golf-course",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-11-21-g5jx9q",
+   "tourId": "ntpga",
+   "name": "Destination Grapevine Dynamic Duo",
+   "startDate": "2026-11-21",
+   "endDate": "2026-11-22",
+   "courseName": "Grapevine GC- P/M",
+   "city": "Grapevine"
+  },
+  {
+   "id": "ntpga-2026-11-21-18s8jmy",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 613",
+   "startDate": "2026-11-21",
+   "courseName": "Cross Timbers GC",
+   "city": "Azle"
+  },
+  {
+   "id": "ntpga-2026-11-21-1r83aa5",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 614",
+   "startDate": "2026-11-21",
+   "courseName": "Lakes Course at Firewheel",
+   "city": "Garland"
   },
   {
    "id": "usk-dallas-2026-11-21-fve1rm",
@@ -348,6 +778,30 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-11-22-1t086fp",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: East Area Championship",
+   "startDate": "2026-11-22",
+   "courseName": "Eagle's Bluff CC",
+   "city": "Bullard"
+  },
+  {
+   "id": "ntpga-2026-11-22-52ere7",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro 615",
+   "startDate": "2026-11-22",
+   "courseName": "Sherrill Park GC",
+   "city": "Richardson"
+  },
+  {
+   "id": "ntpga-2026-11-22-1fpgef7",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: West Area Championship",
+   "startDate": "2026-11-22",
+   "courseName": "Ratliff Ranch Golf Links",
+   "city": "Odessa"
+  },
+  {
    "id": "usk-el-paso-2026-11-22-hcricu",
    "tourId": "usk-el-paso",
    "name": "New Mexico State University Golf Course (Tour Championship)",
@@ -356,6 +810,30 @@
    "registrationDeadline": "2026-11-19",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519395/new-mexico-state-university-golf-course-tour-championship",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-11-22-1aw39m5",
+   "tourId": "ntpga",
+   "name": "Prep Tour: East Area Championship",
+   "startDate": "2026-11-22",
+   "courseName": "Eagle's Bluff CC",
+   "city": "Bullard"
+  },
+  {
+   "id": "ntpga-2026-11-22-5mgthv",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro 530",
+   "startDate": "2026-11-22",
+   "courseName": "Watters Creek",
+   "city": "Plano"
+  },
+  {
+   "id": "ntpga-2026-11-22-1o02nsr",
+   "tourId": "ntpga",
+   "name": "Prep Tour: West Area Championship",
+   "startDate": "2026-11-22",
+   "courseName": "Ratliff Ranch Golf Links",
+   "city": "Odessa"
   },
   {
    "id": "usk-dallas-2026-11-23-1eo0vm3",
@@ -377,6 +855,23 @@
    "city": "Universal City",
    "url": "https://txga.org/2026-alamo-shootout",
    "level": "State"
+  },
+  {
+   "id": "ntpga-2026-12-05-gjwk1z",
+   "tourId": "ntpga",
+   "name": "Good Good WHO'S NEXT FW Major",
+   "startDate": "2026-12-05",
+   "endDate": "2026-12-06",
+   "courseName": "Lakes Course at Firewheel",
+   "city": "Garland"
+  },
+  {
+   "id": "ntpga-2026-12-05-1keugqx",
+   "tourId": "ntpga",
+   "name": "Prep Tour: Metro Area Championship",
+   "startDate": "2026-12-05",
+   "courseName": "Prairie Lakes GC",
+   "city": "Grand Prairie"
   },
   {
    "id": "ajga-2026-12-05-oqxn4o",
@@ -422,6 +917,14 @@
    "level": "Local"
   },
   {
+   "id": "ntpga-2026-12-06-i31q9e",
+   "tourId": "ntpga",
+   "name": "Medalist Tour: Metro Area Championship",
+   "startDate": "2026-12-06",
+   "courseName": "Prairie Lakes GC",
+   "city": "Grand Prairie"
+  },
+  {
    "id": "ajga-2026-12-06-1ielksu",
    "tourId": "ajga",
    "name": "The Amundi Evian Showcase - AJGA Open Championship",
@@ -443,6 +946,15 @@
    "ageGroups": "Boys & Girls 11-18",
    "url": "https://www.stpgajuniorgolf.com/junior-tour-fall-championship",
    "level": "Local"
+  },
+  {
+   "id": "ntpga-2026-12-12-10y54mg",
+   "tourId": "ntpga",
+   "name": "AAT: The Sports Palace Finale",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-13",
+   "courseName": "Sherrill Park GC",
+   "city": "Richardson"
   },
   {
    "id": "usk-houston-2026-12-13-16v189u",
