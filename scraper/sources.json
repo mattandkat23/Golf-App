@@ -92,6 +92,15 @@
     "maxPages": 3
   },
   {
+    "tourId": "under-armour",
+    "label": "The Junior Tour Powered by Under Armour – majors",
+    "startUrls": [
+      "https://www.uagolftour.com/"
+    ],
+    "hint": "The homepage text lists the season's 8 \"MAJOR RANKED CHAMPIONSHIPS\" directly (look for a line like 'The Junior Tour Powered by Under Armour - 2026 Schedule -' followed by lines starting '*MAJOR'), each with a date range and host resort/course -- put the course in courseName and its city/state in city. These are nationwide invite-only or qualify-through-league events, not Texas-local matches: only the majors are listed here (there's no page with specific dates for the regional Spring/Fall League local matches), so ignore the 'League Play' lines that have no specific date or course. If a newer season's schedule is linked, suggest it.",
+    "maxPages": 1
+  },
+  {
     "tourId": "tga-ljt",
     "label": "TGA / Legends Junior Tour",
     "startUrls": [
