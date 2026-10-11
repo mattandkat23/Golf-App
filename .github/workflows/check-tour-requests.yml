@@ -1,0 +1,45 @@
+name: Check tour requests
+
+# Flags new tour requests from parents (Events -> "Request a tour", scraper/check-tour-requests.ts) so
+# they don't sit unseen in the database. Runs daily; fails on purpose when there's something new so a
+# scheduled-run failure email goes out. The log always lists what was asked for either way.
+on:
+  schedule:
+    - cron: '0 13 * * *' # daily, ~8am Central
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-tour-requests
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: node --experimental-strip-types scraper/check-tour-requests.ts
+      - name: Commit checkpoint
+        if: always()
+        run: |
+          git config user.name "golf-tracker-bot"
+          git config user.email "golf-tracker-bot@users.noreply.github.com"
+          git add scraper/tour-requests-seen.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Checkpoint: tour requests seen"
+            git push
+          fi

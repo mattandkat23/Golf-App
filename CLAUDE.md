@@ -65,7 +65,10 @@ GitHub/console settings, and keep replies short.
   (`src/lib/importParse.ts`) and the scraper's own event builder (`scraper/lib.ts`), replacing that tour's
   events in `public/events.json` same as a real scrape would. Commit and push to deploy. Parents hit
   "Tour not listed here?" (Events → Available) to request a tour; requests land in the `tour_requests`
-  table (Supabase dashboard, or `SUPABASE_SECRET_KEY`) for review.
+  table. "Check tour requests" (daily, `scraper/check-tour-requests.ts`,
+  `.github/workflows/check-tour-requests.yml`) flags new ones by deliberately failing the job (so a
+  failed-scheduled-run email goes out) and listing them in the run log; `scraper/tour-requests-seen.json`
+  is its checkpoint, committed back each time there's something new.
 
 ## Results (`scraper/results/`, `.github/workflows/results.yml`, migration `*_results.sql`)
 
