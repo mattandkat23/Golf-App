@@ -1,0 +1,26 @@
+name: Fetch via Firecrawl
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Page URL to fetch'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - name: Fetch
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+          URL: ${{ inputs.url }}
+        run: python3 scripts/fetch_via_firecrawl.py "$URL"
