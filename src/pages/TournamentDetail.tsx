@@ -25,6 +25,7 @@ export default function TournamentDetail() {
   const { golfer } = useGolfer();
   const [optInBump, setOptInBump] = useState(0);
   const [savingOptIn, setSavingOptIn] = useState(false);
+  const [optInError, setOptInError] = useState('');
   const ajgaId = t?.tourId === 'ajga' ? t.url?.match(/\/tournaments\/(\w+)/)?.[1] : undefined;
   const liveTrackable = !!ajgaId && (!t?.endDate || t.endDate >= today());
   const optedIn = useLiveQuery(async () => {
@@ -40,10 +41,13 @@ export default function TournamentDetail() {
   async function toggleHoleTracking() {
     if (!session || !ajgaId || !t) return;
     setSavingOptIn(true);
-    if (optedIn) await supabase.from('ajga_hole_requests').delete().eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId);
-    else await supabase.from('ajga_hole_requests').insert({ user_id: session.user.id, golfer_name: golfer.playerName, tournament_id: ajgaId, tournament_name: t.name });
+    setOptInError('');
+    const { error } = optedIn
+      ? await supabase.from('ajga_hole_requests').delete().eq('golfer_name', golfer.playerName).eq('tournament_id', ajgaId)
+      : await supabase.from('ajga_hole_requests').insert({ user_id: session.user.id, golfer_name: golfer.playerName, tournament_id: ajgaId, tournament_name: t.name });
     setSavingOptIn(false);
-    setOptInBump((b) => b + 1);
+    if (error) setOptInError('Couldn’t save that — check you’re online and try again.');
+    else setOptInBump((b) => b + 1);
   }
 
   async function remove() {
@@ -118,6 +122,7 @@ export default function TournamentDetail() {
               {optedIn ? '✓ Tracking hole-by-hole live' : session ? 'Track hole-by-hole live' : 'Sign in to track hole-by-hole live'}
             </button>
             <p className="muted small">AJGA shows hole-by-hole scores while this event is in progress. Opt in and we'll pull them in once a day for {golfer.playerName}.</p>
+            {optInError && <p className="small" style={{ color: 'var(--danger)' }}>{optInError}</p>}
           </div>
         )}
         <button
