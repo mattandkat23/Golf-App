@@ -1,0 +1,46 @@
+name: Save page layouts
+
+# Debug helper: saves the full HTML of the given pages to the `page-dumps` branch (scraper/dump.ts).
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Page URL(s), separated by spaces'
+        required: true
+      click:
+        description: 'Optional selector to click each match of (e.g. tabs) and save after each'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dump
+  cancel-in-progress: false
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright-core install --with-deps chromium
+      - name: Save pages
+        env:
+          URL: ${{ inputs.url }}
+          CLICK: ${{ inputs.click }}
+        run: node --experimental-strip-types scraper/dump.ts $URL
+      - name: Commit to page-dumps branch
+        run: |
+          mv dumps /tmp/dumps
+          git config user.name "golf-tracker-bot"
+          git config user.email "golf-tracker-bot@users.noreply.github.com"
+          git fetch origin page-dumps && git checkout page-dumps || git checkout --orphan page-dumps
+          git rm -rfq . 2>/dev/null || true
+          mkdir -p dumps && cp -r /tmp/dumps/. dumps/
+          git add dumps
+          git commit -qm "Page dumps $(date -u +%FT%TZ)" && git push -q origin page-dumps
