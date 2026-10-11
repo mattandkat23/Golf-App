@@ -10,6 +10,9 @@ on:
       click:
         description: 'Optional selector to click each match of (e.g. tabs) and save after each'
         required: false
+      select:
+        description: 'Optional <select> selector whose options to pick in turn'
+        required: false
 
 permissions:
   contents: write
@@ -33,6 +36,7 @@ jobs:
         env:
           URL: ${{ inputs.url }}
           CLICK: ${{ inputs.click }}
+          SELECT: ${{ inputs.select }}
         run: node --experimental-strip-types scraper/dump.ts $URL
       - name: Commit to page-dumps branch
         run: |
