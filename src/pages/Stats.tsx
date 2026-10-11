@@ -1,11 +1,12 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
 import { CONTACTS, bucketLabel, computeStats, hasScore, holeComplete, isDetailed, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
-import type { Miss, Round, TourLevel } from '../lib/types';
-import { Bars, Field, Kpi, PageHead } from '../components/ui';
+import type { Miss, Round, Tournament, TourLevel } from '../lib/types';
+import { Bars, Field, Kpi, PageHead, fmtDate } from '../components/ui';
 
 type Range = 'Last 5' | 'Last 10' | 'Season' | 'All';
 type Kind = 'All rounds' | 'Tournaments' | TourLevel;
@@ -41,31 +42,54 @@ function MissCompass({ miss, center, centerLabel }: { miss: Record<Miss, number>
   );
 }
 
-/** Score-to-par trend as a simple SVG line with dot markers and native tooltips. */
-function Trend({ rounds }: { rounds: Round[] }) {
+/** Score-to-par trend as a simple SVG line with dot markers — tap a dot to see that round and jump to its tournament. */
+function Trend({ rounds, tournaments }: { rounds: Round[]; tournaments: Tournament[] }) {
+  const [selected, setSelected] = useState<number>();
   const pts = rounds
     .map((r) => ({ r, s: summarizeRound(r) }))
     .filter((p) => p.s.holesPlayed > 0)
-    .map((p) => ({ date: p.r.date, v: ((p.s.strokes - p.s.par) / p.s.holesPlayed) * 18 }));
+    .map((p) => ({ r: p.r, s: p.s, date: p.r.date, v: ((p.s.strokes - p.s.par) / p.s.holesPlayed) * 18 }));
   if (pts.length < 2) return <div className="empty">Play two or more rounds to see a trend.</div>;
   const W = 320, H = 120, pad = 24;
   const lo = Math.min(0, ...pts.map((p) => p.v)), hi = Math.max(...pts.map((p) => p.v), 1);
   const x = (i: number) => pad + (i * (W - pad * 2)) / (pts.length - 1);
   const y = (v: number) => H - pad - ((v - lo) * (H - pad * 2)) / (hi - lo || 1);
+  const sel = selected !== undefined ? pts[selected] : undefined;
+  const selTournament = sel?.r.tournamentId ? tournaments.find((t) => t.id === sel.r.tournamentId) : undefined;
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Score to par per 18 holes, oldest to newest">
-      <line x1={pad} x2={W - pad} y1={y(0)} y2={y(0)} stroke="var(--grid)" strokeWidth={1} />
-      <text x={2} y={y(0) + 4} fontSize="10" fill="var(--muted)">E</text>
-      <polyline fill="none" stroke="var(--series-1)" strokeWidth={2} points={pts.map((p, i) => `${x(i)},${y(p.v)}`).join(' ')} />
-      {pts.map((p, i) => (
-        <circle key={i} cx={x(i)} cy={y(p.v)} r={4} fill="var(--series-1)" stroke="var(--surface)" strokeWidth={2}>
-          <title>{`${p.date}: ${toParLabel(Math.round(p.v))} per 18`}</title>
-        </circle>
-      ))}
-      <text x={x(pts.length - 1)} y={y(pts.at(-1)!.v) - 8} fontSize="11" textAnchor="end" fill="var(--text)">
-        {toParLabel(Math.round(pts.at(-1)!.v))}
-      </text>
-    </svg>
+    <>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Score to par per 18 holes, oldest to newest — tap a point for details">
+        <line x1={pad} x2={W - pad} y1={y(0)} y2={y(0)} stroke="var(--grid)" strokeWidth={1} />
+        <text x={2} y={y(0) + 4} fontSize="10" fill="var(--muted)">E</text>
+        <polyline fill="none" stroke="var(--series-1)" strokeWidth={2} points={pts.map((p, i) => `${x(i)},${y(p.v)}`).join(' ')} />
+        {pts.map((p, i) => (
+          <g key={i} onClick={() => setSelected(i === selected ? undefined : i)} style={{ cursor: 'pointer' }}>
+            <circle cx={x(i)} cy={y(p.v)} r={12} fill="transparent" />
+            <circle cx={x(i)} cy={y(p.v)} r={i === selected ? 6 : 4} fill="var(--series-1)" stroke="var(--surface)" strokeWidth={2}>
+              <title>{`${p.date}: ${toParLabel(Math.round(p.v))} per 18`}</title>
+            </circle>
+          </g>
+        ))}
+        <text x={x(pts.length - 1)} y={y(pts.at(-1)!.v) - 8} fontSize="11" textAnchor="end" fill="var(--text)">
+          {toParLabel(Math.round(pts.at(-1)!.v))}
+        </text>
+      </svg>
+      {sel && (
+        <div className="trend-popup">
+          <div>
+            <b>{selTournament?.name ?? 'Practice/casual round'}</b>
+            <div className="muted small">
+              {fmtDate(sel.date)} · {sel.s.strokes} ({toParLabel(sel.s.strokes - sel.s.par)}) over {sel.s.holesPlayed} holes
+            </div>
+          </div>
+          {selTournament && (
+            <Link className="tag accent" to={`/tournament/${selTournament.id}`}>
+              View ›
+            </Link>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -207,7 +231,7 @@ export default function StatsPage() {
           </div>
 
           <StatCard title="Scoring" hero={scoringAvg} heroLabel="Scoring average, per 18" heroNote={toParNote} openByDefault>
-            <Trend rounds={rounds} />
+            <Trend rounds={rounds} tournaments={tournaments} />
             <h3 style={{ marginTop: 14 }}>Average by par</h3>
             <Bars
               rows={([3, 4, 5] as const).filter((p) => s.byPar[p].holes).map((p) => ({ label: `Par ${p}`, value: s.byPar[p].avg!, note: toParLabel(Math.round((s.byPar[p].avg! - p) * 100) / 100) }))}

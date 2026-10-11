@@ -191,6 +191,11 @@ textarea { min-height: 80px; resize: vertical; }
   font-size: 0.85rem; font-weight: 600;
 }
 .stat-detail { margin-top: 10px; }
+.trend-popup {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px;
+  padding: 10px; border-radius: 10px; background: var(--surface-2);
+}
+.trend-popup .tag { flex: none; white-space: nowrap; }
 .bars { display: grid; gap: 6px; }
 .bar-row { display: grid; grid-template-columns: 84px 1fr minmax(56px, auto); align-items: center; gap: 8px; font-size: 0.85rem; }
 .bar-track { height: 14px; background: var(--grid); border-radius: 4px; overflow: hidden; }
