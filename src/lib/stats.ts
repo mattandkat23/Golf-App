@@ -127,6 +127,9 @@ const zero = <K extends string>(keys: readonly K[]) => Object.fromEntries(keys.m
 /** True when an imported round's total should stand in for its holes (not every hole has been filled in). */
 const usesTotal = (r: Round) => r.total !== undefined && !r.holes.every(holeComplete);
 
+/** Whether a round has any score to count: a finished hole or an imported total. */
+export const hasScore = (r: Round) => r.total !== undefined || r.holes.some(holeComplete);
+
 export function computeStats(rounds: Round[]): Stats {
   const holes = rounds.flatMap((r) => r.holes.filter(holeComplete));
   const s: Stats = {

@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
-import { computeStats, pct, summarizeRound, toParLabel } from '../lib/stats';
+import { computeStats, holeComplete, pct, summarizeRound, toParLabel } from '../lib/stats';
 import { Chips, Kpi, PageHead, fmtDate, today } from '../components/ui';
 import { findConflicts } from '../lib/schedule';
 import { buildIcs, openIcs, tournamentToIcs } from '../lib/ics';
@@ -97,6 +97,13 @@ export default function TournamentDetail() {
         {t.notes && <p className="muted">{t.notes}</p>}
       </div>
 
+      {(t.status === 'Played' || t.startDate <= today()) && (
+        <Link to={`/tournament/${id}/results`} className="card link">
+          <b>{t.finish ? 'Update results' : 'Paste results'}</b>
+          <div className="muted small">Copy the results table from the tour's site and the app fills in the finish and scores.</div>
+        </Link>
+      )}
+
       <div className="card">
         <div className="row between">
           <h2>Rounds</h2>
@@ -116,7 +123,9 @@ export default function TournamentDetail() {
                         Round {r.roundNumber} <span className="muted small">· {fmtDate(r.date)}</span>
                       </div>
                       <div className="muted small">
-                        {s.holesPlayed}/{r.numHoles} holes · {s.putts} putts {!r.complete && '· in progress'}
+                        {r.total !== undefined && !r.holes.every(holeComplete)
+                          ? 'Score from results · tap to add hole-by-hole'
+                          : `${s.holesPlayed}/${r.numHoles} holes · ${s.putts} putts ${r.complete ? '' : '· in progress'}`}
                       </div>
                     </div>
                     <b>

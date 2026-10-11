@@ -155,3 +155,52 @@ export async function importResults(hits: ResultHit[], golfer: Profile): Promise
   }
   return added;
 }
+
+/** Holes for a new round: the course's tee pars when one matches the hole count, else par 4s. */
+async function blankHoles(courseId: number | undefined, numHoles: 9 | 18): Promise<HoleResult[]> {
+  const course = courseId ? await db.courses.get(courseId) : undefined;
+  const tee = course?.tees.find((t) => t.pars.length === numHoles);
+  return Array.from({ length: numHoles }, (_, i) => ({ hole: i + 1, par: tee?.pars[i] ?? 4, yards: tee?.yardages?.[i], shots: [] }));
+}
+
+/**
+ * Saves a pasted result row to a tournament: finish, field size and one round per round score. Rounds the
+ * parent already scored hole by hole keep their holes; their pasted total is stored alongside.
+ */
+export async function applyPastedResult(
+  t: Tournament,
+  row: { posNum?: number; position: string; toPar?: number; rounds: number[]; total?: number },
+  fieldSize: number,
+) {
+  const existing = await db.rounds.where('tournamentId').equals(t.id!).toArray();
+  const coursePar = row.toPar !== undefined && row.total !== undefined && row.rounds.length ? (row.total - row.toPar) / row.rounds.length : undefined;
+  await db.transaction('rw', db.tournaments, db.rounds, db.courses, async () => {
+    await db.tournaments.update(t.id!, {
+      status: 'Played',
+      finish: row.posNum,
+      fieldSize,
+      notes: row.posNum === undefined ? [t.notes, `Result: ${row.position}`].filter(Boolean).join(' · ') : t.notes,
+    });
+    for (const [i, total] of row.rounds.entries()) {
+      const par = coursePar !== undefined ? Math.round(coursePar) : undefined;
+      const r = existing.find((x) => x.roundNumber === i + 1);
+      if (r) {
+        await db.rounds.update(r.id!, { total, par: par ?? r.par, complete: true });
+        continue;
+      }
+      const numHoles: 9 | 18 = par !== undefined ? (par <= 45 ? 9 : 18) : (existing[0]?.numHoles ?? 18);
+      await db.rounds.add({
+        golferId: t.golferId,
+        tournamentId: t.id,
+        courseId: t.courseId,
+        date: t.endDate ? [addDays(t.startDate, i), t.endDate].sort()[0] : addDays(t.startDate, i),
+        roundNumber: i + 1,
+        numHoles,
+        holes: await blankHoles(t.courseId, numHoles),
+        total,
+        par,
+        complete: true,
+      });
+    }
+  });
+}

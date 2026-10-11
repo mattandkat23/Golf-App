@@ -14,6 +14,7 @@ import CourseForm from './pages/CourseForm';
 import More from './pages/More';
 import Rounds from './pages/Rounds';
 import Import from './pages/Import';
+import PasteResults from './pages/PasteResults';
 import { GolferProvider, GolferSwitch } from './lib/golfer';
 import { AuthProvider, useAuth, useSignedIn } from './lib/auth';
 import { syncOnStart } from './lib/sync';
@@ -47,6 +48,7 @@ function Shell() {
           <Route path="/tournament/new" element={<TournamentForm />} />
           <Route path="/tournament/:id" element={<TournamentDetail />} />
           <Route path="/tournament/:id/edit" element={<TournamentForm />} />
+          <Route path="/tournament/:id/results" element={<PasteResults />} />
           <Route path="/round/new" element={<StartRound />} />
           <Route path="/play/:id" element={<Play />} />
           <Route path="/practice" element={<Practice />} />

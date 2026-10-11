@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import { db } from '../lib/db';
 import { useGolfer } from '../lib/golfer';
-import { CONTACTS, bucketLabel, computeStats, holeComplete, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
+import { CONTACTS, bucketLabel, computeStats, hasScore, pct, summarizeRound, toParLabel, type Rate } from '../lib/stats';
 import type { Miss, Round, TourLevel } from '../lib/types';
 import { Bars, Chips, Kpi, PageHead } from '../components/ui';
 
@@ -79,7 +79,7 @@ export default function StatsPage() {
   const playedTours = tours.filter((t) => all.some((r) => tourOf(r) === t.id));
 
   const levelOf = (r: Round) => tournaments.find((t) => t.id === r.tournamentId)?.level;
-  let rounds = all.filter((r) => r.holes.some(holeComplete));
+  let rounds = all.filter(hasScore);
   if (kind === 'Tournaments') rounds = rounds.filter((r) => r.tournamentId);
   else if (kind !== 'All rounds') rounds = rounds.filter((r) => levelOf(r) === kind);
   if (tourId) rounds = rounds.filter((r) => tourOf(r) === tourId);
