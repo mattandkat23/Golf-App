@@ -58,8 +58,14 @@ GitHub/console settings, and keep replies short.
   "Check robots.txt" (`scraper/robots-check.ts`).
 - Sources: US Kids Austin, Dallas, Houston, San Antonio, El Paso (all Texas fall local tours), Texas State,
   Regionals (all states), Worlds; AJGA (nationwide); TGA/Legends Junior Tour; STPGA junior site; HJGT (Texas only).
-- **Do not bypass robots.txt.** NTPGA and STPGA schedules are on BlueGolf (`User-agent: * Disallow: /`);
-  those are covered by the Paste importer (Events → Paste), which adds events to Available.
+- **Do not bypass robots.txt.** NTPGA's schedule is on BlueGolf (`User-agent: * Disallow: /`) — can't be
+  scraped. For any tour like that, publish its schedule by hand instead of scraping it: paste the tour's
+  schedule text (the same thing a parent used to paste) to `node --experimental-strip-types
+  scraper/publish-schedule.ts <tourId>` (reads stdin, or `$TEXT`) — it runs the phone's own parser
+  (`src/lib/importParse.ts`) and the scraper's own event builder (`scraper/lib.ts`), replacing that tour's
+  events in `public/events.json` same as a real scrape would. Commit and push to deploy. Parents hit
+  "Tour not listed here?" (Events → Available) to request a tour; requests land in the `tour_requests`
+  table (Supabase dashboard, or `SUPABASE_SECRET_KEY`) for review.
 
 ## Results (`scraper/results/`, `.github/workflows/results.yml`, migration `*_results.sql`)
 

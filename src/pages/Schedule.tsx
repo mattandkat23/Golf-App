@@ -102,9 +102,6 @@ export default function Schedule() {
         title="Events"
         action={
           <div className="row">
-            <Link className="btn" to="/import">
-              Paste
-            </Link>
             <Link className="btn primary" to="/tournament/new">
               + Add
             </Link>
@@ -449,12 +446,9 @@ function Available({
         )}
       </div>
 
-      <Link to="/import" className="card link">
+      <Link to="/request-tour" className="card link">
         <b>Tour not listed here?</b>
-        <div className="muted small">
-          Some tours (like NTPGA and STPGA, whose schedules are on BlueGolf) can't be collected automatically. Copy their schedule page and paste it —
-          the events show up here. ›
-        </div>
+        <div className="muted small">Some tours (like NTPGA and STPGA) can't be collected automatically yet. Request one and we'll add it for everyone. ›</div>
       </Link>
 
       {scrapedTours.length > 0 && (
