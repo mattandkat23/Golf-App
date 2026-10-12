@@ -76,9 +76,12 @@ async function lookup(client: Anthropic, name: string, city: string, state: stri
     fallbacks: 'default',
     output_config: { effort: 'low', format: zodOutputFormat(CourseInfo) },
     system: SYSTEM,
+    // web_fetch needs real headroom: confirming a course from search results alone isn't allowed (see
+    // system prompt), so it typically takes a couple of fetches (homepage, then a contact/scorecard page)
+    // per course -- 3 was too tight and left the model stopping short even when it had found the right site.
     tools: [
       { type: 'web_search_20260209', name: 'web_search', max_uses: 3 },
-      { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 3 },
+      { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 6 },
     ],
     messages: [{ role: 'user', content: prompt }],
   });
