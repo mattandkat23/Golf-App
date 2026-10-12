@@ -90,7 +90,14 @@ function addDays(date: string, n: number) {
 
 /** Builds the rounds for a result: hole-by-hole when the tour published it, otherwise round totals. */
 export function roundsFor(hit: ResultHit, golferId: string, holes: ResultHole[] | null): Omit<Round, 'tournamentId' | 'courseId'>[] {
-  const scores = hit.round_scores?.length ? hit.round_scores : hit.total !== null ? [hit.total] : [];
+  // AJGA's live opt-in tracking (collectAjgaLive) can save holes for an event still in progress, before
+  // the tour's own round_scores/total are collected -- derive round totals from the holes themselves then.
+  const roundNums = holes?.length ? [...new Set(holes.map((h) => h.round))].sort((a, b) => a - b) : [];
+  const scores = hit.round_scores?.length
+    ? hit.round_scores
+    : hit.total !== null
+      ? [hit.total]
+      : roundNums.map((r) => holes!.filter((h) => h.round === r).reduce((sum, h) => sum + h.score, 0));
   // Par per round from score to par, when the tour gives it.
   const coursePar = hit.to_par !== null && hit.total !== null && scores.length ? (hit.total - hit.to_par) / scores.length : undefined;
   const perRound =
