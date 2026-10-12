@@ -5521,5 +5521,50 @@
   "website": "https://www.stevensparkgolf.com/",
   "phone": "214.670.7506",
   "address": "1005 N. Montclair Avenue, Dallas, TX 75208"
+ },
+ "Keeton Park Golf Course|Dallas": {
+  "phone": "214-670-8784",
+  "website": "https://www.keetonpark.com/",
+  "address": "2323 N Jim Miller Rd., Dallas, TX 75227"
+ },
+ "Riverchase Golf Club|Coppell": {
+  "phone": "(972) 462-8281",
+  "website": "https://www.riverchasegc.com/",
+  "address": "700 Riverchase Drive, Coppell, TX 75019"
+ },
+ "The Tribute Golf Links|The Colony": {
+  "phone": "972.370.5465",
+  "website": "https://www.tributegolf.com/",
+  "address": "1000 Lebanon Rd., The Colony, TX 75056"
+ },
+ "Heritage Ranch Golf Club|Fairview": {
+  "phone": "972-886-4700",
+  "website": "https://www.heritageranchgolf.com/",
+  "address": "465 Scenic Ranch Circle, Fairview, TX 75069"
+ },
+ "Hawks Creek Golf Club|Westworth Village": {
+  "phone": "817-738-8402",
+  "website": "https://www.hawkscreek.com/",
+  "address": "6520 White Settlement Road, Westworth Village, TX 76114"
+ },
+ "Waterchase Golf Club|Fort Worth": {
+  "phone": "817-861-4653",
+  "website": "https://www.waterchasegc.com/",
+  "address": "8951 Creek Run Road, Fort Worth, TX 76120"
+ },
+ "Sky Creek Ranch Golf Club|Keller": {
+  "phone": "(817) 498-1414",
+  "website": "https://www.skycreekranch.com/",
+  "address": "600 Promontory Drive, Keller, TX 76248"
+ },
+ "Bear Creek Golf Club|DFW Airport": {
+  "phone": "972.456.3200",
+  "website": "https://arcisgolf.com/clubs/bear-creek-golf-club/home",
+  "address": "3500 Bear Creek Ct, Dallas, TX 75261"
+ },
+ "Horseshoe Bay Resort – Apple Rock|Horseshoe Bay": {
+  "phone": "877-611-0112",
+  "website": "https://www.hsbresort.com/",
+  "address": "200 Hi Circle North, Horseshoe Bay, Texas 78657"
  }
 }
