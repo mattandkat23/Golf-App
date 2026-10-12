@@ -122,6 +122,29 @@ class GolfDB extends Dexie {
     // restored from a backup predating it) -- a genuinely brand-new install's default profile (on('populate')
     // below) starts with onboarded left unset so the walkthrough shows for it.
     this.version(13).upgrade((tx) => tx.table('profile').toCollection().modify((p: Profile) => (p.onboarded ??= true)));
+    // v14: SEED_COURSES only ever gets written on a brand-new install (on('populate') below), so a phone
+    // that already had the app missed the OpenGolfAPI enrichment (phone/website/GPS/state/reference
+    // scorecard) and the ~160 new nationwide courses added alongside it. Matches existing courses by
+    // name+city (same key courseDetails.json uses) and only fills fields the parent hasn't already set --
+    // never touches tees they've already entered themselves -- then adds any seed course that's missing
+    // entirely. Bump this again (same shape) any time SEED_COURSES changes, same as SEED_TOURS above.
+    this.version(14).upgrade(async (tx) => {
+      const existing = await tx.table<Course>('courses').toArray();
+      const byKey = new Map(existing.map((c) => [`${c.name}|${c.city}`, c]));
+      for (const seed of SEED_COURSES) {
+        const match = byKey.get(`${seed.name}|${seed.city}`);
+        if (!match) {
+          await tx.table('courses').add(seed);
+          continue;
+        }
+        const patch: Partial<Course> = {};
+        (['phone', 'website', 'lat', 'lng', 'postalCode', 'architect', 'yearBuilt', 'state'] as const).forEach((f) => {
+          if (match[f] === undefined && seed[f] !== undefined) (patch as Record<string, unknown>)[f] = seed[f];
+        });
+        if (!match.tees?.length && seed.tees?.length) patch.tees = seed.tees;
+        if (Object.keys(patch).length) await tx.table('courses').update(match.id!, patch);
+      }
+    });
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);

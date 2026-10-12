@@ -1,6 +1,7 @@
 import 'fake-indexeddb/auto';
 import Dexie from 'dexie';
 import { describe, expect, it } from 'vitest';
+import { SEED_COURSES } from '../data/courses';
 
 // Dexie's db singleton (and fake-indexeddb's storage) is shared across this whole file, so only the
 // first test to import './db' actually sees a genuine from-scratch upgrade chain run -- later tests
@@ -27,10 +28,23 @@ describe('database upgrades', () => {
     await old.table('tournaments').add({ name: 'Medalist Tour: East 603', level: 'Local', startDate: '2026-10-12', status: 'Registered', tourId: 'ntpga' });
     await old.table('rounds').add({ date: '2026-05-30', roundNumber: 1, numHoles: 9, holes: [] });
     await old.table('practice').add({ date: '2026-05-29', minutes: 30, focus: [], drills: [] });
+    // Simulate a course this phone already has from an old install: same name+city as a real starter
+    // course, but predating phone/website/GPS enrichment, with the parent's own tees already filled in.
+    const seed = SEED_COURSES[0];
+    const myTees = [{ name: 'My tees', pars: Array(9).fill(4) }];
+    await old.table('courses').add({ name: seed.name, city: seed.city, region: seed.region, tees: myTees });
     old.close();
 
     const { db } = await import('./db');
     await db.open();
+    // v14: an existing course gets enriched with the new seed fields, but never loses tees the parent
+    // already entered; every starter course ends up present exactly once (no duplicates).
+    const mine = (await db.courses.toArray()).find((c) => c.name === seed.name && c.city === seed.city)!;
+    expect(mine.tees).toEqual(myTees);
+    expect(mine.phone).toBe(seed.phone);
+    expect(mine.website).toBe(seed.website);
+    expect(mine.state).toBe(seed.state);
+    expect(await db.courses.count()).toBe(SEED_COURSES.length);
     expect(await db.tours.get('usk-championships')).toBeUndefined();
     expect(await db.tours.get('usk-world')).toBeDefined();
     expect(await db.tours.get('ntpga')).toBeUndefined();

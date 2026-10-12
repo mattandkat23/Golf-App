@@ -86,6 +86,13 @@ GitHub/console settings, and keep replies short.
   remaps `profile.myTours`, `Tournament.tourId` and `ImportedEvent.tourId` (see v5, v11, v12). A tour's `org` field
   groups it in More → My tours (collapsible, one group per org) — name multi-series tours `"<Org> – <Series>"`
   (e.g. `NTPGA – Prep Tour`) so the group strips the org prefix back off for display; see v11/v12 and `sub-tours.ts`.
+- **Changing `SEED_COURSES`** (adding courses, or re-running `course-data.ts` to refresh `courseDetails.json`)
+  → same problem, different shape: `courses` only gets seeded on `on('populate')` (a genuinely brand-new
+  install), so an existing phone never sees new/enriched seed courses on its own. v14 is the migration for
+  this: matches existing courses to `SEED_COURSES` by name+city, fills in only the fields that are still
+  unset (never overwrites tees a parent already entered), and adds any seed course that's missing entirely.
+  Bump the version again (same shape, see v14) any time `SEED_COURSES` changes, same as `SEED_TOURS` above —
+  otherwise a push to `courseDetails.json` or `courses.ts` only reaches brand-new installs.
 - **Multiple golfers** (v10): tournaments, rounds and practice carry `golferId` (a `profile` id; first golfer is
   `'me'`). Query them by golferId; use `useGolfer()` (`src/lib/golfer.tsx`) for the selected golfer, never `profile.get('me')`.
   Courses, tours and Available events are shared.
