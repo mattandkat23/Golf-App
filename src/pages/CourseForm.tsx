@@ -48,10 +48,6 @@ export default function CourseForm() {
             </select>
           </Field>
         </div>
-        <label className="row">
-          <input type="checkbox" style={{ width: 22, minHeight: 22 }} checked={!!c.usKidsVenue} onChange={(e) => setC({ ...c, usKidsVenue: e.target.checked })} />
-          US Kids venue
-        </label>
       </div>
 
       {c.tees.map((t, i) => (

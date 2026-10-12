@@ -3,12 +3,9 @@ import type { Course } from '../lib/types';
 /**
  * Starter list of Texas courses. Scorecards (pars/yardages) are intentionally left blank:
  * US Kids plays age-based tees, so pars and yardages are entered once per tee in the app
- * (or on the first hole-by-hole round) and remembered from then on.
- *
- * `usKidsVenue` marks courses that have hosted US Kids events in the past; it is a hint,
- * not a schedule. Add or edit courses in the app.
+ * (or on the first hole-by-hole round) and remembered from then on. Add or edit courses in the app.
  */
-type Seed = [name: string, city: string, region: Course['region'], usKidsVenue?: boolean];
+type Seed = [name: string, city: string, region: Course['region']];
 
 const SEEDS: Seed[] = [
   // Waco
@@ -34,7 +31,7 @@ const SEEDS: Seed[] = [
   ['Kissing Tree Golf Club', 'San Marcos', 'Austin'],
 
   // Dallas–Fort Worth
-  ['Stevens Park Golf Course', 'Dallas', 'Dallas–Fort Worth', true],
+  ['Stevens Park Golf Course', 'Dallas', 'Dallas–Fort Worth'],
   ['Tenison Park Golf Course', 'Dallas', 'Dallas–Fort Worth'],
   ['Cedar Crest Golf Course', 'Dallas', 'Dallas–Fort Worth'],
   ['Keeton Park Golf Course', 'Dallas', 'Dallas–Fort Worth'],
@@ -57,14 +54,14 @@ const SEEDS: Seed[] = [
   ['Bear Creek Golf Club', 'DFW Airport', 'Dallas–Fort Worth'],
 
   // Hill Country / San Antonio (state & regional events)
-  ['Horseshoe Bay Resort – Apple Rock', 'Horseshoe Bay', 'Hill Country', true],
-  ['Horseshoe Bay Resort – Ram Rock', 'Horseshoe Bay', 'Hill Country', true],
-  ['Horseshoe Bay Resort – Slick Rock', 'Horseshoe Bay', 'Hill Country', true],
-  ['Lady Bird Golf Course', 'Fredericksburg', 'Hill Country', true],
-  ['Northern Hills Golf Club', 'San Antonio', 'San Antonio', true],
-  ['Vaaler Creek Golf Club', 'Blanco', 'Hill Country', true],
-  ['Hyatt Regency Hill Country Golf Club', 'San Antonio', 'San Antonio', true],
-  ['Mission del Lago Golf Course', 'San Antonio', 'San Antonio', true],
+  ['Horseshoe Bay Resort – Apple Rock', 'Horseshoe Bay', 'Hill Country'],
+  ['Horseshoe Bay Resort – Ram Rock', 'Horseshoe Bay', 'Hill Country'],
+  ['Horseshoe Bay Resort – Slick Rock', 'Horseshoe Bay', 'Hill Country'],
+  ['Lady Bird Golf Course', 'Fredericksburg', 'Hill Country'],
+  ['Northern Hills Golf Club', 'San Antonio', 'San Antonio'],
+  ['Vaaler Creek Golf Club', 'Blanco', 'Hill Country'],
+  ['Hyatt Regency Hill Country Golf Club', 'San Antonio', 'San Antonio'],
+  ['Mission del Lago Golf Course', 'San Antonio', 'San Antonio'],
   ['Brackenridge Park Golf Course', 'San Antonio', 'San Antonio'],
 
   // Houston
@@ -72,11 +69,10 @@ const SEEDS: Seed[] = [
   ['Wildcat Golf Club', 'Houston', 'Houston'],
 ];
 
-export const SEED_COURSES: Course[] = SEEDS.map(([name, city, region, usKidsVenue]) => ({
+export const SEED_COURSES: Course[] = SEEDS.map(([name, city, region]) => ({
   name,
   city,
   region,
-  usKidsVenue: usKidsVenue ?? false,
   tees: [],
 }));
 

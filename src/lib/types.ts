@@ -12,7 +12,6 @@ export interface Course {
   name: string;
   city: string;
   region: 'Austin' | 'Dallas–Fort Worth' | 'Waco' | 'San Antonio' | 'Houston' | 'Hill Country' | 'Other Texas' | 'Other';
-  usKidsVenue?: boolean;
   tees: Tee[];
   notes?: string;
 }

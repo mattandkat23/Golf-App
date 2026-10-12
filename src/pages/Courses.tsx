@@ -39,7 +39,6 @@ export default function Courses() {
                         {c.tees.length > 0 && ` · ${c.tees.map((t) => t.name).join(', ')}`}
                       </div>
                     </div>
-                    {c.usKidsVenue && <span className="tag accent">US Kids</span>}
                   </Link>
                 </li>
               ))}
