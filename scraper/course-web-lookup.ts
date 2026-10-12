@@ -20,7 +20,9 @@ import { z } from 'zod';
 import { seedCourses } from './courseSeeds.ts';
 
 const DETAILS_PATH = 'src/data/courseDetails.json';
-const MODEL = 'claude-opus-5-5';
+// Sonnet, not Opus: this is mechanical extraction (find the official site, read phone/address off it),
+// not judgment-heavy work, so the cheaper model is the right fit here -- half Opus's price per token.
+const MODEL = 'claude-sonnet-5-5';
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Tee {
