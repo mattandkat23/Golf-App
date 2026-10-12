@@ -164,13 +164,18 @@ export default function CourseForm() {
             <input type="url" value={c.website ?? ''} onChange={(e) => setC({ ...c, website: e.target.value || undefined })} placeholder="https://…" />
           </Field>
         </div>
-        {(c.architect || c.yearBuilt || (c.lat !== undefined && c.lng !== undefined)) && (
+        {(c.architect || c.yearBuilt || c.address || (c.lat !== undefined && c.lng !== undefined)) && (
           <div className="row wrap" style={{ gap: 12 }}>
             {(c.architect || c.yearBuilt) && (
               <span className="muted small">{[c.architect && `Designed by ${c.architect}`, c.yearBuilt].filter(Boolean).join(' · ')}</span>
             )}
-            {c.lat !== undefined && c.lng !== undefined && (
-              <a href={`https://maps.google.com/?q=${c.lat},${c.lng}`} target="_blank" rel="noreferrer">
+            {c.address && <span className="muted small">{c.address}</span>}
+            {(c.lat !== undefined && c.lng !== undefined ? true : !!c.address) && (
+              <a
+                href={`https://maps.google.com/?q=${c.lat !== undefined && c.lng !== undefined ? `${c.lat},${c.lng}` : encodeURIComponent(c.address!)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 📍 Get directions
               </a>
             )}

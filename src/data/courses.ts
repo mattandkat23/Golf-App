@@ -245,6 +245,7 @@ const SEEDS: Seed[] = [
 interface CourseDetails {
   phone?: string;
   website?: string;
+  address?: string;
   lat?: number;
   lng?: number;
   postalCode?: string;
@@ -265,6 +266,7 @@ export const SEED_COURSES: Course[] = SEEDS.map(([name, city, region, state]) =>
     ...(extra && {
       phone: extra.phone,
       website: extra.website,
+      address: extra.address,
       lat: extra.lat,
       lng: extra.lng,
       postalCode: extra.postalCode,

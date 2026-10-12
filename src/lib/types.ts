@@ -16,6 +16,8 @@ export interface Course {
   region: 'Austin' | 'Dallas–Fort Worth' | 'Waco' | 'San Antonio' | 'Houston' | 'Hill Country' | 'Other Texas' | 'Other';
   /** USPS state code (e.g. "TX", "CA"). Set for every course now; used to group the nationwide ("Other" region) list by state. */
   state?: string;
+  /** Street address, where a web lookup found one but no GPS (see course-web-lookup.ts). */
+  address?: string;
   tees: Tee[];
   notes?: string;
   // Pulled in from OpenGolfAPI where we could confidently match the course (see scraper/course-data.ts);

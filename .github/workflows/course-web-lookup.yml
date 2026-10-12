@@ -1,0 +1,49 @@
+name: Web-lookup course data
+
+# Occasional/manual: fallback for starter courses OpenGolfAPI can't match (scraper/course-web-lookup.ts).
+# Uses Claude's web search to find official site/phone/address and, where published, a scorecard. Run
+# after "Pull course data" to cover what it couldn't match. Uses Claude API credits -- not scheduled.
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Only process this many courses (for a cheap test run)'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: course-data
+  cancel-in-progress: false
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Web lookup
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: node --experimental-strip-types scraper/course-web-lookup.ts ${LIMIT:+--limit=$LIMIT}
+      - name: Commit updated course data
+        if: always()
+        run: |
+          git config user.name "golf-tracker-bot"
+          git config user.email "golf-tracker-bot@users.noreply.github.com"
+          git add src/data/courseDetails.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Web-lookup course data"
+            git push
+          fi
