@@ -123,6 +123,8 @@ export function roundsFor(hit: ResultHit, golferId: string, holes: ResultHole[] 
   });
 }
 
+const sameName = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+
 /** Adds confirmed results to a golfer's Past events. Skips any already added. Returns how many were added. */
 export async function importResults(hits: ResultHit[], golfer: Profile): Promise<number> {
   let added = 0;
@@ -139,25 +141,46 @@ export async function importResults(hits: ResultHit[], golfer: Profile): Promise
       const course = matchCourse(await db.courses.toArray(), hit.course_name, hit.city ?? undefined);
       courseId = course?.id ?? (await db.courses.add({ name: hit.course_name, city: hit.city ?? '', region: hit.city ? regionForCity(hit.city) : 'Other Texas', tees: [] }));
     }
-    const t: Tournament = {
-      golferId: golfer.id,
-      name: hit.event_name,
-      level: levelFor(hit.tour_id),
-      tourId: (await db.tours.get(hit.tour_id)) ? hit.tour_id : undefined,
-      sourceEventId: sourceId(hit),
-      courseId,
-      startDate: hit.start_date,
-      endDate: hit.end_date && hit.end_date !== hit.start_date ? hit.end_date : undefined,
-      status: 'Played',
-      ageGroup: hit.division || undefined,
-      finish: hit.pos_num ?? undefined,
-      fieldSize: hit.field_size ?? undefined,
-      url: hit.url ?? undefined,
-      notes: hit.pos_num === null && hit.position ? `Result: ${hit.position}` : undefined,
-    };
+    const resolvedTourId = (await db.tours.get(hit.tour_id)) ? hit.tour_id : undefined;
+    // A result's id (from the tour's own results page) and an Available-added event's id (from the
+    // schedule scraper) are unrelated schemes for the same real tournament -- if this golfer already
+    // tracks it (e.g. added it from Available before it was played), fold the result into that
+    // Tournament instead of creating a duplicate.
+    const sameEvent = (await db.tournaments.where('golferId').equals(golfer.id).toArray()).find(
+      (x) => x.startDate === hit.start_date && sameName(x.name, hit.event_name),
+    );
     await db.transaction('rw', db.tournaments, db.rounds, async () => {
-      const tournamentId = await db.tournaments.add(t);
-      await db.rounds.bulkAdd(roundsFor(hit, golfer.id, holes).map((r) => ({ ...r, tournamentId, courseId })));
+      let tournamentId: number;
+      if (sameEvent) {
+        tournamentId = sameEvent.id!;
+        await db.tournaments.update(tournamentId, {
+          status: 'Played',
+          sourceEventId: sourceId(hit),
+          finish: hit.pos_num ?? sameEvent.finish,
+          fieldSize: hit.field_size ?? sameEvent.fieldSize,
+          courseId: sameEvent.courseId ?? courseId,
+        });
+        if (await db.rounds.where('tournamentId').equals(tournamentId).count()) return; // already scored, e.g. played live in-app
+      } else {
+        const t: Tournament = {
+          golferId: golfer.id,
+          name: hit.event_name,
+          level: levelFor(hit.tour_id),
+          tourId: resolvedTourId,
+          sourceEventId: sourceId(hit),
+          courseId,
+          startDate: hit.start_date,
+          endDate: hit.end_date && hit.end_date !== hit.start_date ? hit.end_date : undefined,
+          status: 'Played',
+          ageGroup: hit.division || undefined,
+          finish: hit.pos_num ?? undefined,
+          fieldSize: hit.field_size ?? undefined,
+          url: hit.url ?? undefined,
+          notes: hit.pos_num === null && hit.position ? `Result: ${hit.position}` : undefined,
+        };
+        tournamentId = await db.tournaments.add(t);
+      }
+      await db.rounds.bulkAdd(roundsFor(hit, golfer.id, holes).map((r) => ({ ...r, tournamentId, courseId: sameEvent?.courseId ?? courseId })));
     });
     added++;
   }
