@@ -3,7 +3,85 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import type { Course, Tee } from '../lib/types';
 import { REGIONS } from '../data/courses';
+import { buildTeeFromDetail, getCourseDetail, searchCourses, type SearchResult } from '../lib/openGolfApi';
 import { Chips, Field, PageHead } from '../components/ui';
+
+/** Live, nationwide course search (OpenGolfAPI) for prefilling a brand-new course -- see src/lib/openGolfApi.ts. */
+function CourseLookup({ onPick }: { onPick: (detail: Awaited<ReturnType<typeof getCourseDetail>>, tee?: Tee) => void }) {
+  const [q, setQ] = useState('');
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [picking, setPicking] = useState(false);
+
+  useEffect(() => {
+    if (!q.trim()) {
+      setResults([]);
+      return;
+    }
+    const controller = new AbortController();
+    setBusy(true);
+    const t = setTimeout(() => {
+      searchCourses(q, controller.signal)
+        .then(setResults)
+        .catch(() => setResults([])) // offline, blocked, or no matches -- fine, parent can still add it manually
+        .finally(() => setBusy(false));
+    }, 300);
+    return () => {
+      clearTimeout(t);
+      controller.abort();
+      setBusy(false);
+    };
+  }, [q]);
+
+  async function pick(r: SearchResult) {
+    setPicking(true);
+    try {
+      const detail = await getCourseDetail(r.id);
+      onPick(detail, buildTeeFromDetail(detail));
+      setQ('');
+      setResults([]);
+    } catch {
+      // network hiccup -- leave the search box as-is so they can try again or just fill the form by hand
+    } finally {
+      setPicking(false);
+    }
+  }
+
+  return (
+    <div className="card">
+      <Field label="Find a course (optional)">
+        <input
+          placeholder="Search any US course by name"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          disabled={picking}
+        />
+      </Field>
+      {(busy || results.length > 0) && (
+        <ul className="list" style={{ marginTop: 8 }}>
+          {busy && <li className="muted small">Searching…</li>}
+          {!busy &&
+            results.map((r) => (
+              <li key={r.id}>
+                <button type="button" className="row between" style={{ width: '100%', textAlign: 'left' }} onClick={() => pick(r)} disabled={picking}>
+                  <div className="grow">
+                    <div>{r.course_name}</div>
+                    <div className="muted small">
+                      {r.city}, {r.state}
+                    </div>
+                  </div>
+                </button>
+              </li>
+            ))}
+        </ul>
+      )}
+      <div className="muted small" style={{ marginTop: 8 }}>
+        Fills in the phone, website, location and a reference scorecard where available (via OpenGolfAPI) --
+        or just fill the form in below.
+      </div>
+    </div>
+  );
+}
 
 export default function CourseForm() {
   const { id } = useParams();
@@ -13,6 +91,24 @@ export default function CourseForm() {
   useEffect(() => {
     if (id) db.courses.get(Number(id)).then((x) => x && setC(x));
   }, [id]);
+
+  function applyLookup(detail: Awaited<ReturnType<typeof getCourseDetail>>, tee?: Tee) {
+    setC({
+      ...c,
+      name: detail.course_name,
+      city: detail.city,
+      region: detail.state === 'TX' ? 'Other Texas' : 'Other',
+      state: detail.state,
+      ...(detail.phone && { phone: detail.phone }),
+      ...(detail.website && { website: detail.website }),
+      ...(detail.lat && { lat: detail.lat }),
+      ...(detail.lng && { lng: detail.lng }),
+      ...(detail.postal_code && { postalCode: detail.postal_code }),
+      ...(detail.architect && { architect: detail.architect }),
+      ...(detail.year_built && { yearBuilt: detail.year_built }),
+      tees: tee ? [tee] : c.tees,
+    });
+  }
 
   const setTee = (i: number, t: Tee) => setC({ ...c, tees: c.tees.map((x, j) => (j === i ? t : x)) });
 
@@ -32,6 +128,7 @@ export default function CourseForm() {
   return (
     <form onSubmit={save}>
       <PageHead title={id ? c.name || 'Course' : 'Add course'} back="/courses" />
+      {!id && <CourseLookup onPick={applyLookup} />}
       <div className="card">
         <Field label="Name">
           <input required value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} />
@@ -48,6 +145,17 @@ export default function CourseForm() {
             </select>
           </Field>
         </div>
+        {c.region === 'Other' && (
+          <Field label="State">
+            <input
+              maxLength={2}
+              placeholder="e.g. CA"
+              value={c.state ?? ''}
+              onChange={(e) => setC({ ...c, state: e.target.value.toUpperCase() || undefined })}
+              style={{ textTransform: 'uppercase' }}
+            />
+          </Field>
+        )}
         <div className="grid2">
           <Field label="Phone">
             <input type="tel" value={c.phone ?? ''} onChange={(e) => setC({ ...c, phone: e.target.value || undefined })} />

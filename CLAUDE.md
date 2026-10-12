@@ -21,20 +21,41 @@ GitHub/console settings, and keep replies short.
 - `src/pages/Play.tsx` per-shot play mode · `Schedule.tsx` Events tab (My schedule / Available / Past)
 - `src/lib/available.ts` scraped + pasted events → schedule · `src/lib/importParse.ts` paste-in parser (no AI)
 - `src/lib/schedule.ts` conflicts, deadlines, season totals · `src/lib/ics.ts` calendar export
-- `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter Texas course list
+- `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter course list (~210 courses: the
+  original Texas munis/clubs by region, plus every real tournament venue nationwide found in
+  `result_events` -- see Course data below)
 - **Course data**: a course only had name/city/region until `scraper/course-data.ts` (manual/re-runnable,
   `.github/workflows/course-data.yml`) pulled phone/website/GPS/architect and, where real hole-by-hole data
   existed, one reference scorecard (par/yardage per hole, USGA rating/slope) from OpenGolfAPI
-  (api.opengolfapi.org, free, no key needed, ODbL-1.0 -- commercial use OK with attribution). Writes
-  `src/data/courseDetails.json` (name+city keyed), which `courses.ts` merges into `SEED_COURSES`; re-run
-  it after adding courses, or to refresh. Deliberately conservative -- only fills in a course when its
-  name+city matches a single OpenGolfAPI listing in the same city, else skips and logs it (40/50 matched
-  the first run); a parent can still edit anything it filled in, same as before. The one scorecard it
-  builds is a reference, not the age-based tee a US Kids round needs (see `courses.ts`'s own comment) --
-  parents still add/edit their own tees exactly as before, they're just not starting from nothing.
-  The script is self-contained (duplicates `courseKey()`, reads the seed list from `courses.ts`'s source
-  text) since `src/lib`/`src/data` use extension-less imports Node's own ESM loader can't resolve when a
-  scraper script runs directly -- see its own comment before reusing this pattern elsewhere.
+  (api.opengolfapi.org, free, no key needed, CORS open, ODbL-1.0 -- commercial use OK with attribution).
+  Writes `src/data/courseDetails.json` (name+city keyed), which `courses.ts` merges into `SEED_COURSES`;
+  re-run it after adding courses, or to refresh. Deliberately conservative -- only fills in a course when
+  its name+city matches a single OpenGolfAPI search result (per-course `/courses/search?q=&state=`, not a
+  bulk per-state fetch, so it scales nationwide) in the same city, else skips and logs it; a parent can
+  still edit anything it filled in, same as before. The one scorecard it builds is a reference, not the
+  age-based tee a US Kids round needs (see `courses.ts`'s own comment) -- parents still add/edit their own
+  tees exactly as before, they're just not starting from nothing. The script is self-contained (duplicates
+  `courseKey()`, reads the seed list from `courses.ts`'s source text) since `src/lib`/`src/data` use
+  extension-less imports Node's own ESM loader can't resolve when a scraper script runs directly -- see its
+  own comment before reusing this pattern elsewhere.
+- **Nationwide starter list**: `result_events` (AJGA nationwide + TGA/HJGT Texas results history, see
+  Results below) is the ground truth for "real junior tournament venues" -- `scraper/results/popular-courses.ts`
+  (manual, `.github/workflows/popular-courses.yml`, read-only) ranks them by how often they've hosted an
+  event. There wasn't enough history yet (293 rows) for a true popularity ranking -- most venues had only
+  hosted once or twice -- so instead of guessing a "popular courses" list, every distinct real venue (after
+  cleaning up HTML entities and TGA's inconsistent "Venue, City" formatting by hand) was added to `courses.ts`'s
+  `SEEDS`, grouped as "Other Texas" or "Other"+state. `Course.state` (USPS code) drives that grouping;
+  `Courses.tsx` shows Texas's named regions as flat cards and groups everything else by state in collapsible
+  sections (like My tours), with search still matching across the whole list. Re-run `popular-courses.ts`
+  later as more results accumulate if a real ranking becomes possible.
+- **Live nationwide lookup** (`src/lib/openGolfApi.ts`, used by `CourseLookup` in `CourseForm.tsx`): the Add
+  Course page can search any US course by name straight from the browser (OpenGolfAPI's CORS is open --
+  checked with `scraper/check-cors.ts` / `.github/workflows/check-cors.yml`, a small reusable debug helper
+  for checking any URL before wiring up a browser-side fetch). Picking a result prefills name/city/phone/
+  website/GPS/architect/year and a reference scorecard, same fields and same "reference tee" caveat as the
+  backfill script above; it fails silently (network hiccup, no matches, whatever) and leaves the form blank
+  for manual entry, since it's optional. Region is set to "Other Texas" or "Other" from the result's state;
+  a manually-added "Other"-region course has its own State field in the form.
 - `src/lib/tourGroups.ts` groups tours by org (SEED_TOURS order) for My tours and the Events → Available
   "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA, AJGA) collapses to one
   "<org> (all)" option with a second dropdown to narrow to a specific tour, instead of listing every one.
