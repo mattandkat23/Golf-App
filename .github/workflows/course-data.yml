@@ -1,0 +1,42 @@
+name: Pull course data
+
+# Occasional/manual: pulls phone, website, GPS and a reference scorecard for starter courses from
+# OpenGolfAPI (scraper/course-data.ts). Re-run after adding courses to src/data/courses.ts, or any time
+# to refresh. No schedule -- it's not a daily feed like the tour scraper.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: course-data
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Pull course data
+        run: node --experimental-strip-types scraper/course-data.ts
+      - name: Commit updated course data
+        if: always()
+        run: |
+          git config user.name "golf-tracker-bot"
+          git config user.email "golf-tracker-bot@users.noreply.github.com"
+          git add src/data/courseDetails.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Pull course data"
+            git push
+          fi

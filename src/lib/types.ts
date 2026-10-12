@@ -2,9 +2,11 @@ export type TourLevel = 'Local' | 'State' | 'Regional' | 'World' | 'Other';
 export type EventStatus = 'Considering' | 'Registered' | 'Waitlisted' | 'Played' | 'Withdrew';
 
 export interface Tee {
-  name: string; // e.g. "Age 9 tees", "Blue"
+  name: string; // e.g. "Age 9 tees", "Blue", "Championship"
   pars: number[]; // length 9 or 18
   yardages?: (number | undefined)[];
+  rating?: number; // USGA course rating, e.g. 72.7
+  slope?: number; // USGA slope rating, e.g. 122
 }
 
 export interface Course {
@@ -14,6 +16,15 @@ export interface Course {
   region: 'Austin' | 'Dallas–Fort Worth' | 'Waco' | 'San Antonio' | 'Houston' | 'Hill Country' | 'Other Texas' | 'Other';
   tees: Tee[];
   notes?: string;
+  // Pulled in from OpenGolfAPI where we could confidently match the course (see scraper/course-data.ts);
+  // a parent can edit any of these, same as everything else about a course.
+  phone?: string;
+  website?: string;
+  lat?: number;
+  lng?: number;
+  postalCode?: string;
+  architect?: string;
+  yearBuilt?: number;
 }
 
 export interface Tour {

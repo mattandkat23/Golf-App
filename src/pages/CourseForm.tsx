@@ -48,6 +48,26 @@ export default function CourseForm() {
             </select>
           </Field>
         </div>
+        <div className="grid2">
+          <Field label="Phone">
+            <input type="tel" value={c.phone ?? ''} onChange={(e) => setC({ ...c, phone: e.target.value || undefined })} />
+          </Field>
+          <Field label="Website">
+            <input type="url" value={c.website ?? ''} onChange={(e) => setC({ ...c, website: e.target.value || undefined })} placeholder="https://…" />
+          </Field>
+        </div>
+        {(c.architect || c.yearBuilt || (c.lat !== undefined && c.lng !== undefined)) && (
+          <div className="row wrap" style={{ gap: 12 }}>
+            {(c.architect || c.yearBuilt) && (
+              <span className="muted small">{[c.architect && `Designed by ${c.architect}`, c.yearBuilt].filter(Boolean).join(' · ')}</span>
+            )}
+            {c.lat !== undefined && c.lng !== undefined && (
+              <a href={`https://maps.google.com/?q=${c.lat},${c.lng}`} target="_blank" rel="noreferrer">
+                📍 Get directions
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
       {c.tees.map((t, i) => (
@@ -61,6 +81,8 @@ export default function CourseForm() {
           <div className="muted small" style={{ margin: '8px 0' }}>
             Par {t.pars.reduce((a, b) => a + b, 0)}
             {t.yardages?.some(Boolean) && ` · ${t.yardages.reduce<number>((a, b) => a + (b ?? 0), 0)} yds`}
+            {t.rating !== undefined && ` · ${t.rating} rating`}
+            {t.slope !== undefined && ` / ${t.slope} slope`}
           </div>
           <table className="score">
             <thead>
