@@ -22,6 +22,19 @@ GitHub/console settings, and keep replies short.
 - `src/lib/available.ts` scraped + pasted events → schedule · `src/lib/importParse.ts` paste-in parser (no AI)
 - `src/lib/schedule.ts` conflicts, deadlines, season totals · `src/lib/ics.ts` calendar export
 - `src/data/tours.ts` built-in tour list · `src/data/courses.ts` starter Texas course list
+- **Course data**: a course only had name/city/region until `scraper/course-data.ts` (manual/re-runnable,
+  `.github/workflows/course-data.yml`) pulled phone/website/GPS/architect and, where real hole-by-hole data
+  existed, one reference scorecard (par/yardage per hole, USGA rating/slope) from OpenGolfAPI
+  (api.opengolfapi.org, free, no key needed, ODbL-1.0 -- commercial use OK with attribution). Writes
+  `src/data/courseDetails.json` (name+city keyed), which `courses.ts` merges into `SEED_COURSES`; re-run
+  it after adding courses, or to refresh. Deliberately conservative -- only fills in a course when its
+  name+city matches a single OpenGolfAPI listing in the same city, else skips and logs it (40/50 matched
+  the first run); a parent can still edit anything it filled in, same as before. The one scorecard it
+  builds is a reference, not the age-based tee a US Kids round needs (see `courses.ts`'s own comment) --
+  parents still add/edit their own tees exactly as before, they're just not starting from nothing.
+  The script is self-contained (duplicates `courseKey()`, reads the seed list from `courses.ts`'s source
+  text) since `src/lib`/`src/data` use extension-less imports Node's own ESM loader can't resolve when a
+  scraper script runs directly -- see its own comment before reusing this pattern elsewhere.
 - `src/lib/tourGroups.ts` groups tours by org (SEED_TOURS order) for My tours and the Events → Available
   "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA, AJGA) collapses to one
   "<org> (all)" option with a second dropdown to narrow to a specific tour, instead of listing every one.
