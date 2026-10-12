@@ -106,10 +106,23 @@ const targets = seeds.map((s) => ({ ...s, key: `${s.name}|${s.city}`, existing: 
 
 console.log(`${targets.length} courses need a web lookup.`);
 
+const save = () => fs.writeFileSync(DETAILS_PATH, JSON.stringify(details, null, 1) + '\n');
+
 const client = new Anthropic();
 let filled = 0;
+let processed = 0;
 for (const t of targets) {
-  const info = await lookup(client, t.name, t.city, t.state);
+  let info: CourseInfo | undefined;
+  try {
+    info = await lookup(client, t.name, t.city, t.state);
+  } catch (err) {
+    // A run can die mid-batch (rate limit, API credit balance, network) -- save what's already been found
+    // rather than losing it, since the previous version only wrote once at the very end and a crash after
+    // 30+ minutes of real API spend threw all of it away.
+    console.error(`  ${t.name}: request failed (${err instanceof Error ? err.message : String(err)}) -- stopping here, progress so far is saved`);
+    break;
+  }
+  processed++;
   await pause(200);
   if (!info) continue;
   const patch: CourseDetails = {};
@@ -129,11 +142,12 @@ for (const t of targets) {
   if (changed) {
     details[t.key] = patch;
     filled++;
+    save();
     console.log(`  ${t.name}: ${info.sourceUrl ?? 'found'}`);
   } else {
     console.log(`  ${t.name}: nothing confident found (${info.notes})`);
   }
 }
 
-fs.writeFileSync(DETAILS_PATH, JSON.stringify(details, null, 1) + '\n');
-console.log(`\nFilled in something for ${filled}/${targets.length} courses.`);
+save();
+console.log(`\nFilled in something for ${filled}/${processed} courses looked up (${targets.length - processed} not reached).`);
