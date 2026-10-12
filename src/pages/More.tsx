@@ -48,6 +48,9 @@ export default function More() {
               <span> ›</span>
             </Link>
           </li>
+          <li>
+            <Link to="/onboarding">Replay setup guide ›</Link>
+          </li>
         </ul>
       </div>
     </>

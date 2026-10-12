@@ -140,4 +140,6 @@ export interface Profile {
   myTours?: string[];
   /** Opt in once: live hole-by-hole tracking for every AJGA event this golfer has (see src/lib/ajgaLiveTracking.ts). */
   trackAjgaHoles?: boolean;
+  /** False/unset on a brand-new install only -- shows the first-time setup walkthrough (src/pages/Onboarding.tsx) once. */
+  onboarded?: boolean;
 }

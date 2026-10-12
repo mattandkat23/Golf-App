@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
-import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { HashRouter, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
+import Onboarding from './pages/Onboarding';
 import Schedule from './pages/Schedule';
 import TournamentForm from './pages/TournamentForm';
 import TournamentDetail from './pages/TournamentDetail';
@@ -20,9 +21,9 @@ import Rounds from './pages/Rounds';
 import RequestTour from './pages/RequestTour';
 import PasteResults from './pages/PasteResults';
 import FindResults from './pages/FindResults';
-import { GolferProvider, GolferSwitch } from './lib/golfer';
+import { GolferProvider, GolferSwitch, useGolfer } from './lib/golfer';
 import { AuthProvider, useAuth, useSignedIn } from './lib/auth';
-import { syncOnStart } from './lib/sync';
+import { syncOnStart, syncStatus, onSyncStatus } from './lib/sync';
 import { Icon } from './components/ui';
 import SignIn from './pages/SignIn';
 
@@ -36,14 +37,33 @@ const TABS = [
 
 function Shell() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { golfer } = useGolfer();
+  const uid = useAuth().session?.user.id;
+  // Wait for the first sync compare so a returning parent's brand-new device doesn't briefly see
+  // onboarding before their real (already-onboarded) profile is downloaded from their account.
+  const [settled, setSettled] = useState(!uid || syncStatus() !== 'idle');
+  useEffect(() => {
+    if (!uid || settled) return;
+    return onSyncStatus((s) => {
+      if (s !== 'idle' && s !== 'syncing') setSettled(true);
+    });
+  }, [uid, settled]);
+  useEffect(() => {
+    if (settled && !golfer.onboarded && pathname !== '/onboarding') navigate('/onboarding', { replace: true });
+  }, [settled, golfer.onboarded, pathname, navigate]);
+
   const playing = pathname.startsWith('/play/');
+  const hideTabBar = playing || pathname === '/onboarding';
   const onTab = TABS.some((t) => t.to === pathname);
+  if (!settled) return null;
   return (
     <>
       <main className={`app${playing ? ' play' : ''}`}>
         {onTab && <GolferSwitch />}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/tournament/new" element={<TournamentForm />} />
           <Route path="/tournament/:id" element={<TournamentDetail />} />
@@ -68,7 +88,7 @@ function Shell() {
           <Route path="/results" element={<FindResults />} />
         </Routes>
       </main>
-      {!playing && (
+      {!hideTabBar && (
         <nav className="tabbar">
           {TABS.map((t) => (
             <NavLink key={t.to} to={t.to} end={t.to === '/'}>

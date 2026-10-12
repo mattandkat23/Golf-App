@@ -49,6 +49,8 @@ describe('database upgrades', () => {
     expect(await db.tournaments.where('golferId').equals('me').count()).toBe(2);
     expect(await db.rounds.where('golferId').equals('me').count()).toBe(1);
     expect(await db.practice.where('golferId').equals('me').count()).toBe(1);
+    // v13: a profile that already existed shouldn't see the first-time setup walkthrough.
+    expect((await db.profile.get('me'))!.onboarded).toBe(true);
   });
 });
 
@@ -56,6 +58,7 @@ describe('multiple golfers', () => {
   it("removes a golfer and only that golfer's data", async () => {
     const { db, deleteGolfer, newGolfer } = await import('./db');
     const sis = newGolfer('Emma');
+    expect(sis.onboarded).toBe(true); // a second golfer doesn't need the app walkthrough again
     await db.profile.add(sis);
     await db.tournaments.add({ golferId: sis.id, name: 'Fall Classic', level: 'Local', startDate: '2026-11-07', status: 'Registered' });
     await db.rounds.add({ golferId: sis.id, date: '2026-11-07', roundNumber: 1, numHoles: 9, holes: [] });

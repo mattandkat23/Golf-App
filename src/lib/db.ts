@@ -118,6 +118,10 @@ class GolfDB extends Dexie {
         });
       }
     });
+    // v13: show the first-time setup walkthrough once, only for a profile that existed before it (or was
+    // restored from a backup predating it) -- a genuinely brand-new install's default profile (on('populate')
+    // below) starts with onboarded left unset so the walkthrough shows for it.
+    this.version(13).upgrade((tx) => tx.table('profile').toCollection().modify((p: Profile) => (p.onboarded ??= true)));
     this.on('populate', (tx) => {
       tx.table('courses').bulkAdd(SEED_COURSES);
       tx.table('tours').bulkAdd(SEED_TOURS);
@@ -134,7 +138,8 @@ class GolfDB extends Dexie {
 export const db = new GolfDB();
 
 export function newGolfer(playerName: string): Profile {
-  return { id: `p-${Date.now()}`, playerName, bag: DEFAULT_BAG.map((name) => ({ name })), myTours: [] };
+  // A second (or later) golfer doesn't need the whole-app walkthrough again.
+  return { id: `p-${Date.now()}`, playerName, bag: DEFAULT_BAG.map((name) => ({ name })), myTours: [], onboarded: true };
 }
 
 /** Deletes a golfer and everything that belongs to them. */

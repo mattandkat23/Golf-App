@@ -26,9 +26,10 @@ export function GolferProvider({ children }: { children: ReactNode }) {
   const golfers = useLiveQuery(() => db.profile.toArray(), []);
   const [id, setId] = useState(readSaved);
 
-  // A restored backup can leave the phone with no golfers; make sure there's always one.
+  // A restored backup can leave the phone with no golfers; make sure there's always one. Not a fresh
+  // install (that goes through db.ts's on('populate') instead), so it doesn't need the walkthrough.
   useEffect(() => {
-    if (golfers && !golfers.length) db.profile.put({ id: 'me', playerName: 'My Golfer', bag: DEFAULT_BAG.map((name) => ({ name })), myTours: [] });
+    if (golfers && !golfers.length) db.profile.put({ id: 'me', playerName: 'My Golfer', bag: DEFAULT_BAG.map((name) => ({ name })), myTours: [], onboarded: true });
   }, [golfers]);
 
   if (!golfers?.length) return null;

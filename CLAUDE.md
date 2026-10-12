@@ -25,6 +25,17 @@ GitHub/console settings, and keep replies short.
 - `src/lib/tourGroups.ts` groups tours by org (SEED_TOURS order) for My tours and the Events → Available
   "Tour"/"Series" filters — an org with more than one tour (US Kids Golf, NTPGA, STPGA, AJGA) collapses to one
   "<org> (all)" option with a second dropdown to narrow to a specific tour, instead of listing every one.
+- **First-time setup** (`src/pages/Onboarding.tsx`, route `/onboarding`): a brand-new profile's `onboarded` field
+  is unset, so `App.tsx`'s `Shell` redirects there (replacing the normal tab bar/routes) until it's set -- which
+  Onboarding does itself the instant it mounts, not just on Finish, so stepping away mid-walkthrough never traps
+  a parent in a loop. Walks through naming the golfer + age group, picking tours (embeds `MyTours`), adding a
+  one-off event, requesting a missing tour, and a tab-by-tab tour. `Shell` waits for the first sync compare
+  before deciding (`src/lib/sync.ts`'s `syncStatus`/`onSyncStatus`) so a returning parent's brand-new device
+  doesn't flash onboarding before their real (already-onboarded) profile downloads. A **second** golfer
+  (`newGolfer()`) and the `GolferProvider`/`db.ts` "always have one golfer" fallbacks all default `onboarded`
+  to `true` -- only a true fresh install's `on('populate')` profile leaves it unset. v13 backfills `onboarded:
+  true` for every profile that already existed, so this never surfaces for a current user. Reachable again any
+  time from More → "Replay setup guide".
 
 ## Rules that bite
 
