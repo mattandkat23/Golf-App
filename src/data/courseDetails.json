@@ -697,7 +697,8 @@
   "lng": -96.7938282,
   "postalCode": "75216",
   "architect": "A.W. Tillinghast",
-  "yearBuilt": 1927
+  "yearBuilt": 1927,
+  "address": "1800 Southerland Avenue, Dallas, TX 75203"
  },
  "Grapevine Golf Course|Grapevine": {
   "phone": "(972) 539-5909",
@@ -5507,7 +5508,8 @@
  },
  "Plum Creek Golf Course|Kyle": {
   "phone": "(512) 262-5555",
-  "website": "https://www.plumcreekgolf.com/"
+  "website": "https://www.plumcreekgolf.com/",
+  "address": "4301 Benner Rd, Kyle, TX 78640"
  },
  "Falconhead Golf Club|Austin": {
   "website": "https://falconheadaustin.com/"
@@ -5516,6 +5518,8 @@
   "website": "https://www.crystalfallsgolf.com/"
  },
  "Stevens Park Golf Course|Dallas": {
-  "website": "https://www.stevensparkgolf.com/"
+  "website": "https://www.stevensparkgolf.com/",
+  "phone": "214.670.7506",
+  "address": "1005 N. Montclair Avenue, Dallas, TX 75208"
  }
 }
