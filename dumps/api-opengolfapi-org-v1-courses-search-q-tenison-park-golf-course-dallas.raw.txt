@@ -1,0 +1,2 @@
+<!-- HTTP 200 application/json -->
+{"courses":[],"total":0,"_license":"ODbL-1.0","_attribution":"© OpenStreetMap contributors (ODbL 1.0) via OpenGolfAPI — https://opengolfapi.org/attribution","_upgrade":"Full detail (tees, climate, weather, nearby, booking) free at /api/v1/courses/{id}"}
