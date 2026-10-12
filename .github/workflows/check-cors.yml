@@ -1,0 +1,26 @@
+name: Check CORS
+
+# Debug: prints whether a URL allows cross-origin browser fetches (scraper/check-cors.ts). No schedule.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL to check'
+        required: true
+      origin:
+        description: 'Origin header to send (default https://mattandkat23.github.io)'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --experimental-strip-types scraper/check-cors.ts "${{ inputs.url }}" "${{ inputs.origin }}"

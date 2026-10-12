@@ -4,11 +4,13 @@
  * each starter course, from OpenGolfAPI (https://opengolfapi.org/, free, no key needed for reads,
  * ODbL-1.0 licensed -- commercial use is fine with attribution, which the written file carries).
  *
- * Deliberately conservative: a course is only filled in when its name+city matches a single OpenGolfAPI
- * listing in the same city (see findMatch); anything uncertain is skipped and listed at the end instead
- * of risking the wrong course's data. The one scorecard it builds (named after whichever tee OpenGolfAPI's
- * hole yardages belong to -- usually the back/championship tee) is a reference a parent can still edit;
- * it's rarely the age-based tee a US Kids round actually needs (see courses.ts's own comment).
+ * Nationwide: queries OpenGolfAPI's /courses/search per course (name + state, see seedCourses()) rather
+ * than bulk-fetching a whole state's listing -- that only worked when every course was Texas. Deliberately
+ * conservative: a course is only filled in when its name+city matches a single search result in the same
+ * city (see findMatch); anything uncertain is skipped and listed at the end instead of risking the wrong
+ * course's data. The one scorecard it builds (named after whichever tee OpenGolfAPI's hole yardages belong
+ * to -- usually the back/championship tee) is a reference a parent can still edit; it's rarely the
+ * age-based tee a US Kids round actually needs (see courses.ts's own comment).
  *
  * Writes src/data/courseDetails.json, which src/data/courses.ts merges into SEED_COURSES by name+city.
  * Usage: node --experimental-strip-types scraper/course-data.ts
@@ -43,9 +45,13 @@ interface Tee {
   slope?: number;
 }
 
-function seedCourses(): { name: string; city: string }[] {
+function seedCourses(): { name: string; city: string; state: string }[] {
   const text = fs.readFileSync(COURSES_PATH, 'utf8');
-  return [...text.matchAll(/^\s*\['([^']+)', '([^']+)', '[^']+'\]/gm)].map((m) => ({ name: m[1], city: m[2] }));
+  return [...text.matchAll(/^\s*\['([^']+)',\s*'([^']+)',\s*'([^']*)'(?:,\s*'([^']*)')?\]/gm)].map((m) => ({
+    name: m[1],
+    city: m[2],
+    state: m[4] ?? 'TX', // every region but 'Other' is a Texas sub-region (see Seed in courses.ts)
+  }));
 }
 
 interface RemoteListing {
@@ -92,16 +98,9 @@ async function fetchJson<T>(url: string): Promise<T | undefined> {
   return res.json() as Promise<T>;
 }
 
-async function fetchAllTx(): Promise<RemoteListing[]> {
-  const all: RemoteListing[] = [];
-  for (let offset = 0; ; offset += 200) {
-    const page = await fetchJson<{ courses: RemoteListing[]; total: number }>(`${API}/courses/state/TX?limit=200&offset=${offset}`);
-    if (!page?.courses.length) break;
-    all.push(...page.courses);
-    if (all.length >= page.total) break;
-    await pause(1000);
-  }
-  return all;
+async function searchCourse(name: string, state: string): Promise<RemoteListing[]> {
+  const page = await fetchJson<{ courses: RemoteListing[] }>(`${API}/courses/search?q=${encodeURIComponent(name)}&state=${state}&limit=10`);
+  return page?.courses ?? [];
 }
 
 /** Only matches when exactly one OpenGolfAPI listing shares a city with this course and a close-enough name. */
@@ -146,21 +145,20 @@ interface CourseDetails {
   tees?: Tee[];
 }
 
-console.log('Fetching every OpenGolfAPI course in Texas...');
-const listing = await fetchAllTx();
-console.log(`  ${listing.length} courses`);
-
 const courses = seedCourses();
+console.log(`Looking up ${courses.length} starter courses on OpenGolfAPI...`);
 const out: Record<string, CourseDetails> = {};
 const skipped: string[] = [];
 let matched = 0;
 for (const c of courses) {
+  const listing = await searchCourse(c.name, c.state);
+  await pause(400);
   const hit = findMatch(listing, c.name, c.city);
   if (!hit) {
-    skipped.push(`${c.name} (${c.city})`);
+    skipped.push(`${c.name} (${c.city}, ${c.state})`);
     continue;
   }
-  await pause(800);
+  await pause(400);
   const detail = await fetchJson<RemoteDetail>(`${API}/courses/${hit.id}`);
   if (!detail) {
     skipped.push(`${c.name} (${c.city}) -- matched but detail fetch failed`);
