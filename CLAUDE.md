@@ -30,14 +30,32 @@ GitHub/console settings, and keep replies short.
   (api.opengolfapi.org, free, no key needed, CORS open, ODbL-1.0 -- commercial use OK with attribution).
   Writes `src/data/courseDetails.json` (name+city keyed), which `courses.ts` merges into `SEED_COURSES`;
   re-run it after adding courses, or to refresh. Deliberately conservative -- only fills in a course when
-  its name+city matches a single OpenGolfAPI search result (per-course `/courses/search?q=&state=`, not a
-  bulk per-state fetch, so it scales nationwide) in the same city, else skips and logs it; a parent can
-  still edit anything it filled in, same as before. The one scorecard it builds is a reference, not the
-  age-based tee a US Kids round needs (see `courses.ts`'s own comment) -- parents still add/edit their own
-  tees exactly as before, they're just not starting from nothing. The script is self-contained (duplicates
-  `courseKey()`, reads the seed list from `courses.ts`'s source text) since `src/lib`/`src/data` use
-  extension-less imports Node's own ESM loader can't resolve when a scraper script runs directly -- see its
-  own comment before reusing this pattern elsewhere.
+  its name uniquely matches a single OpenGolfAPI search result in the state (per-course
+  `/courses/search?q=&state=`, not a bulk per-state fetch, so it scales nationwide); the city text itself
+  isn't required to match (OpenGolfAPI often files a course under a different nearby city/suburb), and a
+  genuine same-name collision across cities is settled by real distance between the two cities' geocoded
+  centers (free OpenStreetMap Nominatim, cached in `scraper/geocode-cache.json`), only accepted when close
+  (<=30mi) and clearly closer than any other candidate. Anything still unmatched is skipped and logged; a
+  parent can still edit anything it filled in, same as before. The one scorecard it builds is a reference,
+  not the age-based tee a US Kids round needs (see `courses.ts`'s own comment) -- parents still add/edit
+  their own tees exactly as before, they're just not starting from nothing. `course-data.ts` and
+  `scraper/course-web-lookup.ts` (below) share `scraper/courseSeeds.ts` (`courseKey()` + reading the seed
+  list from `courses.ts`'s source text) since `src/lib`/`src/data` use extension-less imports Node's own ESM
+  loader can't resolve when a scraper script runs directly -- see that file's own comment before reusing
+  this pattern elsewhere.
+- **Web-search fallback for courses OpenGolfAPI doesn't have at all** (`scraper/course-web-lookup.ts`,
+  manual, `.github/workflows/course-web-lookup.yml`, needs repo secret `ANTHROPIC_API_KEY`): has Claude
+  search the web and read pages (`web_search_20260209`/`web_fetch_20260209` server tools -- Anthropic's own
+  infrastructure does the searching/fetching, no scraper/robots.txt code needed) to find a course's official
+  site, phone and address. Uses `claude-sonnet-5-5`, not Opus -- this is mechanical extraction, not
+  judgment-heavy work, so the cheaper model does just as well (confirmed on a real side-by-side test) at
+  about $0.10-0.15/course. Deliberately does **not** try for a scorecard: real runs (21 courses, both Opus
+  and Sonnet) found a usable complete hole-by-hole scorecard on an official site zero times -- sites that
+  have one tend to publish it as an image/PDF or a partial card (total yardage only), not fetchable text, so
+  OpenGolfAPI's structured data is the only reliable scorecard source. Only runs for a course OpenGolfAPI
+  found nothing at all for (not one it matched but had no scorecard for, same reason). `web_fetch`'s call
+  cap needs real headroom (5, not 3) -- Claude isn't allowed to answer from a search snippet alone (see its
+  system prompt), so confirming a course typically takes opening 1-2 of its own pages.
 - **Nationwide starter list**: `result_events` (AJGA nationwide + TGA/HJGT Texas results history, see
   Results below) is the ground truth for "real junior tournament venues" -- `scraper/results/popular-courses.ts`
   (manual, `.github/workflows/popular-courses.yml`, read-only) ranks them by how often they've hosted an
