@@ -520,7 +520,8 @@
   "lat": 30.5123053,
   "lng": -97.6022825,
   "postalCode": "78664",
-  "architect": "Richard M. Phelps"
+  "architect": "Richard M. Phelps",
+  "address": "99 Twin Ridge Parkway, Round Rock, TX 78664"
  },
  "Blackhawk Golf Club|Pflugerville": {
   "phone": "(512) 251-9000",
@@ -5493,5 +5494,19 @@
     "slope": 123
    }
   ]
+ },
+ "Grey Rock Golf Club|Austin": {
+  "phone": "512.288.4297",
+  "website": "https://www.greyrockgolfclub.com/home",
+  "address": "7401 State Highway 45, Austin, TX 78739"
+ },
+ "Star Ranch Golf Club|Hutto": {
+  "phone": "(512) 252-4653",
+  "website": "https://www.starranchgolf.com/",
+  "address": "2500 Fm 685, Hutto, TX 78634"
+ },
+ "Plum Creek Golf Course|Kyle": {
+  "phone": "(512) 262-5555",
+  "website": "https://www.plumcreekgolf.com/"
  }
 }
