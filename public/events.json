@@ -1,55 +1,59 @@
 {
- "generatedAt": "2026-10-11T21:21:30.719Z",
+ "generatedAt": "2026-10-12T10:38:02.549Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 3
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 4
   },
   "usk-houston": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 7
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
-   "eventCount": 3
+   "eventCount": 2
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 2
   },
   "usk-state": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 0
   },
   "usk-regional": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
-   "eventCount": 19
+   "eventCount": 14,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/regionals/find-tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CfxCbtySfki"
   },
   "usk-world": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
-   "ok": true,
-   "eventCount": 2
+   "checkedAt": "2026-10-12T10:38:02.549Z",
+   "ok": false,
+   "eventCount": 2,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/world/find-tournament/517536/world-championship-2026: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"requ"
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
-   "eventCount": 4
+   "eventCount": 4,
+   "error": "https://txga.org/ljt-landing-3/: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CfxCgqFMXk1qFQXdooQW7\"}"
   },
   "hjgt": {
-   "checkedAt": "2026-10-11T10:32:25.506Z",
-   "ok": true,
-   "eventCount": 0
+   "checkedAt": "2026-10-12T10:38:02.549Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "https://tournaments.hjgt.org/Tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CfxCiMucKPW8q6v6ShRZy\"}"
   },
   "stpga-prestige": {
    "checkedAt": "2026-10-11T18:23:18.055Z",
@@ -87,7 +91,7 @@
    "eventCount": 25
   },
   "under-armour": {
-   "checkedAt": "2026-10-11T21:09:04.359Z",
+   "checkedAt": "2026-10-12T10:38:02.549Z",
    "ok": true,
    "eventCount": 3
   },
@@ -679,29 +683,9 @@
    "url": "https://www.ntpgajuniorgolf.com/"
   },
   {
-   "id": "usk-regional-2026-10-10-12y7mbq",
-   "tourId": "usk-regional",
-   "name": "PGA Golf Club Invitational",
-   "startDate": "2026-10-10",
-   "endDate": "2026-10-11",
-   "courseName": "PGA Golf Club",
-   "city": "Port St. Lucie, FL",
-   "level": "Regional"
-  },
-  {
-   "id": "usk-regional-2026-10-10-131yjk",
-   "tourId": "usk-regional",
-   "name": "PGA Golf Club Invitational 2026",
-   "startDate": "2026-10-10",
-   "endDate": "2026-10-11",
-   "registrationDeadline": "2026-10-07",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519065/pga-golf-club-invitational-2026",
-   "level": "Regional"
-  },
-  {
    "id": "tga-ljt-2026-10-11-1n1f9vx",
    "tourId": "tga-ljt",
-   "name": "James A. Ragan Memorial \u2013 Open",
+   "name": "James A. Ragan Memorial – Open",
    "startDate": "2026-10-11",
    "endDate": "2026-10-12",
    "courseName": "Corpus Christi Country Club",
@@ -798,15 +782,6 @@
    "courseName": "River Plantation CC",
    "city": "Conroe",
    "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "usk-san-antonio-2026-10-11-9eacn0",
-   "tourId": "usk-san-antonio",
-   "name": "Mission Del Lago Municipal Golf Course",
-   "startDate": "2026-10-11",
-   "courseName": "Mission Del Lago Municipal Golf Course",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519507/mission-del-lago-municipal-golf-course",
-   "level": "Local"
   },
   {
    "id": "ntpga-prep-2026-10-11-1yal9e5",
@@ -1240,11 +1215,11 @@
   {
    "id": "tga-ljt-2026-10-24-jm4j0x",
    "tourId": "tga-ljt",
-   "name": "TJGA Invitational \u2013 Invitational",
+   "name": "TJGA Invitational – Invitational",
    "startDate": "2026-10-24",
    "endDate": "2026-10-25",
    "courseName": "White Bluff Resort - New Course",
-   "city": "Whitney",
+   "registrationDeadline": "2026-10-07",
    "url": "https://txga.org/texas-junior-golf-alliance-invitational/",
    "level": "State"
   },
@@ -1617,16 +1592,6 @@
    "level": "Regional"
   },
   {
-   "id": "usk-regional-2026-11-07-idvt30",
-   "tourId": "usk-regional",
-   "name": "Colonial Williamsburg Classic 2026",
-   "startDate": "2026-11-07",
-   "endDate": "2026-11-08",
-   "registrationDeadline": "2026-11-04",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519427/colonial-williamsburg-classic-2026",
-   "level": "Regional"
-  },
-  {
    "id": "ntpga-majors-2026-11-07-z8fwpa",
    "tourId": "ntpga-majors",
    "name": "GG WHOSNEXT Major @ Hawks Creek",
@@ -1683,16 +1648,6 @@
    "startDate": "2026-11-07",
    "endDate": "2026-11-08",
    "city": "Monterey, CA",
-   "level": "Regional"
-  },
-  {
-   "id": "usk-regional-2026-11-07-paeup3",
-   "tourId": "usk-regional",
-   "name": "Monterey Challenge 2026",
-   "startDate": "2026-11-07",
-   "endDate": "2026-11-08",
-   "registrationDeadline": "2026-11-04",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519538/monterey-challenge-2026",
    "level": "Regional"
   },
   {
@@ -2459,7 +2414,7 @@
   {
    "id": "tga-ljt-2026-12-05-mjuvmb",
    "tourId": "tga-ljt",
-   "name": "Alamo Shootout \u2013 Open",
+   "name": "Alamo Shootout – Open",
    "startDate": "2026-12-05",
    "endDate": "2026-12-06",
    "courseName": "Olympia Hills Golf Course",
@@ -2737,16 +2692,6 @@
    "startDate": "2026-12-21",
    "endDate": "2026-12-22",
    "city": "Palm Beach Gardens, FL",
-   "level": "Regional"
-  },
-  {
-   "id": "usk-regional-2026-12-21-ga1siy",
-   "tourId": "usk-regional",
-   "name": "Holiday Classic 2026",
-   "startDate": "2026-12-21",
-   "endDate": "2026-12-22",
-   "registrationDeadline": "2026-12-19",
-   "url": "https://tournaments.uskidsgolf.com/tournaments/regional/find-tournament/519796/holiday-classic-2026",
    "level": "Regional"
   },
   {
