@@ -578,60 +578,6 @@
    }
   ]
  },
- "Plum Creek Golf Course|Kyle": {
-  "phone": "(512) 268-4986",
-  "website": "http://www.tjoselfstorage.com/self-storage/kyle-114950",
-  "lat": 30.0219398,
-  "lng": -97.8871629,
-  "postalCode": "78640",
-  "tees": [
-   {
-    "name": "Blue",
-    "pars": [
-     4,
-     5,
-     4,
-     3,
-     4,
-     4,
-     4,
-     3,
-     5,
-     3,
-     5,
-     4,
-     3,
-     4,
-     5,
-     4,
-     3,
-     4
-    ],
-    "yardages": [
-     340,
-     548,
-     360,
-     177,
-     371,
-     407,
-     337,
-     122,
-     497,
-     150,
-     449,
-     370,
-     145,
-     354,
-     458,
-     422,
-     195,
-     399
-    ],
-    "rating": 71.3,
-    "slope": 120
-   }
-  ]
- },
  "Kissing Tree Golf Club|San Marcos": {
   "phone": "512-749-1031",
   "website": "http://kissingtreegolfclub.com",
@@ -1560,6 +1506,11 @@
     "slope": 116
    }
   ]
+ },
+ "Panorama Golf Club|Conroe": {
+  "lat": 30.3753669,
+  "lng": -95.4986748,
+  "postalCode": "77304"
  },
  "Corpus Christi Country Club|Corpus Christi": {
   "phone": "(361) 991-2811",
@@ -4901,6 +4852,41 @@
    }
   ]
  },
+ "Huntsville Golf Club|Dallas": {
+  "phone": "+15706743673",
+  "website": "http://www.golf-huntsville.com",
+  "lat": 41.3127377067,
+  "lng": -76.010304556,
+  "postalCode": "18612",
+  "yearBuilt": 1993,
+  "tees": [
+   {
+    "name": "Forward",
+    "pars": [
+     5,
+     4,
+     3,
+     4,
+     3,
+     4,
+     4,
+     4,
+     5,
+     4,
+     4,
+     5,
+     4,
+     5,
+     3,
+     4,
+     3,
+     4
+    ],
+    "rating": 73.2,
+    "slope": 130
+   }
+  ]
+ },
  "Indiana Country Club|Indiana": {
   "phone": "1323804656",
   "website": "http://indiana-countryclub.com",
@@ -5009,6 +4995,60 @@
     ],
     "rating": 70.7,
     "slope": 125
+   }
+  ]
+ },
+ "Old Hickory Country Club|Old Hickory": {
+  "phone": "(615) 847-3966",
+  "lat": 36.2484753,
+  "lng": -86.6468704,
+  "postalCode": "37138",
+  "architect": "Jerry Lemons, Jeffery D. Blume",
+  "tees": [
+   {
+    "name": "Red",
+    "pars": [
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     4,
+     3,
+     3,
+     3,
+     3,
+     3,
+     5
+    ],
+    "yardages": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     112,
+     416
+    ],
+    "rating": 67.8,
+    "slope": 117
    }
   ]
  },
