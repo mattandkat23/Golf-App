@@ -1,0 +1,31 @@
+name: Rank popular courses
+
+# Debug/one-off: prints courses ranked by how often they've hosted a tournament in result_events
+# (scraper/results/popular-courses.ts), to ground the starter course list in real junior-golf venues.
+# Read-only -- nothing is written or committed.
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'How many top courses to print (default 200)'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  rank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Rank
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: node --experimental-strip-types scraper/results/popular-courses.ts ${LIMIT:+--limit=$LIMIT}
