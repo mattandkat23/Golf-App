@@ -1,65 +1,65 @@
 {
- "generatedAt": "2026-10-13T10:38:21.752Z",
+ "generatedAt": "2026-10-14T10:49:40.211Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 3,
    "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011C"
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 4,
    "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011C"
   },
   "usk-houston": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 7,
    "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284880/houston: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011"
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 2,
    "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req"
   },
   "usk-el-paso": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 2,
    "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011"
   },
   "usk-state": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 0,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cfz6LMuoS7MqXRcgU6m8S\"} | https"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg211HZ1DBJUkGXFp4BDc\"} | https"
   },
   "usk-regional": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": true,
    "eventCount": 14,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/regional: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cfz6PK6im7okrjH2CumzF\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/regional: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg214Eq8niLriCF9Bq8Nc\"}"
   },
   "usk-world": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/sitemap: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cfz6RWvAwDkkkNy7GKcAj\"} | https://tournam"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/world: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg2152K66QkNd7No9s7eD\"}"
   },
   "tga-ljt": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 4,
-   "error": "https://txga.org/ljt-landing-3/: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cfz6UVBaLA4nDibqPdQeQ\"} | https://txga.org/2026-even"
+   "error": "https://txga.org/ljt-landing-3/: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg2173zbhofcqB91UwtS6\"} | https://txga.org/2026-even"
   },
   "hjgt": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": false,
    "eventCount": 0,
-   "error": "https://tournaments.hjgt.org/Tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cfz6WDY3oVnnPdLLAJwYn\"}"
+   "error": "https://tournaments.hjgt.org/Tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg218cyzyrnNmKpzm83cS\"}"
   },
   "stpga-prestige": {
    "checkedAt": "2026-10-11T18:23:18.055Z",
@@ -97,7 +97,7 @@
    "eventCount": 25
   },
   "under-armour": {
-   "checkedAt": "2026-10-13T10:38:21.752Z",
+   "checkedAt": "2026-10-14T10:49:40.211Z",
    "ok": true,
    "eventCount": 3
   },
@@ -118,133 +118,6 @@
   }
  },
  "events": [
-  {
-   "id": "stpga-prestige-2026-09-12-10i946j",
-   "tourId": "stpga-prestige",
-   "name": "PT - Cavender Buick GMC North Brackenrid",
-   "startDate": "2026-09-12",
-   "endDate": "2026-09-13",
-   "courseName": "Brackenridge Park GC",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-13-1rre0p1",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Brentwood CC",
-   "startDate": "2026-09-13",
-   "courseName": "Brentwood CC",
-   "city": "Beaumont",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-13-4crglz",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Oak Valley",
-   "startDate": "2026-09-13",
-   "courseName": "Oak Valley GC",
-   "city": "Helotes",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-13-xw9f2k",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Panorama Golf Club",
-   "startDate": "2026-09-13",
-   "courseName": "Panorama Golf Club",
-   "city": "Conroe",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-links-2026-09-13-1b49xuc",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Victoria Country Club",
-   "startDate": "2026-09-13",
-   "courseName": "Victoria CC",
-   "city": "Victoria",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-09-13-1j99a1j",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Atascocita Golf Club",
-   "startDate": "2026-09-13",
-   "courseName": "Atascocita Country Club",
-   "city": "Humble",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-09-13-12z7j5x",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Brentwood CC",
-   "startDate": "2026-09-13",
-   "courseName": "Brentwood CC",
-   "city": "Beaumont",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-09-13-13mjy1",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Fort Sam Houston GC",
-   "startDate": "2026-09-13",
-   "courseName": "Fort Sam Houston GC",
-   "city": "San Antonio",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-09-13-92xu3h",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Hermann Park Golf Course",
-   "startDate": "2026-09-13",
-   "courseName": "Hermann Park GC",
-   "city": "Houston",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-junior-tour-2026-09-13-430ifo",
-   "tourId": "stpga-junior-tour",
-   "name": "Junior Tour - Victoria Country Club",
-   "startDate": "2026-09-13",
-   "courseName": "Victoria CC",
-   "city": "Victoria",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-13-h5xrhh",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Brentwood CC",
-   "startDate": "2026-09-13",
-   "courseName": "Brentwood CC",
-   "city": "Beaumont",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-13-1n40c4z",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Oak Valley GC",
-   "startDate": "2026-09-13",
-   "courseName": "Oak Valley GC",
-   "city": "Helotes",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-13-oqjje4",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Panorama Golf Club",
-   "startDate": "2026-09-13",
-   "courseName": "Panorama Golf Club",
-   "city": "Conroe",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-09-13-nl2c38",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Victoria Country Club",
-   "startDate": "2026-09-13",
-   "courseName": "Victoria CC",
-   "city": "Victoria",
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
   {
    "id": "stpga-junior-links-2026-09-15-18wl1kf",
    "tourId": "stpga-junior-links",
