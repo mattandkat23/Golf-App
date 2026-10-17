@@ -1,60 +1,65 @@
 {
- "generatedAt": "2026-10-16T10:49:30.401Z",
+ "generatedAt": "2026-10-17T10:43:52.784Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 3
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 3,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011C"
   },
   "usk-dallas": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 4
-  },
-  "usk-houston": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 7
-  },
-  "usk-san-antonio": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 2
-  },
-  "usk-el-paso": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 2
-  },
-  "usk-state": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": false,
-   "eventCount": 0,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg5ncPKGBDzfcAuN4YMz5\"} | https"
-  },
-  "usk-regional": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": true,
-   "eventCount": 14,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/regional: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg5nfMTiJ6Tgf1xEfxuVK\"}"
-  },
-  "usk-world": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
-   "ok": false,
-   "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/tournaments: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg5ngouEH96B3NAjMomGm\"} | https://tou"
-  },
-  "tga-ljt": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
+   "checkedAt": "2026-10-17T10:43:52.784Z",
    "ok": false,
    "eventCount": 4,
-   "error": "https://txga.org/ljt-landing-3/: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg5njjJUnkiiDb8CHggbp\"} | https://txga.org/2026-even"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011C"
   },
-  "hjgt": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
+  "usk-houston": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 7,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284880/houston: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011"
+  },
+  "usk-san-antonio": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 2,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req"
+  },
+  "usk-el-paso": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 2,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011"
+  },
+  "usk-state": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
    "ok": false,
    "eventCount": 0,
-   "error": "https://tournaments.hjgt.org/Tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg5nmJSp4ryJUaBDHMEUU\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg7fzQWEwKnC7ovvFN3kP\"} | https"
+  },
+  "usk-regional": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": true,
+   "eventCount": 14,
+   "error": "https://tournaments.uskidsgolf.com/tournaments/regional: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg7g3MdCRmzYquhraZST1\"}"
+  },
+  "usk-world": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 2,
+   "error": "https://tournaments.uskidsgolf.com/tournaments: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg7g4qYkXVYdAQfsegTp2\"} | https://tou"
+  },
+  "tga-ljt": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 4,
+   "error": "https://txga.org/ljt-landing-3/: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg7g7g2b9dRGyyPcKz75i\"} | https://txga.org/2026-even"
+  },
+  "hjgt": {
+   "checkedAt": "2026-10-17T10:43:52.784Z",
+   "ok": false,
+   "eventCount": 0,
+   "error": "https://tournaments.hjgt.org/Tournament: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011Cg7g9EM4nuqTcdV7xggus\"}"
   },
   "stpga-prestige": {
    "checkedAt": "2026-10-11T18:23:18.055Z",
@@ -92,7 +97,7 @@
    "eventCount": 25
   },
   "under-armour": {
-   "checkedAt": "2026-10-16T10:49:30.401Z",
+   "checkedAt": "2026-10-17T10:43:52.784Z",
    "ok": true,
    "eventCount": 3
   },
