@@ -1,65 +1,65 @@
 {
- "generatedAt": "2026-11-26T19:39:50.823Z",
+ "generatedAt": "2026-11-27T19:29:52.450Z",
  "sources": {
   "usk-austin": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS79u8tX7XK9nQ8DZ6qS\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284862/austin: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzCpGU2ogvcebNXzPEP\"}"
   },
   "usk-dallas": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 4,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7Acptg1wZ1i3E4ZhGK\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284874/dallas: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzDUtRrg8myMSACaMW5\"}"
   },
   "usk-houston": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 4,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284880/houston: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7BNSUsfaTfscDWVSkQ\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284880/houston: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzE8nyfeSiiY1CyvG8j\"}"
   },
   "usk-san-antonio": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7C6nBVc1vLDohMH44c\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/284902/san-antonio: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzEtPKhVzgfWN7s8sQB\"}"
   },
   "usk-el-paso": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7Cqr2ReWj4riF1wT1Y\"}"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/local/find-local-tour/496853/el-paso: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzFggQ1XR85XuKjkSFS\"}"
   },
   "usk-state": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 0,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7DXRY6TyTXT9Tx6oTg\"} | https://tournaments.uskidsgolf.com/tournaments/state/find-tournament/link-2025-26-schedule: 401 {\"type\":\"erro"
+   "error": "https://tournaments.uskidsgolf.com/tournaments/state: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzGKzUc9B31tMY8gthc\"} | https://tournaments.uskidsgolf.com/tournaments/state/find-tournament/link-2025-26-schedule: 401 {\"type\":\"erro"
   },
   "usk-regional": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": true,
-   "eventCount": 12,
-   "error": "https://tournaments.uskidsgolf.com/tournaments/regional: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7GT2x9rm1eiKaYuGnJ\"}"
+   "eventCount": 11,
+   "error": "https://tournaments.uskidsgolf.com/sites/default/files/2026_regional_invitation_schedule.pdf: HTTP 503 for https://tournaments.uskidsgolf.com/sites/default/files/2026_regional_invitation_schedule.pdf | https://tournaments.uskidsgolf.com/tournaments/regional: 401 {\"type\":\"error\",\"error\":{\"type\":\"auth"
   },
   "usk-world": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://tournaments.uskidsgolf.com/tournaments: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7HwBdyzxXtXibUaJWk\"} | https://tournaments.uskidsgolf.com/sitemap: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"i"
+   "error": "https://tournaments.uskidsgolf.com/tournaments: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzMWth7yN6cpNVDvnM4\"} | https://tournaments.uskidsgolf.com/sitemap: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"i"
   },
   "tga-ljt": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://txga.org/ljt-landing-3/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7LPeAViySs8sEUkads\"} | https://txga.org/2026-event-calendar/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\""
+   "error": "https://txga.org/ljt-landing-3/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzPkUpLW54LJHd3vMcs\"} | https://txga.org/2026-event-calendar/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\""
   },
   "hjgt": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 0,
-   "error": "https://tournaments.hjgt.org/Tournament: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7MqJ3cAKqh8HLhj9JB\"}"
+   "error": "https://tournaments.hjgt.org/Tournament: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzRCq7a6hu1fQe8Egpo\"}"
   },
   "stpga-prestige": {
    "checkedAt": "2026-10-11T18:23:18.055Z",
@@ -97,10 +97,10 @@
    "eventCount": 25
   },
   "under-armour": {
-   "checkedAt": "2026-11-26T19:39:50.823Z",
+   "checkedAt": "2026-11-27T19:29:52.450Z",
    "ok": false,
    "eventCount": 2,
-   "error": "https://www.uagolftour.com/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChS7KDUCdJcGwiagWFMTb\"}"
+   "error": "https://www.uagolftour.com/: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011ChTzNbBTEzLZjuwpcboUo\"}"
   },
   "ajga-invitational": {
    "checkedAt": "2026-10-11T21:21:30.719Z",
@@ -119,26 +119,6 @@
   }
  },
  "events": [
-  {
-   "id": "stpga-junior-links-2026-10-27-17tuuj3",
-   "tourId": "stpga-junior-links",
-   "name": "Junior Links - Clear Creek Golf Club",
-   "startDate": "2026-10-27",
-   "courseName": "Clear Creek GC",
-   "city": "Houston",
-   "entryFee": 50,
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
-  {
-   "id": "stpga-little-linksters-2026-10-27-prwrz",
-   "tourId": "stpga-little-linksters",
-   "name": "Little Linksters - Clear Creek Golf Club",
-   "startDate": "2026-10-27",
-   "courseName": "Clear Creek GC",
-   "city": "Houston",
-   "entryFee": 50,
-   "url": "https://www.stpgajuniorgolf.com/tournaments"
-  },
   {
    "id": "stpga-junior-links-2026-10-31-2ez5qt",
    "tourId": "stpga-junior-links",
@@ -1428,15 +1408,6 @@
    "registrationDeadline": "2026-12-10",
    "url": "https://tournaments.uskidsgolf.com/tournaments/local/find-tournament/519080/april-sound-country-club-tour-championship",
    "level": "Local"
-  },
-  {
-   "id": "usk-regional-2026-12-21-128nxe4",
-   "tourId": "usk-regional",
-   "name": "Holiday Classic",
-   "startDate": "2026-12-21",
-   "endDate": "2026-12-22",
-   "city": "Palm Beach Gardens, FL",
-   "level": "Regional"
   },
   {
    "id": "under-armour-2026-12-30-tmiudp",
